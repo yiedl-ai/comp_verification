@@ -30,6 +30,29 @@ contains an explicit accepted adjudication.
 | 14 | NEUTRAL publication and scoring | Immutable results CID points to dataset 15; corrected CID is stored on-chain under information item 0 for the zero address | 1 | Accepted corrected reference; publication and scoring pass with caveat |
 | 19 | NEUTRAL and UPDOWN scoring | Three addresses unexpectedly published as zero in both competitions | 6 | Open; raw mismatches remain failures pending historical evidence or adjudication |
 | 28 | NEUTRAL publication and scoring | Results CID contains the challenge-29 RSA public key | 1 | Open; publication fails and scoring is blocked pending an authenticated correction |
+| 33 | NEUTRAL scoring | Last valid submission was published as zero | 1 | Open; raw mismatch remains a failure pending historical evidence or adjudication |
+
+## Challenge 33 NEUTRAL: last valid submission published as zero
+
+Challenge 33 publication integrity passes. Every UPDOWN comparison and every
+NEUTRAL comparison except address
+`0xcf28560da27700098a0efcb3f5742169948892de` reproduces exactly. That address's
+final NEUTRAL CID, `QmNxtJthPTUD17jZ8D3M6KU5tsxJe2DhrqszaUbF2rFdh6`, is
+retrievable and CID-verified. It decrypts with the published key, authenticates
+the expected originator, and contains all 37 required unique numeric predictions.
+The verifier computes gain `0.009486158977163549505271207912` and reward
+`9.362509`; the published values and on-chain reward are zero.
+
+Polygon included the single NEUTRAL submission event in block `51558186` at
+2023-12-26 00:35:54 UTC, 126 seconds before `SubmissionClosed` in block
+`51558245`. It was the last NEUTRAL submission. The same address submitted even
+later to UPDOWN, 45 seconds before close, and that score reproduces exactly.
+This makes close timing alone insufficient to explain the discrepancy.
+
+The remaining hypotheses are a transient NEUTRAL retrieval/decryption failure,
+competition-specific production database state, or a NEUTRAL-only early
+submission snapshot. Historical backend logs or database rows are needed to
+distinguish them. The mismatch remains open and does not count as a pass.
 
 ## Challenge 28 NEUTRAL: results CID is the challenge 29 public key
 

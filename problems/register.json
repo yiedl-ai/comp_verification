@@ -341,6 +341,80 @@
         ]
       },
       "status": "open"
+    },
+    {
+      "affected_comparisons": 1,
+      "audit_treatment": {
+        "changes_outcome": false,
+        "mode": "unresolved-raw-mismatch",
+        "reason": "The final on-chain NEUTRAL submission is valid and independently scores nonzero, but the published score and reward are zero; the historical cause is not established."
+      },
+      "classification": "unresolved-off-chain-zeroing",
+      "confidence": "high-on-mismatch-low-on-cause",
+      "details": {
+        "observations": [
+          "The final NEUTRAL submission CID is retrievable, CID-verified, decrypts with the published private key, authenticates the expected originator, and contains all 37 required unique numeric predictions.",
+          "The verifier computes relative gain 0.009486158977163549505271207912 and wallet reward 9.362509, while the published result and on-chain reward are both zero.",
+          "All other challenge-33 NEUTRAL comparisons and every challenge-33 UPDOWN comparison reproduce exactly.",
+          "This was the last NEUTRAL submission event, included 126 seconds before NEUTRAL SubmissionClosed.",
+          "The same address submitted even later to UPDOWN, 45 seconds before close, and its UPDOWN score and reward reproduce exactly; close timing alone therefore does not explain the NEUTRAL zero.",
+          "There is one NEUTRAL SubmissionUpdated event for the address, so the verifier is not selecting a superseded on-chain digest."
+        ],
+        "submission": {
+          "address": "0xcf28560da27700098a0efcb3f5742169948892de",
+          "archive_sha256": "0dca1e064ef15f07091bf08aae06b5ae0c215c78444210b7f4fbf7d238467bfb",
+          "cid": "QmNxtJthPTUD17jZ8D3M6KU5tsxJe2DhrqszaUbF2rFdh6",
+          "competition": "NEUTRAL",
+          "computed_relative_gain": "0.009486158977163549505271207912",
+          "computed_wallet_reward": "9.362509",
+          "digest": "0x094849525b094ed64e7cb7c702381792448d228c5083009c2409ff0018164b85",
+          "predictions_sha256": "ad7085ae98161817ad242a1f157d52d259755f9d97fe603e2db1cee15202c28e",
+          "published_relative_gain": "0",
+          "published_wallet_reward": "0",
+          "submission_block": 51558186,
+          "submission_transaction": "0x64f0e2a7936c44089e9b967144ffbad8eb1f6233551db5f2f77473a615b5419a",
+          "submission_utc": "2023-12-26T00:35:54Z"
+        },
+        "submission_close": {
+          "block": 51558245,
+          "transaction": "0xe19c3ac181850f1c7887094be954a9e823fdb81c785159d5eae39acaee6ade05",
+          "utc": "2023-12-26T00:38:00Z"
+        },
+        "working_hypotheses": [
+          {
+            "explanation": "A transient retrieval/decryption failure or competition-specific backend state omitted this final NEUTRAL submission during historical scoring.",
+            "id": "competition-specific-retrieval-or-state",
+            "rank": 1
+          },
+          {
+            "explanation": "The production backend may have captured the NEUTRAL submission set before this last event even though UPDOWN later captured and scored the same address.",
+            "id": "neutral-only-early-snapshot",
+            "rank": 2
+          }
+        ]
+      },
+      "documentation": {
+        "anchor": "challenge-33-neutral-last-submission-published-as-zero",
+        "document": "docs/caveats.md",
+        "summary": "Challenge 33 NEUTRAL has one unresolved mismatch: the last valid on-chain submission computes a nonzero score and reward but was published as zero, while the same address's later UPDOWN submission scored exactly."
+      },
+      "headline": "Challenge 33 NEUTRAL: Last valid submission unexpectedly published as zero",
+      "id": "challenge-33-neutral-last-submission-published-as-zero",
+      "scope": {
+        "addresses": [
+          "0xcf28560da27700098a0efcb3f5742169948892de"
+        ],
+        "audit_kinds": [
+          "scoring"
+        ],
+        "challenges": [
+          33
+        ],
+        "competitions": [
+          "NEUTRAL"
+        ]
+      },
+      "status": "open"
     }
   ],
   "schema_version": 1
