@@ -1623,18 +1623,18 @@
         {
           "competition": "NEUTRAL",
           "publication": "passed",
-          "scoring": "not-run",
-          "scoring_caveated_comparison_count": null,
-          "scoring_raw_mismatch_count": null,
-          "submission_evidence": "not-run"
+          "scoring": "passed",
+          "scoring_caveated_comparison_count": 0,
+          "scoring_raw_mismatch_count": 0,
+          "submission_evidence": "present"
         },
         {
           "competition": "UPDOWN",
           "publication": "passed",
-          "scoring": "not-run",
-          "scoring_caveated_comparison_count": null,
-          "scoring_raw_mismatch_count": null,
-          "submission_evidence": "not-run"
+          "scoring": "passed",
+          "scoring_caveated_comparison_count": 0,
+          "scoring_raw_mismatch_count": 0,
+          "submission_evidence": "present"
         }
       ]
     },
@@ -1755,6 +1755,7 @@
     75,
     76,
     77,
+    78,
     79,
     80
   ],
@@ -1768,8 +1769,8 @@
   "scoring_audits": {
     "blocked": 1,
     "failed": 4,
-    "passed": 153,
-    "total": 158
+    "passed": 155,
+    "total": 160
   },
   "target_ready_challenges": [
     1,
