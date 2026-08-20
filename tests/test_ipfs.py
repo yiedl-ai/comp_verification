@@ -2,6 +2,7 @@ import hashlib
 import io
 import json
 from pathlib import Path
+from urllib.error import URLError
 
 import pytest
 
@@ -170,6 +171,48 @@ def test_large_download_uses_bounded_resumable_ranges(
 
     assert partial.read_bytes() == payload
     assert requested_ranges == ["bytes=0-3", "bytes=4-7", "bytes=8-11"]
+
+
+def test_zero_length_head_and_hanging_range_falls_back_to_plain_get(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    payload = b"historical submission archive"
+    cid = single_block_file_cid_v0(payload)
+    requests: list[tuple[str, str | None]] = []
+
+    class Response(io.BytesIO):
+        status = 200
+
+        def __init__(self, data: bytes, content_length: int) -> None:
+            super().__init__(data)
+            self.headers = {"Content-Length": str(content_length)}
+
+    def fake_urlopen(request, timeout):  # noqa: ANN001, ARG001
+        method = request.get_method()
+        range_value = request.get_header("Range")
+        requests.append((method, range_value))
+        if method == "HEAD":
+            return Response(b"", 0)
+        if range_value is not None:
+            raise URLError("gateway range request stalled")
+        return Response(payload, len(payload))
+
+    monkeypatch.setattr("comp_verification.ipfs.urlopen", fake_urlopen)
+    gateway = IpfsGateway(
+        "https://ipfs.example/ipfs",
+        tmp_path,
+        attempts=1,
+        max_concurrent_ranges_per_download=1,
+    )
+
+    artifact = gateway.download(cid)
+
+    assert artifact.path.read_bytes() == payload
+    assert requests == [
+        ("GET", "bytes=0-16777215"),
+        ("HEAD", None),
+        ("GET", None),
+    ]
 
 
 def test_concurrent_ranges_reuse_retained_segments_and_assemble(

@@ -309,7 +309,62 @@ class IpfsGateway:
                             f"{downloaded} of {total} bytes"
                         )
             except (HTTPError, URLError, TimeoutError) as error:
+                # Some Pinata gateway cache entries serve the complete object to
+                # an ordinary GET but advertise Content-Length: 0 to HEAD and
+                # never answer Range. This has been observed for small historical
+                # submission archives. Only use the non-range fallback for that
+                # exact zero-length signal, and only before any partial bytes have
+                # been retained, so large resumable downloads are never restarted.
+                if offset == 0:
+                    try:
+                        advertised_size = self._remote_size(cid)
+                    except IpfsDownloadError:
+                        advertised_size = None
+                    if advertised_size == 0:
+                        self._download_without_range(cid, partial, progress)
+                        return
                 raise IpfsDownloadError(f"failed to download {cid}") from error
+
+    def _download_without_range(
+        self,
+        cid: str,
+        partial: Path,
+        progress: ProgressCallback | None,
+    ) -> None:
+        """Stream one complete response for a gateway's zero-length HEAD bug."""
+
+        request = Request(
+            self._artifact_url(cid),
+            headers=self._request_headers(),
+        )
+        try:
+            with urlopen(request, timeout=self.timeout) as response:
+                status = getattr(response, "status", 200)
+                if status != 200:
+                    raise IpfsDownloadError(
+                        f"unexpected HTTP {status} while downloading {cid}"
+                    )
+                content_length = response.headers.get("Content-Length")
+                total = int(content_length) if content_length is not None else None
+                downloaded = 0
+                if progress is not None:
+                    progress(DownloadProgress(cid, downloaded, total, False))
+                with partial.open("wb") as output:
+                    while chunk := response.read(self.chunk_size):
+                        output.write(chunk)
+                        downloaded += len(chunk)
+                        if progress is not None:
+                            progress(DownloadProgress(cid, downloaded, total, False))
+                if downloaded == 0:
+                    raise IpfsDownloadError(
+                        f"gateway returned an empty plain response for {cid}"
+                    )
+                if total is not None and downloaded != total:
+                    raise IpfsDownloadError(
+                        f"short plain response for {cid}: {downloaded} of {total}"
+                    )
+        except (HTTPError, URLError, TimeoutError) as error:
+            raise IpfsDownloadError(f"failed plain download for {cid}") from error
 
     def _download_to_partial_concurrently(
         self,
