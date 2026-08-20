@@ -34,6 +34,7 @@ class RpcConfig:
 @dataclass(frozen=True)
 class IpfsConfig:
     gateway_url: str
+    gateway_token: str | None = None
     user_agent: str = "comp-verification/0.1"
     timeout_seconds: float = 120.0
     attempts: int = 5

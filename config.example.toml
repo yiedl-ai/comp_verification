@@ -19,6 +19,9 @@ log_block_span = 10000
 
 [ipfs]
 gateway_url = "https://yiedl-comp.mypinata.cloud/ipfs"
+# Optional dedicated-gateway credential. Keep the real value only in ignored
+# config.toml.
+gateway_token = ""
 user_agent = "comp-verification/0.1"
 timeout_seconds = 120.0
 attempts = 5

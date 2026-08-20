@@ -59,6 +59,7 @@ class EvidenceWorkflow:
             settings.gateway_url,
             self.root / ".cache" / "ipfs",
             user_agent=settings.user_agent,
+            gateway_token=settings.gateway_token,
             timeout=settings.timeout_seconds,
             attempts=settings.attempts,
             retry_base_delay=settings.retry_base_delay_seconds,

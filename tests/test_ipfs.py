@@ -98,3 +98,18 @@ def test_prune_accepts_legacy_size_marker_after_hash_and_cid_checks(
 
     assert not path.exists()
     assert not marker.exists()
+
+
+def test_authenticated_gateway_uses_pinata_token_query(
+    tmp_path: Path,
+) -> None:
+    gateway = OfflineGateway(
+        "https://private.example/ipfs",
+        tmp_path,
+        gateway_token="secret token",
+    )
+
+    assert gateway._artifact_url("QmCid") == (
+        "https://private.example/ipfs/QmCid?pinataGatewayToken=secret+token"
+    )
+    assert "X-Pinata-Gateway-Token" not in gateway._request_headers()

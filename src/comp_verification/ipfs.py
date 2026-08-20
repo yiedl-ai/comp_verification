@@ -11,6 +11,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
 from urllib.error import HTTPError, URLError
+from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 from .encoding import file_cid_v0, single_block_file_cid_v0
@@ -50,6 +51,7 @@ class IpfsGateway:
         cache: Path,
         *,
         user_agent: str = "comp-verification/0.1",
+        gateway_token: str | None = None,
         timeout: float = 120,
         attempts: int = 5,
         retry_base_delay: float = 2.0,
@@ -59,6 +61,7 @@ class IpfsGateway:
         self.base_url = base_url.rstrip("/")
         self.cache = cache
         self.user_agent = user_agent
+        self.gateway_token = gateway_token
         self.timeout = timeout
         self.attempts = attempts
         self.retry_base_delay = retry_base_delay
@@ -133,12 +136,8 @@ class IpfsGateway:
 
     def _remote_size(self, cid: str) -> int:
         request = Request(
-            f"{self.base_url}/{cid}",
-            headers={
-                "Accept": "application/octet-stream",
-                "Range": "bytes=0-0",
-                "User-Agent": self.user_agent,
-            },
+            self._artifact_url(cid),
+            headers=self._request_headers(range_value="bytes=0-0"),
         )
         try:
             with urlopen(request, timeout=self.timeout) as response:
@@ -214,13 +213,10 @@ class IpfsGateway:
         progress: ProgressCallback | None,
     ) -> None:
         offset = partial.stat().st_size if partial.exists() else 0
-        headers = {
-            "Accept": "application/octet-stream",
-            "User-Agent": self.user_agent,
-        }
+        headers = self._request_headers()
         if offset:
             headers["Range"] = f"bytes={offset}-"
-        request = Request(f"{self.base_url}/{cid}", headers=headers)
+        request = Request(self._artifact_url(cid), headers=headers)
         try:
             with urlopen(request, timeout=self.timeout) as response:
                 status = getattr(response, "status", 200)
@@ -253,6 +249,21 @@ class IpfsGateway:
                     )
         except (HTTPError, URLError, TimeoutError) as error:
             raise IpfsDownloadError(f"failed to download {cid}") from error
+
+    def _request_headers(self, *, range_value: str | None = None) -> dict[str, str]:
+        headers = {
+            "Accept": "application/octet-stream",
+            "User-Agent": self.user_agent,
+        }
+        if range_value is not None:
+            headers["Range"] = range_value
+        return headers
+
+    def _artifact_url(self, cid: str) -> str:
+        url = f"{self.base_url}/{cid}"
+        if self.gateway_token:
+            url += "?" + urlencode({"pinataGatewayToken": self.gateway_token})
+        return url
 
 
 def _sha256_file(path: Path) -> str:
