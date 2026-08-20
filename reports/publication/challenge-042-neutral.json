@@ -1,0 +1,28 @@
+{
+  "caveats": [
+    {
+      "anchor": "challenges-40-42-mistake-undo-and-corrected-settlement",
+      "classification": "intentional-on-chain-correction-sequence",
+      "counts_as_pass": true,
+      "document": "docs/caveats.md",
+      "id": "challenges-40-42-mistake-undo-corrected-settlement",
+      "summary": "Challenges 40\u201342 form an accepted correction sequence: challenge 41 exactly reverses challenge 40, and challenge 42 exactly posts the corrected 30-symbol scores and rewards for the original challenge-40 submissions."
+    }
+  ],
+  "challenge": 42,
+  "competition": "NEUTRAL",
+  "contract": "0xC8519524013348466e18fC1747d11F1feA9473fd",
+  "correction_phase": "corrected-settlement",
+  "correction_report": "reports/corrections/challenges-040-042-neutral.json",
+  "mismatch_count": 1,
+  "observed_block": 92336519,
+  "passed": true,
+  "passed_with_caveat": true,
+  "raw_passed": false,
+  "raw_primary_reference_passed": false,
+  "raw_problem": "corrected result CSV intentionally embeds original challenge 40",
+  "resolution": "accepted-challenges-40-42-correction-sequence",
+  "result_bytes_sha256": "b84c760bbc8752e3a72a20792fdc7b18ffb9d952ea0221eedec47874f142a86e",
+  "result_cid": "QmU7bbss9y4e1xqDGg7VNLpuMxfVe3Dmv43TwYAokY3HGt",
+  "schema_version": 1
+}

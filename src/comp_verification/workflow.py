@@ -21,6 +21,7 @@ from .constants import (
 )
 from .config import VerifierConfig
 from .corrections import load_verified_result_correction
+from .correction_40_42 import audit_correction_sequence
 from .datasets import (
     derive_price_fixture_from_targets,
     extract_latest_realized_returns,
@@ -34,6 +35,7 @@ from .results import compare_results_to_chain, read_published_results
 from .jsonio import write_canonical_json
 from .policies import (
     DYNAMIC_SYMBOL_ALIASES,
+    LEGACY_30_CANDIDATE,
     ScoringPolicy,
     policy_for_challenge,
 )
@@ -274,6 +276,22 @@ class FirstTenWorkflow:
         reports = []
         for manifest in self._chain_manifests(challenges):
             for competition, observed in manifest["competitions"].items():
+                special = self._correction_sequence_report(
+                    manifest["challenge"], competition
+                )
+                if special is not None:
+                    report = self._correction_publication_report(
+                        manifest, competition, observed, special
+                    )
+                    destination = (
+                        self.root
+                        / "reports"
+                        / "publication"
+                        / f"challenge-{manifest['challenge']:03d}-{competition.lower()}.json"
+                    )
+                    write_canonical_json(destination, report)
+                    reports.append(report)
+                    continue
                 cid = observed["content"]["results"]["cid"]
                 correction = load_verified_result_correction(
                     self.root,
@@ -432,6 +450,20 @@ class FirstTenWorkflow:
             challenge = manifest["challenge"]
             policy = self._effective_policy(challenge)
             for competition, observed in manifest["competitions"].items():
+                special = self._correction_sequence_report(challenge, competition)
+                if special is not None:
+                    report = self._correction_scoring_report(
+                        manifest, competition, observed, special
+                    )
+                    destination = (
+                        self.root
+                        / "reports"
+                        / "scoring"
+                        / f"challenge-{challenge:03d}-{competition.lower()}.json"
+                    )
+                    write_canonical_json(destination, report)
+                    reports.append(report)
+                    continue
                 returns = read_realized_returns(
                     self._price_fixture_path(challenge, competition),
                     binary_float=policy.answer_binary_float,
@@ -642,6 +674,120 @@ class FirstTenWorkflow:
                 reports.append(report)
         return reports
 
+    def audit_correction_40_42(
+        self, *, progress: ProgressCallback | None = None
+    ) -> list[dict[str, Any]]:
+        """Verify challenge 40 mistake, challenge 41 undo, and challenge 42 fix."""
+
+        manifests = {
+            manifest["challenge"]: manifest
+            for manifest in self._chain_manifests(range(40, 43))
+        }
+        if set(manifests) != {40, 41, 42}:
+            raise ValueError("correction audit requires challenges 40, 41, and 42")
+        returns = read_realized_returns(
+            self.root / "data" / "prices" / "challenge-040.csv",
+            binary_float=True,
+        )
+        reports = []
+        for competition, observed40 in manifests[40]["competitions"].items():
+            key_cid = observed40["content"]["private_key"]["cid"]
+            private_key = self.ipfs.download(key_cid, progress=progress).path
+            predictions: dict[str, dict[str, Decimal]] = {}
+            participant_evidence = []
+            statuses = {}
+            for participant in observed40["participants"]:
+                address = participant["address"]
+                submission = participant["submission"]
+                if submission is None:
+                    statuses[address] = "no-submission"
+                    continue
+                base = {"address": address, "submission_cid": submission["cid"]}
+                try:
+                    archive = self.ipfs.download(
+                        submission["cid"], progress=progress
+                    )
+                    decrypted = decrypt_submission_archive(
+                        archive.path, private_key, address
+                    )
+                    values = parse_predictions(
+                        decrypted.predictions_csv,
+                        LEGACY_30_CANDIDATE.symbols,
+                        reject_duplicates=True,
+                    )
+                    predictions[address] = values
+                    evidence = {
+                        **base,
+                        "status": "valid",
+                        "archive_sha256": archive.sha256,
+                        "predictions_sha256": hashlib.sha256(
+                            decrypted.predictions_csv
+                        ).hexdigest(),
+                        "prediction_count": len(values),
+                    }
+                    participant_evidence.append(evidence)
+                    statuses[address] = "valid"
+                except (
+                    InvalidSubmission,
+                    IpfsDownloadError,
+                    zipfile.BadZipFile,
+                    OSError,
+                ) as error:
+                    statuses[address] = f"invalid: {error}"
+
+            fixture_path = (
+                self.root
+                / "data"
+                / "submissions"
+                / f"correction-040-042-{competition.lower()}.csv"
+            )
+            fixture = write_submission_fixture(
+                fixture_path,
+                challenge=42,
+                competition=competition,
+                policy=LEGACY_30_CANDIDATE,
+                predictions=predictions,
+                participant_evidence=participant_evidence,
+            )
+            observed42 = manifests[42]["competitions"][competition]
+            result_cid = observed42["content"]["results"]["cid"]
+            result_artifact = self.ipfs.download(result_cid, progress=progress)
+            published = read_published_results(
+                result_artifact.path,
+                competition=competition,
+                challenge=40,
+            )
+            report = audit_correction_sequence(
+                competition=competition,
+                manifests=manifests,
+                published=published,
+                predictions=predictions,
+                submission_statuses=statuses,
+                realized_returns=returns,
+            )
+            report.update(
+                {
+                    "policy_id": LEGACY_30_CANDIDATE.policy_id,
+                    "policy_source_git_commit": LEGACY_30_CANDIDATE.source_git_commit,
+                    "policy_source_files_sha256": dict(
+                        LEGACY_30_CANDIDATE.source_files_sha256
+                    ),
+                    "challenge_40_private_key_cid": key_cid,
+                    "corrected_result_cid": result_cid,
+                    "corrected_result_bytes_sha256": result_artifact.sha256,
+                    "normalized_fixture": fixture,
+                    "collector_reference": {
+                        "description": "Provided historical export logic unions challenge-40 submitters into challenges 41 and 42.",
+                        "provided_file_sha256": "cba7659bc0de0bcd1e7aec2e81d03df6c0a9200eb8138818108f673497a7c0c5",
+                    },
+                }
+            )
+            write_canonical_json(
+                self._correction_sequence_path(competition), report
+            )
+            reports.append(report)
+        return reports
+
     def derive_prices_from_targets(
         self, *, challenges: range
     ) -> list[dict[str, Any]]:
@@ -789,6 +935,112 @@ class FirstTenWorkflow:
             / "submissions"
             / f"challenge-{challenge:03d}-{competition.lower()}.csv"
         )
+
+    def _correction_sequence_path(self, competition: str) -> Path:
+        return (
+            self.root
+            / "reports"
+            / "corrections"
+            / f"challenges-040-042-{competition.lower()}.json"
+        )
+
+    def _correction_sequence_report(
+        self, challenge: int, competition: str
+    ) -> dict[str, Any] | None:
+        if challenge not in {41, 42}:
+            return None
+        path = self._correction_sequence_path(competition)
+        if not path.exists():
+            return None
+        report = json.loads(path.read_text(encoding="utf-8"))
+        if report.get("sequence") != [40, 41, 42] or not report.get("passed"):
+            raise ValueError(f"invalid correction-sequence report: {path}")
+        return report
+
+    def _correction_publication_report(
+        self,
+        manifest: dict[str, Any],
+        competition: str,
+        observed: dict[str, Any],
+        special: dict[str, Any],
+    ) -> dict[str, Any]:
+        challenge = manifest["challenge"]
+        phase = "undo" if challenge == 41 else "corrected-settlement"
+        return {
+            "schema_version": 1,
+            "challenge": challenge,
+            "competition": competition,
+            "contract": observed["contract"],
+            "observed_block": manifest["observed_block"],
+            "result_cid": observed["content"]["results"]["cid"],
+            "result_bytes_sha256": special["corrected_result_bytes_sha256"],
+            "raw_primary_reference_passed": False,
+            "raw_problem": (
+                "result CSV embeds challenge 40 and is not a standalone challenge-41 publication"
+                if challenge == 41
+                else "corrected result CSV intentionally embeds original challenge 40"
+            ),
+            "resolution": "accepted-challenges-40-42-correction-sequence",
+            "correction_phase": phase,
+            "mismatch_count": 1,
+            "raw_passed": False,
+            "passed_with_caveat": True,
+            "passed": True,
+            "correction_report": str(
+                self._correction_sequence_path(competition).relative_to(self.root)
+            ),
+            "caveats": caveats_for_context(
+                challenge=challenge,
+                competition=competition,
+                audit_kind="publication",
+            ),
+        }
+
+    def _correction_scoring_report(
+        self,
+        manifest: dict[str, Any],
+        competition: str,
+        observed: dict[str, Any],
+        special: dict[str, Any],
+    ) -> dict[str, Any]:
+        challenge = manifest["challenge"]
+        undo = challenge == 41
+        mismatch_count = (
+            special["undo_mismatch_count"]
+            if undo
+            else special["corrected_mismatch_count"]
+        )
+        return {
+            "schema_version": 1,
+            "challenge": challenge,
+            "competition": competition,
+            "policy_id": special["policy_id"],
+            "policy_source_git_commit": special["policy_source_git_commit"],
+            "policy_source_files_sha256": special["policy_source_files_sha256"],
+            "policy_status": "verified-by-accepted-correction-sequence",
+            "result_cid": observed["content"]["results"]["cid"],
+            "result_bytes_sha256": special["corrected_result_bytes_sha256"],
+            "audit_status": (
+                "accepted-exact-undo" if undo else "accepted-corrected-settlement"
+            ),
+            "participant_count": special["comparison_count"],
+            "comparison_count": special["comparison_count"],
+            "mismatch_count": mismatch_count,
+            "raw_mismatch_count": mismatch_count,
+            "unresolved_mismatch_count": 0,
+            "raw_passed": mismatch_count == 0,
+            "passed_with_caveat": True,
+            "passed": mismatch_count == 0,
+            "correction_report": str(
+                self._correction_sequence_path(competition).relative_to(self.root)
+            ),
+            "caveats": caveats_for_context(
+                challenge=challenge,
+                competition=competition,
+                audit_kind="scoring",
+            ),
+            "participants": special["comparisons"],
+        }
 
     def _price_fixture_path(
         self, challenge: int, competition: str | None = None

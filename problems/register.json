@@ -415,6 +415,86 @@
         ]
       },
       "status": "open"
+    },
+    {
+      "affected_comparisons": 8,
+      "audit_treatment": {
+        "changes_outcome": true,
+        "mode": "accepted-mistake-undo-corrected-settlement",
+        "reason": "Challenges 40, 41, and 42 are one explicitly adjudicated correction sequence: the mistaken rewards were exactly reversed, then the corrected 30-symbol scores and rewards were posted exactly."
+      },
+      "classification": "intentional-on-chain-correction-sequence",
+      "confidence": "high",
+      "details": {
+        "observations": [
+          "Challenge 40's ordinary 37-symbol historical calculation reproduces its originally published values, including zeros for 15 NEUTRAL and 9 UPDOWN submissions that actually contain the new 30-symbol basket.",
+          "For every participant in both competitions, challenge-40 net reward plus challenge-41 net reward is exactly zero; challenge 41 is the undo leg.",
+          "Challenge 42's result CIDs contain CSVs whose embedded challenge remains 40 because they correct the original challenge-40 submissions.",
+          "Re-decrypting challenge-40 submissions and applying the 30-symbol policy reproduces every corrected challenge-42 relative gain and wallet reward exactly: 57 valid NEUTRAL and 51 valid UPDOWN submissions, with zero deltas.",
+          "The single excluded address in each competition used target_neutral or target_updown as the second-column header instead of prediction and is correctly zero in the corrected result.",
+          "Every corrected wallet reward equals challenge 42's on-chain challenge reward minus burn.",
+          "Challenge 42's result-file stakes match the original challenge-40 historical stakes. Two addresses changed stake before challenge 42; those retained differences are not calculation errors because settlement corrects challenge 40.",
+          "The supplied historical export code explicitly unions getAllSubmitters(40) into challenges 41 and 42, corroborating the intended cross-challenge accounting scope."
+        ],
+        "collector_reference": {
+          "provided_file_sha256": "cba7659bc0de0bcd1e7aec2e81d03df6c0a9200eb8138818108f673497a7c0c5",
+          "relevant_logic": {
+            "challenge_41": "getAllSubmitters(40) union getAllSubmitters(41)",
+            "challenge_42": "getAllSubmitters(40) union getAllSubmitters(42)"
+          }
+        },
+        "policy_transition": {
+          "corrected_policy": "legacy-30-v1",
+          "removed_symbols": [
+            "1INCH",
+            "CELO",
+            "ENJ",
+            "SNX",
+            "UMA",
+            "ZEC",
+            "ZRX"
+          ],
+          "verified_production_cutover": 41
+        },
+        "sequence": [
+          {
+            "challenge": 40,
+            "role": "mistaken-original-settlement"
+          },
+          {
+            "challenge": 41,
+            "role": "exact-reward-reversal"
+          },
+          {
+            "challenge": 42,
+            "role": "corrected-30-symbol-settlement"
+          }
+        ]
+      },
+      "documentation": {
+        "anchor": "challenges-40-42-mistake-undo-and-corrected-settlement",
+        "document": "docs/caveats.md",
+        "summary": "Challenges 40–42 form an accepted correction sequence: challenge 41 exactly reverses challenge 40, and challenge 42 exactly posts the corrected 30-symbol scores and rewards for the original challenge-40 submissions."
+      },
+      "headline": "Challenges 40–42: Mistake, exact undo, and corrected settlement",
+      "id": "challenges-40-42-mistake-undo-corrected-settlement",
+      "scope": {
+        "addresses": [],
+        "audit_kinds": [
+          "publication",
+          "scoring"
+        ],
+        "challenges": [
+          40,
+          41,
+          42
+        ],
+        "competitions": [
+          "NEUTRAL",
+          "UPDOWN"
+        ]
+      },
+      "status": "accepted"
     }
   ],
   "schema_version": 1

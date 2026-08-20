@@ -31,6 +31,40 @@ contains an explicit accepted adjudication.
 | 19 | NEUTRAL and UPDOWN scoring | Three addresses unexpectedly published as zero in both competitions | 6 | Open; raw mismatches remain failures pending historical evidence or adjudication |
 | 28 | NEUTRAL publication and scoring | Results CID contains the challenge-29 RSA public key | 1 | Open; publication fails and scoring is blocked pending an authenticated correction |
 | 33 | NEUTRAL scoring | Last valid submission was published as zero | 1 | Open; raw mismatch remains a failure pending historical evidence or adjudication |
+| 40–42 | NEUTRAL and UPDOWN publication/scoring | Mistaken settlement, exact undo, corrected 30-symbol settlement | 8 | Accepted as one correction sequence; raw metadata irregularities remain visible |
+
+## Challenges 40–42: mistake, undo, and corrected settlement
+
+Challenges 40, 41, and 42 must be audited as one accounting sequence. Challenge
+40 posted the mistaken original rewards. Challenge 41 reversed every challenge-40
+net reward exactly, address by address and in both competitions. Challenge 42
+then posted the corrected rewards. The user explicitly confirmed these three
+roles, and the chain values prove the undo independently.
+
+The underlying mistake coincides with the production transition from 37 to 30
+symbols. Fifteen NEUTRAL and nine UPDOWN challenge-40 submissions contain exactly
+the new 30-symbol basket, omitting `1INCH`, `CELO`, `ENJ`, `SNX`, `UMA`, `ZEC`,
+and `ZRX`; the ordinary 37-symbol backend treated them as invalid and published
+zeros. Re-decrypting all challenge-40 submissions and applying the 30-symbol
+policy reproduces the corrected challenge-42 files exactly: 57 valid NEUTRAL
+and 51 valid UPDOWN submissions, with zero score or reward deltas. The one other
+submitted file in each competition has the wrong second-column header
+(`target_neutral` or `target_updown` instead of `prediction`) and correctly
+remains zero.
+
+The challenge-42 CSVs intentionally retain embedded challenge `40` and the
+original challenge-40 stakes because they settle the original submissions.
+Every published wallet reward equals challenge 42's on-chain reward minus burn.
+Two participants changed stake by challenge 42; those two raw stake-field
+differences are retained but do not affect the corrected calculation.
+
+The supplied historical export function corroborates this treatment: for
+challenge 41 it unions `getAllSubmitters(40)` with `getAllSubmitters(41)`, and
+for challenge 42 it unions `getAllSubmitters(40)` with
+`getAllSubmitters(42)`. The SHA-256 of the supplied 207-line reference is
+`cba7659bc0de0bcd1e7aec2e81d03df6c0a9200eb8138818108f673497a7c0c5`.
+The verifier records a dedicated correction report for each competition and
+counts the sequence as passed with this caveat.
 
 ## Challenge 33 NEUTRAL: last valid submission published as zero
 
