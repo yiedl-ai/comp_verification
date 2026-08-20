@@ -177,10 +177,13 @@ class FirstTenWorkflow:
         return self.ipfs.download_many(self._content_cids("results"), progress=progress)
 
     def download_private_keys(
-        self, *, progress: ProgressCallback | None = None
+        self,
+        *,
+        progress: ProgressCallback | None = None,
+        challenges: range | None = None,
     ) -> list[DownloadedArtifact]:
         return self.ipfs.download_many(
-            self._content_cids("private_key"), progress=progress
+            self._content_cids("private_key", challenges), progress=progress
         )
 
     def download_submissions(
@@ -291,7 +294,7 @@ class FirstTenWorkflow:
         progress: ProgressCallback | None = None,
         challenges: range | None = None,
     ) -> list[dict[str, Any]]:
-        self.download_private_keys(progress=progress)
+        self.download_private_keys(progress=progress, challenges=challenges)
         self._download_submission_scope(challenges, progress)
         reports = []
         for manifest in self._chain_manifests(challenges):
@@ -517,11 +520,12 @@ class FirstTenWorkflow:
                     for caveat in publication_report.get("caveats", [])
                 } | {
                     caveat["id"]: caveat
-                    for row in caveated_comparisons
+                    for row in raw_mismatches
                     for caveat in row["caveats"]
                 }
                 if report_caveats:
                     report["caveats"] = list(report_caveats.values())
+                if caveated_comparisons:
                     report["passed_with_caveat"] = report["passed"]
                 destination = (
                     self.root
@@ -554,6 +558,7 @@ class FirstTenWorkflow:
                     policy_id=policy.policy_id,
                     destination=destination,
                     source_reference=str(source.relative_to(self.root)),
+                    require_all_symbols=False,
                 )
             )
         return reports
@@ -586,6 +591,13 @@ class FirstTenWorkflow:
                 policy.symbols,
                 reject_duplicates=True,
             )
+            predictions = {
+                symbol: value
+                for symbol, value in predictions.items()
+                if symbol in returns
+            }
+            if not predictions:
+                raise InvalidSubmission("no submitted symbols have realized targets")
             gain, reward = score_prediction(
                 competition,
                 predictions,
@@ -789,9 +801,11 @@ class FirstTenWorkflow:
                         cids.add(submission["cid"])
         return self.ipfs.download_many(cids, progress=progress)
 
-    def _content_cids(self, field: str) -> set[str]:
+    def _content_cids(
+        self, field: str, challenges: range | None = None
+    ) -> set[str]:
         cids: set[str] = set()
-        for manifest in self._chain_manifests():
+        for manifest in self._chain_manifests(challenges):
             for competition in manifest["competitions"].values():
                 cid = competition["content"][field]["cid"]
                 if cid:

@@ -217,6 +217,7 @@ def derive_price_fixture_from_targets(
     destination: Path,
     target_column: str = "target_updown",
     source_reference: str | None = None,
+    require_all_symbols: bool = True,
 ) -> dict[str, Any]:
     """Materialize a scorer-sized basket from a verified condensed target fixture."""
 
@@ -250,8 +251,10 @@ def derive_price_fixture_from_targets(
         rows[symbol] = value
         dates.add((row.get("date") or "").strip())
     missing = sorted(allowed - set(rows))
-    if missing:
+    if missing and require_all_symbols:
         raise ValueError(f"target fixture is missing policy symbols: {missing}")
+    if not rows:
+        raise ValueError(f"target fixture has no policy symbols: {source}")
     if dates != {provenance.get("date")}:
         raise ValueError(f"target fixture date differs from provenance: {source}")
 
@@ -282,6 +285,7 @@ def derive_price_fixture_from_targets(
         "derived_from_targets_sha256": source_sha256,
         "target_column": target_column,
         "policy_id": policy_id,
+        "missing_policy_symbols": missing,
     }
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_bytes(rendered)

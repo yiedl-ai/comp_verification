@@ -1,0 +1,22 @@
+{
+  "date": "2023-09-10",
+  "derived_from": "data/targets/challenge-018.csv",
+  "derived_from_targets_sha256": "1a650423b6ef1eed77b9d26344bfde560eed5417b6ca9f618d919134629a8500",
+  "missing_policy_symbols": [
+    "ALGO",
+    "SOL",
+    "SUSHI"
+  ],
+  "policy_id": "legacy-37-v1",
+  "prices_sha256": "74e88f67709d1a99b45bf03edcf0eb26f581359c705aebf714aa536265d7be56",
+  "row_count": 34,
+  "schema_version": 1,
+  "scoring_challenge": 18,
+  "source_archive_sha256": "4b82ae8cc41d48f61f8c39968ca3bcb4bb96369ea9fffc216b1a0a439657eecd",
+  "source_cid": "QmQZVNYjE2H5JhYfUK1CMHJcg82nUyaCyS63umTtE6vAAW",
+  "source_dataset_challenge": 19,
+  "source_member": "dataset/train_dataset.csv",
+  "source_member_crc32": "775bcfb5",
+  "source_member_uncompressed_size": 2944528418,
+  "target_column": "target_updown"
+}

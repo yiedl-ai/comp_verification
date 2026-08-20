@@ -67,6 +67,18 @@ def test_register_captures_challenge_fourteen_broken_result_reference() -> None:
     assert problem.raw["details"]["correction"]["information_item_number"] == 0
 
 
+def test_register_captures_open_challenge_nineteen_mismatches() -> None:
+    problem = load_problem_register().by_id(
+        "challenge-19-three-addresses-zeroed-in-both-competitions"
+    )
+
+    assert problem.status == "open"
+    assert problem.counts_as_pass is False
+    assert problem.raw["affected_comparisons"] == 6
+    assert len(problem.raw["details"]["submissions"]) == 6
+    assert problem.scope.challenges == frozenset({19})
+
+
 def test_report_reference_preserves_existing_report_shape() -> None:
     reference = load_problem_register().by_id(PROBLEM_ID).report_reference()
 

@@ -153,6 +153,142 @@
         ]
       },
       "status": "accepted"
+    },
+    {
+      "affected_comparisons": 6,
+      "audit_treatment": {
+        "changes_outcome": false,
+        "mode": "unresolved-raw-mismatch",
+        "reason": "The evidence proves six score/reward mismatches but does not yet establish why the historical backend zeroed exactly these three addresses in both competitions."
+      },
+      "classification": "unresolved-off-chain-zeroing",
+      "confidence": "high-on-mismatch-low-on-cause",
+      "details": {
+        "observations": [
+          "Exactly three addresses are published as zero in both competitions although their final on-chain submissions decrypt, validate, and independently compute to nonzero gains and rewards.",
+          "All six submissions were included on Polygon on 2023-09-19 between 00:38:45 and 00:42:45 UTC, roughly six days before results publication, so this is not a challenge-close timing pattern like challenge 8.",
+          "Every other challenge-19 score and reward reproduces under the 34-symbol scoring basket, including numerous other headerless 34-row submissions.",
+          "The same three addresses had exact nonzero reproductions in challenges 9 through 18, so their addresses were not generally excluded.",
+          "Address 0x8a8e1c4e454e092fc19c6cca2034bd22b29781e7 updated its UPDOWN submission twice; the verifier uses the final digest retained by the contract. The other five affected address/competition pairs have one submission event."
+        ],
+        "submissions": [
+          {
+            "address": "0x04e1dd13ef029f573cf717f094a6b601b9e03550",
+            "cid": "QmYQ13cgz3gSMEZ5SHPkFTD6DHpFgRdMqGUXXkVGrUnrSd",
+            "competition": "NEUTRAL",
+            "computed_relative_gain": "0.01422048693024655747846137765",
+            "computed_wallet_reward": "36.281150",
+            "digest": "0x95709b2946fdc88c45a1eac3b72aac678061e46ac77302fa0d805b109e0da1ca",
+            "published_relative_gain": "0",
+            "published_wallet_reward": "0",
+            "submission_block": 47710704,
+            "submission_transaction": "0x7440cd9b569ad743590eff25b40d66334d10c24c25101d61016648237583b8f1",
+            "submission_utc": "2023-09-19T00:39:45Z"
+          },
+          {
+            "address": "0x8a8e1c4e454e092fc19c6cca2034bd22b29781e7",
+            "cid": "QmZCqzE1hVgt6vpazATAR57PK2SpDuXkR27GKTNjnUNbUo",
+            "competition": "NEUTRAL",
+            "computed_relative_gain": "0.009438761760350053711062086911",
+            "computed_wallet_reward": "23.964147",
+            "digest": "0xa170a9643c654927d35b40564ab2a2904cdf2b933e3fe943ba90bef1887b852c",
+            "published_relative_gain": "0",
+            "published_wallet_reward": "0",
+            "submission_block": 47710754,
+            "submission_transaction": "0x82db29db5b37b58641d568daf7c322871117ee6a15f3c87350524ef02e222045",
+            "submission_utc": "2023-09-19T00:41:45Z"
+          },
+          {
+            "address": "0xb294a5316e76e84649a3b8ff0ff6ef9788595bed",
+            "cid": "QmWp1QgwFvAg55Y3on9W5WWKGs7f1ra8DjKvSXCwUtm6Jj",
+            "competition": "NEUTRAL",
+            "computed_relative_gain": "0.01340266107515869221179582362",
+            "computed_wallet_reward": "33.822564",
+            "digest": "0x7ddf951da49823c445650fcf34ed6b2c616af0d63b2935d69ceca323e10bb7a8",
+            "published_relative_gain": "0",
+            "published_wallet_reward": "0",
+            "submission_block": 47710689,
+            "submission_transaction": "0x6f8bb495c9e25166cd9f1fb42de4fb31648de4c213b679b2495d5775f2147916",
+            "submission_utc": "2023-09-19T00:38:45Z"
+          },
+          {
+            "address": "0x04e1dd13ef029f573cf717f094a6b601b9e03550",
+            "cid": "QmPBJRUSMTnbCkFFH54ERxBsidHs9zTCFZpxFYyT6pn72n",
+            "competition": "UPDOWN",
+            "computed_relative_gain": "-0.005672794361844497155731123354",
+            "computed_wallet_reward": "-4.069715",
+            "digest": "0x0c768575221e051805a4dcf43db7bfdefd43ed9f14fc0a9062d807daa45b87d7",
+            "published_relative_gain": "0",
+            "published_wallet_reward": "0",
+            "submission_block": 47710717,
+            "submission_transaction": "0xd5e40f955a45d225d935c63b11ecfcd0d45b34477d4c9da6f60964ee069760db",
+            "submission_utc": "2023-09-19T00:40:11Z"
+          },
+          {
+            "address": "0x8a8e1c4e454e092fc19c6cca2034bd22b29781e7",
+            "cid": "QmXEU8ZGF2reALT3WcguB1yzbQX1PpkiQrpd9xG9aSzaEi",
+            "competition": "UPDOWN",
+            "computed_relative_gain": "0.01217711329458432853668738102",
+            "computed_wallet_reward": "8.762258",
+            "digest": "0x8423bc84cf7ef09c8002387a9dc1bd57f01ada636a1523c1d2a0aacb1e9b6657",
+            "published_relative_gain": "0",
+            "published_wallet_reward": "0",
+            "submission_block": 47710764,
+            "submission_transaction": "0x60f5087398f341e4c51c3ef1bd7bc739733eee919cfcac1cd4cc17ae7d1b8a1f",
+            "submission_utc": "2023-09-19T00:42:45Z"
+          },
+          {
+            "address": "0xb294a5316e76e84649a3b8ff0ff6ef9788595bed",
+            "cid": "QmTG5RSFMrurKkn3XqtXLG2ofuXDGj6EhLWAGx9zERn43T",
+            "competition": "UPDOWN",
+            "computed_relative_gain": "0.01125442513536465684334956285",
+            "computed_wallet_reward": "8.046307",
+            "digest": "0x491e7922c0cc741f8a4d1ac38eef4d922ac7197fb7dd5d4014e2ae77bde0e4e2",
+            "published_relative_gain": "0",
+            "published_wallet_reward": "0",
+            "submission_block": 47710696,
+            "submission_transaction": "0xdcc398a2398f972638dfcab682cf5bab990a5c7b54090d129f005205a7a52f6d",
+            "submission_utc": "2023-09-19T00:39:13Z"
+          }
+        ],
+        "working_hypotheses": [
+          {
+            "explanation": "A production-only inclusion/exclusion rule or database state omitted these three addresses even though their final submissions were present on-chain.",
+            "id": "production-submission-selection-state",
+            "rank": 1
+          },
+          {
+            "explanation": "The backend may have processed a different submission digest or failed retrieval/decryption for these addresses; only one affected pair has evidence of an on-chain replacement.",
+            "id": "different-cid-or-retrieval-state",
+            "rank": 2
+          }
+        ]
+      },
+      "documentation": {
+        "anchor": "challenge-19-three-addresses-zeroed-in-both-competitions",
+        "document": "docs/caveats.md",
+        "summary": "Challenge 19 has six unresolved raw mismatches: three early, valid on-chain submissions were published as zero in both competitions while all other scores reproduce."
+      },
+      "headline": "Challenge 19: Three addresses unexpectedly zeroed in both competitions",
+      "id": "challenge-19-three-addresses-zeroed-in-both-competitions",
+      "scope": {
+        "addresses": [
+          "0x04e1dd13ef029f573cf717f094a6b601b9e03550",
+          "0x8a8e1c4e454e092fc19c6cca2034bd22b29781e7",
+          "0xb294a5316e76e84649a3b8ff0ff6ef9788595bed"
+        ],
+        "audit_kinds": [
+          "scoring"
+        ],
+        "challenges": [
+          19
+        ],
+        "competitions": [
+          "NEUTRAL",
+          "UPDOWN"
+        ]
+      },
+      "status": "open"
     }
   ],
   "schema_version": 1
