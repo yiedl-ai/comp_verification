@@ -70,6 +70,7 @@ class EvidenceWorkflow:
             attempts=settings.attempts,
             retry_base_delay=settings.retry_base_delay_seconds,
             chunk_size=settings.chunk_size_bytes,
+            range_request_bytes=settings.range_request_bytes,
             max_concurrent_downloads=settings.max_concurrent_downloads,
         )
 

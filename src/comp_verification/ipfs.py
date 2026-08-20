@@ -56,6 +56,7 @@ class IpfsGateway:
         attempts: int = 5,
         retry_base_delay: float = 2.0,
         chunk_size: int = 1024 * 1024,
+        range_request_bytes: int = 16 * 1024 * 1024,
         max_concurrent_downloads: int = 8,
     ) -> None:
         self.base_url = base_url.rstrip("/")
@@ -66,6 +67,7 @@ class IpfsGateway:
         self.attempts = attempts
         self.retry_base_delay = retry_base_delay
         self.chunk_size = chunk_size
+        self.range_request_bytes = range_request_bytes
         self.max_concurrent_downloads = max_concurrent_downloads
 
     def download(
@@ -237,43 +239,55 @@ class IpfsGateway:
         partial: Path,
         progress: ProgressCallback | None,
     ) -> None:
-        offset = partial.stat().st_size if partial.exists() else 0
-        headers = self._request_headers()
-        if offset:
-            headers["Range"] = f"bytes={offset}-"
-        request = Request(self._artifact_url(cid), headers=headers)
-        try:
-            with urlopen(request, timeout=self.timeout) as response:
-                status = getattr(response, "status", 200)
-                if offset and status == 206:
-                    mode = "ab"
-                    downloaded = offset
-                elif status == 200:
-                    mode = "wb"
-                    downloaded = 0
-                else:
-                    raise IpfsDownloadError(
-                        f"unexpected HTTP {status} while downloading {cid}"
-                    )
-                total = _response_total(response, downloaded)
-                if progress is not None:
-                    progress(DownloadProgress(cid, downloaded, total, False))
-                with partial.open(mode) as output:
-                    while chunk := response.read(self.chunk_size):
-                        output.write(chunk)
-                        downloaded += len(chunk)
-                        if progress is not None:
-                            progress(DownloadProgress(cid, downloaded, total, False))
-                if total is None:
-                    raise IpfsDownloadError(
-                        f"gateway did not report content length for {cid}"
-                    )
-                if downloaded != total:
-                    raise IpfsDownloadError(
-                        f"incomplete download for {cid}: {downloaded} of {total} bytes"
-                    )
-        except (HTTPError, URLError, TimeoutError) as error:
-            raise IpfsDownloadError(f"failed to download {cid}") from error
+        while True:
+            offset = partial.stat().st_size if partial.exists() else 0
+            range_end = offset + self.range_request_bytes - 1
+            request = Request(
+                self._artifact_url(cid),
+                headers=self._request_headers(
+                    range_value=f"bytes={offset}-{range_end}"
+                ),
+            )
+            try:
+                with urlopen(request, timeout=self.timeout) as response:
+                    status = getattr(response, "status", 200)
+                    if status == 206:
+                        mode = "ab" if offset else "wb"
+                        downloaded = offset
+                    elif status == 200:
+                        # A gateway may ignore Range. Restart from its complete
+                        # response rather than appending duplicate bytes.
+                        mode = "wb"
+                        downloaded = 0
+                    else:
+                        raise IpfsDownloadError(
+                            f"unexpected HTTP {status} while downloading {cid}"
+                        )
+                    total = _response_total(response, downloaded)
+                    if progress is not None:
+                        progress(DownloadProgress(cid, downloaded, total, False))
+                    segment_start = downloaded
+                    with partial.open(mode) as output:
+                        while chunk := response.read(self.chunk_size):
+                            output.write(chunk)
+                            downloaded += len(chunk)
+                            if progress is not None:
+                                progress(
+                                    DownloadProgress(cid, downloaded, total, False)
+                                )
+                    if total is None:
+                        raise IpfsDownloadError(
+                            f"gateway did not report content length for {cid}"
+                        )
+                    if downloaded == total:
+                        return
+                    if downloaded > total or downloaded == segment_start:
+                        raise IpfsDownloadError(
+                            f"invalid ranged download for {cid}: "
+                            f"{downloaded} of {total} bytes"
+                        )
+            except (HTTPError, URLError, TimeoutError) as error:
+                raise IpfsDownloadError(f"failed to download {cid}") from error
 
     def _request_headers(self, *, range_value: str | None = None) -> dict[str, str]:
         headers = {

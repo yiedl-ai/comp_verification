@@ -1,4 +1,5 @@
 import hashlib
+import io
 import json
 from pathlib import Path
 
@@ -130,3 +131,42 @@ def test_best_effort_download_retains_individual_failures(tmp_path: Path) -> Non
 
     assert [artifact.cid for artifact in artifacts] == ["good"]
     assert failures == {"bad": "failed to download bad"}
+
+
+def test_large_download_uses_bounded_resumable_ranges(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    payload = b"abcdefghij"
+    requested_ranges: list[str] = []
+
+    class Response(io.BytesIO):
+        status = 206
+
+        def __init__(self, data: bytes, start: int, end: int) -> None:
+            super().__init__(data)
+            self.headers = {
+                "Content-Length": str(len(data)),
+                "Content-Range": f"bytes {start}-{end}/{len(payload)}",
+            }
+
+    def fake_urlopen(request, timeout):  # noqa: ANN001, ARG001
+        value = request.get_header("Range")
+        requested_ranges.append(value)
+        start_text, end_text = value.removeprefix("bytes=").split("-", 1)
+        start = int(start_text)
+        end = min(int(end_text), len(payload) - 1)
+        return Response(payload[start : end + 1], start, end)
+
+    monkeypatch.setattr("comp_verification.ipfs.urlopen", fake_urlopen)
+    partial = tmp_path / "artifact.part"
+    gateway = IpfsGateway(
+        "https://ipfs.example/ipfs",
+        tmp_path,
+        chunk_size=2,
+        range_request_bytes=4,
+    )
+
+    gateway._download_to_partial("QmCid", partial, progress=None)
+
+    assert partial.read_bytes() == payload
+    assert requested_ranges == ["bytes=0-3", "bytes=4-7", "bytes=8-11"]
