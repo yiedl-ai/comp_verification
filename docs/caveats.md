@@ -43,6 +43,7 @@ contains an explicit accepted adjudication.
 | 123 | UPDOWN publication/scoring | Result CID is the challenge-122 UPDOWN file | 1 | All challenge-123 on-chain rewards reproduce exactly; challenge-123 relative-gain publication remains open |
 | 129 | NEUTRAL and UPDOWN publication/scoring | Each result omits two malformed, zero-stake submitters | 4 | Every published score/reward and every wallet outcome reproduce exactly; raw row-completeness failures remain visible |
 | 134 | UPDOWN publication/scoring | Result CID is the challenge-133 UPDOWN file | 1 | All challenge-134 on-chain rewards reproduce exactly; challenge-134 relative-gain publication remains open |
+| 167–168 | Dataset ingestion | Dataset 168 has one currently unavailable IPFS range | 2 | Open; neither audit is inferred until the complete archive passes CID verification |
 | 142, 154–161 | UPDOWN publication/scoring | Valid zero-stake submitters are omitted from result files | 9 | Zero wallet outcomes are exact, but omitted relative gains remain open failures |
 
 ## Challenge 110: stale UPDOWN result reference
@@ -490,3 +491,16 @@ final CID. IPFS can still be unavailable when no connected peer retains the
 bytes, so retrieval is not guaranteed merely by the CID's presence on-chain. A
 missing object must therefore trigger retries and an explicit failed/deferred
 finalization; it must not silently become a zero score or reward.
+
+## Dataset 168: current IPFS block availability gap
+
+The on-chain digest `0xe51dd7d37d9a6588e360c5bc07ba391da2ca37823bde46e5d1f7fdf7bf3dd1d0`
+correctly maps to CID `Qmdm2Txq2D8FcsWnfPYgggaBDLZjMxZV2YCm2h61uEAJn3`.
+The resumable verifier downloaded 99.1% of the 973.5 MiB archive, but byte range
+`729284608-738197503` was unavailable from the authenticated competition gateway
+and every tested public fallback. The partial archive is retained for repair.
+
+Dataset 168 supplies challenge 167's targets and challenge 168's evaluation
+universe. Those two scoring audits remain explicitly blocked: no target or
+evaluation data will be inferred from an incomplete archive, and the raw bytes
+will not be accepted until the reconstructed file matches the published CID.

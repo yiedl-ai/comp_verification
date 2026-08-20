@@ -285,6 +285,21 @@ def test_register_captures_valid_zero_financial_result_omissions() -> None:
     }
 
 
+def test_register_captures_dataset_168_availability_gap() -> None:
+    problem = load_problem_register().by_id(
+        "dataset-168-current-ipfs-block-availability-gap"
+    )
+
+    assert problem.status == "open"
+    assert problem.counts_as_pass is False
+    assert problem.scope.challenges == frozenset({167, 168})
+    assert problem.scope.audit_kinds == frozenset({"dataset-ingestion"})
+    assert problem.raw["details"]["missing_range"] == {
+        "start": 729284608,
+        "end_inclusive": 738197503,
+    }
+
+
 def test_report_reference_preserves_existing_report_shape() -> None:
     reference = load_problem_register().by_id(PROBLEM_ID).report_reference()
 

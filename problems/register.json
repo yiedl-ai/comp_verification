@@ -1230,6 +1230,60 @@
         ]
       },
       "status": "open"
+    },
+    {
+      "affected_comparisons": 2,
+      "audit_treatment": {
+        "changes_outcome": false,
+        "mode": "open-dataset-ingestion-blocker",
+        "reason": "Dataset 168 cannot yet be independently CID-verified because one byte range is unavailable from every tested IPFS gateway; challenges 167 and 168 remain unaudited rather than inferred."
+      },
+      "classification": "current-ipfs-block-availability-gap",
+      "confidence": "high",
+      "details": {
+        "blocked_scoring_challenges": [
+          167,
+          168
+        ],
+        "dataset_challenge": 168,
+        "dataset_cid": "Qmdm2Txq2D8FcsWnfPYgggaBDLZjMxZV2YCm2h61uEAJn3",
+        "dataset_digest": "0xe51dd7d37d9a6588e360c5bc07ba391da2ca37823bde46e5d1f7fdf7bf3dd1d0",
+        "missing_range": {
+          "end_inclusive": 738197503,
+          "start": 729284608
+        },
+        "partial_bytes_downloaded": 1011875840,
+        "partial_percent": "99.1",
+        "tested_gateways": [
+          "authenticated yiedl-temp.mypinata.cloud",
+          "yiedl-comp.mypinata.cloud",
+          "gateway.pinata.cloud",
+          "dweb.link",
+          "ipfs.io",
+          "w3s.link",
+          "nftstorage.link",
+          "4everland.io"
+        ]
+      },
+      "documentation": {
+        "anchor": "dataset-168-current-ipfs-block-availability-gap",
+        "document": "docs/caveats.md",
+        "summary": "Dataset 168 is 99.1% cached, but one range is unavailable across all tested gateways; challenges 167 and 168 remain explicitly blocked until the full archive can pass CID verification."
+      },
+      "headline": "Dataset 168: One IPFS range is currently unavailable",
+      "id": "dataset-168-current-ipfs-block-availability-gap",
+      "scope": {
+        "addresses": [],
+        "audit_kinds": [
+          "dataset-ingestion"
+        ],
+        "challenges": [
+          167,
+          168
+        ],
+        "competitions": []
+      },
+      "status": "open"
     }
   ],
   "schema_version": 1
