@@ -629,6 +629,27 @@
           "submission_evidence": "present"
         }
       ]
+    },
+    {
+      "challenge": 31,
+      "competitions": [
+        {
+          "competition": "NEUTRAL",
+          "publication": "passed",
+          "scoring": "passed",
+          "scoring_caveated_comparison_count": 0,
+          "scoring_raw_mismatch_count": 0,
+          "submission_evidence": "present"
+        },
+        {
+          "competition": "UPDOWN",
+          "publication": "passed",
+          "scoring": "passed",
+          "scoring_caveated_comparison_count": 0,
+          "scoring_raw_mismatch_count": 0,
+          "submission_evidence": "present"
+        }
+      ]
     }
   ],
   "fully_score_audited_challenges": [
@@ -659,20 +680,21 @@
     26,
     27,
     29,
-    30
+    30,
+    31
   ],
   "publication_audits": {
     "blocked": 0,
     "failed": 1,
-    "passed": 59,
-    "total": 60
+    "passed": 61,
+    "total": 62
   },
   "schema_version": 1,
   "scoring_audits": {
     "blocked": 1,
     "failed": 2,
-    "passed": 57,
-    "total": 60
+    "passed": 59,
+    "total": 62
   },
   "target_ready_challenges": [
     1,
@@ -704,6 +726,7 @@
     27,
     28,
     29,
-    30
+    30,
+    31
   ]
 }
