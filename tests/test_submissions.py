@@ -1,9 +1,13 @@
 from decimal import Decimal
+from pathlib import Path
+import zipfile
 
 import pytest
+from Crypto.PublicKey import RSA
 
 from comp_verification.submissions import (
     InvalidSubmission,
+    decrypt_submission_archive,
     parse_dynamic_predictions,
     parse_predictions,
 )
@@ -49,3 +53,20 @@ def test_dynamic_parser_keeps_first_alias_normalized_duplicate_and_partial_rows(
 def test_dynamic_parser_rejects_nonfinite_values() -> None:
     with pytest.raises(InvalidSubmission, match="non-finite"):
         parse_dynamic_predictions(b"BTC,inf\n", ("BTC",), aliases={})
+
+
+def test_wrong_rsa_recipient_is_an_invalid_submission(tmp_path: Path) -> None:
+    private_key = tmp_path / "private.pem"
+    private_key.write_bytes(RSA.generate(1024).export_key())
+    archive = tmp_path / "submission.zip"
+    with zipfile.ZipFile(archive, "w") as output:
+        output.writestr("encrypted_symmetric_key.pem", b"x" * 128)
+        output.writestr("originator.bin", b"x" * 32)
+        output.writestr("encrypted_predictions.bin", b"x" * 32)
+
+    with pytest.raises(InvalidSubmission, match="does not match published private key"):
+        decrypt_submission_archive(
+            archive,
+            private_key,
+            "0x0000000000000000000000000000000000000001",
+        )

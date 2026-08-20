@@ -64,8 +64,15 @@ def decrypt_submission_archive(
                 f"expected one encrypted prediction, found {len(prediction_members)}"
             )
 
-        private_key = RSA.import_key(private_key_path.read_bytes())
-        symmetric_key = PKCS1_OAEP.new(private_key).decrypt(archive.read(key_members[0]))
+        try:
+            private_key = RSA.import_key(private_key_path.read_bytes())
+            symmetric_key = PKCS1_OAEP.new(private_key).decrypt(
+                archive.read(key_members[0])
+            )
+        except (ValueError, IndexError, TypeError) as error:
+            raise InvalidSubmission(
+                "encrypted symmetric key does not match published private key"
+            ) from error
         originator = _decrypt_aes_gcm(
             archive.read(originator_members[0]), symmetric_key
         ).decode("utf-8").strip().lower()
