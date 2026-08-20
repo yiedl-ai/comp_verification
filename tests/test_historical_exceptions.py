@@ -60,3 +60,9 @@ def test_challenge_113_updown_fallback_verifies_rewards_but_not_scores(
     assert report["score_comparison_count"] == 0
     assert report["score_passed"] is False
     assert report["passed"] is False
+
+
+def test_challenge_116_stale_result_is_registered_for_reward_fallback() -> None:
+    assert STALE_UPDOWN_RESULT_CIDS[116] == (
+        "QmQFS2AEcbmGCWvJSvi78neiLCCaCgfxuMSFAUNx6YUwuQ"
+    )

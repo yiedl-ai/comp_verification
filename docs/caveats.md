@@ -38,6 +38,7 @@ contains an explicit accepted adjudication.
 | 95 | NEUTRAL submission/scoring | One on-chain submission digest is ASCII hex text rather than a raw SHA-256 digest and its derived CID is unavailable | 0 | Scoring passes; the unverifiable submission is explicitly retained as unavailable |
 | 110 | UPDOWN publication/scoring | Result CID is the challenge-109 UPDOWN file | 1 | All on-chain rewards reproduce exactly; relative-gain publication remains open |
 | 113 | NEUTRAL and UPDOWN publication/scoring | Production used `HAI=1` instead of the raw `21.227900966966708`; UPDOWN result CID is stale | 1 | NEUTRAL scores/rewards and UPDOWN on-chain rewards reproduce exactly; UPDOWN score publication remains open |
+| 116 | UPDOWN publication/scoring | Result CID is the challenge-115 UPDOWN file | 1 | All on-chain rewards reproduce exactly; relative-gain publication remains open |
 
 ## Challenge 110: stale UPDOWN result reference
 
@@ -81,6 +82,23 @@ the challenge-113 chain snapshot produces 123 field mismatches. The verifier
 therefore reports challenge-113 UPDOWN rewards as exactly verified directly
 against chain, while leaving relative-gain publication open and failed until an
 authenticated challenge-113 UPDOWN result file is recovered.
+
+## Challenge 116: stale UPDOWN result reference
+
+Challenge 116 UPDOWN records CID
+`QmQFS2AEcbmGCWvJSvi78neiLCCaCgfxuMSFAUNx6YUwuQ` (SHA-256
+`cd02bebbda59676615bc7e571fe3242a8a67e151ae4ae95dba6227627f7cdae6`).
+Those bytes are exactly challenge 115's UPDOWN result file and every row embeds
+challenge `115`. Comparing that prior file with challenge 116's chain snapshot
+produces 90 stake/reward/burn field mismatches, so it cannot stand in as a
+mislabeled challenge-116 result.
+
+The underlying calculation is independently recoverable. All 51 valid NEUTRAL
+scores and rewards reproduce exactly. For UPDOWN, the historical scorer and
+CID-verified dataset reproduce the net on-chain reward of all 38 valid
+submissions exactly. The verifier records those reward checks separately while
+leaving challenge-116 UPDOWN relative-gain publication open and failed until an
+authenticated result file is recovered.
 
 ## Challenge 94 UPDOWN: malformed, unavailable submission reference
 

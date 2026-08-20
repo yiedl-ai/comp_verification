@@ -821,6 +821,52 @@
         ]
       },
       "status": "open"
+    },
+    {
+      "affected_comparisons": 1,
+      "audit_treatment": {
+        "changes_outcome": false,
+        "mode": "reward-verified-with-open-stale-result-reference",
+        "reason": "Every challenge-116 UPDOWN on-chain reward reproduces exactly, but the published result hash points to challenge 115 and cannot verify challenge-116 relative gains."
+      },
+      "classification": "stale-prior-challenge-result-reference",
+      "confidence": "high",
+      "details": {
+        "reproduction": {
+          "neutral_exact_reward_count": 51,
+          "neutral_exact_score_count": 51,
+          "updown_exact_on_chain_reward_count": 38,
+          "updown_score_status": "unverifiable-because-result-file-is-stale"
+        },
+        "stale_updown_result": {
+          "bytes_sha256": "cd02bebbda59676615bc7e571fe3242a8a67e151ae4ae95dba6227627f7cdae6",
+          "cid": "QmQFS2AEcbmGCWvJSvi78neiLCCaCgfxuMSFAUNx6YUwuQ",
+          "embedded_challenge": 115,
+          "same_as_challenge": 115,
+          "stake_reward_burn_field_mismatches_against_challenge_116_chain": 90
+        }
+      },
+      "documentation": {
+        "anchor": "challenge-116-stale-updown-result-reference",
+        "document": "docs/caveats.md",
+        "summary": "Challenge 116 UPDOWN points to challenge 115's result file; all 38 submitted challenge-116 rewards reproduce exactly against chain, but relative-gain publication remains unverifiable."
+      },
+      "headline": "Challenge 116: Stale UPDOWN result reference",
+      "id": "challenge-116-stale-updown-result-reference",
+      "scope": {
+        "addresses": [],
+        "audit_kinds": [
+          "publication",
+          "scoring"
+        ],
+        "challenges": [
+          116
+        ],
+        "competitions": [
+          "UPDOWN"
+        ]
+      },
+      "status": "open"
     }
   ],
   "schema_version": 1
