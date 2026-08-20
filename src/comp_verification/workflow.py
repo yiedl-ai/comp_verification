@@ -199,6 +199,67 @@ class FirstTenWorkflow:
                         cids.add(submission["cid"])
         return self.ipfs.download_many(cids, progress=progress)
 
+    def prune_condensed_chain_evidence(
+        self, *, challenges: range
+    ) -> list[dict[str, Any]]:
+        """Prune cached chain-linked IPFS bytes after committed evidence exists."""
+
+        dataset_cids = {
+            row["dataset"]["cid"] for row in self._dataset_catalog()["datasets"]
+        }
+        candidates: set[str] = set()
+        for manifest in self._chain_manifests(challenges):
+            challenge = manifest["challenge"]
+            for competition, observed in manifest["competitions"].items():
+                publication_path = (
+                    self.root
+                    / "reports"
+                    / "publication"
+                    / f"challenge-{challenge:03d}-{competition.lower()}.json"
+                )
+                submission_path = (
+                    self.root
+                    / "reports"
+                    / "submissions"
+                    / f"challenge-{challenge:03d}-{competition.lower()}.json"
+                )
+                fixture_path = self._submission_fixture_path(challenge, competition)
+                required = (
+                    publication_path,
+                    submission_path,
+                    fixture_path,
+                    fixture_path.with_suffix(".json"),
+                )
+                missing = [str(path) for path in required if not path.is_file()]
+                if missing:
+                    raise FileNotFoundError(
+                        f"refusing to prune challenge {challenge}: missing {missing}"
+                    )
+                publication = json.loads(publication_path.read_text(encoding="utf-8"))
+                candidates.add(
+                    publication.get("resolved_result_cid")
+                    or observed["content"]["results"]["cid"]
+                )
+                candidates.add(observed["content"]["private_key"]["cid"])
+                candidates.update(
+                    participant["submission"]["cid"]
+                    for participant in observed["participants"]
+                    if participant["submission"]
+                )
+        gateway = self.ipfs
+        pruned = []
+        for cid in sorted(candidates - dataset_cids - {""}):
+            path = gateway.cache / cid
+            marker = gateway.cache / f"{cid}.complete"
+            if not path.is_file() or not marker.is_file():
+                continue
+            artifact = gateway.download(cid)
+            gateway.prune_verified_artifact(artifact)
+            pruned.append(
+                {"cid": cid, "size": artifact.size, "sha256": artifact.sha256}
+            )
+        return pruned
+
     def verify_publication(
         self,
         *,
