@@ -2,8 +2,6 @@ import hashlib
 import io
 import json
 from pathlib import Path
-from urllib.error import URLError
-
 import pytest
 
 from comp_verification.encoding import single_block_file_cid_v0
@@ -152,6 +150,10 @@ def test_large_download_uses_bounded_resumable_ranges(
 
     def fake_urlopen(request, timeout):  # noqa: ANN001, ARG001
         value = request.get_header("Range")
+        if request.get_method() == "HEAD":
+            response = Response(b"", 0, 0)
+            response.headers = {"Content-Length": str(len(payload))}
+            return response
         requested_ranges.append(value)
         start_text, end_text = value.removeprefix("bytes=").split("-", 1)
         start = int(start_text)
@@ -173,7 +175,7 @@ def test_large_download_uses_bounded_resumable_ranges(
     assert requested_ranges == ["bytes=0-3", "bytes=4-7", "bytes=8-11"]
 
 
-def test_zero_length_head_and_hanging_range_falls_back_to_plain_get(
+def test_zero_length_head_uses_plain_get_without_waiting_for_range(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     payload = b"historical submission archive"
@@ -194,7 +196,7 @@ def test_zero_length_head_and_hanging_range_falls_back_to_plain_get(
         if method == "HEAD":
             return Response(b"", 0)
         if range_value is not None:
-            raise URLError("gateway range request stalled")
+            raise AssertionError("zero-length HEAD must bypass Range")
         return Response(payload, len(payload))
 
     monkeypatch.setattr("comp_verification.ipfs.urlopen", fake_urlopen)
@@ -209,7 +211,6 @@ def test_zero_length_head_and_hanging_range_falls_back_to_plain_get(
 
     assert artifact.path.read_bytes() == payload
     assert requests == [
-        ("GET", "bytes=0-16777215"),
         ("HEAD", None),
         ("GET", None),
     ]

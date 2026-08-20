@@ -263,6 +263,18 @@ class IpfsGateway:
     ) -> None:
         while True:
             offset = partial.stat().st_size if partial.exists() else 0
+            # Some historical Pinata objects advertise a zero-length HEAD and
+            # never answer Range, while an ordinary GET returns the full object.
+            # Detect that known anomaly before spending a full socket timeout on
+            # the doomed Range request. Existing partials always remain resumable.
+            if offset == 0:
+                try:
+                    advertised_size = self._remote_size(cid)
+                except IpfsDownloadError:
+                    advertised_size = None
+                if advertised_size == 0:
+                    self._download_without_range(cid, partial, progress)
+                    return
             range_end = offset + self.range_request_bytes - 1
             request = Request(
                 self._artifact_url(cid),
