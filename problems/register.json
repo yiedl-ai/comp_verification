@@ -935,6 +935,56 @@
       "status": "open"
     },
     {
+      "affected_comparisons": 1,
+      "audit_treatment": {
+        "changes_outcome": false,
+        "mode": "reward-verified-with-open-stale-result-reference",
+        "reason": "Every challenge-123 UPDOWN on-chain reward reproduces exactly, but the published result hash points to challenge 122 and cannot verify challenge-123 relative gains."
+      },
+      "classification": "stale-prior-challenge-result-reference",
+      "confidence": "high",
+      "details": {
+        "reproduction": {
+          "neutral_status": "all-scores-and-rewards-exact",
+          "updown_exact_on_chain_reward_count": 37,
+          "updown_non_submitter_zero_count": 53,
+          "updown_score_status": "unverifiable-because-result-file-is-stale"
+        },
+        "stale_updown_result": {
+          "burned_field_mismatches_against_challenge_123_chain": 20,
+          "bytes_sha256": "ddb056a4f2e1e2bf2c24f137cf09dfb20e632ee75c93d03d409b43db82a9a476",
+          "challenge_reward_field_mismatches_against_challenge_123_chain": 34,
+          "cid": "QmcxJgkxboo9dNXVEmp6Yds8BNe7uYD3rQodVjxJ8b3LPo",
+          "embedded_challenge": 122,
+          "matches_challenge_122_chain_fields": true,
+          "same_as_challenge": 122,
+          "stake_field_mismatches_against_challenge_123_chain": 34,
+          "stake_reward_burn_field_mismatches_against_challenge_123_chain": 88
+        }
+      },
+      "documentation": {
+        "anchor": "challenge-123-stale-updown-result-reference",
+        "document": "docs/caveats.md",
+        "summary": "Challenge 123 UPDOWN points to challenge 122's result file; all 37 submitted challenge-123 rewards reproduce exactly against chain, but relative-gain publication remains unverifiable."
+      },
+      "headline": "Challenge 123: Stale UPDOWN result reference",
+      "id": "challenge-123-stale-updown-result-reference",
+      "scope": {
+        "addresses": [],
+        "audit_kinds": [
+          "publication",
+          "scoring"
+        ],
+        "challenges": [
+          123
+        ],
+        "competitions": [
+          "UPDOWN"
+        ]
+      },
+      "status": "open"
+    },
+    {
       "affected_comparisons": 4,
       "audit_treatment": {
         "changes_outcome": false,

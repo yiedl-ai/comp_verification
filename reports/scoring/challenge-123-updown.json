@@ -1,0 +1,853 @@
+{
+  "audit_status": "reward-exact-score-blocked-by-stale-result-reference",
+  "caveats": [
+    {
+      "anchor": "challenge-123-stale-updown-result-reference",
+      "classification": "stale-prior-challenge-result-reference",
+      "counts_as_pass": false,
+      "document": "docs/caveats.md",
+      "id": "challenge-123-stale-updown-result-reference",
+      "summary": "Challenge 123 UPDOWN points to challenge 122's result file; all 37 submitted challenge-123 rewards reproduce exactly against chain, but relative-gain publication remains unverifiable."
+    }
+  ],
+  "challenge": 123,
+  "comparison_count": 90,
+  "competition": "UPDOWN",
+  "mismatch_count": 0,
+  "participant_count": 90,
+  "participants": [
+    {
+      "address": "0x04e1dd13ef029f573cf717f094a6b601b9e03550",
+      "computed_relative_gain": "-0.002522246367676622636156342569",
+      "computed_wallet_reward": "-2.072004",
+      "on_chain_wallet_reward": "-2.072004",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x05934b9313c703fb75363d27704cc6566f645a91",
+      "computed_relative_gain": "0.003201837237629973727732954611",
+      "computed_wallet_reward": "2.080123",
+      "on_chain_wallet_reward": "2.080123",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x05af269c4ff706ae439648c97b788fa391539dec",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x063af2c2952d7799ce1eac2f1a85c7b4aa4fe553",
+      "computed_relative_gain": "0.006087545931913142821322824989",
+      "computed_wallet_reward": "4.994014",
+      "on_chain_wallet_reward": "4.994014",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x0ca9697963320484dcfe9c67519a51bb809e1e91",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x0edc0ea676c5e608d628ecc659a13a213476de3e",
+      "computed_relative_gain": "0.008379107119744841157157753393",
+      "computed_wallet_reward": "83.791071",
+      "on_chain_wallet_reward": "83.791071",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x1313fe514dff09210ef14ae80b94baf3b49936b8",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x14186932e2c83b9e2bd5d39c04265cfb4646859b",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x181a5bac1f070befbba81a97b68d0e788b4f9189",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x1b1d704cfd260f0eeca05d495d4818ebeac2922f",
+      "computed_relative_gain": "0.03851454232860709200295286358",
+      "computed_wallet_reward": "6547.472196",
+      "on_chain_wallet_reward": "6547.472196",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x1be48b2b7594fe7e47701bc7e7bb83beaf84ecc0",
+      "computed_relative_gain": "0.01805129009310705586544138629",
+      "computed_wallet_reward": "14.829369",
+      "on_chain_wallet_reward": "14.829369",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x1bfb6731ff80e75bf84bfe40a108723c5eb23d4f",
+      "computed_relative_gain": "0.01314465801325317969884385531",
+      "computed_wallet_reward": "10.731689",
+      "on_chain_wallet_reward": "10.731689",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x1ddbf0ae77f367e99e38398d9694d8ea86d003f3",
+      "computed_relative_gain": "-0.02489988159146471296903409390",
+      "computed_wallet_reward": "-59.638914",
+      "on_chain_wallet_reward": "-59.638914",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x1e2e7903fb871f38362a8760871d1648eaa12536",
+      "computed_relative_gain": "0.05170327997930466920606384918",
+      "computed_wallet_reward": "560.887057",
+      "on_chain_wallet_reward": "560.887057",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x20f78a417a3d862dbe3a455ba5dd4cba6d2d662a",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x21b1602a4fd988b44d0f5a54b3ba248069c448ea",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x2b23c36232eac432433a919aedd9a169031661c2",
+      "computed_relative_gain": "0.002722761137510767511363841427",
+      "computed_wallet_reward": "2.255884",
+      "on_chain_wallet_reward": "2.255884",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x2e85c8101e01810adb4c1f6e878d7b0d8bbd70a1",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x39609221106f50dd140011e2f11cee2338dd12db",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x3e04d3e08ea54c34f721ac007107fe7a4bd957d5",
+      "computed_relative_gain": "0.009477988245585437414406431068",
+      "computed_wallet_reward": "7.822653",
+      "on_chain_wallet_reward": "7.822653",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x3ebab08d24031caa95c4290b28f66e71bbe418e5",
+      "computed_relative_gain": "0.009492841454839279190983760383",
+      "computed_wallet_reward": "7.824796",
+      "on_chain_wallet_reward": "7.824796",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x3fb71886cea2bc40267f99bfed34fd1050a27a9d",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x427ae6048c7d2ded45a07ea46f2873d0f9dddb35",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x49451c6af70feef6ef29b8c78bc17d4bdaf9fdaa",
+      "computed_relative_gain": "-0.005483630340957303487478582364",
+      "computed_wallet_reward": "-0.658036",
+      "on_chain_wallet_reward": "-0.658036",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x49aa5f121f20c02e73cd59e26460b4642c275abd",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x4ad829a7609357a7d05737526fe13bbdd18427b5",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x4aeb8b94a59a2718de2bd0b222c7f3341a10ec17",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x521c9c1d68f8684b098be00a5cf479e9aaebf0f7",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x5573ce9a3e828802ae02a9bb410a5864ca7eec2d",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x56d3fc9aa7062fd7b893c1ae33b365776ae1ee9d",
+      "computed_relative_gain": "0.002168355982511075041464477230",
+      "computed_wallet_reward": "1.776421",
+      "on_chain_wallet_reward": "1.776421",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x5888ee085c125948e874bf1641cfa24661f2786b",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x5a28e87583096a1f3b94bf84232a9c8ef3303ff0",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x5dbda63f6d8b260b4963e6ab832bcd6cf7bf6e94",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x5f05ab6ed6106d6c962823e481bd9f39c6d60e96",
+      "computed_relative_gain": "0.004435581201072836577046118418",
+      "computed_wallet_reward": "3.608105",
+      "on_chain_wallet_reward": "3.608105",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x5f9bf21f99e38eee83149c7b9cc33a564bf9bfb9",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x615a7f78579743cb0c0cccd6d2b5c889aa3da9ab",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x6317b52d3888a74b093fcaa31a5d723d90b1cf8d",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x6711a4b7ac1c5537391e7997234a7570d95e02b7",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x691577252ffff4f3eefcc386302f8ba5bc40a360",
+      "computed_relative_gain": "0.002192002528549751903891998228",
+      "computed_wallet_reward": "7.376089",
+      "on_chain_wallet_reward": "7.376089",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x6cb72d052d57563180474923fdd9f827455637db",
+      "computed_relative_gain": "0.01279459582801993492232051074",
+      "computed_wallet_reward": "313.950827",
+      "on_chain_wallet_reward": "313.950827",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x724dc78e98324a23bb90e2b40a9784a2e96f0cde",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x7477d16e686d1af14d8e5f5791a2cd2a7cb96913",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x756ef834ecc631b289ef489408276b1d1f6479bd",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x770a3026f8a348bebac2ba84cfc82f4ea01b420a",
+      "computed_relative_gain": "0.001834152580836322855743189843",
+      "computed_wallet_reward": "1.137175",
+      "on_chain_wallet_reward": "1.137175",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x7824282944b7cc7b8ef86ed9adbe21f49b247f97",
+      "computed_relative_gain": "0.003151099608506401110443840293",
+      "computed_wallet_reward": "26.320472",
+      "on_chain_wallet_reward": "26.320472",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x7b190f293113eed451925bd6c47246bd9c67b019",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x7d38844e121d5ce2d052cb9a571bac28743349ea",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x7de5ac173e8ee69177f6243cf9c70608f6e1ad05",
+      "computed_relative_gain": "0.006544321982293188102738404278",
+      "computed_wallet_reward": "5.356822",
+      "on_chain_wallet_reward": "5.356822",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x81fbfb07888fff733958210796af7cbe4368ae5f",
+      "computed_relative_gain": "-0.02591251927190857072150289928",
+      "computed_wallet_reward": "-5.182504",
+      "on_chain_wallet_reward": "-5.182504",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x8355b0536a6a3b0116374b33dc3f8b7c344ca8bb",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x8513a856a88e63374286d0116c192733444894c0",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x85c8e68d30979427b04ceedc3375581551f2bfca",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x889432c467b59475900845c1f414e0d3461d1459",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x8a8e1c4e454e092fc19c6cca2034bd22b29781e7",
+      "computed_relative_gain": "0.01583670065626291406717355887",
+      "computed_wallet_reward": "13.057509",
+      "on_chain_wallet_reward": "13.057509",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x943b7da96a03cc6d4d440e2f346e18ead42f1d66",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x98e41d65e981a882afcb05d41939197da3465b6f",
+      "computed_relative_gain": "-0.002167316018965522144443632779",
+      "computed_wallet_reward": "-1.769739",
+      "on_chain_wallet_reward": "-1.769739",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x9aa5c9c4a500ee3bd06798a0fa415298e63412ac",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x9c40349fbbb3fdca0dbb8d5a9ec1063476288a01",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0x9da4d186dba5d2579e37dfa8d9afddd0172314e9",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xa16a483a18f00a00b14b93438e8ad21f485b382f",
+      "computed_relative_gain": "0.0009750248328436700457354025323",
+      "computed_wallet_reward": "0.804471",
+      "on_chain_wallet_reward": "0.804471",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xa26dcd02deb5cb5c0e8600c16920432764be53ca",
+      "computed_relative_gain": "-0.003723719931339355172884137833",
+      "computed_wallet_reward": "-9.521552",
+      "on_chain_wallet_reward": "-9.521552",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xa5472d0b5f01ee6dabd6da810efcc5b444e4e1d7",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xa738c5fa69ef37570f1878743f0807e12e9ad80e",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xad3ab30bf7e7423fa8266c7300f2dcd07377dc7e",
+      "computed_relative_gain": "0.009212860484130133343218203251",
+      "computed_wallet_reward": "23.953437",
+      "on_chain_wallet_reward": "23.953437",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xae2652582105f91f578218464d2e73e2b5e9ae81",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xaf6e3ee121902ee1eb4264aa3fc5772b289a0912",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xb294a5316e76e84649a3b8ff0ff6ef9788595bed",
+      "computed_relative_gain": "0.008309846989319368088522292347",
+      "computed_wallet_reward": "6.764361",
+      "on_chain_wallet_reward": "6.764361",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xb5eabff21fa101e2c543b411750464572e259375",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xb67afd0ce69a5475b9388ae95e69881749a39150",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xb759689102026a0025b23595227dc865fe1a4828",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xb7ece21c962697a3194c0b6e4b81db54433055ab",
+      "computed_relative_gain": "-0.002107858921510857075411418802",
+      "computed_wallet_reward": "-1.733031",
+      "on_chain_wallet_reward": "-1.733031",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xbfe6f6854a79b67315bd15a89d52f9d5d7e3b16c",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xc7eabdb28a49c5684f60a31ea957fbeb70fdf489",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xcb34a53c9362ee9711fcac9f352bd7e00201dd95",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xcbe37e37bb9ac19e87e6e495303fab60c3111529",
+      "computed_relative_gain": "0.01528939115507299697665479802",
+      "computed_wallet_reward": "12.551436",
+      "on_chain_wallet_reward": "12.551436",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xcf28560da27700098a0efcb3f5742169948892de",
+      "computed_relative_gain": "0.009052584990979963560340828362",
+      "computed_wallet_reward": "7.418975",
+      "on_chain_wallet_reward": "7.418975",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xd27d116fccdd19c091d5951dbbd76f8049338c12",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xd9a2e6d790bf68c748cb41d05ff7413c0412068b",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xdbcc5a6c8b126e6be68b2bfb838d23ade8e7de57",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xdf5e0604fc23ac5df98a9ab7a62425ec2bd4b9d3",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xe14867e41410bd7232a52b9400476c08b4e535b3",
+      "computed_relative_gain": "-0.002167316018965522144443632779",
+      "computed_wallet_reward": "-1.771052",
+      "on_chain_wallet_reward": "-1.771052",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xe20f1eacf963ed838c05ff70372a45feb4aa74c5",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xea8b4bb8c19ee22687093e35469d4fbdc84450cb",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xeba5ba85f72e40a9f2b8782c2bd51ec31a5564da",
+      "computed_relative_gain": "-0.001281034965446362733277270424",
+      "computed_wallet_reward": "-1.060602",
+      "on_chain_wallet_reward": "-1.060602",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xf097ed117dd3930f1eeb91569a6a61b4c52744c8",
+      "computed_relative_gain": "0.007512887662567693425494595617",
+      "computed_wallet_reward": "6.191213",
+      "on_chain_wallet_reward": "6.191213",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xf5061bd41966374d89ddeada574602b3784e3d98",
+      "computed_relative_gain": "0",
+      "computed_wallet_reward": "0",
+      "on_chain_wallet_reward": "0.000000",
+      "published_relative_gain": null,
+      "submission_status": "no-submission",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xf8d50e3283fb6bf41260f7f294a48587d2a9b1fa",
+      "computed_relative_gain": "-0.001709064600412040537419222249",
+      "computed_wallet_reward": "-34.181292",
+      "on_chain_wallet_reward": "-34.181292",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xfb2744ba3942d3bbf6717448e82299b731ca7ae7",
+      "computed_relative_gain": "0.007779087563704105700220455060",
+      "computed_wallet_reward": "6.352858",
+      "on_chain_wallet_reward": "6.352858",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xfb8bc3433016a64a3b8aa23c0275afe7c20feb53",
+      "computed_relative_gain": "0.008055084151550344270831987926",
+      "computed_wallet_reward": "6.548721",
+      "on_chain_wallet_reward": "6.548721",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    },
+    {
+      "address": "0xfe3c3f351e6df846566e10119e4295ed69b2cd72",
+      "computed_relative_gain": "-0.0006305176993499500647861147698",
+      "computed_wallet_reward": "-0.515346",
+      "on_chain_wallet_reward": "-0.515346",
+      "published_relative_gain": null,
+      "submission_status": "valid",
+      "wallet_reward_matches": true
+    }
+  ],
+  "passed": false,
+  "policy_id": "legacy-static-77-v1",
+  "policy_source_files_sha256": {
+    "library/score_reward.py": "a4f7e9b783a6366870e9caccb4af9dc277697d81bdf6f7e2797475a3152ecfdb"
+  },
+  "policy_source_git_commit": "b783812",
+  "policy_status": "source-derived-candidate",
+  "problem": "ValueError: expected challenge 123, found 122",
+  "raw_passed": false,
+  "realized_return_overrides": [],
+  "reproduction_runtime": {
+    "numpy": "1.24.4",
+    "pandas": "1.5.3",
+    "python": "3.11.14"
+  },
+  "result_bytes_sha256": "ddb056a4f2e1e2bf2c24f137cf09dfb20e632ee75c93d03d409b43db82a9a476",
+  "result_cid": "QmcxJgkxboo9dNXVEmp6Yds8BNe7uYD3rQodVjxJ8b3LPo",
+  "reward_comparison_count": 90,
+  "reward_passed": true,
+  "schema_version": 1,
+  "score_comparison_count": 0,
+  "score_passed": false,
+  "wallet_reward_mismatch_count": 0
+}
