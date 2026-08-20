@@ -6,5 +6,7 @@ def test_challenge_eight_references_central_caveat_register() -> None:
 
     assert caveat is not None
     assert caveat["document"] == CAVEATS_DOCUMENT
-    assert caveat["anchor"] == "challenge-8-late-submission-and-ipfs-availability"
+    assert caveat["anchor"] == (
+        "challenge-8-late-submission-rpc-synchronization-and-ipfs-availability"
+    )
     assert caveat_for_challenge(7) is None

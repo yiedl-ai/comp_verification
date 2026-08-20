@@ -1,10 +1,10 @@
 {
   "caveat": {
-    "anchor": "challenge-8-late-submission-and-ipfs-availability",
+    "anchor": "challenge-8-late-submission-rpc-synchronization-and-ipfs-availability",
     "classification": "inferred-operational-exception",
     "document": "docs/caveats.md",
-    "id": "challenge-8-late-submission-and-ipfs-availability",
-    "summary": "The early backend likely captured submissions before the final on-chain close state or encountered late IPFS availability; the affected comparisons remain scoring failures."
+    "id": "challenge-8-late-submission-rpc-sync-and-ipfs-availability",
+    "summary": "The early backend likely captured submissions before the final on-chain close state, read from a lagging RPC, or encountered late IPFS availability; the affected comparisons remain scoring failures."
   },
   "challenge": 8,
   "competition": "UPDOWN",

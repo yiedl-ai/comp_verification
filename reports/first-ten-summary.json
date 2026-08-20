@@ -183,11 +183,11 @@
             {
               "address": "0x8a8e1c4e454e092fc19c6cca2034bd22b29781e7",
               "caveat": {
-                "anchor": "challenge-8-late-submission-and-ipfs-availability",
+                "anchor": "challenge-8-late-submission-rpc-synchronization-and-ipfs-availability",
                 "classification": "inferred-operational-exception",
                 "document": "docs/caveats.md",
-                "id": "challenge-8-late-submission-and-ipfs-availability",
-                "summary": "The early backend likely captured submissions before the final on-chain close state or encountered late IPFS availability; the affected comparisons remain scoring failures."
+                "id": "challenge-8-late-submission-rpc-sync-and-ipfs-availability",
+                "summary": "The early backend likely captured submissions before the final on-chain close state, read from a lagging RPC, or encountered late IPFS availability; the affected comparisons remain scoring failures."
               },
               "classification": "score-or-reward-mismatch",
               "computed_relative_gain": "-0.000813248548254817097158917250",
@@ -216,11 +216,11 @@
             {
               "address": "0x8a8e1c4e454e092fc19c6cca2034bd22b29781e7",
               "caveat": {
-                "anchor": "challenge-8-late-submission-and-ipfs-availability",
+                "anchor": "challenge-8-late-submission-rpc-synchronization-and-ipfs-availability",
                 "classification": "inferred-operational-exception",
                 "document": "docs/caveats.md",
-                "id": "challenge-8-late-submission-and-ipfs-availability",
-                "summary": "The early backend likely captured submissions before the final on-chain close state or encountered late IPFS availability; the affected comparisons remain scoring failures."
+                "id": "challenge-8-late-submission-rpc-sync-and-ipfs-availability",
+                "summary": "The early backend likely captured submissions before the final on-chain close state, read from a lagging RPC, or encountered late IPFS availability; the affected comparisons remain scoring failures."
               },
               "classification": "score-or-reward-mismatch",
               "computed_relative_gain": "-0.05182980315480892573685570151",

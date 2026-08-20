@@ -25,9 +25,9 @@ but does not silently turn a failed comparison into a pass.
 
 | Challenge | Scope | Classification | Affected submissions | Audit treatment |
 | --- | --- | --- | ---: | --- |
-| 8 | NEUTRAL and UPDOWN | Likely submission-snapshot/IPFS-availability race | 2 | Remains a scoring failure; see the detailed entry below |
+| 8 | NEUTRAL and UPDOWN | Likely submission-snapshot/RPC-sync/IPFS-availability race | 2 | Remains a scoring failure; see the detailed entry below |
 
-## Challenge 8: late submission and IPFS availability
+## Challenge 8: late submission, RPC synchronization, and IPFS availability
 
 ### Observed facts
 
@@ -35,6 +35,15 @@ but does not silently turn a failed comparison into a pass.
 | --- | --- | --- | --- | --- | ---: | ---: | ---: |
 | NEUTRAL | `0x8a8e1c4e454e092fc19c6cca2034bd22b29781e7` | `QmckC49ng6oBt3Bbsg8Q2HYefBq41ri1H3x3pXjUzLuVcm` | 2023-07-04 00:37:49 | 2023-07-04 00:49:05 | 11m 16s | `-2.890565` | `0` |
 | UPDOWN | `0x8a8e1c4e454e092fc19c6cca2034bd22b29781e7` | `QmWDDvp3H38SgKPX7RNfhDQy16VT9tpqjqaFafpeAYhQCX` | 2023-07-04 00:43:49 | 2023-07-04 00:48:29 | 4m 40s | `-4.412622` | `0` |
+
+The transaction times above are the timestamps of the canonical Polygon blocks
+returned by RPC. The independently observed IPFS upload times are approximate
+and use Singapore time (UTC+8):
+
+| Competition | Approximate IPFS upload (SGT) | Polygon block inclusion (SGT) | Upload to inclusion | Block | Transaction |
+| --- | --- | --- | ---: | ---: | --- |
+| NEUTRAL | 2023-07-04 08:37:40 | 2023-07-04 08:37:49 | about 9s | `44653464` | `0x9399b7493668cde00743203de0e14095913c3b56cc417dca4f6819ccef9b01cb` |
+| UPDOWN | 2023-07-04 08:43:38 | 2023-07-04 08:43:49 | about 11s | `44653618` | `0x426c5ad6caed2aeedcbebc9b47a37afbe4226fdd97c9571ad45d7ca9c54c42ac` |
 
 - Polygon accepted both submissions before `SubmissionClosed`, and their CIDs
   remained the contracts' final submissions for the address.
@@ -54,22 +63,36 @@ but does not silently turn a failed comparison into a pass.
 
 The evidence is most consistent with an early backend version that was not
 fully synchronized with the on-chain submission close time. It likely captured
-or processed its submission set before the final on-chain close state, or
-encountered a discrepancy between submission time and IPFS pinning/gateway
-availability. Either path could have omitted these late CIDs and caused the
-historical scorer to treat the staked address as having no usable submission,
-which that code converted to a zero score and reward.
+or processed its submission set before the final on-chain close state. A second
+possibility is RPC synchronization or indexing lag: a job reading `latest` state
+or polling logs without first proving that its provider had reached the close
+block could have missed the final `SubmissionUpdated` events. A third possibility
+is a discrepancy between submission time and IPFS pinning, propagation, or
+gateway availability. Any of these paths could have omitted these late CIDs and
+caused the historical scorer to treat the staked address as having no usable
+submission, which that code converted to a zero score and reward.
+
+The short upload-to-inclusion gaps are normal: an archive must be uploaded before
+its CID can be submitted, and the transaction is included several seconds later.
+They show that the CIDs existed before their on-chain events, but not which IPFS
+peers or gateways could retrieve them later. Conversely, the events were already
+4m40s and 11m16s old at close, so a post-close backend using a sufficiently
+synchronized RPC should have seen them. Missing both is therefore stronger
+evidence for an early or stale submission snapshot than for CSV rejection.
 
 This explanation is a strong inference, not a proven reconstruction: historical
 backend logs, database rows, and IPFS provider logs would be needed to distinguish
-an early snapshot from a retrieval failure.
+an early snapshot, an RPC synchronization problem, and a retrieval failure.
 
 ### Expected backend behavior
 
 Manual re-pinning by a participant should not be a prerequisite for scoring.
 After the on-chain close, the backend should read the final submission CID for
-every participant and attempt to retrieve it. IPFS can still be unavailable when
-no connected peer retains the bytes, so retrieval is not guaranteed merely by
-the CID's presence on-chain. A missing object must therefore trigger retries and
-an explicit failed/deferred finalization; it must not silently become a zero
-score or reward.
+every participant at an explicit block at or after `SubmissionClosed`. It should
+first verify that the RPC provider has reached that block, wait the chosen number
+of confirmations, and either read final contract state at that pinned block or
+process submission logs through the close block. It should then retrieve every
+final CID. IPFS can still be unavailable when no connected peer retains the
+bytes, so retrieval is not guaranteed merely by the CID's presence on-chain. A
+missing object must therefore trigger retries and an explicit failed/deferred
+finalization; it must not silently become a zero score or reward.
