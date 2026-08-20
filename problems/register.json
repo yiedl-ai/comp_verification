@@ -985,6 +985,77 @@
       "status": "open"
     },
     {
+      "affected_comparisons": 0,
+      "audit_treatment": {
+        "changes_outcome": false,
+        "mode": "numerically-recovered-production-targets",
+        "reason": "The unpublished old-basket settlement target artifact is unavailable. Seven target floats are recovered from seven calibration gains; the other 78 published gains and every wallet reward reproduce exactly as holdout evidence."
+      },
+      "classification": "unpublished-production-settlement-input",
+      "confidence": "high",
+      "details": {
+        "calibration_equations": [
+          {"address": "0x49451c6af70feef6ef29b8c78bc17d4bdaf9fdaa", "competition": "UPDOWN"},
+          {"address": "0x6cb72d052d57563180474923fdd9f827455637db", "competition": "UPDOWN"},
+          {"address": "0xe1929facb0bb53baa1fc6e91a31190ef228d9662", "competition": "NEUTRAL"},
+          {"address": "0x1b1d704cfd260f0eeca05d495d4818ebeac2922f", "competition": "UPDOWN"},
+          {"address": "0x04e1dd13ef029f573cf717f094a6b601b9e03550", "competition": "UPDOWN"},
+          {"address": "0x05934b9313c703fb75363d27704cc6566f645a91", "competition": "UPDOWN"},
+          {"address": "0xe14867e41410bd7232a52b9400476c08b4e535b3", "competition": "NEUTRAL"}
+        ],
+        "on_chain_replacement_dataset": {
+          "archive_sha256": "cb0aaf0c47aad53b45e3daff53b41f6157ff15dcce2c64c294df40ee20fef642",
+          "cid": "QmWk1Jv1bcqytCW9p5H6FJ4DyoftNd8q2dh7nUbK1cvx3k",
+          "dataset_challenge": 167,
+          "latest_target_date": "2026-06-28"
+        },
+        "production_cutover": {
+          "new_dataset_branch_commit": "15d6ece9d8a41b30701500039e1d00d82ff43d69",
+          "old_settlement_branch": "extended_dataset",
+          "old_settlement_commit": "9d4453b1b89896928375c238416a3ff0afc7a2a8",
+          "runbook_sha256": "4544fad635933601b3b93ce2d6f1aa846c9069a76ab9342a23d85113b493db29"
+        },
+        "recovered_realized_returns": {
+          "DYDX": "-0.1503008013908984",
+          "EOS": "0.2027550881485376",
+          "FET": "0.0119234838653226",
+          "FXS": "0.0495783206575035",
+          "MKR": "0.0915697184025134",
+          "MOON": "0.1270011488460254",
+          "QUACK": "-0.1095695622147731"
+        },
+        "recovery_validation": {
+          "combined_equation_count": 85,
+          "combined_matrix_rank": 77,
+          "dataset_or_alias_values_matching_recovered_vector": 70,
+          "exact_calibration_gain_count": 7,
+          "exact_holdout_gain_count": 78,
+          "neutral_valid_submission_count": 49,
+          "updown_valid_submission_count": 36,
+          "wallet_reward_mismatch_count": 0
+        },
+        "source_symbol_aliases": {
+          "FTM": "S",
+          "MATIC": "POL",
+          "RNDR": "RENDER"
+        }
+      },
+      "documentation": {
+        "anchor": "challenge-166-unpublished-old-basket-settlement-targets",
+        "document": "docs/caveats.md",
+        "summary": "Challenge 166 was settled from a local old-basket dataset before the new-basket dataset 167 was published. Seven unavailable or changed target floats are recovered from seven calibration gains, and all 78 held-out gains plus every wallet reward reproduce exactly."
+      },
+      "headline": "Challenge 166: Old-basket settlement targets were not published",
+      "id": "challenge-166-unpublished-old-basket-settlement-targets",
+      "scope": {
+        "addresses": [],
+        "audit_kinds": ["scoring"],
+        "challenges": [166],
+        "competitions": ["NEUTRAL", "UPDOWN"]
+      },
+      "status": "open"
+    },
+    {
       "affected_comparisons": 4,
       "audit_treatment": {
         "changes_outcome": false,
@@ -1232,7 +1303,7 @@
       "status": "open"
     },
     {
-      "affected_comparisons": 2,
+      "affected_comparisons": 4,
       "audit_treatment": {
         "changes_outcome": false,
         "mode": "open-dataset-ingestion-blocker",
@@ -1275,7 +1346,8 @@
       "scope": {
         "addresses": [],
         "audit_kinds": [
-          "dataset-ingestion"
+          "dataset-ingestion",
+          "scoring"
         ],
         "challenges": [
           167,

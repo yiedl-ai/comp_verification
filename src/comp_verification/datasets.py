@@ -11,7 +11,7 @@ import zipfile
 from dataclasses import dataclass
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
-from typing import Any
+from typing import Any, Mapping
 
 from .jsonio import canonical_json_bytes
 
@@ -361,6 +361,9 @@ def derive_price_fixture_from_targets(
     target_column: str = "target_updown",
     source_reference: str | None = None,
     require_all_symbols: bool = True,
+    source_symbol_aliases: Mapping[str, str] | None = None,
+    realized_return_overrides: Mapping[str, str] | None = None,
+    override_problem_id: str | None = None,
 ) -> dict[str, Any]:
     """Materialize a scorer-sized basket from a verified condensed target fixture."""
 
@@ -380,20 +383,34 @@ def derive_price_fixture_from_targets(
     required = {"date", "symbol", target_column}
     if not required <= fields:
         raise ValueError(f"target fixture lacks columns {sorted(required - fields)}")
-    allowed = set(symbols)
-    rows: dict[str, str] = {}
+    aliases = dict(source_symbol_aliases or {})
+    overrides = dict(realized_return_overrides or {})
+    if overrides and not override_problem_id:
+        raise ValueError("realized-return overrides require a problem id")
+    source_rows: dict[str, str] = {}
     dates: set[str] = set()
     for row in reader:
         symbol = (row.get("symbol") or "").strip()
-        if symbol not in allowed:
-            continue
-        if symbol in rows:
+        if symbol in source_rows:
             raise ValueError(f"duplicate target symbol {symbol}: {source}")
         value = (row.get(target_column) or "").strip()
         _validate_decimal(value, symbol)
-        rows[symbol] = value
+        source_rows[symbol] = value
         dates.add((row.get("date") or "").strip())
-    missing = sorted(allowed - set(rows))
+    rows: dict[str, str] = {}
+    used_aliases: dict[str, str] = {}
+    for symbol in symbols:
+        if symbol in overrides:
+            _validate_decimal(overrides[symbol], symbol)
+            rows[symbol] = overrides[symbol]
+            continue
+        source_symbol = aliases.get(symbol, symbol)
+        if source_symbol not in source_rows:
+            continue
+        rows[symbol] = source_rows[source_symbol]
+        if source_symbol != symbol:
+            used_aliases[symbol] = source_symbol
+    missing = sorted(set(symbols) - set(rows))
     if missing and require_all_symbols:
         raise ValueError(f"target fixture is missing policy symbols: {missing}")
     if not rows:
@@ -430,6 +447,18 @@ def derive_price_fixture_from_targets(
         "policy_id": policy_id,
         "missing_policy_symbols": missing,
     }
+    if used_aliases:
+        derived_provenance["source_symbol_aliases"] = used_aliases
+    if overrides:
+        derived_provenance["realized_return_overrides"] = [
+            {
+                "symbol": symbol,
+                "source_value": source_rows.get(symbol),
+                "fixture_value": overrides[symbol],
+                "problem_id": override_problem_id,
+            }
+            for symbol in sorted(overrides)
+        ]
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_bytes(rendered)
     destination.with_suffix(".json").write_bytes(

@@ -43,8 +43,9 @@ contains an explicit accepted adjudication.
 | 123 | UPDOWN publication/scoring | Result CID is the challenge-122 UPDOWN file | 1 | All challenge-123 on-chain rewards reproduce exactly; challenge-123 relative-gain publication remains open |
 | 129 | NEUTRAL and UPDOWN publication/scoring | Each result omits two malformed, zero-stake submitters | 4 | Every published score/reward and every wallet outcome reproduce exactly; raw row-completeness failures remain visible |
 | 134 | UPDOWN publication/scoring | Result CID is the challenge-133 UPDOWN file | 1 | All challenge-134 on-chain rewards reproduce exactly; challenge-134 relative-gain publication remains open |
-| 167–168 | Dataset ingestion | Dataset 168 has one currently unavailable IPFS range | 2 | Open; neither audit is inferred until the complete archive passes CID verification |
 | 142, 154–161 | UPDOWN publication/scoring | Valid zero-stake submitters are omitted from result files | 9 | Zero wallet outcomes are exact, but omitted relative gains remain open failures |
+| 166 | NEUTRAL and UPDOWN scoring | Old-basket settlement used a local target artifact that was replaced by the published new-basket dataset | 7 target values | All 78 held-out gains and every wallet reward reproduce exactly; missing source artifact remains open |
+| 167–168 | Dataset ingestion/scoring | Dataset 168 has one currently unavailable IPFS range | 4 audits | Open; four scoring reports are blocked until the complete archive passes CID verification |
 
 ## Challenge 110: stale UPDOWN result reference
 
@@ -492,6 +493,32 @@ bytes, so retrieval is not guaranteed merely by the CID's presence on-chain. A
 missing object must therefore trigger retries and an explicit failed/deferred
 finalization; it must not silently become a zero score or reward.
 
+## Challenge 166: unpublished old-basket settlement targets
+
+The migration runbook required production to settle the closing old-basket
+challenge from `extended_dataset` before switching branches and publishing the
+new 153-asset dataset. That old settlement read a local `2026_27` train dataset;
+the runbook explicitly did not upload it. Phase B then published dataset 167 at
+CID `QmWk1Jv1bcqytCW9p5H6FJ4DyoftNd8q2dh7nUbK1cvx3k` (archive SHA-256
+`cb0aaf0c47aad53b45e3daff53b41f6157ff15dcce2c64c294df40ee20fef642`).
+Consequently, the on-chain dataset is not the exact input used to settle
+challenge 166.
+
+Dataset 167 supplies 69 legacy symbols directly and three renamed assets via
+`FTM -> S`, `MATIC -> POL`, and `RNDR -> RENDER`. Seventy of those 72 values
+match the unique target vector implied by the published results. `FET` and
+`DYDX` differ, while `EOS`, `FXS`, `MKR`, `MOON`, and `QUACK` are absent.
+
+The verifier recovers those seven production float values from seven
+well-conditioned calibration equations. The combined 49 NEUTRAL and 36 UPDOWN
+valid submissions form a full-rank 85-by-77 system. After calibration, all 78
+held-out relative gains reproduce exactly at Decimal precision 28, as do the
+seven calibration gains and every six-decimal wallet reward. The committed
+price provenance records every alias, source value, recovered value, and the
+problem-register reference. This is strong numerical recovery, but not a
+substitute for the missing raw old-basket dataset, so the provenance caveat
+remains open.
+
 ## Dataset 168: current IPFS block availability gap
 
 The on-chain digest `0xe51dd7d37d9a6588e360c5bc07ba391da2ca37823bde46e5d1f7fdf7bf3dd1d0`
@@ -504,3 +531,6 @@ Dataset 168 supplies challenge 167's targets and challenge 168's evaluation
 universe. Those two scoring audits remain explicitly blocked: no target or
 evaluation data will be inferred from an incomplete archive, and the raw bytes
 will not be accepted until the reconstructed file matches the published CID.
+The verifier emits four explicit `blocked-by-dataset-ingestion` reports—one for
+each competition in challenges 167 and 168—so the generated status table does
+not mislabel these audits as either failures or work that was never attempted.

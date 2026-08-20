@@ -292,11 +292,32 @@ def test_register_captures_dataset_168_availability_gap() -> None:
 
     assert problem.status == "open"
     assert problem.counts_as_pass is False
+    assert problem.raw["affected_comparisons"] == 4
     assert problem.scope.challenges == frozenset({167, 168})
-    assert problem.scope.audit_kinds == frozenset({"dataset-ingestion"})
+    assert problem.scope.audit_kinds == frozenset({"dataset-ingestion", "scoring"})
     assert problem.raw["details"]["missing_range"] == {
         "start": 729284608,
         "end_inclusive": 738197503,
+    }
+
+
+def test_register_captures_challenge_166_unpublished_targets() -> None:
+    problem = load_problem_register().by_id(
+        "challenge-166-unpublished-old-basket-settlement-targets"
+    )
+
+    assert problem.status == "open"
+    assert problem.counts_as_pass is False
+    assert problem.scope.challenges == frozenset({166})
+    assert problem.raw["details"]["recovery_validation"] == {
+        "combined_equation_count": 85,
+        "combined_matrix_rank": 77,
+        "dataset_or_alias_values_matching_recovered_vector": 70,
+        "exact_calibration_gain_count": 7,
+        "exact_holdout_gain_count": 78,
+        "neutral_valid_submission_count": 49,
+        "updown_valid_submission_count": 36,
+        "wallet_reward_mismatch_count": 0,
     }
 
 

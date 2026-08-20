@@ -1,0 +1,67 @@
+{
+  "date": "2026-06-28",
+  "derived_from": "data/targets/challenge-166.csv",
+  "derived_from_targets_sha256": "e359e1d0c41fd6aa8fdefd83d31af0a51977a4d8cb163ea0bf8a4bbdfa2b367a",
+  "missing_policy_symbols": [],
+  "policy_id": "legacy-static-77-zero-guard",
+  "prices_sha256": "6f6de45bcd3af444f7a24847e0abfed58022c4f3cc6b56dd02c2c9778687d307",
+  "realized_return_overrides": [
+    {
+      "fixture_value": "-0.1503008013908984",
+      "problem_id": "challenge-166-unpublished-old-basket-settlement-targets",
+      "source_value": "-0.15114098663542386",
+      "symbol": "DYDX"
+    },
+    {
+      "fixture_value": "0.2027550881485376",
+      "problem_id": "challenge-166-unpublished-old-basket-settlement-targets",
+      "source_value": null,
+      "symbol": "EOS"
+    },
+    {
+      "fixture_value": "0.0119234838653226",
+      "problem_id": "challenge-166-unpublished-old-basket-settlement-targets",
+      "source_value": "0.007158390418826155",
+      "symbol": "FET"
+    },
+    {
+      "fixture_value": "0.0495783206575035",
+      "problem_id": "challenge-166-unpublished-old-basket-settlement-targets",
+      "source_value": null,
+      "symbol": "FXS"
+    },
+    {
+      "fixture_value": "0.0915697184025134",
+      "problem_id": "challenge-166-unpublished-old-basket-settlement-targets",
+      "source_value": null,
+      "symbol": "MKR"
+    },
+    {
+      "fixture_value": "0.1270011488460254",
+      "problem_id": "challenge-166-unpublished-old-basket-settlement-targets",
+      "source_value": null,
+      "symbol": "MOON"
+    },
+    {
+      "fixture_value": "-0.1095695622147731",
+      "problem_id": "challenge-166-unpublished-old-basket-settlement-targets",
+      "source_value": null,
+      "symbol": "QUACK"
+    }
+  ],
+  "row_count": 77,
+  "schema_version": 1,
+  "scoring_challenge": 166,
+  "source_archive_sha256": "cb0aaf0c47aad53b45e3daff53b41f6157ff15dcce2c64c294df40ee20fef642",
+  "source_cid": "QmWk1Jv1bcqytCW9p5H6FJ4DyoftNd8q2dh7nUbK1cvx3k",
+  "source_dataset_challenge": 167,
+  "source_member": "dataset/train_dataset.csv",
+  "source_member_crc32": "ec0c66b5",
+  "source_member_uncompressed_size": 8264653256,
+  "source_symbol_aliases": {
+    "FTM": "S",
+    "MATIC": "POL",
+    "RNDR": "RENDER"
+  },
+  "target_column": "target_updown"
+}

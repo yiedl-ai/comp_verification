@@ -14,6 +14,7 @@ from comp_verification.config import (
 from comp_verification.evidence_workflow import EvidenceWorkflow
 from comp_verification.encoding import file_cid_v0
 from comp_verification.ipfs import IpfsGateway
+from comp_verification.workflow import FirstTenWorkflow
 
 
 _BASE58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
@@ -32,6 +33,36 @@ def _workflow(root: Path) -> EvidenceWorkflow:
             ),
         ),
     )
+
+
+def test_dataset_168_gap_writes_explicit_blocked_scoring_reports(
+    tmp_path: Path,
+) -> None:
+    workflow = FirstTenWorkflow(tmp_path, _workflow(tmp_path).config)
+    directory = tmp_path / "manifests" / "chain"
+    directory.mkdir(parents=True)
+    (directory / "challenge-167.json").write_text(
+        json.dumps(
+            {
+                "challenge": 167,
+                "competitions": {
+                    competition: {
+                        "content": {"results": {"cid": f"cid-{competition.lower()}"}},
+                        "participants": [],
+                    }
+                    for competition in ("NEUTRAL", "UPDOWN")
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    reports = workflow.audit_scoring(challenges=range(167, 168))
+
+    assert len(reports) == 2
+    assert all(row["audit_status"] == "blocked-by-dataset-ingestion" for row in reports)
+    assert all(row["passed"] is False for row in reports)
+    assert all(row["caveats"][0]["id"].startswith("dataset-168-") for row in reports)
 
 
 def test_scope_selection_is_bounded_and_deduplicated(tmp_path: Path) -> None:

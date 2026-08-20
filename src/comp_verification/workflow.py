@@ -55,6 +55,9 @@ from .chain_evidence import (
 )
 from .summary import build_audit_status, build_first_ten_summary
 from .historical_exceptions import (
+    CHALLENGE_166_PROBLEM_ID,
+    CHALLENGE_166_REALIZED_RETURN_OVERRIDES,
+    CHALLENGE_166_SOURCE_SYMBOL_ALIASES,
     RECOVERED_LATE_RESULT_REFERENCES,
     STALE_RESULT_CIDS,
     apply_realized_return_overrides,
@@ -474,8 +477,68 @@ class FirstTenWorkflow:
         reports = []
         for manifest in self._chain_manifests(challenges):
             challenge = manifest["challenge"]
-            policy = self._effective_policy(challenge)
+            base_policy = policy_for_challenge(challenge)
             for competition, observed in manifest["competitions"].items():
+                price_suffix = (
+                    f"-{competition.lower()}"
+                    if self._is_dynamic_policy(base_policy)
+                    else ""
+                )
+                price_path = (
+                    self.root
+                    / "data"
+                    / "prices"
+                    / f"challenge-{challenge:03d}{price_suffix}.csv"
+                )
+                if not price_path.exists():
+                    blockers = [
+                        caveat
+                        for caveat in caveats_for_context(
+                            challenge=challenge,
+                            competition=competition,
+                            audit_kind="scoring",
+                        )
+                        if caveat["classification"]
+                        == "current-ipfs-block-availability-gap"
+                    ]
+                    if not blockers:
+                        raise FileNotFoundError(
+                            f"missing realized-return fixture: {price_path}"
+                        )
+                    report = {
+                        "schema_version": 1,
+                        "challenge": challenge,
+                        "competition": competition,
+                        "policy_id": base_policy.policy_id,
+                        "policy_source_git_commit": base_policy.source_git_commit,
+                        "policy_source_files_sha256": dict(
+                            base_policy.source_files_sha256
+                        ),
+                        "policy_status": base_policy.status,
+                        "result_cid": observed["content"]["results"]["cid"],
+                        "participant_count": len(observed["participants"]),
+                        "comparison_count": 0,
+                        "mismatch_count": 0,
+                        "raw_mismatch_count": 0,
+                        "caveated_comparison_count": 0,
+                        "unresolved_mismatch_count": 0,
+                        "audit_status": "blocked-by-dataset-ingestion",
+                        "raw_passed": False,
+                        "passed": False,
+                        "missing_fixture": str(price_path.relative_to(self.root)),
+                        "caveats": blockers,
+                        "participants": [],
+                    }
+                    destination = (
+                        self.root
+                        / "reports"
+                        / "scoring"
+                        / f"challenge-{challenge:03d}-{competition.lower()}.json"
+                    )
+                    write_canonical_json(destination, report)
+                    reports.append(report)
+                    continue
+                policy = self._effective_policy(challenge)
                 special = self._correction_sequence_report(challenge, competition)
                 if special is not None:
                     report = self._correction_scoring_report(
@@ -491,7 +554,7 @@ class FirstTenWorkflow:
                     reports.append(report)
                     continue
                 returns = read_realized_returns(
-                    self._price_fixture_path(challenge, competition),
+                    price_path,
                     binary_float=policy.answer_binary_float,
                     decimal_from_float_string=self._is_dynamic_policy(policy),
                 )
@@ -758,6 +821,11 @@ class FirstTenWorkflow:
                     "maximum_absolute_gain_delta": str(max_gain_delta),
                     "raw_passed": not raw_mismatches,
                     "passed": not unresolved_mismatches,
+                    "caveats": caveats_for_context(
+                        challenge=challenge,
+                        competition=competition,
+                        audit_kind="scoring",
+                    ),
                     "participants": comparisons,
                 }
                 if recovered_result_reference:
@@ -940,6 +1008,16 @@ class FirstTenWorkflow:
                 else ((None, "target_updown"),)
             )
             for competition, target_column in competitions:
+                source_symbol_aliases = (
+                    CHALLENGE_166_SOURCE_SYMBOL_ALIASES
+                    if challenge == 166
+                    else None
+                )
+                realized_return_overrides = (
+                    CHALLENGE_166_REALIZED_RETURN_OVERRIDES
+                    if challenge == 166
+                    else None
+                )
                 reports.append(
                     derive_price_fixture_from_targets(
                         source,
@@ -949,6 +1027,13 @@ class FirstTenWorkflow:
                         target_column=target_column,
                         source_reference=str(source.relative_to(self.root)),
                         require_all_symbols=True,
+                        source_symbol_aliases=source_symbol_aliases,
+                        realized_return_overrides=realized_return_overrides,
+                        override_problem_id=(
+                            CHALLENGE_166_PROBLEM_ID
+                            if realized_return_overrides
+                            else None
+                        ),
                     )
                 )
         return reports

@@ -2,6 +2,8 @@ from decimal import Decimal
 
 from comp_verification.historical_exceptions import (
     CHALLENGE_113_PROBLEM_ID,
+    CHALLENGE_166_PROBLEM_ID,
+    CHALLENGE_166_REALIZED_RETURN_OVERRIDES,
     RECOVERED_LATE_RESULT_REFERENCES,
     STALE_RESULT_CIDS,
     STALE_UPDOWN_RESULT_CIDS,
@@ -24,6 +26,19 @@ def test_only_challenge_113_overrides_hai() -> None:
     assert evidence[0]["problem_id"] == CHALLENGE_113_PROBLEM_ID
     assert evidence[0]["production_value"] == "1"
     assert source["HAI"] == Decimal("21.227900966966708")
+
+
+def test_challenge_166_requires_the_exact_recovered_float_values() -> None:
+    source = {
+        symbol: Decimal(float(literal))
+        for symbol, literal in CHALLENGE_166_REALIZED_RETURN_OVERRIDES.items()
+    }
+
+    recovered, evidence = apply_realized_return_overrides(166, source)
+
+    assert recovered == source
+    assert len(evidence) == 7
+    assert {row["problem_id"] for row in evidence} == {CHALLENGE_166_PROBLEM_ID}
 
 
 def test_challenge_113_updown_fallback_verifies_rewards_but_not_scores(

@@ -134,3 +134,60 @@ def test_derive_price_fixture_from_verified_targets(tmp_path: Path) -> None:
         source_bytes
     ).hexdigest()
     assert provenance["target_column"] == "target_updown"
+
+
+def test_derive_price_fixture_records_aliases_and_recovered_overrides(
+    tmp_path: Path,
+) -> None:
+    source = tmp_path / "challenge-166.csv"
+    source.write_text(
+        "date,symbol,target_updown\n"
+        "2026-06-28,DYDX,-0.15\n"
+        "2026-06-28,RENDER,0.4\n",
+        encoding="utf-8",
+    )
+    source_bytes = source.read_bytes()
+    source.with_suffix(".json").write_text(
+        json.dumps(
+            {
+                "scoring_challenge": 166,
+                "source_dataset_challenge": 167,
+                "source_cid": "QmSource",
+                "source_cid_verified": True,
+                "source_archive_sha256": "archive-sha",
+                "source_member": "dataset/train_dataset.csv",
+                "source_member_crc32": "12345678",
+                "source_member_uncompressed_size": 100,
+                "date": "2026-06-28",
+                "target_columns": ["target_updown"],
+                "targets_sha256": hashlib.sha256(source_bytes).hexdigest(),
+            }
+        ),
+        encoding="utf-8",
+    )
+    destination = tmp_path / "prices.csv"
+
+    provenance = derive_price_fixture_from_targets(
+        source,
+        symbols=("DYDX", "RNDR"),
+        policy_id="legacy-static-77-zero-guard",
+        destination=destination,
+        source_symbol_aliases={"RNDR": "RENDER"},
+        realized_return_overrides={"DYDX": "-0.14"},
+        override_problem_id="challenge-166-test",
+    )
+
+    assert destination.read_text(encoding="utf-8") == (
+        "date,symbol,return\n"
+        "2026-06-28,DYDX,-0.14\n"
+        "2026-06-28,RNDR,0.4\n"
+    )
+    assert provenance["source_symbol_aliases"] == {"RNDR": "RENDER"}
+    assert provenance["realized_return_overrides"] == [
+        {
+            "symbol": "DYDX",
+            "source_value": "-0.15",
+            "fixture_value": "-0.14",
+            "problem_id": "challenge-166-test",
+        }
+    ]

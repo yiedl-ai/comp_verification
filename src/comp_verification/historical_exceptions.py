@@ -9,6 +9,23 @@ from typing import Mapping
 CHALLENGE_113_PROBLEM_ID = (
     "challenge-113-hai-target-override-and-stale-updown-result"
 )
+CHALLENGE_166_PROBLEM_ID = (
+    "challenge-166-unpublished-old-basket-settlement-targets"
+)
+CHALLENGE_166_SOURCE_SYMBOL_ALIASES = {
+    "FTM": "S",
+    "MATIC": "POL",
+    "RNDR": "RENDER",
+}
+CHALLENGE_166_REALIZED_RETURN_OVERRIDES = {
+    "DYDX": "-0.1503008013908984",
+    "EOS": "0.2027550881485376",
+    "FET": "0.0119234838653226",
+    "FXS": "0.0495783206575035",
+    "MKR": "0.0915697184025134",
+    "MOON": "0.1270011488460254",
+    "QUACK": "-0.1095695622147731",
+}
 STALE_RESULT_CIDS = {
     (110, "UPDOWN"): "QmYuTvKSdD7k5A8UNM75HDume1o17BeQ5VL97CP56bitsX",
     (113, "UPDOWN"): "QmWXyyvUsNw5XfDbzknq7knGUsNohPMABqB5crNwRirskY",
@@ -54,6 +71,26 @@ def apply_realized_return_overrides(
     """Apply only production overrides proven by exact historical reproduction."""
 
     values = dict(realized_returns)
+    if challenge == 166:
+        evidence = []
+        for symbol, literal in CHALLENGE_166_REALIZED_RETURN_OVERRIDES.items():
+            expected = Decimal(float(literal))
+            if values.get(symbol) != expected:
+                raise ValueError(
+                    f"challenge 166 recovered realized return differs for {symbol}"
+                )
+            evidence.append(
+                {
+                    "symbol": symbol,
+                    "production_value": literal,
+                    "problem_id": CHALLENGE_166_PROBLEM_ID,
+                    "basis": (
+                        "seven calibration equations recover the unavailable old-basket "
+                        "targets; 78 held-out published gains reproduce exactly"
+                    ),
+                }
+            )
+        return values, evidence
     if challenge != 113:
         return values, []
     if "HAI" not in values:

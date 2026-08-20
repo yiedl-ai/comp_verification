@@ -1,0 +1,38 @@
+{
+  "audit_status": "blocked-by-dataset-ingestion",
+  "caveated_comparison_count": 0,
+  "caveats": [
+    {
+      "anchor": "dataset-168-current-ipfs-block-availability-gap",
+      "classification": "current-ipfs-block-availability-gap",
+      "counts_as_pass": false,
+      "document": "docs/caveats.md",
+      "id": "dataset-168-current-ipfs-block-availability-gap",
+      "summary": "Dataset 168 is 99.1% cached, but one range is unavailable across all tested gateways; challenges 167 and 168 remain explicitly blocked until the full archive can pass CID verification."
+    }
+  ],
+  "challenge": 167,
+  "comparison_count": 0,
+  "competition": "UPDOWN",
+  "mismatch_count": 0,
+  "missing_fixture": "data/prices/challenge-167-updown.csv",
+  "participant_count": 92,
+  "participants": [],
+  "passed": false,
+  "policy_id": "dynamic-evaluation-153-v1",
+  "policy_source_files_sha256": {
+    "archieved/competition.sql": "9cd98d96b02ecf9d8db467588fe08aab29090cd1cf2934c9b36ec0eed1000b72",
+    "configuration/basket.csv": "a4f0fefe9972a4efdea9e2e9d2c3886c3b1486e56a61853e3b1260f8fcec9341",
+    "configuration/basket_aliases.csv": "194527937726254f19fb483a89f21195bf7f283ba8a22b30871e865344fcdf18",
+    "library/basket.py": "23d3a6ef56de611830dc095b2a4c5f892e56257353bc60c47280e3a6b9c5f19b",
+    "library/score_reward.py": "7fbf771545ffd3f6d04fa3c6fea1d76f59372365645feb48de296744dee04d42",
+    "library/yiedl_latest.py": "2bd1ece83aa29beaa8fa6e851be9b30ca2688c9e490ba804bff7c655c6e0eb17"
+  },
+  "policy_source_git_commit": "77e675f",
+  "policy_status": "source-derived-candidate",
+  "raw_mismatch_count": 0,
+  "raw_passed": false,
+  "result_cid": "QmTCZP9qJEiP6aFjfepLjtCWJRyJPzwAv2KScebFteCnSS",
+  "schema_version": 1,
+  "unresolved_mismatch_count": 0
+}
