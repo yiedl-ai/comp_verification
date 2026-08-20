@@ -54,6 +54,10 @@ from .chain_evidence import (
     verify_tracked_snapshots,
 )
 from .summary import build_audit_status, build_first_ten_summary
+from .historical_exceptions import (
+    STALE_UPDOWN_RESULT_CIDS,
+    apply_realized_return_overrides,
+)
 
 
 @dataclass(frozen=True)
@@ -479,6 +483,9 @@ class FirstTenWorkflow:
                     binary_float=policy.answer_binary_float,
                     decimal_from_float_string=self._is_dynamic_policy(policy),
                 )
+                returns, realized_return_overrides = apply_realized_return_overrides(
+                    challenge, returns
+                )
                 fixture_path = self._submission_fixture_path(challenge, competition)
                 normalized_submissions = (
                     read_submission_fixture(
@@ -515,6 +522,29 @@ class FirstTenWorkflow:
                     ).read_text(encoding="utf-8")
                 )
                 if not publication_report["passed"]:
+                    if (
+                        competition == "UPDOWN"
+                        and result_cid == STALE_UPDOWN_RESULT_CIDS.get(challenge)
+                    ):
+                        report = self._stale_updown_reward_report(
+                            challenge=challenge,
+                            observed=observed,
+                            policy=policy,
+                            returns=returns,
+                            normalized_submissions=normalized_submissions or {},
+                            submission_statuses=submission_statuses,
+                            publication_report=publication_report,
+                            realized_return_overrides=realized_return_overrides,
+                        )
+                        destination = (
+                            self.root
+                            / "reports"
+                            / "scoring"
+                            / f"challenge-{challenge:03d}-{competition.lower()}.json"
+                        )
+                        write_canonical_json(destination, report)
+                        reports.append(report)
+                        continue
                     report = {
                         "schema_version": 1,
                         "challenge": challenge,
@@ -662,6 +692,11 @@ class FirstTenWorkflow:
                     "passed": not unresolved_mismatches,
                     "participants": comparisons,
                 }
+                if realized_return_overrides:
+                    report["policy_status"] = (
+                        "numerically-recovered-production-exception"
+                    )
+                    report["realized_return_overrides"] = realized_return_overrides
                 report_caveats = {
                     caveat["id"]: caveat
                     for caveat in caveats_for_context(
@@ -834,6 +869,92 @@ class FirstTenWorkflow:
                     )
                 )
         return reports
+
+    def _stale_updown_reward_report(
+        self,
+        *,
+        challenge: int,
+        observed: dict[str, Any],
+        policy: ScoringPolicy,
+        returns: dict[str, Decimal],
+        normalized_submissions: dict[str, dict[str, Decimal]],
+        submission_statuses: dict[str, str],
+        publication_report: dict[str, Any],
+        realized_return_overrides: list[dict[str, str]],
+    ) -> dict[str, Any]:
+        """Verify rewards when an UPDOWN result points to the prior score file."""
+
+        comparisons = []
+        for participant in observed["participants"]:
+            address = participant["address"]
+            computed_gain, computed_reward, status = self._score_participant(
+                challenge,
+                "UPDOWN",
+                address,
+                participant["submission"],
+                Decimal(participant["historical_stake"]["decimal"]),
+                returns,
+                policy,
+                normalized_prediction=normalized_submissions.get(address),
+                ingestion_status=submission_statuses.get(address),
+                fixture_available=True,
+            )
+            chain_reward = Decimal(
+                participant["challenge_reward"]["decimal"]
+            ) - Decimal(participant["burned"]["decimal"])
+            comparisons.append(
+                {
+                    "address": address,
+                    "submission_status": status,
+                    "computed_relative_gain": str(computed_gain),
+                    "published_relative_gain": None,
+                    "computed_wallet_reward": str(computed_reward),
+                    "on_chain_wallet_reward": str(chain_reward),
+                    "wallet_reward_matches": computed_reward == chain_reward,
+                }
+            )
+        reward_mismatches = [
+            row for row in comparisons if not row["wallet_reward_matches"]
+        ]
+        return {
+            "schema_version": 1,
+            "challenge": challenge,
+            "competition": "UPDOWN",
+            "policy_id": policy.policy_id,
+            "policy_source_git_commit": policy.source_git_commit,
+            "policy_source_files_sha256": dict(policy.source_files_sha256),
+            "policy_status": (
+                "numerically-recovered-production-exception"
+                if realized_return_overrides
+                else policy.status
+            ),
+            "reproduction_runtime": {
+                "python": platform.python_version(),
+                "pandas": version("pandas"),
+                "numpy": version("numpy"),
+            },
+            "result_cid": observed["content"]["results"]["cid"],
+            "result_bytes_sha256": publication_report.get("result_bytes_sha256"),
+            "audit_status": "reward-exact-score-blocked-by-stale-result-reference",
+            "problem": publication_report.get("problem"),
+            "participant_count": len(comparisons),
+            "comparison_count": len(comparisons),
+            "reward_comparison_count": len(comparisons),
+            "score_comparison_count": 0,
+            "mismatch_count": len(reward_mismatches),
+            "wallet_reward_mismatch_count": len(reward_mismatches),
+            "reward_passed": not reward_mismatches,
+            "score_passed": False,
+            "raw_passed": False,
+            "passed": False,
+            "realized_return_overrides": realized_return_overrides,
+            "caveats": caveats_for_context(
+                challenge=challenge,
+                competition="UPDOWN",
+                audit_kind="scoring",
+            ),
+            "participants": comparisons,
+        }
 
     def _score_participant(
         self,

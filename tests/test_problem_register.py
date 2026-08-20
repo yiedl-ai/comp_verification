@@ -148,6 +148,39 @@ def test_register_captures_challenge_ninety_four_unavailable_submission() -> Non
     assert problem.scope.competitions == frozenset({"UPDOWN"})
 
 
+def test_register_captures_challenge_113_recovered_override_and_stale_result() -> None:
+    problem = load_problem_register().by_id(
+        "challenge-113-hai-target-override-and-stale-updown-result"
+    )
+
+    assert problem.status == "open"
+    assert problem.counts_as_pass is False
+    assert problem.raw["details"]["production_override"] == {
+        "evidence": (
+            "Replacing only HAI target_updown with exactly 1 reproduces all "
+            "available challenge-113 scores and rewards with the historical "
+            "scorer and numeric path."
+        ),
+        "symbol": "HAI",
+        "value": "1",
+    }
+    assert problem.raw["details"]["stale_updown_result"]["same_as_challenge"] == 112
+
+
+def test_register_captures_challenge_110_stale_updown_result() -> None:
+    problem = load_problem_register().by_id(
+        "challenge-110-stale-updown-result-reference"
+    )
+
+    assert problem.status == "open"
+    assert problem.counts_as_pass is False
+    assert problem.scope.competitions == frozenset({"UPDOWN"})
+    assert problem.raw["details"]["reproduction"][
+        "updown_exact_on_chain_reward_count"
+    ] == 38
+    assert problem.raw["details"]["stale_updown_result"]["same_as_challenge"] == 109
+
+
 def test_report_reference_preserves_existing_report_shape() -> None:
     reference = load_problem_register().by_id(PROBLEM_ID).report_reference()
 

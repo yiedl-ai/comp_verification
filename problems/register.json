@@ -705,6 +705,122 @@
         ]
       },
       "status": "documented"
+    },
+    {
+      "affected_comparisons": 1,
+      "audit_treatment": {
+        "changes_outcome": false,
+        "mode": "reward-verified-with-open-stale-result-reference",
+        "reason": "Every challenge-110 UPDOWN on-chain reward reproduces exactly, but the published result hash points to challenge 109 and cannot verify challenge-110 relative gains."
+      },
+      "classification": "stale-prior-challenge-result-reference",
+      "confidence": "high",
+      "details": {
+        "reproduction": {
+          "neutral_exact_reward_count": 51,
+          "neutral_exact_score_count": 51,
+          "updown_exact_on_chain_reward_count": 38,
+          "updown_score_status": "unverifiable-because-result-file-is-stale"
+        },
+        "stale_updown_result": {
+          "bytes_sha256": "39904611242dc0d500cc3be2f2609195289a4ea0933f1471f107ea356d8d07bf",
+          "cid": "QmYuTvKSdD7k5A8UNM75HDume1o17BeQ5VL97CP56bitsX",
+          "embedded_challenge": 109,
+          "same_as_challenge": 109,
+          "stake_reward_burn_field_mismatches_against_challenge_110_chain": 77
+        }
+      },
+      "documentation": {
+        "anchor": "challenge-110-stale-updown-result-reference",
+        "document": "docs/caveats.md",
+        "summary": "Challenge 110 UPDOWN points to challenge 109's result file; all 38 submitted challenge-110 rewards reproduce exactly against chain, but relative-gain publication remains unverifiable."
+      },
+      "headline": "Challenge 110: Stale UPDOWN result reference",
+      "id": "challenge-110-stale-updown-result-reference",
+      "scope": {
+        "addresses": [],
+        "audit_kinds": [
+          "publication",
+          "scoring"
+        ],
+        "challenges": [
+          110
+        ],
+        "competitions": [
+          "UPDOWN"
+        ]
+      },
+      "status": "open"
+    },
+    {
+      "affected_comparisons": 1,
+      "audit_treatment": {
+        "changes_outcome": false,
+        "mode": "recovered-production-override-with-open-stale-result-reference",
+        "reason": "A single HAI target override exactly reconstructs every posted challenge-113 reward, but the UPDOWN result hash still points to challenge 112 and cannot verify challenge-113 relative-gain publication."
+      },
+      "classification": "production-only-target-override-and-stale-result-reference",
+      "confidence": "high",
+      "details": {
+        "dataset_target": {
+          "source_archive_sha256": "a361dc76f4fb9bfc328c026c83b48aae6ceb30593632d28ac4b7f097730f390e",
+          "source_cid": "QmWjoKRQYzDv7bMdsyoG23Kin18ciim8hAhsqVSmcTicPj",
+          "source_dataset_challenge": 114,
+          "symbol": "HAI",
+          "target_neutral": "1.0",
+          "target_updown": "21.227900966966708"
+        },
+        "inference": {
+          "equation_count": 86,
+          "maximum_absolute_residual": "2.3442914276472493e-10",
+          "observation": "The unique common 77-symbol return vector inferred from 44 exact NEUTRAL gains and 42 UPDOWN on-chain rewards matches every dataset target_updown value except HAI.",
+          "rank": 77,
+          "root_mean_square_residual": "5.459517568210706e-11",
+          "unknown_count": 77
+        },
+        "production_override": {
+          "evidence": "Replacing only HAI target_updown with exactly 1 reproduces all available challenge-113 scores and rewards with the historical scorer and numeric path.",
+          "symbol": "HAI",
+          "value": "1"
+        },
+        "reproduction": {
+          "neutral_exact_reward_count": 44,
+          "neutral_exact_score_count": 44,
+          "neutral_result_bytes_sha256": "a85c7ea4aae755debbfbba5bff04cfe325dab4de7ef971e22a70d83c6f549f6b",
+          "neutral_result_cid": "QmWcE8JGQ8A6o1nwynxspq2cA4hsSQzZ8VJoataC2MrCkA",
+          "updown_exact_on_chain_reward_count": 42,
+          "updown_score_status": "unverifiable-because-result-file-is-stale"
+        },
+        "stale_updown_result": {
+          "bytes_sha256": "3123b802b6d8052bf2140f56bef22cabfd454f196d6a522f9b354b68c52ac7f8",
+          "cid": "QmWXyyvUsNw5XfDbzknq7knGUsNohPMABqB5crNwRirskY",
+          "embedded_challenge": 112,
+          "same_as_challenge": 112,
+          "stake_reward_burn_field_mismatches_against_challenge_113_chain": 123
+        }
+      },
+      "documentation": {
+        "anchor": "challenge-113-hai-target-override-and-stale-updown-result-reference",
+        "document": "docs/caveats.md",
+        "summary": "Challenge 113 is exactly reconstructed by a production-only HAI target override from 21.227900966966708 to 1; NEUTRAL scores/rewards and UPDOWN on-chain rewards match, but UPDOWN's result CID is the stale challenge-112 file."
+      },
+      "headline": "Challenge 113: HAI target override and stale UPDOWN result reference",
+      "id": "challenge-113-hai-target-override-and-stale-updown-result",
+      "scope": {
+        "addresses": [],
+        "audit_kinds": [
+          "publication",
+          "scoring"
+        ],
+        "challenges": [
+          113
+        ],
+        "competitions": [
+          "NEUTRAL",
+          "UPDOWN"
+        ]
+      },
+      "status": "open"
     }
   ],
   "schema_version": 1

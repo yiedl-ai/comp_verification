@@ -36,6 +36,51 @@ contains an explicit accepted adjudication.
 | 73 | NEUTRAL scoring | One valid, early submission was published as zero | 1 | Open; raw mismatch remains a failure pending historical retrieval/database evidence |
 | 94 | UPDOWN submission/scoring | One on-chain submission digest is ASCII hex text rather than a raw SHA-256 digest and its derived CID is unavailable | 0 | Scoring passes; the unverifiable submission is explicitly retained as unavailable |
 | 95 | NEUTRAL submission/scoring | One on-chain submission digest is ASCII hex text rather than a raw SHA-256 digest and its derived CID is unavailable | 0 | Scoring passes; the unverifiable submission is explicitly retained as unavailable |
+| 110 | UPDOWN publication/scoring | Result CID is the challenge-109 UPDOWN file | 1 | All on-chain rewards reproduce exactly; relative-gain publication remains open |
+| 113 | NEUTRAL and UPDOWN publication/scoring | Production used `HAI=1` instead of the raw `21.227900966966708`; UPDOWN result CID is stale | 1 | NEUTRAL scores/rewards and UPDOWN on-chain rewards reproduce exactly; UPDOWN score publication remains open |
+
+## Challenge 110: stale UPDOWN result reference
+
+Challenge 110 UPDOWN records CID
+`QmYuTvKSdD7k5A8UNM75HDume1o17BeQ5VL97CP56bitsX` (SHA-256
+`39904611242dc0d500cc3be2f2609195289a4ea0933f1471f107ea356d8d07bf`).
+Those bytes are exactly challenge 109's UPDOWN file and every row embeds
+challenge `109`. They are not merely mislabeled challenge-110 results:
+comparing the file to challenge 110's chain snapshot produces 77
+stake/reward/burn field mismatches.
+
+The calculation itself is recoverable. All 51 valid NEUTRAL scores and rewards
+reproduce exactly from the CID-verified dataset and submissions. For UPDOWN,
+the same historical scorer reproduces the net on-chain reward of every one of
+the 38 valid submissions exactly. The verifier therefore records reward
+verification separately, but leaves UPDOWN relative-gain publication open and
+failed until an authenticated challenge-110 result file is recovered.
+
+## Challenge 113: HAI target override and stale UPDOWN result reference
+
+Dataset 114 is CID-verified and records challenge 113's `HAI` values as
+`target_updown=21.227900966966708` and `target_neutral=1.0`. The recoverable
+scorer using the raw `target_updown` value mismatches all 44 valid NEUTRAL
+submissions and 40 of 42 nonzero UPDOWN rewards. This is not a broad policy or
+basket mismatch. Solving the combined scoring equations gives a unique
+77-symbol return vector: 86 equations have rank 77, and the inferred vector
+matches every raw `target_updown` value except `HAI`, where it is exactly `1`.
+
+Applying only `HAI=1` through a separate historical scoring override reproduces
+all 44 published NEUTRAL relative gains and rewards exactly, with zero tolerance.
+It also reproduces all 42 UPDOWN on-chain net rewards exactly. The committed
+price fixture remains the unedited value derived from the CID-verified dataset;
+the override is explicit in code and in each affected scoring report.
+
+UPDOWN has a separate publication defect. Challenge 113 records result CID
+`QmWXyyvUsNw5XfDbzknq7knGUsNohPMABqB5crNwRirskY` (SHA-256
+`3123b802b6d8052bf2140f56bef22cabfd454f196d6a522f9b354b68c52ac7f8`),
+which is exactly challenge 112's UPDOWN result file and embeds challenge `112`.
+It does not describe challenge 113: comparing its stake/reward/burn fields to
+the challenge-113 chain snapshot produces 123 field mismatches. The verifier
+therefore reports challenge-113 UPDOWN rewards as exactly verified directly
+against chain, while leaving relative-gain publication open and failed until an
+authenticated challenge-113 UPDOWN result file is recovered.
 
 ## Challenge 94 UPDOWN: malformed, unavailable submission reference
 

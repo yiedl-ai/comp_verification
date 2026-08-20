@@ -1,0 +1,23 @@
+{
+  "caveats": [
+    {
+      "anchor": "challenge-110-stale-updown-result-reference",
+      "classification": "stale-prior-challenge-result-reference",
+      "counts_as_pass": false,
+      "document": "docs/caveats.md",
+      "id": "challenge-110-stale-updown-result-reference",
+      "summary": "Challenge 110 UPDOWN points to challenge 109's result file; all 38 submitted challenge-110 rewards reproduce exactly against chain, but relative-gain publication remains unverifiable."
+    }
+  ],
+  "challenge": 110,
+  "competition": "UPDOWN",
+  "contract": "0xEcB9716867f9300F2706EdbB5b81c7a0AbDC5B29",
+  "mismatch_count": 1,
+  "observed_block": 92336519,
+  "passed": false,
+  "problem": "ValueError: expected challenge 110, found 109",
+  "resolved_result_cid": "QmYuTvKSdD7k5A8UNM75HDume1o17BeQ5VL97CP56bitsX",
+  "result_bytes_sha256": "39904611242dc0d500cc3be2f2609195289a4ea0933f1471f107ea356d8d07bf",
+  "result_cid": "QmYuTvKSdD7k5A8UNM75HDume1o17BeQ5VL97CP56bitsX",
+  "schema_version": 1
+}
