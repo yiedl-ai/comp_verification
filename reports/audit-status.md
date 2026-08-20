@@ -1,7 +1,7 @@
 # Competition verification status
 
-- Scoring: 38/40 passed; 0 blocked; 2 failed
-- Publication: 40/40 passed; 0 blocked; 0 failed
+- Scoring: 44/46 passed; 0 blocked; 2 failed
+- Publication: 46/46 passed; 0 blocked; 0 failed
 
 | Challenge | NEUTRAL publication | NEUTRAL scoring | UPDOWN publication | UPDOWN scoring |
 | ---: | --- | --- | --- | --- |
@@ -25,3 +25,6 @@
 | 18 | passed | passed | passed | passed |
 | 19 | passed | failed | passed | failed |
 | 20 | passed | passed | passed | passed |
+| 21 | passed | passed | passed | passed |
+| 22 | passed | passed | passed | passed |
+| 23 | passed | passed | passed | passed |
