@@ -15,6 +15,7 @@ STALE_RESULT_CIDS = {
     (116, "UPDOWN"): "QmQFS2AEcbmGCWvJSvi78neiLCCaCgfxuMSFAUNx6YUwuQ",
     (117, "NEUTRAL"): "QmQW16CZjTTL25jpPkA4B4y9jF9UxNL4gpF4r5xscZcDeT",
     (117, "UPDOWN"): "QmSBwXPHHSQcVjR8ZuqxuXvWqBadQgGEQfUbZm3YVSpkj4",
+    (134, "UPDOWN"): "Qmcj37J2B2moDQdxdL648FRqgoS5aravDkmGq4zMX9YuNq",
 }
 
 # Backward-compatible public view used by existing evidence/tests.

@@ -82,6 +82,9 @@ def test_challenge_117_stale_results_are_registered_for_both_competitions() -> N
     assert RECOVERED_LATE_RESULT_REFERENCES[(116, "UPDOWN")][
         "published_under_challenge"
     ] == 117
+    assert STALE_RESULT_CIDS[(134, "UPDOWN")] == (
+        "Qmcj37J2B2moDQdxdL648FRqgoS5aravDkmGq4zMX9YuNq"
+    )
 
 
 def test_only_non_scoring_zero_financial_rows_can_be_implicitly_omitted() -> None:

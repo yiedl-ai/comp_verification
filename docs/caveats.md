@@ -41,6 +41,7 @@ contains an explicit accepted adjudication.
 | 116 | UPDOWN publication/scoring | Challenge-116 CID is challenge 115's file; the correct file appears under challenge 117 | 1 | All scores/rewards reproduce exactly through the late file; challenge association remains open |
 | 117 | NEUTRAL and UPDOWN publication/scoring | Both result CIDs contain exact challenge-116 files | 2 | All challenge-117 on-chain rewards reproduce exactly; challenge-117 relative-gain publication remains open |
 | 129 | NEUTRAL and UPDOWN publication/scoring | Each result omits two malformed, zero-stake submitters | 4 | Every published score/reward and every wallet outcome reproduce exactly; raw row-completeness failures remain visible |
+| 134 | UPDOWN publication/scoring | Result CID is the challenge-133 UPDOWN file | 1 | All challenge-134 on-chain rewards reproduce exactly; challenge-134 relative-gain publication remains open |
 
 ## Challenge 110: stale UPDOWN result reference
 
@@ -139,6 +140,24 @@ submission is independently invalid or unavailable and all three financial
 amounts are zero. A valid, staked, rewarded, or burned omission still fails.
 Under that narrow rule, all 51 valid NEUTRAL and 38 valid UPDOWN scores and
 rewards reproduce exactly, as do the four zero wallet outcomes.
+
+## Challenge 134: stale UPDOWN result reference
+
+Challenge 134 UPDOWN records CID
+`Qmcj37J2B2moDQdxdL648FRqgoS5aravDkmGq4zMX9YuNq` (SHA-256
+`3fff53f91481b0db3ecd44718cc23aa6804a11209656cc6c3687dc02544e0f90`).
+Those bytes are exactly challenge 133's UPDOWN result file and every row embeds
+challenge `133`. Comparing the stale file with challenge 134's chain snapshot
+produces 78 financial-field mismatches: 36 stakes, 29 challenge rewards, and 13
+burn amounts. It cannot verify challenge-134 relative gains.
+
+The independent calculation remains verifiable. Dataset 135 and all challenge-134
+submission archives are CID-verified. All 53 valid NEUTRAL scores and rewards
+reproduce exactly, with zero gain or reward deltas. For UPDOWN, the historical
+scorer reproduces the net on-chain reward of all 39 valid submissions exactly;
+all 56 non-submitters also reproduce zero. The verifier therefore passes the
+UPDOWN reward layer but leaves its result publication and relative-gain layer
+open and failed until an authenticated challenge-134 result file is recovered.
 
 ## Challenge 94 UPDOWN: malformed, unavailable submission reference
 
