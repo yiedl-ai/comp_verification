@@ -195,6 +195,38 @@ STATIC_77_ZERO_GUARD_CANDIDATE = ScoringPolicy(
     status="source-derived-candidate",
 )
 
+DYNAMIC_153_CANDIDATE = ScoringPolicy(
+    policy_id="dynamic-evaluation-153-v1",
+    symbols=DYNAMIC_153_SYMBOLS,
+    prediction_float_roundtrip=True,
+    answer_binary_float=False,
+    reward_digits=6,
+    source_git_commit="77e675f",
+    source_files_sha256=(
+        (
+            "library/score_reward.py",
+            "7fbf771545ffd3f6d04fa3c6fea1d76f59372365645feb48de296744dee04d42",
+        ),
+        (
+            "library/basket.py",
+            "23d3a6ef56de611830dc095b2a4c5f892e56257353bc60c47280e3a6b9c5f19b",
+        ),
+        (
+            "library/yiedl_latest.py",
+            "2bd1ece83aa29beaa8fa6e851be9b30ca2688c9e490ba804bff7c655c6e0eb17",
+        ),
+        (
+            "configuration/basket.csv",
+            "a4f0fefe9972a4efdea9e2e9d2c3886c3b1486e56a61853e3b1260f8fcec9341",
+        ),
+        (
+            "configuration/basket_aliases.csv",
+            "194527937726254f19fb483a89f21195bf7f283ba8a22b30871e865344fcdf18",
+        ),
+    ),
+    status="source-derived-candidate",
+)
+
 
 def policy_for_challenge(challenge: int) -> ScoringPolicy:
     """Return the source-backed static policy candidate for a challenge."""
@@ -211,4 +243,6 @@ def policy_for_challenge(challenge: int) -> ScoringPolicy:
         return STATIC_77_CANDIDATE
     if 164 <= challenge <= 166:
         return STATIC_77_ZERO_GUARD_CANDIDATE
+    if 167 <= challenge <= 172:
+        return DYNAMIC_153_CANDIDATE
     raise ValueError(f"challenge {challenge} does not use a static scoring policy")

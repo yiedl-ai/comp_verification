@@ -25,6 +25,7 @@ def write_submission_fixture(
     policy: ScoringPolicy,
     predictions: Mapping[str, Mapping[str, Decimal]],
     participant_evidence: list[dict[str, Any]],
+    require_all_symbols: bool = True,
 ) -> dict[str, Any]:
     """Write scorer-ready predictions plus provenance for every valid address."""
 
@@ -34,9 +35,15 @@ def write_submission_fixture(
     row_count = 0
     for address in sorted(predictions):
         values = predictions[address]
-        for symbol in policy.symbols:
+        unknown = set(values) - set(policy.symbols)
+        if unknown:
+            raise ValueError(f"{address} has unknown normalized symbols {unknown}")
+        symbol_order = policy.symbols if require_all_symbols else tuple(values)
+        for symbol in symbol_order:
             if symbol not in values:
-                raise ValueError(f"{address} is missing normalized symbol {symbol}")
+                if require_all_symbols:
+                    raise ValueError(f"{address} is missing normalized symbol {symbol}")
+                continue
             writer.writerow((address, symbol, str(values[symbol])))
             row_count += 1
     rendered = output.getvalue().encode("utf-8")
@@ -54,6 +61,7 @@ def write_submission_fixture(
         "address_count": len(predictions),
         "row_count": row_count,
         "fixture_sha256": hashlib.sha256(rendered).hexdigest(),
+        "require_all_symbols": require_all_symbols,
         "submissions": [
             {
                 key: evidence_by_address[address][key]
@@ -75,7 +83,7 @@ def write_submission_fixture(
 
 
 def read_submission_fixture(
-    source: Path, *, policy: ScoringPolicy
+    source: Path, *, policy: ScoringPolicy, require_all_symbols: bool = True
 ) -> NormalizedSubmissions:
     """Read and validate a committed normalized fixture before scoring."""
 
@@ -85,6 +93,8 @@ def read_submission_fixture(
         raise ValueError(f"submission fixture hash differs from provenance: {source}")
     if provenance.get("policy_id") != policy.policy_id:
         raise ValueError(f"submission fixture policy differs from scorer: {source}")
+    if provenance.get("require_all_symbols", True) is not require_all_symbols:
+        raise ValueError(f"submission fixture coverage policy differs: {source}")
     reader = csv.DictReader(io.StringIO(rendered.decode("utf-8-sig")))
     if reader.fieldnames != ["address", "symbol", "prediction"]:
         raise ValueError(f"unexpected submission fixture columns: {source}")
@@ -108,9 +118,10 @@ def read_submission_fixture(
         values[symbol] = value
         row_count += 1
     for address, values in output.items():
-        if set(values) != allowed:
+        if require_all_symbols and set(values) != allowed:
             raise ValueError(f"normalized submission symbols differ for {address}")
-        output[address] = {symbol: values[symbol] for symbol in policy.symbols}
+        if require_all_symbols:
+            output[address] = {symbol: values[symbol] for symbol in policy.symbols}
     if row_count != provenance.get("row_count") or len(output) != provenance.get(
         "address_count"
     ):

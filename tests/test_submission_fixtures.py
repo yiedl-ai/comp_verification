@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from comp_verification.policies import CHALLENGE_19_CANDIDATE
+from comp_verification.policies import CHALLENGE_19_CANDIDATE, DYNAMIC_153_CANDIDATE
 from comp_verification.submission_fixtures import (
     read_submission_fixture,
     write_submission_fixture,
@@ -71,3 +71,36 @@ def test_normalized_submission_fixture_detects_tampering(tmp_path: Path) -> None
 
     with pytest.raises(ValueError, match="hash differs"):
         read_submission_fixture(destination, policy=policy)
+
+
+def test_partial_submission_fixture_preserves_input_symbol_order(tmp_path: Path) -> None:
+    policy = DYNAMIC_153_CANDIDATE
+    address = "0x0000000000000000000000000000000000000001"
+    predictions = {address: {"ETH": Decimal("2"), "BTC": Decimal("1")}}
+    destination = tmp_path / "challenge-167-neutral.csv"
+    evidence = [{
+        "address": address,
+        "status": "valid",
+        "submission_cid": "QmExample",
+        "archive_sha256": "a" * 64,
+        "predictions_sha256": "b" * 64,
+        "prediction_count": 2,
+    }]
+
+    write_submission_fixture(
+        destination,
+        challenge=167,
+        competition="NEUTRAL",
+        policy=policy,
+        predictions=predictions,
+        participant_evidence=evidence,
+        require_all_symbols=False,
+    )
+
+    assert read_submission_fixture(
+        destination, policy=policy, require_all_symbols=False
+    ) == predictions
+    assert destination.read_text().splitlines()[1:] == [
+        f"{address},ETH,2",
+        f"{address},BTC,1",
+    ]

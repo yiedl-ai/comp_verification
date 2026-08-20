@@ -7,7 +7,7 @@ import json
 import platform
 import zipfile
 from decimal import Decimal
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from importlib.metadata import version
 from pathlib import Path
 from typing import Any
@@ -32,10 +32,15 @@ from .ipfs import DownloadedArtifact, IpfsGateway, ProgressCallback
 from .rpc import PolygonRpc
 from .results import compare_results_to_chain, read_published_results
 from .jsonio import write_canonical_json
-from .policies import ScoringPolicy, policy_for_challenge
+from .policies import (
+    DYNAMIC_SYMBOL_ALIASES,
+    ScoringPolicy,
+    policy_for_challenge,
+)
 from .submissions import (
     InvalidSubmission,
     decrypt_submission_archive,
+    parse_dynamic_predictions,
     parse_predictions,
 )
 from .submission_fixtures import read_submission_fixture, write_submission_fixture
@@ -360,7 +365,7 @@ class FirstTenWorkflow:
         self._download_submission_scope(challenges, progress)
         reports = []
         for manifest in self._chain_manifests(challenges):
-            policy = policy_for_challenge(manifest["challenge"])
+            policy = self._effective_policy(manifest["challenge"])
             for competition, observed in manifest["competitions"].items():
                 private_key_cid = observed["content"]["private_key"]["cid"]
                 if not private_key_cid:
@@ -425,15 +430,20 @@ class FirstTenWorkflow:
         reports = []
         for manifest in self._chain_manifests(challenges):
             challenge = manifest["challenge"]
-            policy = policy_for_challenge(challenge)
-            returns = read_realized_returns(
-                self.root / "data" / "prices" / f"challenge-{challenge:03d}.csv",
-                binary_float=policy.answer_binary_float,
-            )
+            policy = self._effective_policy(challenge)
             for competition, observed in manifest["competitions"].items():
+                returns = read_realized_returns(
+                    self._price_fixture_path(challenge, competition),
+                    binary_float=policy.answer_binary_float,
+                    decimal_from_float_string=self._is_dynamic_policy(policy),
+                )
                 fixture_path = self._submission_fixture_path(challenge, competition)
                 normalized_submissions = (
-                    read_submission_fixture(fixture_path, policy=policy)
+                    read_submission_fixture(
+                        fixture_path,
+                        policy=policy,
+                        require_all_symbols=not self._is_dynamic_policy(policy),
+                    )
                     if fixture_path.exists()
                     else None
                 )
@@ -639,23 +649,27 @@ class FirstTenWorkflow:
 
         reports = []
         for challenge in challenges:
-            policy = policy_for_challenge(challenge)
+            policy = self._effective_policy(challenge)
             source = (
                 self.root / "data" / "targets" / f"challenge-{challenge:03d}.csv"
             )
-            destination = (
-                self.root / "data" / "prices" / f"challenge-{challenge:03d}.csv"
+            competitions = (
+                (("UPDOWN", "target_updown"), ("NEUTRAL", "target_neutral"))
+                if self._is_dynamic_policy(policy)
+                else ((None, "target_updown"),)
             )
-            reports.append(
-                derive_price_fixture_from_targets(
-                    source,
-                    symbols=policy.symbols,
-                    policy_id=policy.policy_id,
-                    destination=destination,
-                    source_reference=str(source.relative_to(self.root)),
-                    require_all_symbols=False,
+            for competition, target_column in competitions:
+                reports.append(
+                    derive_price_fixture_from_targets(
+                        source,
+                        symbols=policy.symbols,
+                        policy_id=policy.policy_id,
+                        destination=self._price_fixture_path(challenge, competition),
+                        target_column=target_column,
+                        source_reference=str(source.relative_to(self.root)),
+                        require_all_symbols=True,
+                    )
                 )
-            )
         return reports
 
     def _score_participant(
@@ -690,11 +704,7 @@ class FirstTenWorkflow:
             if not path.exists():
                 return Decimal(0), Decimal(0), "not-decrypted"
             try:
-                predictions = parse_predictions(
-                    path.read_bytes(),
-                    policy.symbols,
-                    reject_duplicates=True,
-                )
+                predictions, _ = self._parse_submission(path.read_bytes(), policy)
                 status = "valid"
             except (InvalidSubmission, ValueError, ArithmeticError) as error:
                 return Decimal(0), Decimal(0), f"invalid: {error}"
@@ -706,6 +716,12 @@ class FirstTenWorkflow:
             }
             if not predictions:
                 raise InvalidSubmission("no submitted symbols have realized targets")
+            if (
+                self._is_dynamic_policy(policy)
+                and competition == "NEUTRAL"
+                and len(predictions) < 2
+            ):
+                raise InvalidSubmission("NEUTRAL overlap below 2 symbols")
             gain, reward = score_prediction(
                 competition,
                 predictions,
@@ -730,13 +746,11 @@ class FirstTenWorkflow:
             "submission_cid": submission_cid,
         }
         try:
-            policy = policy_for_challenge(challenge)
+            policy = self._effective_policy(challenge)
             archive = self.ipfs.download(submission_cid)
             decrypted = decrypt_submission_archive(archive.path, private_key, address)
-            predictions = parse_predictions(
-                decrypted.predictions_csv,
-                policy.symbols,
-                reject_duplicates=True,
+            predictions, diagnostics = self._parse_submission(
+                decrypted.predictions_csv, policy
             )
             destination = (
                 self.root
@@ -756,6 +770,7 @@ class FirstTenWorkflow:
                     decrypted.predictions_csv
                 ).hexdigest(),
                 "prediction_count": len(predictions),
+                **diagnostics,
                 "prediction_member": decrypted.prediction_member,
                 "key_member": decrypted.key_member,
             }
@@ -773,6 +788,57 @@ class FirstTenWorkflow:
             / "data"
             / "submissions"
             / f"challenge-{challenge:03d}-{competition.lower()}.csv"
+        )
+
+    def _price_fixture_path(
+        self, challenge: int, competition: str | None = None
+    ) -> Path:
+        policy = self._effective_policy(challenge)
+        suffix = (
+            f"-{str(competition).lower()}"
+            if self._is_dynamic_policy(policy)
+            else ""
+        )
+        return self.root / "data" / "prices" / f"challenge-{challenge:03d}{suffix}.csv"
+
+    def _effective_policy(self, challenge: int) -> ScoringPolicy:
+        policy = policy_for_challenge(challenge)
+        if not self._is_dynamic_policy(policy):
+            return policy
+        provenance_path = (
+            self.root / "data" / "evaluation" / f"challenge-{challenge:03d}.json"
+        )
+        provenance = json.loads(provenance_path.read_text(encoding="utf-8"))
+        symbols = tuple(provenance["evaluation_symbols"])
+        if not symbols or not set(symbols) <= set(policy.symbols):
+            raise ValueError(
+                f"invalid dynamic evaluation symbols for challenge {challenge}"
+            )
+        return replace(policy, symbols=symbols)
+
+    @staticmethod
+    def _is_dynamic_policy(policy: ScoringPolicy) -> bool:
+        return policy.policy_id == "dynamic-evaluation-153-v1"
+
+    def _parse_submission(
+        self, predictions_csv: bytes, policy: ScoringPolicy
+    ) -> tuple[dict[str, Decimal], dict[str, Any]]:
+        if self._is_dynamic_policy(policy):
+            parsed = parse_dynamic_predictions(
+                predictions_csv,
+                policy.symbols,
+                aliases=dict(DYNAMIC_SYMBOL_ALIASES),
+            )
+            return parsed.predictions, {
+                "ignored_extra_symbols": list(parsed.extras),
+                "dropped_duplicate_symbols": list(parsed.duplicates),
+                "missing_evaluation_symbols": list(parsed.missing),
+            }
+        return (
+            parse_predictions(
+                predictions_csv, policy.symbols, reject_duplicates=True
+            ),
+            {},
         )
 
     def _write_submission_fixture(
@@ -795,9 +861,7 @@ class FirstTenWorkflow:
                 / competition.lower()
                 / f"{address}.csv"
             )
-            normalized[address] = parse_predictions(
-                source.read_bytes(), policy.symbols, reject_duplicates=True
-            )
+            normalized[address], _ = self._parse_submission(source.read_bytes(), policy)
         return write_submission_fixture(
             self._submission_fixture_path(challenge, competition),
             challenge=challenge,
@@ -805,6 +869,7 @@ class FirstTenWorkflow:
             policy=policy,
             predictions=normalized,
             participant_evidence=participants,
+            require_all_symbols=not self._is_dynamic_policy(policy),
         )
 
     def extract_prices(
@@ -821,7 +886,7 @@ class FirstTenWorkflow:
             else challenges
         )
         for challenge in selected:
-            policy = policy_for_challenge(challenge)
+            policy = self._effective_policy(challenge)
             source_challenge = challenge + 1
             source_cid = catalog[source_challenge]["dataset"]["cid"]
             artifact = self.ipfs.download(source_cid, progress=progress)
@@ -851,7 +916,7 @@ class FirstTenWorkflow:
         )
         comparisons = []
         for challenge in selected:
-            policy = policy_for_challenge(challenge)
+            policy = self._effective_policy(challenge)
             source_challenge = challenge + 1
             source_cid = catalog[source_challenge]["dataset"]["cid"]
             artifact = self.ipfs.download(source_cid, progress=progress)

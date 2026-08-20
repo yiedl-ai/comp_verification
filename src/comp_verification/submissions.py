@@ -28,6 +28,14 @@ class DecryptedSubmission:
     key_member: str
 
 
+@dataclass(frozen=True)
+class ParsedDynamicSubmission:
+    predictions: dict[str, Decimal]
+    extras: tuple[str, ...]
+    duplicates: tuple[str, ...]
+    missing: tuple[str, ...]
+
+
 def decrypt_submission_archive(
     archive_path: Path, private_key_path: Path, expected_address: str
 ) -> DecryptedSubmission:
@@ -135,6 +143,68 @@ def parse_predictions(
     if missing:
         raise InvalidSubmission(f"missing prediction symbols: {missing}")
     return {symbol: parsed[symbol] for symbol in symbols}
+
+
+def parse_dynamic_predictions(
+    predictions_csv: bytes,
+    symbols: tuple[str, ...],
+    *,
+    aliases: dict[str, str],
+) -> ParsedDynamicSubmission:
+    """Reproduce the partial-coverage parser introduced for challenge 167."""
+
+    try:
+        frame = pd.read_csv(io.BytesIO(predictions_csv), header=None, index_col=None)
+    except (pd.errors.ParserError, UnicodeDecodeError, ValueError) as error:
+        raise InvalidSubmission("prediction CSV could not be parsed") from error
+    frame.dropna(how="all", inplace=True)
+    if len(frame) == 0:
+        raise InvalidSubmission("prediction CSV has no usable rows")
+    if frame.shape[1] < 2:
+        raise InvalidSubmission("prediction CSV must contain at least two columns")
+    if (
+        str(frame.iloc[0, 0]).strip() == "symbol"
+        and str(frame.iloc[0, 1]).strip() == "prediction"
+    ):
+        frame = frame.iloc[1:].copy()
+    if len(frame) == 0:
+        raise InvalidSubmission("prediction CSV has no usable rows after header")
+    frame = frame.iloc[:, :2].copy()
+    frame.columns = ["symbol", "prediction"]
+
+    normalized_symbols: list[str] = []
+    for raw_symbol in frame["symbol"].tolist():
+        if pd.isna(raw_symbol) or not str(raw_symbol).strip():
+            raise InvalidSubmission("missing prediction symbol")
+        symbol = str(raw_symbol).strip()
+        normalized_symbols.append(aliases.get(symbol, symbol))
+    frame["symbol"] = normalized_symbols
+    try:
+        frame["prediction"] = pd.to_numeric(frame["prediction"], errors="raise")
+    except (TypeError, ValueError) as error:
+        raise InvalidSubmission("malformed numeric prediction") from error
+    if frame["prediction"].isna().any():
+        raise InvalidSubmission("missing prediction")
+    if not all(math.isfinite(float(value)) for value in frame["prediction"]):
+        raise InvalidSubmission("non-finite prediction")
+
+    duplicate_mask = frame["symbol"].duplicated(keep="first")
+    duplicates = tuple(frame.loc[duplicate_mask, "symbol"].tolist())
+    frame = frame.loc[~duplicate_mask].copy()
+    allowed = set(symbols)
+    extras = tuple(sorted(set(frame["symbol"]) - allowed))
+    frame = frame[frame["symbol"].isin(allowed)].copy()
+    parsed = {
+        str(row.symbol): Decimal(str(row.prediction))
+        for row in frame.itertuples(index=False)
+    }
+    missing = tuple(sorted(allowed - set(parsed)))
+    return ParsedDynamicSubmission(
+        predictions=parsed,
+        extras=extras,
+        duplicates=duplicates,
+        missing=missing,
+    )
 
 
 def _decrypt_aes_gcm(blob: bytes, key: bytes) -> bytes:

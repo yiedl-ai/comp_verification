@@ -10,12 +10,20 @@ import pandas as pd
 
 
 def read_realized_returns(
-    path: Path, *, binary_float: bool
+    path: Path, *, binary_float: bool, decimal_from_float_string: bool = False
 ) -> dict[str, Decimal]:
+    if binary_float and decimal_from_float_string:
+        raise ValueError("realized-return conversion modes are mutually exclusive")
     if binary_float:
         frame = pd.read_csv(path)
         return {
             str(row.symbol): Decimal(float(row["return"]))
+            for _, row in frame.iterrows()
+        }
+    if decimal_from_float_string:
+        frame = pd.read_csv(path)
+        return {
+            str(row.symbol): Decimal(str(row["return"]))
             for _, row in frame.iterrows()
         }
     frame = pd.read_csv(path, dtype=str)

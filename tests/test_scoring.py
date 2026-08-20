@@ -1,4 +1,5 @@
 from decimal import Decimal
+from pathlib import Path
 
 from comp_verification.scoring import (
     explicit_allocation,
@@ -6,6 +7,7 @@ from comp_verification.scoring import (
     relative_gain,
     score_prediction,
     wallet_reward,
+    read_realized_returns,
 )
 
 
@@ -41,3 +43,16 @@ def test_market_neutral_allocation_uses_average_tie_ranks() -> None:
         "B": Decimal("-1") / Decimal("4"),
         "C": Decimal("-1") / Decimal("4"),
     }
+
+
+def test_dynamic_answer_uses_decimal_of_pandas_float_string(tmp_path: Path) -> None:
+    source = tmp_path / "prices.csv"
+    source.write_text("date,symbol,return\n2026-07-12,BTC,0.1\n")
+
+    dynamic = read_realized_returns(
+        source, binary_float=False, decimal_from_float_string=True
+    )
+    legacy = read_realized_returns(source, binary_float=True)
+
+    assert dynamic == {"BTC": Decimal("0.1")}
+    assert legacy["BTC"] != Decimal("0.1")
