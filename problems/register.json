@@ -539,6 +539,73 @@
         ]
       },
       "status": "documented"
+    },
+    {
+      "affected_comparisons": 1,
+      "audit_treatment": {
+        "changes_outcome": false,
+        "mode": "unresolved-raw-mismatch",
+        "reason": "The final on-chain submission is now fully retrievable and valid, but the historical result zeroed it; backend retrieval or database evidence is required to determine why."
+      },
+      "classification": "unresolved-off-chain-zeroing",
+      "confidence": "high-on-mismatch-low-on-cause",
+      "details": {
+        "observations": [
+          "Challenge 73 publication integrity passes, all UPDOWN comparisons pass, and every other NEUTRAL comparison reproduces exactly.",
+          "The final CID is retrievable and CID-verified, decrypts with the published private key, authenticates the expected originator, and supplies every required 77-symbol policy asset exactly once with numeric predictions.",
+          "The raw CSV has 1,621 unique non-null symbols after historical dropna behavior, including the exact 77-symbol scoring basket; extra symbols are filtered by the recovered backend before scoring.",
+          "The encrypted prediction member is named 20240916_predictions.bin, but recovered production code accepts any non-originator .bin member.",
+          "Polygon included the submission 6h47m02s before NEUTRAL closed, and three other submissions followed it, ruling out a close-boundary snapshot race."
+        ],
+        "submission": {
+          "address": "0x43b7a5912528434aa27163feb26dd586d488abf8",
+          "archive_sha256": "e51ef239a913aadfb33cc834e7a22d3af391563a352dea8faef607ecc8c89a44",
+          "block": 61904152,
+          "cid": "QmXFWqVuLEvqRwtv7RQyczJRHGWQ8agzCejXpRVmE2mmgK",
+          "computed_relative_gain": "-0.04071256664702073565995035846",
+          "computed_wallet_reward": "-4.071257",
+          "digest": "0x8468607492990c6d232fd0710da2064607e06925967fd1355814e3327c401f28",
+          "prediction_member": "20240916_predictions.bin",
+          "predictions_sha256": "713108e576df1f35dd3fc62784d3f937849bebda0ba7db9bd1d3d03b8baadbbe",
+          "published_relative_gain": "0",
+          "published_wallet_reward": "0",
+          "submission_utc": "2024-09-16T18:10:10Z",
+          "transaction": "0x8477a977a61d3f4daf4c72cd1968e383aae0da1b4f548fbc4002e52284043c5b"
+        },
+        "submission_close": {
+          "block": 61915449,
+          "seconds_after_submission": 24422,
+          "submissions_after_affected_submission": 3,
+          "transaction": "0x55a99a58553b5a10cd414090c9a08ca25738ae0ef559393ba7f6093865ef3889",
+          "utc": "2024-09-17T00:57:12Z"
+        },
+        "working_hypotheses": [
+          "Transient IPFS retrieval or decryption failure on the production machine.",
+          "Production database insertion or series-state inconsistency."
+        ]
+      },
+      "documentation": {
+        "anchor": "challenge-73-neutral-valid-submission-published-as-zero",
+        "document": "docs/caveats.md",
+        "summary": "One challenge-73 NEUTRAL submission was published as zero despite being CID-verified, decryptable, correctly authenticated, complete, numeric, and included nearly seven hours before close."
+      },
+      "headline": "Challenge 73 NEUTRAL: Valid submission published as zero",
+      "id": "challenge-73-neutral-valid-submission-published-as-zero",
+      "scope": {
+        "addresses": [
+          "0x43b7a5912528434aa27163feb26dd586d488abf8"
+        ],
+        "audit_kinds": [
+          "scoring"
+        ],
+        "challenges": [
+          73
+        ],
+        "competitions": [
+          "NEUTRAL"
+        ]
+      },
+      "status": "open"
     }
   ],
   "schema_version": 1

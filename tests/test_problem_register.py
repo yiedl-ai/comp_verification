@@ -105,6 +105,22 @@ def test_register_captures_challenge_fifty_two_recovered_policy_boundary() -> No
     }
 
 
+def test_register_captures_challenge_seventy_three_zeroed_submission() -> None:
+    problem = load_problem_register().by_id(
+        "challenge-73-neutral-valid-submission-published-as-zero"
+    )
+
+    assert problem.status == "open"
+    assert problem.counts_as_pass is False
+    assert problem.raw["affected_comparisons"] == 1
+    assert problem.raw["details"]["submission"]["cid"] == (
+        "QmXFWqVuLEvqRwtv7RQyczJRHGWQ8agzCejXpRVmE2mmgK"
+    )
+    assert problem.raw["details"]["submission_close"][
+        "seconds_after_submission"
+    ] == 24422
+
+
 def test_report_reference_preserves_existing_report_shape() -> None:
     reference = load_problem_register().by_id(PROBLEM_ID).report_reference()
 

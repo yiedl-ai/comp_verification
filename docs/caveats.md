@@ -33,6 +33,35 @@ contains an explicit accepted adjudication.
 | 33 | NEUTRAL scoring | Last valid submission was published as zero | 1 | Open; raw mismatch remains a failure pending historical evidence or adjudication |
 | 40–42 | NEUTRAL and UPDOWN publication/scoring | Mistaken settlement, exact undo, corrected 30-symbol settlement | 8 | Accepted as one correction sequence; raw metadata irregularities remain visible |
 | 52 | NEUTRAL and UPDOWN scoring | Production switched to the 77-symbol basket one challenge before the recoverable repository history indicates | 0 | Exact recovered-policy pass; inference is retained in every scoring report |
+| 73 | NEUTRAL scoring | One valid, early submission was published as zero | 1 | Open; raw mismatch remains a failure pending historical retrieval/database evidence |
+
+## Challenge 73 NEUTRAL: valid submission published as zero
+
+Challenge 73 publication integrity passes, and all UPDOWN comparisons and all
+but one NEUTRAL comparison reproduce exactly. Address
+`0x43b7a5912528434aa27163feb26dd586d488abf8` has final submission CID
+`QmXFWqVuLEvqRwtv7RQyczJRHGWQ8agzCejXpRVmE2mmgK`, but its published gain and
+reward are zero. The verifier computes gain
+`-0.04071256664702073565995035846` and reward `-4.071257`, which should have
+been recorded as a burn.
+
+The archive is CID-verified (SHA-256
+`e51ef239a913aadfb33cc834e7a22d3af391563a352dea8faef607ecc8c89a44`),
+decrypts with the published private key, authenticates the expected originator,
+and contains a readable two-column CSV. After the same `dropna` behavior as the
+historical backend, its 1,621 unique non-null symbols include every required
+77-symbol policy asset exactly once and numeric predictions. The encrypted
+prediction member is named `20240916_predictions.bin`; the recovered production
+retrieval code accepts any non-originator `.bin`, so that filename is not a
+rejection explanation.
+
+Polygon included the submission in block `61904152` at 2024-09-16 18:10:10 UTC,
+transaction `0x8477a977a61d3f4daf4c72cd1968e383aae0da1b4f548fbc4002e52284043c5b`.
+NEUTRAL closed in block `61915449` at 2024-09-17 00:57:12 UTC, 6h47m02s later;
+three other submissions followed this one. This rules out a close-boundary
+race. A transient IPFS retrieval/decryption failure or production database
+insertion/state issue remains plausible, but historical backend logs are needed
+to prove the cause. The mismatch remains open.
 
 ## Challenge 52: production-only 77-symbol policy cutover
 
