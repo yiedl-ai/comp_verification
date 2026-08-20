@@ -1177,6 +1177,27 @@
       ]
     },
     {
+      "challenge": 57,
+      "competitions": [
+        {
+          "competition": "NEUTRAL",
+          "publication": "passed",
+          "scoring": "passed",
+          "scoring_caveated_comparison_count": 0,
+          "scoring_raw_mismatch_count": 0,
+          "submission_evidence": "present"
+        },
+        {
+          "competition": "UPDOWN",
+          "publication": "passed",
+          "scoring": "passed",
+          "scoring_caveated_comparison_count": 0,
+          "scoring_raw_mismatch_count": 0,
+          "submission_evidence": "present"
+        }
+      ]
+    },
+    {
       "challenge": 63,
       "competitions": [
         {
@@ -1301,6 +1322,27 @@
           "submission_evidence": "present"
         }
       ]
+    },
+    {
+      "challenge": 69,
+      "competitions": [
+        {
+          "competition": "NEUTRAL",
+          "publication": "passed",
+          "scoring": "not-run",
+          "scoring_caveated_comparison_count": null,
+          "scoring_raw_mismatch_count": null,
+          "submission_evidence": "not-run"
+        },
+        {
+          "competition": "UPDOWN",
+          "publication": "passed",
+          "scoring": "not-run",
+          "scoring_caveated_comparison_count": null,
+          "scoring_raw_mismatch_count": null,
+          "submission_evidence": "not-run"
+        }
+      ]
     }
   ],
   "fully_score_audited_challenges": [
@@ -1357,6 +1399,7 @@
     54,
     55,
     56,
+    57,
     63,
     64,
     65,
@@ -1367,15 +1410,15 @@
   "publication_audits": {
     "blocked": 0,
     "failed": 1,
-    "passed": 123,
-    "total": 124
+    "passed": 127,
+    "total": 128
   },
   "schema_version": 1,
   "scoring_audits": {
     "blocked": 1,
     "failed": 3,
-    "passed": 120,
-    "total": 124
+    "passed": 122,
+    "total": 126
   },
   "target_ready_challenges": [
     1,
@@ -1434,11 +1477,13 @@
     54,
     55,
     56,
+    57,
     63,
     64,
     65,
     66,
     67,
-    68
+    68,
+    69
   ]
 }
