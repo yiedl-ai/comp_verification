@@ -98,6 +98,149 @@ class ExtractedTargets:
         }
 
 
+@dataclass(frozen=True)
+class ExtractedEvaluationUniverse:
+    """Configured symbols present in validation and the latest train era."""
+
+    dataset_challenge: int
+    source_cid: str
+    source_member: str
+    latest_train_date: str
+    rows: tuple[tuple[str, str, str, str], ...]
+
+    def csv_bytes(self) -> bytes:
+        output = io.StringIO(newline="")
+        writer = csv.writer(output, lineterminator="\n")
+        writer.writerow(
+            ("symbol", "in_latest_train", "in_validation", "is_evaluation_symbol")
+        )
+        writer.writerows(self.rows)
+        return output.getvalue().encode("utf-8")
+
+    @property
+    def evaluation_symbols(self) -> tuple[str, ...]:
+        return tuple(row[0] for row in self.rows if row[3] == "true")
+
+
+def extract_evaluation_universe(
+    archive_path: Path,
+    *,
+    dataset_challenge: int,
+    source_cid: str,
+    configured_symbols: tuple[str, ...],
+    latest_train_symbols: set[str],
+    latest_train_date: str,
+) -> tuple[ExtractedEvaluationUniverse, zipfile.ZipInfo]:
+    """Reproduce configured ∩ validation ∩ latest-train symbol selection."""
+
+    with zipfile.ZipFile(archive_path) as archive:
+        matches = [
+            member
+            for member in archive.infolist()
+            if not member.is_dir()
+            and Path(member.filename).name.lower() == "validation_dataset.csv"
+        ]
+        if len(matches) != 1:
+            raise ValueError(
+                f"expected one validation_dataset.csv, found {len(matches)}"
+            )
+        member = matches[0]
+        with archive.open(member) as binary:
+            text = io.TextIOWrapper(binary, encoding="utf-8-sig", newline="")
+            reader = csv.DictReader(text)
+            if "symbol" not in (reader.fieldnames or []):
+                raise ValueError(f"{member.filename} lacks symbol column")
+            validation_rows = [
+                (row.get("symbol") or "").strip() for row in reader
+            ]
+        configured = set(configured_symbols)
+        relevant = [symbol for symbol in validation_rows if symbol in configured]
+        duplicates = sorted(
+            symbol for symbol in set(relevant) if relevant.count(symbol) > 1
+        )
+        if duplicates:
+            raise ValueError(
+                f"duplicate configured validation symbols: {duplicates}"
+            )
+        validation = set(relevant)
+        rows = tuple(
+            (
+                symbol,
+                str(symbol in latest_train_symbols).lower(),
+                str(symbol in validation).lower(),
+                str(symbol in latest_train_symbols and symbol in validation).lower(),
+            )
+            for symbol in sorted(configured)
+        )
+        result = ExtractedEvaluationUniverse(
+            dataset_challenge=dataset_challenge,
+            source_cid=source_cid,
+            source_member=member.filename,
+            latest_train_date=latest_train_date,
+            rows=rows,
+        )
+        if not result.evaluation_symbols:
+            raise ValueError(f"dataset {dataset_challenge} has no evaluation symbols")
+        return result, member
+
+
+def write_evaluation_fixture(
+    universe: ExtractedEvaluationUniverse,
+    member: zipfile.ZipInfo,
+    archive_sha256: str,
+    destination: Path,
+) -> dict[str, Any]:
+    rendered = universe.csv_bytes()
+    provenance = {
+        "schema_version": 1,
+        "dataset_challenge": universe.dataset_challenge,
+        "source_cid": universe.source_cid,
+        "source_archive_sha256": archive_sha256,
+        "source_member": universe.source_member,
+        "source_member_crc32": f"{member.CRC:08x}",
+        "source_member_compressed_size": member.compress_size,
+        "source_member_uncompressed_size": member.file_size,
+        "latest_train_date": universe.latest_train_date,
+        "configured_symbol_count": len(universe.rows),
+        "evaluation_symbol_count": len(universe.evaluation_symbols),
+        "evaluation_symbols": list(universe.evaluation_symbols),
+        "fixture_sha256": hashlib.sha256(rendered).hexdigest(),
+    }
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_bytes(rendered)
+    destination.with_suffix(".json").write_bytes(canonical_json_bytes(provenance))
+    return provenance
+
+
+def verify_evaluation_fixture(
+    universe: ExtractedEvaluationUniverse,
+    member: zipfile.ZipInfo,
+    archive_sha256: str,
+    destination: Path,
+) -> None:
+    expected = universe.csv_bytes()
+    if destination.read_bytes() != expected:
+        raise ValueError(f"evaluation fixture differs from source dataset: {destination}")
+    provenance = json.loads(destination.with_suffix(".json").read_text(encoding="utf-8"))
+    expected_provenance = {
+        "schema_version": 1,
+        "dataset_challenge": universe.dataset_challenge,
+        "source_cid": universe.source_cid,
+        "source_archive_sha256": archive_sha256,
+        "source_member": universe.source_member,
+        "source_member_crc32": f"{member.CRC:08x}",
+        "source_member_compressed_size": member.compress_size,
+        "source_member_uncompressed_size": member.file_size,
+        "latest_train_date": universe.latest_train_date,
+        "configured_symbol_count": len(universe.rows),
+        "evaluation_symbol_count": len(universe.evaluation_symbols),
+        "evaluation_symbols": list(universe.evaluation_symbols),
+        "fixture_sha256": hashlib.sha256(expected).hexdigest(),
+    }
+    if provenance != expected_provenance:
+        raise ValueError(f"evaluation provenance differs from source: {destination}")
+
+
 def extract_latest_targets(
     archive_path: Path,
     *,

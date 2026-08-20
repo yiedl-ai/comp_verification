@@ -64,6 +64,34 @@ STATIC_77_SYMBOLS = (
     "TOKEN", "TRX", "UNI", "USDT", "XLM", "XMR", "XRP", "XTZ", "XVS", "YFI",
 )
 
+DYNAMIC_153_SYMBOLS = (
+    "BTC", "LTC", "XRP", "DOGE", "DASH", "XMR", "XLM", "ETH", "ETC", "ZEC",
+    "ZEN", "IOTA", "BCH", "BNB", "TRX", "LINK", "ADA", "FIL", "SNX", "BSV",
+    "FET", "ATOM", "RSR", "ALGO", "RUNE", "LUNC", "HBAR", "PAXG", "STX", "TRB",
+    "SOL", "CELO", "UMA", "AR", "RENDER", "COMP", "AVAX", "SHIB", "SAND", "NEAR",
+    "CRV", "DOT", "SUSHI", "AXS", "GALA", "UNI", "CAKE", "INJ", "AAVE", "CFX",
+    "LDO", "MINA", "ICP", "PENDLE", "IMX", "FLOKI", "TON", "OP", "ARB", "GMX",
+    "WLD", "MANTA", "ENS", "PEOPLE", "GMT", "APE", "APEX", "KAS", "SUI", "ONDO",
+    "ZETA", "APT", "STRK", "TIA", "TAO", "BONK", "BLUR", "SEI", "ZK", "PEPE",
+    "BERA", "TURBO", "ORDI", "ZRO", "MNT", "LINEA", "PYTH", "MEME", "POL", "JTO",
+    "WIF", "POPCAT", "NOT", "DYM", "XAI", "ALT", "JUP", "AERO", "VIRTUAL", "W",
+    "BRETT", "ETHFI", "IO", "BOME", "sENA", "TNSR", "EIGEN", "MON", "MERL", "REZ",
+    "SOPH", "HYPE", "ME", "BABY", "MOVE", "NEIRO", "S", "GRASS", "SKY", "INIT",
+    "WCT", "WLFI", "GOAT", "FARTCOIN", "PNUT", "SYRUP", "USUAL", "AIXBT", "MORPHO",
+    "PENGU", "GRIFFAIN", "BIO", "ANIME", "TRUMP", "MELANIA", "VINE", "LAYER", "VVV",
+    "IP", "NIL", "KAITO", "ZORA", "HYPER", "ASTER", "PUMP", "XPL", "CC", "PROVE",
+    "HEMI", "AVNT", "0G", "2Z", "LIT",
+)
+
+DYNAMIC_SYMBOL_ALIASES = (
+    ("RNDR", "RENDER"),
+    ("FTM", "S"),
+    ("MATIC", "POL"),
+    ("SENA", "sENA"),
+    ("sena", "sENA"),
+    ("Sena", "sENA"),
+)
+
 
 @dataclass(frozen=True)
 class ScoringPolicy:

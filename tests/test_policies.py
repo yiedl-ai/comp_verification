@@ -1,6 +1,10 @@
 import pytest
 
-from comp_verification.policies import policy_for_challenge
+from comp_verification.policies import (
+    DYNAMIC_153_SYMBOLS,
+    DYNAMIC_SYMBOL_ALIASES,
+    policy_for_challenge,
+)
 
 
 @pytest.mark.parametrize(
@@ -29,3 +33,16 @@ def test_policy_boundaries(challenge: int, policy_id: str, symbol_count: int) ->
 def test_dynamic_or_out_of_range_challenges_are_not_static(challenge: int) -> None:
     with pytest.raises(ValueError):
         policy_for_challenge(challenge)
+
+
+def test_dynamic_basket_and_aliases_match_the_source_configuration() -> None:
+    assert len(DYNAMIC_153_SYMBOLS) == 153
+    assert len(set(DYNAMIC_153_SYMBOLS)) == 153
+    assert dict(DYNAMIC_SYMBOL_ALIASES) == {
+        "RNDR": "RENDER",
+        "FTM": "S",
+        "MATIC": "POL",
+        "SENA": "sENA",
+        "sena": "sENA",
+        "Sena": "sENA",
+    }

@@ -15,8 +15,11 @@ from .chain_evidence import (
 )
 from .config import VerifierConfig
 from .datasets import (
+    extract_evaluation_universe,
     extract_latest_targets,
+    verify_evaluation_fixture,
     verify_target_fixture,
+    write_evaluation_fixture,
     write_target_fixture,
 )
 from .encoding import digest_to_cid_v0, file_cid_v0
@@ -24,6 +27,7 @@ from .ingestion import ingest_challenges, ingest_dataset_catalog
 from .ipfs import DownloadedArtifact, IpfsGateway, ProgressCallback
 from .jsonio import write_canonical_json
 from .rpc import PolygonRpc
+from .policies import DYNAMIC_153_SYMBOLS
 
 
 @dataclass(frozen=True)
@@ -297,6 +301,65 @@ class EvidenceWorkflow:
                 computed_cid,
                 destination,
             )
+            condensed_outputs = [
+                {
+                    "kind": "latest-targets",
+                    "scoring_challenge": scoring_challenge,
+                    "path": str(destination.relative_to(self.root)),
+                    "sha256": checked_targets.provenance(
+                        artifact.sha256,
+                        artifact.size,
+                        computed_cid,
+                        checked_member,
+                    )["targets_sha256"],
+                }
+            ]
+            if source_challenge >= 167:
+                latest_train_symbols = {row[0] for row in checked_targets.rows}
+                evaluation, evaluation_member = extract_evaluation_universe(
+                    artifact.path,
+                    dataset_challenge=source_challenge,
+                    source_cid=source_cid,
+                    configured_symbols=DYNAMIC_153_SYMBOLS,
+                    latest_train_symbols=latest_train_symbols,
+                    latest_train_date=checked_targets.date,
+                )
+                evaluation_destination = (
+                    self.root
+                    / "data"
+                    / "evaluation"
+                    / f"challenge-{source_challenge:03d}.csv"
+                )
+                evaluation_provenance = write_evaluation_fixture(
+                    evaluation,
+                    evaluation_member,
+                    artifact.sha256,
+                    evaluation_destination,
+                )
+                checked_evaluation, checked_evaluation_member = (
+                    extract_evaluation_universe(
+                        artifact.path,
+                        dataset_challenge=source_challenge,
+                        source_cid=source_cid,
+                        configured_symbols=DYNAMIC_153_SYMBOLS,
+                        latest_train_symbols=latest_train_symbols,
+                        latest_train_date=checked_targets.date,
+                    )
+                )
+                verify_evaluation_fixture(
+                    checked_evaluation,
+                    checked_evaluation_member,
+                    artifact.sha256,
+                    evaluation_destination,
+                )
+                condensed_outputs.append(
+                    {
+                        "kind": "evaluation-symbols",
+                        "scoring_challenge": source_challenge,
+                        "path": str(evaluation_destination.relative_to(self.root)),
+                        "sha256": evaluation_provenance["fixture_sha256"],
+                    }
+                )
             artifact_manifest = {
                 "schema_version": 1,
                 "dataset_challenge": source_challenge,
@@ -310,19 +373,7 @@ class EvidenceWorkflow:
                 "source_member_crc32": f"{checked_member.CRC:08x}",
                 "source_member_compressed_size": checked_member.compress_size,
                 "source_member_uncompressed_size": checked_member.file_size,
-                "condensed_outputs": [
-                    {
-                        "kind": "latest-targets",
-                        "scoring_challenge": scoring_challenge,
-                        "path": str(destination.relative_to(self.root)),
-                        "sha256": checked_targets.provenance(
-                            artifact.sha256,
-                            artifact.size,
-                            computed_cid,
-                            checked_member,
-                        )["targets_sha256"],
-                    }
-                ],
+                "condensed_outputs": condensed_outputs,
                 "verification_source": "raw-ipfs-archive",
             }
             write_canonical_json(
