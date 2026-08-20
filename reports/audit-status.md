@@ -1,7 +1,7 @@
 # Competition verification status
 
-- Scoring: 124/128 passed; 1 blocked; 3 failed
-- Publication: 127/128 passed; 0 blocked; 1 failed
+- Scoring: 126/130 passed; 1 blocked; 3 failed
+- Publication: 129/130 passed; 0 blocked; 1 failed
 
 | Challenge | NEUTRAL publication | NEUTRAL scoring | UPDOWN publication | UPDOWN scoring |
 | ---: | --- | --- | --- | --- |
@@ -69,3 +69,4 @@
 | 67 | passed | passed | passed | passed |
 | 68 | passed | passed | passed | passed |
 | 69 | passed | passed | passed | passed |
+| 70 | passed | passed | passed | passed |
