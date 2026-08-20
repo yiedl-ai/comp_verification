@@ -29,6 +29,25 @@ contains an explicit accepted adjudication.
 | 8 | NEUTRAL and UPDOWN | Likely submission-snapshot/RPC-sync/IPFS-availability race | 2 | Accepted as two caveated passes; raw mismatches remain visible |
 | 14 | NEUTRAL publication and scoring | Immutable results CID points to dataset 15; corrected CID is stored on-chain under information item 0 for the zero address | 1 | Accepted corrected reference; publication and scoring pass with caveat |
 | 19 | NEUTRAL and UPDOWN scoring | Three addresses unexpectedly published as zero in both competitions | 6 | Open; raw mismatches remain failures pending historical evidence or adjudication |
+| 28 | NEUTRAL publication and scoring | Results CID contains the challenge-29 RSA public key | 1 | Open; publication fails and scoring is blocked pending an authenticated correction |
+
+## Challenge 28 NEUTRAL: results CID is the challenge 29 public key
+
+Challenge 28 NEUTRAL records results CID
+`QmUZ1n2BGvpoHJXGXnpBenXs92DKVczsvyMq51ksb8zzK2` and digest
+`0x5c50e9901763a21fef577e09b6d0cad3fbceecf7d213be8eda2bf3cdc25202b1`.
+The 450 CID-verified bytes (SHA-256
+`87aa6fa9b96345d40f4b22f57f644a53a358f3011cd1a9d52c0d0e30a3f984c5`)
+are a PEM RSA public key, not a results CSV. Both contracts record that exact
+CID and digest as the challenge-29 public key.
+
+The bad digest was published by transaction
+`0x2f341b417bda5b9043cf4d2ce4251ba202f90d65f31a86701a5eba1883b4f96e`
+in Polygon block `50438838` at 2023-11-27 04:34:43 UTC. Challenge 28
+UPDOWN uses a different results CID and passes publication and scoring exactly.
+NEUTRAL remains a publication failure with scoring blocked until a corrected
+results file is located and authenticated, preferably through an on-chain
+information entry like the accepted challenge-14 correction.
 
 ## Challenge 19: three addresses zeroed in both competitions
 

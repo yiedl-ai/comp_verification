@@ -79,6 +79,17 @@ def test_register_captures_open_challenge_nineteen_mismatches() -> None:
     assert problem.scope.challenges == frozenset({19})
 
 
+def test_register_captures_challenge_twenty_eight_bad_result_reference() -> None:
+    problem = load_problem_register().by_id(
+        "challenge-28-neutral-results-cid-is-challenge-29-public-key"
+    )
+
+    assert problem.status == "open"
+    assert problem.counts_as_pass is False
+    assert problem.scope.audit_kinds == frozenset({"publication", "scoring"})
+    assert problem.raw["details"]["result_reference"]["size"] == 450
+
+
 def test_report_reference_preserves_existing_report_shape() -> None:
     reference = load_problem_register().by_id(PROBLEM_ID).report_reference()
 

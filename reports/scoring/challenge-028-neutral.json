@@ -1,0 +1,31 @@
+{
+  "audit_status": "blocked-by-publication-failure",
+  "caveats": [
+    {
+      "anchor": "challenge-28-neutral-results-cid-is-challenge-29-public-key",
+      "classification": "incorrect-on-chain-content-reference",
+      "counts_as_pass": false,
+      "document": "docs/caveats.md",
+      "id": "challenge-28-neutral-results-cid-is-challenge-29-public-key",
+      "summary": "Challenge 28 NEUTRAL's immutable results CID contains the challenge-29 RSA public key, so publication fails and scoring is blocked pending an authenticated correction."
+    }
+  ],
+  "challenge": 28,
+  "comparison_count": 0,
+  "competition": "NEUTRAL",
+  "mismatch_count": 0,
+  "participant_count": 92,
+  "participants": [],
+  "passed": false,
+  "policy_id": "legacy-37-restored",
+  "policy_source_files_sha256": {
+    "library/score_reward.py": "b49e2391d140864ee7555c19d98f03e10c1364ee354b962dea527de0b695eb7b"
+  },
+  "policy_source_git_commit": "ad6044c",
+  "policy_status": "source-derived-candidate",
+  "problem": "ValueError: results file lacks columns ['address', 'challenge', 'competition', 'relative_gain', 'stake', 'wallet_reward']",
+  "raw_passed": false,
+  "result_bytes_sha256": "87aa6fa9b96345d40f4b22f57f644a53a358f3011cd1a9d52c0d0e30a3f984c5",
+  "result_cid": "QmUZ1n2BGvpoHJXGXnpBenXs92DKVczsvyMq51ksb8zzK2",
+  "schema_version": 1
+}
