@@ -1,6 +1,8 @@
 """Small, explicit Ethereum ABI and CID helpers used by the verifier."""
 
 import hashlib
+from dataclasses import dataclass
+from pathlib import Path
 
 from Crypto.Hash import keccak
 
@@ -107,6 +109,79 @@ def single_block_file_cid_v0(content: bytes) -> str:
     dag_pb_node = b"\x0a" + _protobuf_varint(len(unixfs)) + unixfs
     multihash = b"\x12\x20" + hashlib.sha256(dag_pb_node).digest()
     return base58_encode(multihash)
+
+
+@dataclass(frozen=True)
+class _UnixFsNode:
+    multihash: bytes
+    file_size: int
+    cumulative_size: int
+
+
+def file_cid_v0(
+    path: Path,
+    *,
+    chunk_size: int = 256 * 1024,
+    max_links: int = 174,
+) -> str:
+    """Reproduce the default balanced UnixFS CIDv0 importer for a local file."""
+
+    if chunk_size <= 0 or max_links <= 1:
+        raise ValueError("invalid UnixFS importer parameters")
+    leaves: list[_UnixFsNode] = []
+    with path.open("rb") as stream:
+        while chunk := stream.read(chunk_size):
+            leaves.append(_unixfs_leaf(chunk))
+    if not leaves:
+        leaves.append(_unixfs_leaf(b""))
+    nodes = leaves
+    while len(nodes) > 1:
+        nodes = [
+            _unixfs_parent(nodes[start : start + max_links])
+            for start in range(0, len(nodes), max_links)
+        ]
+    return base58_encode(nodes[0].multihash)
+
+
+def _unixfs_leaf(content: bytes) -> _UnixFsNode:
+    unixfs = (
+        b"\x08\x02"
+        + b"\x12"
+        + _protobuf_varint(len(content))
+        + content
+        + b"\x18"
+        + _protobuf_varint(len(content))
+    )
+    dag_pb_node = b"\x0a" + _protobuf_varint(len(unixfs)) + unixfs
+    multihash = b"\x12\x20" + hashlib.sha256(dag_pb_node).digest()
+    return _UnixFsNode(multihash, len(content), len(dag_pb_node))
+
+
+def _unixfs_parent(children: list[_UnixFsNode]) -> _UnixFsNode:
+    file_size = sum(child.file_size for child in children)
+    unixfs = b"\x08\x02" + b"\x18" + _protobuf_varint(file_size)
+    # The historical Go UnixFS encoder emitted repeated uint64 fields unpacked.
+    unixfs += b"".join(
+        b"\x20" + _protobuf_varint(child.file_size) for child in children
+    )
+    links = b""
+    for child in children:
+        link = (
+            b"\x0a"
+            + _protobuf_varint(len(child.multihash))
+            + child.multihash
+            + b"\x12\x00"
+            + b"\x18"
+            + _protobuf_varint(child.cumulative_size)
+        )
+        links += b"\x12" + _protobuf_varint(len(link)) + link
+    # dag-pb's historical Go marshaler writes Links before Data.
+    dag_pb_node = links + b"\x0a" + _protobuf_varint(len(unixfs)) + unixfs
+    multihash = b"\x12\x20" + hashlib.sha256(dag_pb_node).digest()
+    cumulative_size = len(dag_pb_node) + sum(
+        child.cumulative_size for child in children
+    )
+    return _UnixFsNode(multihash, file_size, cumulative_size)
 
 
 def _protobuf_varint(value: int) -> bytes:

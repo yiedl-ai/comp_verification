@@ -1,4 +1,8 @@
-from comp_verification.chain_evidence import _normalize_event
+import json
+from pathlib import Path
+
+from comp_verification.chain_evidence import _normalize_event, verify_tracked_snapshots
+from comp_verification.constants import CHAIN_ID
 from comp_verification.encoding import event_topic
 from comp_verification.summary import _submission_event
 
@@ -61,3 +65,41 @@ def test_find_submission_event_by_topic_address() -> None:
     manifest = {"competitions": {"UPDOWN": {"events": [event]}}}
 
     assert _submission_event(manifest, "UPDOWN", address) == event
+
+
+def test_snapshot_verification_derives_dataset_range_from_catalog(
+    tmp_path: Path, monkeypatch
+) -> None:
+    catalog = {
+        "schema_version": 1,
+        "chain_id": CHAIN_ID,
+        "observed_block": 123,
+        "datasets": [
+            {"challenge": 1, "dataset": {}},
+            {"challenge": 173, "dataset": {}},
+        ],
+    }
+    catalog_path = tmp_path / "datasets.json"
+    catalog_path.write_text(json.dumps(catalog), encoding="utf-8")
+    captured = []
+
+    class _Rpc:
+        def chain_id(self):
+            return CHAIN_ID
+
+    def _ingest(rpc, challenges, destination, *, block_number=None):
+        captured.extend(challenges)
+        return catalog
+
+    monkeypatch.setattr("comp_verification.chain_evidence.ingest_dataset_catalog", _ingest)
+
+    report = verify_tracked_snapshots(
+        _Rpc(),
+        tmp_path / "chain",
+        catalog_path,
+        tmp_path / "scratch",
+        tmp_path / "report.json",
+    )
+
+    assert captured == [1, 173]
+    assert report["passed"] is True

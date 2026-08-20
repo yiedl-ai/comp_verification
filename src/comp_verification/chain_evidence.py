@@ -81,9 +81,10 @@ def verify_tracked_snapshots(
         )
 
     expected_catalog = json.loads(dataset_catalog_path.read_text(encoding="utf-8"))
+    dataset_challenges = [row["challenge"] for row in expected_catalog["datasets"]]
     actual_catalog = ingest_dataset_catalog(
         rpc,
-        range(1, 12),
+        dataset_challenges,
         scratch_directory / "datasets.json",
         block_number=expected_catalog["observed_block"],
     )

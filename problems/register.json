@@ -1,0 +1,106 @@
+{
+  "problems": [
+    {
+      "affected_comparisons": 2,
+      "audit_treatment": {
+        "changes_outcome": true,
+        "mode": "accepted-historical-exception",
+        "reason": "The two raw mismatches are retained as evidence but count as caveated passes under the accepted historical adjudication."
+      },
+      "classification": "inferred-operational-exception",
+      "confidence": "high",
+      "details": {
+        "expected_backend_behavior": [
+          "After close, pin reads to an explicit block at or after SubmissionClosed and verify the RPC provider has reached it.",
+          "Retry every final on-chain CID and fail or defer finalization explicitly when content is unavailable.",
+          "Never silently convert a missing or unavailable submission into a zero score or reward."
+        ],
+        "observations": [
+          "Polygon accepted both final CIDs before SubmissionClosed.",
+          "Both archives now pass CID, decryption, originator, schema, symbol, and numeric validation.",
+          "This address was the last submitter in both competitions and the only valid challenge-8 submission published as zero.",
+          "The same address used the same headerless CSV structure in challenges 9 and 10 and was scored exactly there."
+        ],
+        "submissions": [
+          {
+            "address": "0x8a8e1c4e454e092fc19c6cca2034bd22b29781e7",
+            "block": 44653464,
+            "block_inclusion_sgt": "2023-07-04T08:37:49+08:00",
+            "blocks_before_close": 301,
+            "cid": "QmckC49ng6oBt3Bbsg8Q2HYefBq41ri1H3x3pXjUzLuVcm",
+            "close_utc": "2023-07-04T00:49:05Z",
+            "competition": "NEUTRAL",
+            "computed_relative_gain": "-0.000813248548254817097158917250",
+            "computed_wallet_reward": "-2.890565",
+            "digest": "0xd60b6b0db38519eb72adc6c17a8280f549b6fd196dbcd17efdfa679bb8c3d6ba",
+            "ipfs_upload_sgt_approximate": "2023-07-04T08:37:40+08:00",
+            "published_relative_gain": "0",
+            "published_wallet_reward": "0",
+            "seconds_before_close": 676,
+            "transaction": "0x9399b7493668cde00743203de0e14095913c3b56cc417dca4f6819ccef9b01cb",
+            "upload_to_block_inclusion_seconds_approximate": 9
+          },
+          {
+            "address": "0x8a8e1c4e454e092fc19c6cca2034bd22b29781e7",
+            "block": 44653618,
+            "block_inclusion_sgt": "2023-07-04T08:43:49+08:00",
+            "blocks_before_close": 130,
+            "cid": "QmWDDvp3H38SgKPX7RNfhDQy16VT9tpqjqaFafpeAYhQCX",
+            "close_utc": "2023-07-04T00:48:29Z",
+            "competition": "UPDOWN",
+            "computed_relative_gain": "-0.05182980315480892573685570151",
+            "computed_wallet_reward": "-4.412622",
+            "digest": "0x74f668eb82a4b7a26133617a706b84f2c25e4146b930d9e6b2b964eebb5f7368",
+            "ipfs_upload_sgt_approximate": "2023-07-04T08:43:38+08:00",
+            "published_relative_gain": "0",
+            "published_wallet_reward": "0",
+            "seconds_before_close": 280,
+            "transaction": "0x426c5ad6caed2aeedcbebc9b47a37afbe4226fdd97c9571ad45d7ca9c54c42ac",
+            "upload_to_block_inclusion_seconds_approximate": 11
+          }
+        ],
+        "working_hypotheses": [
+          {
+            "explanation": "The backend captured or processed its submission set before final on-chain close state.",
+            "id": "early-submission-snapshot",
+            "rank": 1
+          },
+          {
+            "explanation": "The backend read from an RPC or indexer that had not synchronized through the close block.",
+            "id": "rpc-or-indexer-lag",
+            "rank": 2
+          },
+          {
+            "explanation": "The CIDs were temporarily unavailable through the backend's IPFS peers or gateway.",
+            "id": "ipfs-availability",
+            "rank": 3
+          }
+        ]
+      },
+      "documentation": {
+        "anchor": "challenge-8-late-submission-rpc-synchronization-and-ipfs-availability",
+        "document": "docs/caveats.md",
+        "summary": "The early backend likely captured submissions before the final on-chain close state, read from a lagging RPC, or encountered late IPFS availability; the two raw mismatches are accepted as caveated historical exceptions."
+      },
+      "headline": "Challenge 8: Late submissions likely omitted by an early or stale backend snapshot",
+      "id": "challenge-8-late-submission-rpc-sync-and-ipfs-availability",
+      "scope": {
+        "addresses": [
+          "0x8a8e1c4e454e092fc19c6cca2034bd22b29781e7"
+        ],
+        "audit_kinds": [
+          "scoring"
+        ],
+        "challenges": [
+          8
+        ],
+        "competitions": [
+          "NEUTRAL",
+          "UPDOWN"
+        ]
+      },
+      "status": "accepted"
+    }
+  ],
+  "schema_version": 1
+}

@@ -1,8 +1,11 @@
 import hashlib
+import json
 from pathlib import Path
 
+import pytest
+
 from comp_verification.encoding import single_block_file_cid_v0
-from comp_verification.ipfs import IpfsGateway
+from comp_verification.ipfs import DownloadedArtifact, IpfsDownloadError, IpfsGateway
 
 
 class OfflineGateway(IpfsGateway):
@@ -23,3 +26,75 @@ def test_recorded_hash_can_adopt_an_unmarked_cached_file(tmp_path: Path) -> None
 
     assert artifact.sha256 == expected
     assert (cache / f"{cid}.complete").exists()
+
+
+def test_prune_verified_artifact_removes_only_file_and_marker(tmp_path: Path) -> None:
+    payload = b"verified dataset"
+    cid = single_block_file_cid_v0(payload)
+    cache = tmp_path / "ipfs"
+    cache.mkdir()
+    path = cache / cid
+    marker = cache / f"{cid}.complete"
+    unrelated = cache / "keep-me"
+    path.write_bytes(payload)
+    digest = hashlib.sha256(payload).hexdigest()
+    marker.write_text(
+        json.dumps(
+            {"sha256": digest, "size": len(payload)},
+            sort_keys=True,
+            separators=(",", ":"),
+        ),
+        encoding="ascii",
+    )
+    unrelated.write_bytes(b"unrelated")
+    gateway = OfflineGateway("https://ipfs.example/ipfs", cache)
+    artifact = gateway.download(cid, expected_sha256=digest)
+
+    gateway.prune_verified_artifact(artifact)
+
+    assert not path.exists()
+    assert not marker.exists()
+    assert unrelated.read_bytes() == b"unrelated"
+
+
+def test_prune_refuses_changed_marker_and_keeps_raw_bytes(tmp_path: Path) -> None:
+    payload = b"verified dataset"
+    cid = single_block_file_cid_v0(payload)
+    cache = tmp_path / "ipfs"
+    cache.mkdir()
+    path = cache / cid
+    marker = cache / f"{cid}.complete"
+    path.write_bytes(payload)
+    digest = hashlib.sha256(payload).hexdigest()
+    marker.write_text(
+        json.dumps({"sha256": "wrong", "size": len(payload)}), encoding="ascii"
+    )
+    artifact = DownloadedArtifact(cid, path, len(payload), digest)
+    gateway = OfflineGateway("https://ipfs.example/ipfs", cache)
+
+    with pytest.raises(IpfsDownloadError, match="marker"):
+        gateway.prune_verified_artifact(artifact)
+
+    assert path.exists()
+    assert marker.exists()
+
+
+def test_prune_accepts_legacy_size_marker_after_hash_and_cid_checks(
+    tmp_path: Path,
+) -> None:
+    payload = b"legacy verified dataset"
+    cid = single_block_file_cid_v0(payload)
+    cache = tmp_path / "ipfs"
+    cache.mkdir()
+    path = cache / cid
+    marker = cache / f"{cid}.complete"
+    path.write_bytes(payload)
+    marker.write_text(str(len(payload)), encoding="ascii")
+    artifact = DownloadedArtifact(
+        cid, path, len(payload), hashlib.sha256(payload).hexdigest()
+    )
+
+    OfflineGateway("https://ipfs.example/ipfs", cache).prune_verified_artifact(artifact)
+
+    assert not path.exists()
+    assert not marker.exists()

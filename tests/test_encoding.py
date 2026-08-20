@@ -2,6 +2,7 @@ from comp_verification.encoding import (
     decode_address_array,
     digest_to_cid_v0,
     encode_address,
+    file_cid_v0,
     function_selector,
     single_block_file_cid_v0,
 )
@@ -24,6 +25,13 @@ def test_single_block_unixfs_cid_v0() -> None:
         single_block_file_cid_v0(b"previously downloaded result evidence")
         == "QmWnnVnb1v4QvC7fBLAkcJe5ZXoR6zZrw6rjNCngt7aJdQ"
     )
+
+
+def test_balanced_multiblock_unixfs_cid_v0(tmp_path) -> None:
+    path = tmp_path / "large.bin"
+    path.write_bytes(b"a" * 300_000)
+
+    assert file_cid_v0(path) == "QmYCTciJdFNMNUPCHSNS6dKMmUAqkGQ9tQQeGgbELhQQcn"
 
 
 def test_decode_address_array() -> None:

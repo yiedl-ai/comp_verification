@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable
 
 from .constants import CHAIN_ID, CONTRACTS, REGISTRY_ADDRESS, ZERO_BYTES32
 from .encoding import decode_bytes32, decode_uint, digest_to_cid_v0
@@ -11,6 +11,7 @@ from .jsonio import write_canonical_json
 from .rpc import (
     PolygonRpc,
     bytes32_call,
+    decode_many,
     participant_call,
     read_addresses,
     read_bytes32,
@@ -46,25 +47,27 @@ def token_amount(raw_value: int) -> dict[str, str]:
 
 def ingest_dataset_catalog(
     rpc: PolygonRpc,
-    challenges: range,
+    challenges: Iterable[int],
     destination: Path,
     *,
     block_number: int | None = None,
 ) -> dict[str, Any]:
     observed_block = rpc.block_number() if block_number is None else block_number
     block = hex(observed_block)
+    selected = list(challenges)
+    calls = [
+        bytes32_call(address, "getDatasetHash(uint32)", challenge)
+        for challenge in selected
+        for address in CONTRACTS.values()
+    ]
+    values = decode_many(
+        rpc.multicall(calls, REGISTRY_ADDRESS, block=block), decode_bytes32
+    )
     rows = []
-    for challenge in challenges:
-        digests = {
-            name: read_bytes32(
-                rpc,
-                address,
-                "getDatasetHash(uint32)",
-                challenge,
-                block=block,
-            )
-            for name, address in CONTRACTS.items()
-        }
+    width = len(CONTRACTS)
+    for index, challenge in enumerate(selected):
+        chunk = values[index * width : (index + 1) * width]
+        digests = dict(zip(CONTRACTS, chunk, strict=True))
         if len(set(digests.values())) != 1:
             raise ValueError(f"competition dataset digests differ for challenge {challenge}")
         rows.append(
@@ -115,13 +118,15 @@ def ingest_challenge(
 
 def ingest_challenges(
     rpc: PolygonRpc,
-    challenges: range,
+    challenges: Iterable[int],
     destination: Path,
+    *,
+    block_number: int | None = None,
 ) -> list[dict[str, Any]]:
     chain_id = rpc.chain_id()
     if chain_id != CHAIN_ID:
         raise ValueError(f"expected Polygon chain {CHAIN_ID}, got {chain_id}")
-    observed_block = rpc.block_number()
+    observed_block = rpc.block_number() if block_number is None else block_number
     return [
         ingest_challenge(
             rpc,

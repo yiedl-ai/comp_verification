@@ -13,7 +13,7 @@ from typing import Callable
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
-from .encoding import single_block_file_cid_v0
+from .encoding import file_cid_v0, single_block_file_cid_v0
 
 
 _UNIXFS_BLOCK_SIZE = 256 * 1024
@@ -167,6 +167,45 @@ class IpfsGateway:
                 )
             )
         return artifacts
+
+    def prune_verified_artifact(self, artifact: DownloadedArtifact) -> None:
+        """Delete exactly one cache artifact and marker after strict hash checks."""
+
+        destination = self.cache / artifact.cid
+        marker = destination.parent / f"{destination.name}.complete"
+        if artifact.path != destination:
+            raise ValueError("artifact path is outside the expected IPFS cache location")
+        if destination.is_symlink() or marker.is_symlink():
+            raise ValueError("refusing to prune symlinked IPFS cache evidence")
+        if not destination.is_file() or not marker.is_file():
+            raise FileNotFoundError("verified artifact or completion marker is missing")
+        if destination.stat().st_size != artifact.size:
+            raise IpfsDownloadError("cached artifact size changed before pruning")
+        if _sha256_file(destination) != artifact.sha256:
+            raise IpfsDownloadError("cached artifact hash changed before pruning")
+        if file_cid_v0(destination) != artifact.cid:
+            raise IpfsDownloadError("cached artifact CID changed before pruning")
+        try:
+            marker_text = marker.read_text(encoding="ascii")
+            if marker_text.startswith("{"):
+                marker_evidence = json.loads(marker_text)
+                if marker_evidence != {
+                    "sha256": artifact.sha256,
+                    "size": artifact.size,
+                }:
+                    raise IpfsDownloadError(
+                        "completion marker differs from verified artifact"
+                    )
+            elif int(marker_text) != artifact.size:
+                raise IpfsDownloadError(
+                    "legacy completion marker differs from verified artifact"
+                )
+        except (OSError, TypeError, ValueError, json.JSONDecodeError) as error:
+            raise IpfsDownloadError("completion marker is not verifiable") from error
+        # Remove the marker first: interruption can leave recoverable raw bytes, but
+        # can never leave a marker claiming that missing bytes are complete.
+        marker.unlink()
+        destination.unlink()
 
     def _download_to_partial(
         self,

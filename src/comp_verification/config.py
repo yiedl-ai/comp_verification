@@ -54,9 +54,43 @@ class IpfsConfig:
 
 
 @dataclass(frozen=True)
+class ScopeConfig:
+    """Inclusive bounds for evidence collection and score-ready datasets."""
+
+    first_challenge: int = 1
+    last_challenge: int = 10
+    last_dataset_challenge: int = 11
+
+    def validate(self) -> None:
+        _positive("scope.first_challenge", self.first_challenge)
+        _positive("scope.last_challenge", self.last_challenge)
+        _positive("scope.last_dataset_challenge", self.last_dataset_challenge)
+        if self.last_challenge < self.first_challenge:
+            raise ValueError("scope.last_challenge must not precede first_challenge")
+        if self.last_dataset_challenge < self.first_challenge:
+            raise ValueError(
+                "scope.last_dataset_challenge must not precede first_challenge"
+            )
+
+    @property
+    def chain_challenges(self) -> range:
+        return range(self.first_challenge, self.last_challenge + 1)
+
+    @property
+    def dataset_challenges(self) -> range:
+        return range(self.first_challenge, self.last_dataset_challenge + 1)
+
+    @property
+    def score_ready_challenges(self) -> range:
+        last = min(self.last_challenge, self.last_dataset_challenge - 1)
+        return range(self.first_challenge, last + 1)
+
+
+@dataclass(frozen=True)
 class VerifierConfig:
     rpc: RpcConfig
     ipfs: IpfsConfig
+    scope: ScopeConfig = ScopeConfig()
 
     @classmethod
     def load(cls, path: Path) -> "VerifierConfig":
@@ -65,9 +99,11 @@ class VerifierConfig:
         config = cls(
             rpc=RpcConfig(**_table(raw, "rpc")),
             ipfs=IpfsConfig(**_table(raw, "ipfs")),
+            scope=ScopeConfig(**raw.get("scope", {})),
         )
         config.rpc.validate()
         config.ipfs.validate()
+        config.scope.validate()
         return config
 
 

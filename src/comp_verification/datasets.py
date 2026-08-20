@@ -49,6 +49,166 @@ class ExtractedPrices:
         }
 
 
+@dataclass(frozen=True)
+class ExtractedTargets:
+    """Lossless latest-date targets retained from one source dataset."""
+
+    scoring_challenge: int
+    source_dataset_challenge: int
+    source_cid: str
+    source_digest: str
+    source_member: str
+    date: str
+    target_columns: tuple[str, ...]
+    rows: tuple[tuple[str, ...], ...]
+
+    def csv_bytes(self) -> bytes:
+        output = io.StringIO(newline="")
+        writer = csv.writer(output, lineterminator="\n")
+        writer.writerow(("date", "symbol", *self.target_columns))
+        writer.writerows((self.date, *row) for row in self.rows)
+        return output.getvalue().encode("utf-8")
+
+    def provenance(
+        self,
+        archive_sha256: str,
+        archive_size: int,
+        computed_source_cid: str,
+        member: zipfile.ZipInfo,
+    ) -> dict[str, Any]:
+        rendered = self.csv_bytes()
+        return {
+            "schema_version": 1,
+            "scoring_challenge": self.scoring_challenge,
+            "source_dataset_challenge": self.source_dataset_challenge,
+            "source_cid": self.source_cid,
+            "source_digest": self.source_digest,
+            "computed_source_cid": computed_source_cid,
+            "source_cid_verified": computed_source_cid == self.source_cid,
+            "source_archive_sha256": archive_sha256,
+            "source_archive_size": archive_size,
+            "source_member": self.source_member,
+            "source_member_crc32": f"{member.CRC:08x}",
+            "source_member_compressed_size": member.compress_size,
+            "source_member_uncompressed_size": member.file_size,
+            "date": self.date,
+            "target_columns": list(self.target_columns),
+            "row_count": len(self.rows),
+            "targets_sha256": hashlib.sha256(rendered).hexdigest(),
+        }
+
+
+def extract_latest_targets(
+    archive_path: Path,
+    *,
+    scoring_challenge: int,
+    source_dataset_challenge: int,
+    source_cid: str,
+    source_digest: str,
+) -> tuple[ExtractedTargets, zipfile.ZipInfo]:
+    """Extract every symbol and target column from the archive's latest date."""
+
+    with zipfile.ZipFile(archive_path) as archive:
+        member = _find_train_dataset(archive)
+        with archive.open(member) as binary:
+            text = io.TextIOWrapper(binary, encoding="utf-8-sig", newline="")
+            reader = csv.DictReader(text)
+            fields = tuple(reader.fieldnames or ())
+            required = {"date", "symbol", "target_updown"}
+            missing = required - set(fields)
+            if missing:
+                raise ValueError(
+                    f"{member.filename} lacks required columns {sorted(missing)}"
+                )
+            target_columns = tuple(
+                column
+                for column in ("target_updown", "target_neutral")
+                if column in fields
+            )
+            latest_date: str | None = None
+            latest_rows: dict[str, tuple[str, ...]] = {}
+            for row in reader:
+                date = (row.get("date") or "").strip()
+                if not date:
+                    continue
+                symbol = (row.get("symbol") or "").strip()
+                if not symbol:
+                    raise ValueError(f"blank symbol on {date} in {member.filename}")
+                values = tuple((row.get(column) or "").strip() for column in target_columns)
+                for column, value in zip(target_columns, values, strict=True):
+                    if value:
+                        _validate_decimal(value, f"{symbol} {column}")
+                if latest_date is None or date > latest_date:
+                    latest_date = date
+                    latest_rows = {symbol: values}
+                elif date == latest_date:
+                    if symbol in latest_rows:
+                        raise ValueError(f"duplicate symbol {symbol} on {date}")
+                    latest_rows[symbol] = values
+        if latest_date is None or not latest_rows:
+            raise ValueError(f"no target rows found in {member.filename}")
+        rows = tuple(
+            (symbol, *latest_rows[symbol]) for symbol in sorted(latest_rows)
+        )
+        return (
+            ExtractedTargets(
+                scoring_challenge=scoring_challenge,
+                source_dataset_challenge=source_dataset_challenge,
+                source_cid=source_cid,
+                source_digest=source_digest,
+                source_member=member.filename,
+                date=latest_date,
+                target_columns=target_columns,
+                rows=rows,
+            ),
+            member,
+        )
+
+
+def write_target_fixture(
+    targets: ExtractedTargets,
+    member: zipfile.ZipInfo,
+    archive_sha256: str,
+    archive_size: int,
+    computed_source_cid: str,
+    destination: Path,
+) -> None:
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_bytes(targets.csv_bytes())
+    destination.with_suffix(".json").write_bytes(
+        canonical_json_bytes(
+            targets.provenance(
+                archive_sha256,
+                archive_size,
+                computed_source_cid,
+                member,
+            )
+        )
+    )
+
+
+def verify_target_fixture(
+    targets: ExtractedTargets,
+    member: zipfile.ZipInfo,
+    archive_sha256: str,
+    archive_size: int,
+    computed_source_cid: str,
+    destination: Path,
+) -> None:
+    if destination.read_bytes() != targets.csv_bytes():
+        raise ValueError(f"target fixture differs from source dataset: {destination}")
+    provenance_path = destination.with_suffix(".json")
+    actual = json.loads(provenance_path.read_text(encoding="utf-8"))
+    expected = targets.provenance(
+        archive_sha256,
+        archive_size,
+        computed_source_cid,
+        member,
+    )
+    if actual != expected:
+        raise ValueError(f"target provenance differs from source dataset: {provenance_path}")
+
+
 def extract_latest_realized_returns(
     archive_path: Path,
     *,

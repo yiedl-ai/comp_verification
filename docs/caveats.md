@@ -2,8 +2,9 @@
 
 This is the central register of limitations, historical exceptions, and
 operational explanations used by the competition verifier. Generated reports
-reference entries in this document; a caveat explains an observed discrepancy
-but does not silently turn a failed comparison into a pass.
+reference entries in this document. Raw comparisons are always retained. A
+caveat changes the reported outcome only when its machine-readable problem entry
+contains an explicit accepted adjudication.
 
 ## General caveats
 
@@ -25,7 +26,7 @@ but does not silently turn a failed comparison into a pass.
 
 | Challenge | Scope | Classification | Affected submissions | Audit treatment |
 | --- | --- | --- | ---: | --- |
-| 8 | NEUTRAL and UPDOWN | Likely submission-snapshot/RPC-sync/IPFS-availability race | 2 | Remains a scoring failure; see the detailed entry below |
+| 8 | NEUTRAL and UPDOWN | Likely submission-snapshot/RPC-sync/IPFS-availability race | 2 | Accepted as two caveated passes; raw mismatches remain visible |
 
 ## Challenge 8: late submission, RPC synchronization, and IPFS availability
 

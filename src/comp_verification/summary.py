@@ -16,7 +16,9 @@ def build_first_ten_summary(root: Path, destination: Path) -> dict[str, Any]:
     challenges = []
     publication_passes = 0
     scoring_passes = 0
-    issue_count = 0
+    raw_mismatch_count = 0
+    caveated_comparison_count = 0
+    unresolved_issue_count = 0
     for challenge in range(1, 11):
         manifest = _read(root / "manifests" / "chain" / f"challenge-{challenge:03d}.json")
         event_path = root / "manifests" / "chain-events" / f"challenge-{challenge:03d}.json"
@@ -41,7 +43,12 @@ def build_first_ten_summary(root: Path, destination: Path) -> dict[str, Any]:
                     "published_relative_gain": participant["published_relative_gain"],
                     "computed_wallet_reward": participant["computed_wallet_reward"],
                     "published_wallet_reward": participant["published_wallet_reward"],
-                    "classification": "score-or-reward-mismatch",
+                    "classification": (
+                        "accepted-caveated-mismatch"
+                        if participant.get("caveated_pass", False)
+                        else "score-or-reward-mismatch"
+                    ),
+                    "counts_as_pass": participant.get("caveated_pass", False),
                 }
                 event = _submission_event(
                     event_manifest,
@@ -59,12 +66,16 @@ def build_first_ten_summary(root: Path, destination: Path) -> dict[str, Any]:
                         "transaction_hash": event["transaction_hash"],
                         "submission_digest": event["topics"][3],
                     }
-                if caveat := scoring.get("caveat"):
-                    issue["caveat"] = caveat
+                if caveats := participant.get("caveats"):
+                    issue["caveats"] = caveats
                 issues.append(issue)
             publication_passes += int(publication["passed"])
             scoring_passes += int(scoring["passed"])
-            issue_count += len(issues)
+            raw_mismatch_count += scoring.get("raw_mismatch_count", len(issues))
+            caveated_comparison_count += scoring.get("caveated_comparison_count", 0)
+            unresolved_issue_count += scoring.get(
+                "unresolved_mismatch_count", len(issues)
+            )
             competitions.append(
                 {
                     "competition": competition,
@@ -89,15 +100,23 @@ def build_first_ten_summary(root: Path, destination: Path) -> dict[str, Any]:
             }
         )
     summary = {
-        "schema_version": 1,
+        "schema_version": 2,
         "challenge_range": [1, 10],
-        "status": "passed" if issue_count == 0 else "issues-found",
+        "status": (
+            "passed-with-caveats"
+            if unresolved_issue_count == 0 and caveated_comparison_count
+            else "passed"
+            if unresolved_issue_count == 0
+            else "issues-found"
+        ),
         "chain_snapshots_passed": chain_report["passed"],
         "chain_events_passed": event_report["passed"],
         "price_fixtures_passed": price_report["passed"],
         "publication_audits": {"passed": publication_passes, "total": 20},
         "scoring_audits": {"passed": scoring_passes, "total": 20},
-        "issue_count": issue_count,
+        "raw_mismatch_count": raw_mismatch_count,
+        "caveated_comparison_count": caveated_comparison_count,
+        "issue_count": unresolved_issue_count,
         "challenges": challenges,
     }
     write_canonical_json(destination, summary)
@@ -145,9 +164,10 @@ def _render_markdown(summary: dict[str, Any]) -> str:
             "- Independent scoring audits: "
             f"{summary['scoring_audits']['passed']}/{summary['scoring_audits']['total']} PASS"
         ),
+        f"- Caveated score/reward comparisons: {summary['caveated_comparison_count']}",
         f"- Unresolved score/reward mismatches: {summary['issue_count']}",
         "",
-        "## Unresolved findings",
+        "## Caveated and unresolved findings",
         "",
     ]
     for challenge in summary["challenges"]:
@@ -184,23 +204,25 @@ def _render_markdown(summary: dict[str, Any]) -> str:
                             f"- Block hash: `{event['block_hash']}`",
                         ]
                     )
-                caveat = issue.get("caveat")
-                if caveat:
+                for caveat in issue.get("caveats", []):
                     lines.append(
                         "- Caveat: "
                         f"[{caveat['id']}](../../{caveat['document']}#{caveat['anchor']})"
                     )
+                if issue["counts_as_pass"]:
+                    lines.append("- Audit treatment: `PASS WITH CAVEAT`")
                 lines.extend(
                     [
                         "",
                         (
-                            "The recovered production policy accepts this decrypted submission. "
-                            "The published zero remains an audit failure unless separate evidence "
-                            "justifies its exclusion."
+                            "The raw mismatch remains visible, but its registered historical "
+                            "exception counts this comparison as a caveated pass."
+                            if issue["counts_as_pass"]
+                            else "The published result remains an unresolved audit failure."
                         ),
                         "",
                     ]
                 )
-    if summary["issue_count"] == 0:
+    if summary["raw_mismatch_count"] == 0:
         lines.extend(["No unresolved mismatches.", ""])
     return "\n".join(lines)

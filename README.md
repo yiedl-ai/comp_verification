@@ -61,4 +61,30 @@ compares those raw event records.
 participant mismatches and their submission block/transaction provenance.
 Known limitations and historical operational explanations are maintained in the
 central [`docs/caveats.md`](docs/caveats.md) register. Generated reports link to
-applicable entries without converting an unresolved audit failure into a pass.
+applicable entries. Raw mismatches remain visible; only an explicit accepted
+adjudication in `problems/register.json` can count one as a caveated pass.
+
+For the full historical evidence range, use `EvidenceWorkflow`. Its bounds come
+from `[scope]` in `config.toml`; the current configuration indexes challenges and
+datasets 1–173 and marks scoring challenges 1–172 as dataset-ready. The bounded
+dataset path is:
+
+```python
+from pathlib import Path
+
+from comp_verification import EvidenceWorkflow
+from comp_verification.ipfs import print_download_progress
+
+evidence = EvidenceWorkflow.from_config(Path.cwd())
+evidence.ingest_dataset_catalog()
+evidence.ingest_chain_snapshots()
+evidence.condense_score_ready_datasets(
+    progress=print_download_progress,
+    prune_raw=True,
+)
+```
+
+Condensation handles one archive at a time, verifies its on-chain digest and
+UnixFS CID, preserves every latest-date symbol plus both target columns, writes
+archive/member/hash provenance, independently re-extracts the fixture, and only
+then permits deletion of that exact cache file and completion marker.

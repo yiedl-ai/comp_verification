@@ -12,7 +12,7 @@ from importlib.metadata import version
 from pathlib import Path
 from typing import Any
 
-from .caveats import caveat_for_challenge
+from .caveats import caveats_for_context
 from .constants import (
     FIRST_CHALLENGE,
     IPFS_GATEWAY,
@@ -193,10 +193,13 @@ class FirstTenWorkflow:
         return self.ipfs.download_many(cids, progress=progress)
 
     def verify_publication(
-        self, *, progress: ProgressCallback | None = None
+        self,
+        *,
+        progress: ProgressCallback | None = None,
+        challenges: range | None = None,
     ) -> list[dict[str, Any]]:
         reports = []
-        for manifest in self._chain_manifests():
+        for manifest in self._chain_manifests(challenges):
             for competition, observed in manifest["competitions"].items():
                 cid = observed["content"]["results"]["cid"]
                 if not cid:
@@ -330,6 +333,20 @@ class FirstTenWorkflow:
                     gain_delta = computed_gain - expected.relative_gain
                     reward_matches = computed_reward == expected.wallet_reward
                     gain_matches = abs(gain_delta) <= gain_tolerance
+                    raw_matches = gain_matches and reward_matches
+                    caveats = (
+                        caveats_for_context(
+                            challenge=challenge,
+                            competition=competition,
+                            audit_kind="scoring",
+                            address=address,
+                        )
+                        if not raw_matches
+                        else []
+                    )
+                    caveated_pass = any(
+                        caveat["counts_as_pass"] for caveat in caveats
+                    )
                     comparisons.append(
                         {
                             "address": address,
@@ -341,12 +358,21 @@ class FirstTenWorkflow:
                             "published_wallet_reward": str(expected.wallet_reward),
                             "relative_gain_matches": gain_matches,
                             "wallet_reward_matches": reward_matches,
+                            "caveated_pass": caveated_pass,
+                            "effective_match": raw_matches or caveated_pass,
+                            "caveats": caveats,
                         }
                     )
-                mismatches = [
+                raw_mismatches = [
                     row
                     for row in comparisons
                     if not row["relative_gain_matches"] or not row["wallet_reward_matches"]
+                ]
+                caveated_comparisons = [
+                    row for row in raw_mismatches if row["caveated_pass"]
+                ]
+                unresolved_mismatches = [
+                    row for row in raw_mismatches if not row["caveated_pass"]
                 ]
                 max_gain_delta = max(
                     (abs(Decimal(row["relative_gain_delta"])) for row in comparisons),
@@ -371,13 +397,22 @@ class FirstTenWorkflow:
                     "result_bytes_sha256": result_artifact.sha256,
                     "gain_tolerance": str(gain_tolerance),
                     "participant_count": len(comparisons),
-                    "mismatch_count": len(mismatches),
+                    "mismatch_count": len(raw_mismatches),
+                    "raw_mismatch_count": len(raw_mismatches),
+                    "caveated_comparison_count": len(caveated_comparisons),
+                    "unresolved_mismatch_count": len(unresolved_mismatches),
                     "maximum_absolute_gain_delta": str(max_gain_delta),
-                    "passed": not mismatches,
+                    "raw_passed": not raw_mismatches,
+                    "passed": not unresolved_mismatches,
                     "participants": comparisons,
                 }
-                if caveat := caveat_for_challenge(challenge):
-                    report["caveat"] = caveat
+                report_caveats = {
+                    caveat["id"]: caveat
+                    for row in caveated_comparisons
+                    for caveat in row["caveats"]
+                }
+                if report_caveats:
+                    report["caveats"] = list(report_caveats.values())
                 destination = (
                     self.root
                     / "reports"
@@ -582,13 +617,15 @@ class FirstTenWorkflow:
     def _chain_manifests(
         self, challenges: range | None = None
     ) -> list[dict[str, Any]]:
+        selected = set(
+            range(FIRST_CHALLENGE, LAST_CHALLENGE + 1)
+            if challenges is None
+            else challenges
+        )
         manifests = [
             json.loads(path.read_text(encoding="utf-8"))
             for path in sorted((self.root / "manifests" / "chain").glob("*.json"))
         ]
-        if challenges is None:
-            return manifests
-        selected = set(challenges)
         return [manifest for manifest in manifests if manifest["challenge"] in selected]
 
     def _download_submission_scope(
