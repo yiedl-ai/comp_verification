@@ -933,6 +933,94 @@
         ]
       },
       "status": "open"
+    },
+    {
+      "affected_comparisons": 4,
+      "audit_treatment": {
+        "changes_outcome": false,
+        "mode": "explicit-invalid-zero-financial-result-row-omissions",
+        "reason": "The four omitted result rows are independently invalid submissions with zero historical stake, reward, and burn. Every published score/reward and every wallet outcome reproduce exactly."
+      },
+      "classification": "invalid-zero-financial-submitters-omitted-from-results",
+      "confidence": "high",
+      "details": {
+        "omissions": {
+          "NEUTRAL": [
+            {
+              "address": "0x93d523c427aea3a50c9499e544eacff9bdc7820d",
+              "financial_values": "stake=0,reward=0,burn=0",
+              "submission_cid": "QmT5HxQeWA3n4pWN8p6erHDvpexXshGdxWUHjf9pycS2Sc",
+              "submission_status": "invalid-exactly-two-columns-required"
+            },
+            {
+              "address": "0xa3b020f048bbe1dd970dcdb85dfc780c2ecd7131",
+              "financial_values": "stake=0,reward=0,burn=0",
+              "submission_cid": "QmYHrHG8N8L9Ni69YqR5ubHJXuAXAf5juqebPC9cESEr99",
+              "submission_status": "invalid-exactly-two-columns-required"
+            }
+          ],
+          "UPDOWN": [
+            {
+              "address": "0x93d523c427aea3a50c9499e544eacff9bdc7820d",
+              "financial_values": "stake=0,reward=0,burn=0",
+              "submission_cid": "QmSdTYCUBAjpfVVbR8iQA4yTZg3HSfH8ukCqHCdVe2RkuE",
+              "submission_status": "invalid-exactly-two-columns-required"
+            },
+            {
+              "address": "0xf44fa9622f736d1443bec6828eadc50c393e93f6",
+              "financial_values": "stake=0,reward=0,burn=0",
+              "submission_cid": "QmbXRnxPfh3qyrAGiFTd6Gh1S6jEMAeSxW4q54ttkAbYXp",
+              "submission_status": "invalid-exactly-two-columns-required"
+            }
+          ]
+        },
+        "result_files": {
+          "NEUTRAL": {
+            "bytes_sha256": "5621e61088a9ce833a94d405eb93d25187811d4a6654ee7583c4d11e7b834234",
+            "cid": "QmSjMpuQtXpAW2UWpaKaDEGKaGXwwcUA6YnaM8EbrkNYqf",
+            "included_financial_field_mismatches": 0,
+            "omitted_row_count": 2
+          },
+          "UPDOWN": {
+            "bytes_sha256": "955804be9030408b2ad2b16dec85fbf1e1cdd701ef9f75f2c879ef530479c932",
+            "cid": "QmcHDpRxQSZ3pDb1YMdcef3GCshQUWPpGbUz8dpY1SriAj",
+            "included_financial_field_mismatches": 0,
+            "omitted_row_count": 2
+          }
+        },
+        "scoring_reproduction": {
+          "neutral_exact_valid_count": 51,
+          "neutral_mismatch_count": 0,
+          "updown_exact_valid_count": 38,
+          "updown_mismatch_count": 0
+        }
+      },
+      "documentation": {
+        "anchor": "challenge-129-invalid-zero-financial-submitters-omitted-from-results",
+        "document": "docs/caveats.md",
+        "summary": "Challenge 129 omits four independently invalid, zero-stake/zero-reward/zero-burn rows across its result files; every published score/reward and every wallet outcome reproduce exactly."
+      },
+      "headline": "Challenge 129: Invalid zero-financial submitters omitted from results",
+      "id": "challenge-129-invalid-zero-financial-result-row-omissions",
+      "scope": {
+        "addresses": [
+          "0x93d523c427aea3a50c9499e544eacff9bdc7820d",
+          "0xa3b020f048bbe1dd970dcdb85dfc780c2ecd7131",
+          "0xf44fa9622f736d1443bec6828eadc50c393e93f6"
+        ],
+        "audit_kinds": [
+          "publication",
+          "scoring"
+        ],
+        "challenges": [
+          129
+        ],
+        "competitions": [
+          "NEUTRAL",
+          "UPDOWN"
+        ]
+      },
+      "status": "documented"
     }
   ],
   "schema_version": 1

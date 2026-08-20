@@ -6,6 +6,7 @@ from comp_verification.historical_exceptions import (
     STALE_RESULT_CIDS,
     STALE_UPDOWN_RESULT_CIDS,
     apply_realized_return_overrides,
+    is_invalid_zero_financial_result_omission,
 )
 from comp_verification.policies import policy_for_challenge
 from comp_verification.workflow import FirstTenWorkflow
@@ -81,3 +82,18 @@ def test_challenge_117_stale_results_are_registered_for_both_competitions() -> N
     assert RECOVERED_LATE_RESULT_REFERENCES[(116, "UPDOWN")][
         "published_under_challenge"
     ] == 117
+
+
+def test_only_non_scoring_zero_financial_rows_can_be_implicitly_omitted() -> None:
+    assert is_invalid_zero_financial_result_omission(
+        submission_status="invalid", stake=Decimal(0), chain_reward=Decimal(0)
+    )
+    assert not is_invalid_zero_financial_result_omission(
+        submission_status="valid", stake=Decimal(0), chain_reward=Decimal(0)
+    )
+    assert not is_invalid_zero_financial_result_omission(
+        submission_status="invalid", stake=Decimal(1), chain_reward=Decimal(0)
+    )
+    assert not is_invalid_zero_financial_result_omission(
+        submission_status="invalid", stake=Decimal(0), chain_reward=Decimal(1)
+    )

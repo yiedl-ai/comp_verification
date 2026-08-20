@@ -40,6 +40,7 @@ contains an explicit accepted adjudication.
 | 113 | NEUTRAL and UPDOWN publication/scoring | Production used `HAI=1` instead of the raw `21.227900966966708`; UPDOWN result CID is stale | 1 | NEUTRAL scores/rewards and UPDOWN on-chain rewards reproduce exactly; UPDOWN score publication remains open |
 | 116 | UPDOWN publication/scoring | Challenge-116 CID is challenge 115's file; the correct file appears under challenge 117 | 1 | All scores/rewards reproduce exactly through the late file; challenge association remains open |
 | 117 | NEUTRAL and UPDOWN publication/scoring | Both result CIDs contain exact challenge-116 files | 2 | All challenge-117 on-chain rewards reproduce exactly; challenge-117 relative-gain publication remains open |
+| 129 | NEUTRAL and UPDOWN publication/scoring | Each result omits two malformed, zero-stake submitters | 4 | Every published score/reward and every wallet outcome reproduce exactly; raw row-completeness failures remain visible |
 
 ## Challenge 110: stale UPDOWN result reference
 
@@ -121,6 +122,23 @@ mismatches. Nevertheless, independent recomputation from dataset 118 and the
 challenge-117 submissions matches every challenge-117 net on-chain reward:
 54 valid NEUTRAL and 43 valid UPDOWN submissions. The reward layer therefore
 passes, while both challenge-117 relative-gain publications remain open.
+
+## Challenge 129: invalid zero-financial submitters omitted from results
+
+Both challenge-129 result files are internally correct and match every included
+chain stake/reward/burn value. NEUTRAL omits addresses
+`0x93d523c427aea3a50c9499e544eacff9bdc7820d` and
+`0xa3b020f048bbe1dd970dcdb85dfc780c2ecd7131`; UPDOWN omits the first address
+and `0xf44fa9622f736d1443bec6828eadc50c393e93f6`. Each omitted submission is
+malformed (not a two-column prediction CSV), and each participant has exactly
+zero historical stake, challenge reward, and burn.
+
+The verifier retains the four raw result-row omissions in the publication
+reports. In scoring, it treats an omitted row as an implicit zero only when the
+submission is independently invalid or unavailable and all three financial
+amounts are zero. A valid, staked, rewarded, or burned omission still fails.
+Under that narrow rule, all 51 valid NEUTRAL and 38 valid UPDOWN scores and
+rewards reproduce exactly, as do the four zero wallet outcomes.
 
 ## Challenge 94 UPDOWN: malformed, unavailable submission reference
 

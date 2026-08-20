@@ -58,6 +58,7 @@ from .historical_exceptions import (
     RECOVERED_LATE_RESULT_REFERENCES,
     STALE_RESULT_CIDS,
     apply_realized_return_overrides,
+    is_invalid_zero_financial_result_omission,
 )
 
 
@@ -336,6 +337,12 @@ class FirstTenWorkflow:
                     )
                     report = compare_results_to_chain(manifest, competition, published)
                     report["result_bytes_sha256"] = artifact.sha256
+                    if not report["passed"]:
+                        report["caveats"] = caveats_for_context(
+                            challenge=manifest["challenge"],
+                            competition=competition,
+                            audit_kind="publication",
+                        )
                     if correction is not None:
                         report.update(
                             {
@@ -525,6 +532,7 @@ class FirstTenWorkflow:
                 recovered_result_reference = RECOVERED_LATE_RESULT_REFERENCES.get(
                     (challenge, competition)
                 )
+                publication_row_omissions = []
                 if not publication_report["passed"] and recovered_result_reference:
                     publication_report = {
                         **publication_report,
@@ -532,6 +540,17 @@ class FirstTenWorkflow:
                         "resolved_result_cid": recovered_result_reference["cid"],
                         "result_bytes_sha256": recovered_result_reference["sha256"],
                     }
+                elif (
+                    not publication_report["passed"]
+                    and not publication_report.get("problem")
+                    and publication_report.get("mismatches")
+                    and all(
+                        row.get("detail") == "missing in results"
+                        for row in publication_report["mismatches"]
+                    )
+                ):
+                    publication_row_omissions = publication_report["mismatches"]
+                    publication_report = {**publication_report, "passed": True}
                 if not publication_report["passed"]:
                     if result_cid == STALE_RESULT_CIDS.get(
                         (challenge, competition)
@@ -625,10 +644,25 @@ class FirstTenWorkflow:
                         ingestion_status=submission_statuses.get(address),
                         fixture_available=normalized_submissions is not None,
                     )
-                    expected = published[address]
-                    gain_delta = computed_gain - expected.relative_gain
-                    reward_matches = computed_reward == expected.wallet_reward
-                    gain_matches = abs(gain_delta) <= gain_tolerance
+                    expected = published.get(address)
+                    if expected is None:
+                        chain_reward = Decimal(
+                            participant["challenge_reward"]["decimal"]
+                        ) - Decimal(participant["burned"]["decimal"])
+                        omission_is_non_scoring = (
+                            is_invalid_zero_financial_result_omission(
+                                submission_status=status,
+                                stake=stake,
+                                chain_reward=chain_reward,
+                            )
+                        )
+                        gain_delta = None
+                        reward_matches = computed_reward == chain_reward == 0
+                        gain_matches = omission_is_non_scoring and computed_gain == 0
+                    else:
+                        gain_delta = computed_gain - expected.relative_gain
+                        reward_matches = computed_reward == expected.wallet_reward
+                        gain_matches = abs(gain_delta) <= gain_tolerance
                     raw_matches = gain_matches and reward_matches
                     caveats = (
                         caveats_for_context(
@@ -648,10 +682,25 @@ class FirstTenWorkflow:
                             "address": address,
                             "submission_status": status,
                             "computed_relative_gain": str(computed_gain),
-                            "published_relative_gain": str(expected.relative_gain),
-                            "relative_gain_delta": str(gain_delta),
+                            "published_relative_gain": (
+                                str(expected.relative_gain) if expected else None
+                            ),
+                            "relative_gain_delta": (
+                                str(gain_delta) if gain_delta is not None else None
+                            ),
                             "computed_wallet_reward": str(computed_reward),
-                            "published_wallet_reward": str(expected.wallet_reward),
+                            "published_wallet_reward": (
+                                str(expected.wallet_reward) if expected else None
+                            ),
+                            "result_row_status": (
+                                "published"
+                                if expected
+                                else (
+                                    "omitted-invalid-zero-financial-participant"
+                                    if omission_is_non_scoring
+                                    else "omitted-unresolved"
+                                )
+                            ),
                             "relative_gain_matches": gain_matches,
                             "wallet_reward_matches": reward_matches,
                             "caveated_pass": caveated_pass,
@@ -671,7 +720,11 @@ class FirstTenWorkflow:
                     row for row in raw_mismatches if not row["caveated_pass"]
                 ]
                 max_gain_delta = max(
-                    (abs(Decimal(row["relative_gain_delta"])) for row in comparisons),
+                    (
+                        abs(Decimal(row["relative_gain_delta"]))
+                        for row in comparisons
+                        if row["relative_gain_delta"] is not None
+                    ),
                     default=Decimal(0),
                 )
                 report = {
@@ -710,6 +763,14 @@ class FirstTenWorkflow:
                     report["recovered_result_reference"] = dict(
                         recovered_result_reference
                     )
+                if publication_row_omissions:
+                    report["audit_status"] = (
+                        "score-and-reward-exact-with-invalid-zero-financial-row-omissions"
+                    )
+                    report["omitted_result_row_count"] = len(
+                        publication_row_omissions
+                    )
+                    report["publication_row_omissions"] = publication_row_omissions
                 if realized_return_overrides:
                     report["policy_status"] = (
                         "numerically-recovered-production-exception"

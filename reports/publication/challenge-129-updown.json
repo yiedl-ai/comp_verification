@@ -1,0 +1,35 @@
+{
+  "caveats": [
+    {
+      "anchor": "challenge-129-invalid-zero-financial-submitters-omitted-from-results",
+      "classification": "invalid-zero-financial-submitters-omitted-from-results",
+      "counts_as_pass": false,
+      "document": "docs/caveats.md",
+      "id": "challenge-129-invalid-zero-financial-result-row-omissions",
+      "summary": "Challenge 129 omits four independently invalid, zero-stake/zero-reward/zero-burn rows across its result files; every published score/reward and every wallet outcome reproduce exactly."
+    }
+  ],
+  "chain_participant_count": 93,
+  "challenge": 129,
+  "competition": "UPDOWN",
+  "contract": "0xEcB9716867f9300F2706EdbB5b81c7a0AbDC5B29",
+  "mismatch_count": 2,
+  "mismatches": [
+    {
+      "address": "0x93d523c427aea3a50c9499e544eacff9bdc7820d",
+      "detail": "missing in results",
+      "field": "participant"
+    },
+    {
+      "address": "0xf44fa9622f736d1443bec6828eadc50c393e93f6",
+      "detail": "missing in results",
+      "field": "participant"
+    }
+  ],
+  "observed_block": 92336519,
+  "passed": false,
+  "published_row_count": 91,
+  "result_bytes_sha256": "955804be9030408b2ad2b16dec85fbf1e1cdd701ef9f75f2c879ef530479c932",
+  "result_cid": "QmcHDpRxQSZ3pDb1YMdcef3GCshQUWPpGbUz8dpY1SriAj",
+  "schema_version": 1
+}

@@ -33,6 +33,18 @@ RECOVERED_LATE_RESULT_REFERENCES = {
 }
 
 
+def is_invalid_zero_financial_result_omission(
+    *, submission_status: str, stake: Decimal, chain_reward: Decimal
+) -> bool:
+    """Return whether an omitted row cannot carry a score or wallet outcome."""
+
+    return (
+        submission_status in {"invalid", "unavailable", "no-submission"}
+        and stake == 0
+        and chain_reward == 0
+    )
+
+
 def apply_realized_return_overrides(
     challenge: int,
     realized_returns: Mapping[str, Decimal],

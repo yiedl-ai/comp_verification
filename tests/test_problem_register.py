@@ -214,6 +214,22 @@ def test_register_captures_challenge_117_late_result_references() -> None:
     ] == 0
 
 
+def test_register_captures_challenge_129_zero_financial_omissions() -> None:
+    problem = load_problem_register().by_id(
+        "challenge-129-invalid-zero-financial-result-row-omissions"
+    )
+
+    assert problem.status == "documented"
+    assert problem.counts_as_pass is False
+    assert problem.raw["affected_comparisons"] == 4
+    assert problem.raw["details"]["scoring_reproduction"] == {
+        "neutral_exact_valid_count": 51,
+        "neutral_mismatch_count": 0,
+        "updown_exact_valid_count": 38,
+        "updown_mismatch_count": 0,
+    }
+
+
 def test_report_reference_preserves_existing_report_shape() -> None:
     reference = load_problem_register().by_id(PROBLEM_ID).report_reference()
 
