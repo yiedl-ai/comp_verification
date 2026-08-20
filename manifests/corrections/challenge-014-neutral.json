@@ -1,0 +1,34 @@
+{
+  "challenge": 14,
+  "competition": "NEUTRAL",
+  "contract": "0xC8519524013348466e18fC1747d11F1feA9473fd",
+  "corrected_content": {
+    "bytes_sha256": "db64c4fc21a0124861881433f331cd19dc41f6f37d96847cc3ae22f1addfed4a",
+    "cid": "QmPWnRa7W3xSVWm2ST5REBiAA8ebbSVdYeFuzSmjGYERzy",
+    "digest": "0x117437e277e8c038eacbd82f2d450f93bba41af12bacfdde8a96640748c2bd5a",
+    "published_row_count": 81,
+    "size": 8514
+  },
+  "observation": {
+    "block_hash": "0x53de0c7d32eb187255f96b281942287c70cd803d8ed045a81570207ed3912c3f",
+    "block_number": 92339630,
+    "block_timestamp_utc": "2026-08-20T08:27:52Z",
+    "event": "BatchInformationUpdated(uint32,uint256)",
+    "log_index": 1530,
+    "transaction_hash": "0x7402cc20948758b15f1349fd8ac58bd6da5cbe9e3287d1c4eb4322047aded314",
+    "transaction_sender": "0x3df47786923cce73dce259143c3f7e8ec484db2a",
+    "transaction_status": 1
+  },
+  "original_content": {
+    "cid": "QmNXo5RtUahWHGB578jmkSNK3GSyRxmjRkYUYqoCDosCVd",
+    "digest": "0x02dad9a83f016fd3b4763359ed358478768387df48665531a68f993130f4a0f8",
+    "problem": "The CID resolves to the challenge 15 dataset ZIP instead of a results CSV."
+  },
+  "schema_version": 1,
+  "storage": {
+    "item_number": 0,
+    "participant": "0x0000000000000000000000000000000000000000",
+    "value_digest": "0x117437e277e8c038eacbd82f2d450f93bba41af12bacfdde8a96640748c2bd5a",
+    "value_uint": "7894658387054752303893393541241638517829921050117961214291617257572895210842"
+  }
+}

@@ -104,18 +104,28 @@
     {
       "affected_comparisons": 1,
       "audit_treatment": {
-        "changes_outcome": false,
-        "mode": "unresolved-publication-failure",
-        "reason": "The published CID does not contain a challenge result table, so this audit cannot be counted as a pass."
+        "changes_outcome": true,
+        "mode": "accepted-on-chain-content-correction",
+        "reason": "The immutable bad results reference remains visible, while an explicit on-chain information entry now supplies the corrected CID digest and allows publication and scoring verification to pass with a caveat."
       },
-      "classification": "on-chain-content-reference-error",
+      "classification": "on-chain-corrected-content-reference",
       "confidence": "high",
       "details": {
         "observations": [
           "Challenge 14 NEUTRAL records QmNXo5RtUahWHGB578jmkSNK3GSyRxmjRkYUYqoCDosCVd as its results CID.",
           "The same CID and digest are recorded as the challenge 15 dataset for both competition contracts.",
-          "CID-verified bytes are a ZIP dataset archive containing dataset/train_dataset.csv, dataset/validation_dataset.csv, and a quickstart notebook, not a results CSV."
+          "CID-verified bytes are a ZIP dataset archive containing dataset/train_dataset.csv, dataset/validation_dataset.csv, and a quickstart notebook, not a results CSV.",
+          "A successful Polygon transaction stored the corrected digest under challenge 14, zero-address participant, information item 0.",
+          "The corrected CID contains 81 result rows; every stake, reward, and burn matches chain, and every independently recomputed relative gain and wallet reward matches exactly."
         ],
+        "correction": {
+          "block": 92339630,
+          "cid": "QmPWnRa7W3xSVWm2ST5REBiAA8ebbSVdYeFuzSmjGYERzy",
+          "digest": "0x117437e277e8c038eacbd82f2d450f93bba41af12bacfdde8a96640748c2bd5a",
+          "information_item_number": 0,
+          "participant": "0x0000000000000000000000000000000000000000",
+          "transaction": "0x7402cc20948758b15f1349fd8ac58bd6da5cbe9e3287d1c4eb4322047aded314"
+        },
         "result_cid": "QmNXo5RtUahWHGB578jmkSNK3GSyRxmjRkYUYqoCDosCVd",
         "result_digest": "0x02dad9a83f016fd3b4763359ed358478768387df48665531a68f993130f4a0f8",
         "source_archive_sha256": "1e1adbc58045f0032091792c01e77a26d015d614cd251750750231c3c705f6a7",
@@ -125,9 +135,9 @@
       "documentation": {
         "anchor": "challenge-14-neutral-results-cid-points-to-dataset-15",
         "document": "docs/caveats.md",
-        "summary": "Challenge 14 NEUTRAL's on-chain results CID resolves to the CID-verified challenge 15 dataset archive rather than a results CSV."
+        "summary": "Challenge 14 NEUTRAL's immutable results CID points to dataset 15, but an accepted on-chain information entry now supplies the verified corrected CID; publication and scoring pass with this caveat."
       },
-      "headline": "Challenge 14 NEUTRAL: Published results CID points to dataset 15",
+      "headline": "Challenge 14 NEUTRAL: Bad results CID corrected through on-chain information",
       "id": "challenge-14-neutral-results-cid-is-dataset-15",
       "scope": {
         "addresses": [],
@@ -142,7 +152,7 @@
           "NEUTRAL"
         ]
       },
-      "status": "investigating"
+      "status": "accepted"
     }
   ],
   "schema_version": 1

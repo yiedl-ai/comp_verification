@@ -20,6 +20,7 @@ from .constants import (
     LAST_DATASET_CHALLENGE,
 )
 from .config import VerifierConfig
+from .corrections import load_verified_result_correction
 from .datasets import (
     derive_price_fixture_from_targets,
     extract_latest_realized_returns,
@@ -204,6 +205,18 @@ class FirstTenWorkflow:
         for manifest in self._chain_manifests(challenges):
             for competition, observed in manifest["competitions"].items():
                 cid = observed["content"]["results"]["cid"]
+                correction = load_verified_result_correction(
+                    self.root,
+                    self.rpc,
+                    challenge=manifest["challenge"],
+                    competition=competition,
+                    contract=observed["contract"],
+                )
+                resolved_cid = (
+                    correction["corrected_content"]["cid"]
+                    if correction is not None
+                    else cid
+                )
                 destination = (
                     self.root
                     / "reports"
@@ -212,9 +225,17 @@ class FirstTenWorkflow:
                 )
                 artifact = None
                 try:
-                    if not cid:
+                    if not resolved_cid:
                         raise ValueError("missing result CID")
-                    artifact = self.ipfs.download(cid, progress=progress)
+                    artifact = self.ipfs.download(
+                        resolved_cid,
+                        expected_sha256=(
+                            correction["corrected_content"]["bytes_sha256"]
+                            if correction is not None
+                            else None
+                        ),
+                        progress=progress,
+                    )
                     published = read_published_results(
                         artifact.path,
                         competition=competition,
@@ -222,6 +243,22 @@ class FirstTenWorkflow:
                     )
                     report = compare_results_to_chain(manifest, competition, published)
                     report["result_bytes_sha256"] = artifact.sha256
+                    if correction is not None:
+                        report.update(
+                            {
+                                "primary_result_cid": cid,
+                                "resolved_result_cid": resolved_cid,
+                                "resolution": "on-chain-information-correction",
+                                "raw_primary_reference_passed": False,
+                                "passed_with_caveat": report["passed"],
+                                "correction_evidence": correction,
+                                "caveats": caveats_for_context(
+                                    challenge=manifest["challenge"],
+                                    competition=competition,
+                                    audit_kind="publication",
+                                ),
+                            }
+                        )
                 except (IpfsDownloadError, OSError, ValueError) as error:
                     caveats = caveats_for_context(
                         challenge=manifest["challenge"],
@@ -235,6 +272,7 @@ class FirstTenWorkflow:
                         "contract": observed["contract"],
                         "observed_block": manifest["observed_block"],
                         "result_cid": cid,
+                        "resolved_result_cid": resolved_cid,
                         "result_bytes_sha256": (
                             artifact.sha256 if artifact is not None else None
                         ),
@@ -371,8 +409,11 @@ class FirstTenWorkflow:
                     write_canonical_json(destination, report)
                     reports.append(report)
                     continue
+                resolved_result_cid = publication_report.get(
+                    "resolved_result_cid", result_cid
+                )
                 result_artifact = self.ipfs.download(
-                    result_cid,
+                    resolved_result_cid,
                     expected_sha256=publication_report["result_bytes_sha256"],
                 )
                 published = read_published_results(
@@ -457,6 +498,7 @@ class FirstTenWorkflow:
                         "numpy": version("numpy"),
                     },
                     "result_cid": result_cid,
+                    "resolved_result_cid": resolved_result_cid,
                     "result_bytes_sha256": result_artifact.sha256,
                     "gain_tolerance": str(gain_tolerance),
                     "participant_count": len(comparisons),
@@ -471,11 +513,15 @@ class FirstTenWorkflow:
                 }
                 report_caveats = {
                     caveat["id"]: caveat
+                    for caveat in publication_report.get("caveats", [])
+                } | {
+                    caveat["id"]: caveat
                     for row in caveated_comparisons
                     for caveat in row["caveats"]
                 }
                 if report_caveats:
                     report["caveats"] = list(report_caveats.values())
+                    report["passed_with_caveat"] = report["passed"]
                 destination = (
                     self.root
                     / "reports"

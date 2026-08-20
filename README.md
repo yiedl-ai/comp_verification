@@ -3,9 +3,10 @@
 Independent Python code for reproducing Yiedl competition scores and rewards
 from Polygon and IPFS evidence.
 
-The first milestone covers challenges 1–10. It uses datasets 1–11, stores raw
-IPFS downloads in the ignored `.cache/` directory, and commits only the small
-price/target extracts needed by the scorer under `data/prices/`.
+The completed scoring audit currently covers challenges 1–15. It stores raw
+IPFS downloads in the ignored `.cache/` directory and commits only the small
+price/target extracts needed by the scorer under `data/prices/` and
+`data/targets/`.
 
 ## Setup
 
@@ -39,6 +40,7 @@ workflow.verify_publication(progress=print_download_progress)
 workflow.ingest_submissions(progress=print_download_progress)
 workflow.audit_scoring()
 workflow.build_summary()
+workflow.build_audit_status()
 ```
 
 `ingest_chain()` records on-chain dataset, result, private-key, submission,
@@ -63,6 +65,14 @@ Known limitations and historical operational explanations are maintained in the
 central [`docs/caveats.md`](docs/caveats.md) register. Generated reports link to
 applicable entries. Raw mismatches remain visible; only an explicit accepted
 adjudication in `problems/register.json` can count one as a caveated pass.
+`reports/audit-status.md` is the generated repository-wide audit table.
+
+Historical result hashes cannot be changed after a later challenge opens. When
+an accepted correction exists under the challenge's zero-address information
+entry, its pinned evidence is stored in `manifests/corrections/`. Publication
+verification re-reads the information value at the correction block, derives
+the corrected CID, and retains both the immutable original CID and the resolved
+CID in its report. Challenge 14 NEUTRAL is the first such correction.
 
 For the full historical evidence range, use `EvidenceWorkflow`. Its bounds come
 from `[scope]` in `config.toml`; the current configuration indexes challenges and

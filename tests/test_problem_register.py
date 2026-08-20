@@ -60,10 +60,11 @@ def test_register_captures_challenge_fourteen_broken_result_reference() -> None:
         "challenge-14-neutral-results-cid-is-dataset-15"
     )
 
-    assert problem.status == "investigating"
-    assert problem.counts_as_pass is False
+    assert problem.status == "accepted"
+    assert problem.counts_as_pass is True
     assert problem.scope.audit_kinds == frozenset({"publication", "scoring"})
     assert problem.raw["details"]["same_as_dataset_challenge"] == 15
+    assert problem.raw["details"]["correction"]["information_item_number"] == 0
 
 
 def test_report_reference_preserves_existing_report_shape() -> None:

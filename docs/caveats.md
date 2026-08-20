@@ -27,7 +27,7 @@ contains an explicit accepted adjudication.
 | Challenge | Scope | Classification | Affected submissions | Audit treatment |
 | --- | --- | --- | ---: | --- |
 | 8 | NEUTRAL and UPDOWN | Likely submission-snapshot/RPC-sync/IPFS-availability race | 2 | Accepted as two caveated passes; raw mismatches remain visible |
-| 14 | NEUTRAL publication | Results CID is the challenge 15 dataset CID | 1 | Unresolved publication failure; does not count as a pass |
+| 14 | NEUTRAL publication and scoring | Immutable results CID points to dataset 15; corrected CID is stored on-chain under information item 0 for the zero address | 1 | Accepted corrected reference; publication and scoring pass with caveat |
 
 ## Challenge 14 NEUTRAL: results CID points to dataset 15
 
@@ -40,10 +40,34 @@ The bytes were independently downloaded and CID-verified. Their SHA-256 is
 `1e1adbc58045f0032091792c01e77a26d015d614cd251750750231c3c705f6a7`.
 They form a ZIP archive containing `dataset/train_dataset.csv`,
 `dataset/validation_dataset.csv`, and a quickstart notebook—not a published
-results CSV. Therefore challenge 14 NEUTRAL publication integrity, posted
-relative gains, and the complete off-chain score calculation cannot currently
-be verified from that on-chain content reference. This remains unresolved and
-does not count as a pass.
+results CSV. The original reference is immutable because `updateResults` only
+operates on the contract's current challenge.
+
+### On-chain correction
+
+On 2026-08-20 at 08:27:52 UTC, transaction
+`0x7402cc20948758b15f1349fd8ac58bd6da5cbe9e3287d1c4eb4322047aded314`
+succeeded in Polygon block `92339630`. It stored the corrected digest under:
+
+- Challenge: `14`
+- Participant: `0x0000000000000000000000000000000000000000`
+- Information item: `0`
+- Value/digest: `0x117437e277e8c038eacbd82f2d450f93bba41af12bacfdde8a96640748c2bd5a`
+- Corrected CID: `QmPWnRa7W3xSVWm2ST5REBiAA8ebbSVdYeFuzSmjGYERzy`
+
+The verifier reads that information value at the correction block, converts the
+32-byte digest to CIDv0, and requires it to match the tracked corrected CID. The
+corrected object is an 8,514-byte results CSV with SHA-256
+`db64c4fc21a0124861881433f331cd19dc41f6f37d96847cc3ae22f1addfed4a`.
+It contains all 81 challenge 14 NEUTRAL participants. Every address and stake
+matches the pinned challenge snapshot, every reward and burn matches Polygon,
+and independently recomputing all relative gains and six-decimal wallet rewards
+produces exact zero deltas.
+
+The original bad content reference remains visible as a raw historical error.
+Because the replacement digest is now explicitly stored on-chain and the
+replacement content passes publication and scoring verification, both audits
+count as passes with this caveat.
 
 ## Challenge 8: late submission, RPC synchronization, and IPFS availability
 
