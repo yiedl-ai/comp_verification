@@ -612,6 +612,56 @@
       "audit_treatment": {
         "changes_outcome": false,
         "mode": "documented-unavailable-submission",
+        "reason": "The final on-chain content reference cannot be retrieved or independently validated, but treating that unusable submission as unavailable reproduces the published zero and every challenge-94 score exactly."
+      },
+      "classification": "malformed-unavailable-on-chain-content-reference",
+      "confidence": "high",
+      "details": {
+        "observations": [
+          "The on-chain bytes32 submission value decodes to 32 ASCII hexadecimal characters rather than containing a raw 32-byte SHA-256 digest.",
+          "The CID derived from those exact on-chain bytes remained unavailable through the authenticated gateway and independent public gateway probes.",
+          "The historical result and on-chain reward are zero for this address.",
+          "Marking only this submission unavailable yields exact challenge-94 reproduction: all 69 NEUTRAL submissions and 51 other UPDOWN submissions validate and every published score and reward matches.",
+          "The same address repeated the same ASCII-hex-in-bytes32 encoding error in challenge 95 NEUTRAL, indicating a participant client encoding defect rather than a scoring-backend discrepancy."
+        ],
+        "submission": {
+          "address": "0x81fbfb07888fff733958210796af7cbe4368ae5f",
+          "cid": "QmV5kHQxmPCU9XmsX973z3HoQK2znnp7bHX78o3S8Q4nLC",
+          "digest": "0x6430663139613065343431326466613334373630356638636666356335376335",
+          "digest_ascii": "d0f19a0e4412dfa347605f8cff5c57c5",
+          "ingestion_status": "unavailable",
+          "published_relative_gain": "0",
+          "published_wallet_reward": "0"
+        }
+      },
+      "documentation": {
+        "anchor": "challenge-94-updown-malformed-unavailable-submission-reference",
+        "document": "docs/caveats.md",
+        "summary": "One challenge-94 UPDOWN bytes32 submission value contains ASCII hex text rather than a raw SHA-256 digest; its CID is unavailable, and treating it as unusable exactly reproduces the published zero and all challenge results."
+      },
+      "headline": "Challenge 94 UPDOWN: Malformed, unavailable submission reference",
+      "id": "challenge-94-updown-malformed-unavailable-submission-reference",
+      "scope": {
+        "addresses": [
+          "0x81fbfb07888fff733958210796af7cbe4368ae5f"
+        ],
+        "audit_kinds": [
+          "scoring"
+        ],
+        "challenges": [
+          94
+        ],
+        "competitions": [
+          "UPDOWN"
+        ]
+      },
+      "status": "documented"
+    },
+    {
+      "affected_comparisons": 0,
+      "audit_treatment": {
+        "changes_outcome": false,
+        "mode": "documented-unavailable-submission",
         "reason": "The final on-chain content reference cannot be retrieved or independently validated, but treating that unusable submission as unavailable reproduces the published zero and every challenge-95 score exactly."
       },
       "classification": "malformed-unavailable-on-chain-content-reference",

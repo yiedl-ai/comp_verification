@@ -34,7 +34,25 @@ contains an explicit accepted adjudication.
 | 40–42 | NEUTRAL and UPDOWN publication/scoring | Mistaken settlement, exact undo, corrected 30-symbol settlement | 8 | Accepted as one correction sequence; raw metadata irregularities remain visible |
 | 52 | NEUTRAL and UPDOWN scoring | Production switched to the 77-symbol basket one challenge before the recoverable repository history indicates | 0 | Exact recovered-policy pass; inference is retained in every scoring report |
 | 73 | NEUTRAL scoring | One valid, early submission was published as zero | 1 | Open; raw mismatch remains a failure pending historical retrieval/database evidence |
+| 94 | UPDOWN submission/scoring | One on-chain submission digest is ASCII hex text rather than a raw SHA-256 digest and its derived CID is unavailable | 0 | Scoring passes; the unverifiable submission is explicitly retained as unavailable |
 | 95 | NEUTRAL submission/scoring | One on-chain submission digest is ASCII hex text rather than a raw SHA-256 digest and its derived CID is unavailable | 0 | Scoring passes; the unverifiable submission is explicitly retained as unavailable |
+
+## Challenge 94 UPDOWN: malformed, unavailable submission reference
+
+Address `0x81fbfb07888fff733958210796af7cbe4368ae5f` records submission CID
+`QmV5kHQxmPCU9XmsX973z3HoQK2znnp7bHX78o3S8Q4nLC`. The underlying on-chain
+bytes32 value is
+`0x6430663139613065343431326466613334373630356638636666356335376335`,
+which decodes to the 32 ASCII characters `d0f19a0e4412dfa347605f8cff5c57c5`
+rather than a raw 32-byte SHA-256 digest. The derived CID remained unavailable
+through the authenticated gateway and independent public gateway probes.
+
+The historical result and on-chain reward are both zero for this address.
+Treating the unusable reference as unavailable reproduces every challenge-94
+score and reward exactly: all 69 NEUTRAL submissions and 51 other UPDOWN
+submissions validate and score normally. The same address repeated this exact
+encoding category in challenge 95 NEUTRAL, strongly indicating a participant
+client encoding defect rather than an off-chain scoring discrepancy.
 
 ## Challenge 95 NEUTRAL: malformed, unavailable submission reference
 

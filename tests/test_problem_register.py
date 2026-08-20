@@ -134,6 +134,20 @@ def test_register_captures_challenge_ninety_five_unavailable_submission() -> Non
     )
 
 
+def test_register_captures_challenge_ninety_four_unavailable_submission() -> None:
+    problem = load_problem_register().by_id(
+        "challenge-94-updown-malformed-unavailable-submission-reference"
+    )
+
+    assert problem.status == "documented"
+    assert problem.counts_as_pass is False
+    assert problem.raw["affected_comparisons"] == 0
+    assert problem.raw["details"]["submission"]["digest_ascii"] == (
+        "d0f19a0e4412dfa347605f8cff5c57c5"
+    )
+    assert problem.scope.competitions == frozenset({"UPDOWN"})
+
+
 def test_report_reference_preserves_existing_report_shape() -> None:
     reference = load_problem_register().by_id(PROBLEM_ID).report_reference()
 
