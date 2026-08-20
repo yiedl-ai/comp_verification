@@ -654,6 +654,13 @@ class FirstTenWorkflow:
                 }
                 report_caveats = {
                     caveat["id"]: caveat
+                    for caveat in caveats_for_context(
+                        challenge=challenge,
+                        competition=competition,
+                        audit_kind="scoring",
+                    )
+                } | {
+                    caveat["id"]: caveat
                     for caveat in publication_report.get("caveats", [])
                 } | {
                     caveat["id"]: caveat

@@ -90,6 +90,21 @@ def test_register_captures_challenge_twenty_eight_bad_result_reference() -> None
     assert problem.raw["details"]["result_reference"]["size"] == 450
 
 
+def test_register_captures_challenge_fifty_two_recovered_policy_boundary() -> None:
+    problem = load_problem_register().by_id(
+        "challenge-52-production-only-77-symbol-policy-cutover"
+    )
+
+    assert problem.status == "documented"
+    assert problem.counts_as_pass is False
+    assert problem.raw["affected_comparisons"] == 0
+    assert problem.raw["details"]["policy_transition"] == {
+        "last_verified_30_symbol_challenge": 51,
+        "first_verified_77_symbol_challenge": 52,
+        "recovered_policy": "legacy-static-77-v1",
+    }
+
+
 def test_report_reference_preserves_existing_report_shape() -> None:
     reference = load_problem_register().by_id(PROBLEM_ID).report_reference()
 

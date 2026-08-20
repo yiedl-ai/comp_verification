@@ -495,6 +495,50 @@
         ]
       },
       "status": "accepted"
+    },
+    {
+      "affected_comparisons": 0,
+      "audit_treatment": {
+        "changes_outcome": false,
+        "mode": "recovered-policy-boundary",
+        "reason": "The inferred 77-symbol production policy reproduces every challenge-52 score and reward exactly; this entry documents provenance uncertainty and does not change an audit outcome."
+      },
+      "classification": "recovered-production-only-policy-cutover",
+      "confidence": "high",
+      "details": {
+        "observations": [
+          "Challenge 51 reproduces exactly under the 30-symbol policy.",
+          "Applying the 30-symbol policy to challenge 52 mismatches all 53 nominally valid NEUTRAL submissions and all 48 nominally valid UPDOWN submissions.",
+          "Applying the 77-symbol parser and scorer leaves 36 valid NEUTRAL and 32 valid UPDOWN submissions and reproduces every published relative gain and wallet reward exactly with zero tolerance.",
+          "The recoverable repository chronology initially suggested challenge 53, so the one-challenge-early numerical cutover is evidence of a production-only or previously uncommitted change."
+        ],
+        "policy_transition": {
+          "last_verified_30_symbol_challenge": 51,
+          "first_verified_77_symbol_challenge": 52,
+          "recovered_policy": "legacy-static-77-v1"
+        }
+      },
+      "documentation": {
+        "anchor": "challenge-52-production-only-77-symbol-policy-cutover",
+        "document": "docs/caveats.md",
+        "summary": "Challenge 52 proves that production switched to the 77-symbol basket one challenge before the recoverable repository chronology indicated; the recovered policy reproduces every score and reward exactly."
+      },
+      "headline": "Challenge 52: Production-only 77-symbol policy cutover",
+      "id": "challenge-52-production-only-77-symbol-policy-cutover",
+      "scope": {
+        "addresses": [],
+        "audit_kinds": [
+          "scoring"
+        ],
+        "challenges": [
+          52
+        ],
+        "competitions": [
+          "NEUTRAL",
+          "UPDOWN"
+        ]
+      },
+      "status": "documented"
     }
   ],
   "schema_version": 1

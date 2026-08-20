@@ -32,6 +32,24 @@ contains an explicit accepted adjudication.
 | 28 | NEUTRAL publication and scoring | Results CID contains the challenge-29 RSA public key | 1 | Open; publication fails and scoring is blocked pending an authenticated correction |
 | 33 | NEUTRAL scoring | Last valid submission was published as zero | 1 | Open; raw mismatch remains a failure pending historical evidence or adjudication |
 | 40–42 | NEUTRAL and UPDOWN publication/scoring | Mistaken settlement, exact undo, corrected 30-symbol settlement | 8 | Accepted as one correction sequence; raw metadata irregularities remain visible |
+| 52 | NEUTRAL and UPDOWN scoring | Production switched to the 77-symbol basket one challenge before the recoverable repository history indicates | 0 | Exact recovered-policy pass; inference is retained in every scoring report |
+
+## Challenge 52: production-only 77-symbol policy cutover
+
+The repository chronology initially placed the 30-to-77-symbol transition at
+challenge 53. That policy mismatches all 53 nominally valid NEUTRAL submissions
+and all 48 nominally valid UPDOWN submissions in challenge 52. Reprocessing the
+same CID-verified submissions with the 77-symbol parser leaves 36 valid NEUTRAL
+and 32 valid UPDOWN submissions and reproduces every published gain and reward
+exactly, with zero tolerance.
+
+Challenge 51 remains an exact 30-symbol reproduction, while challenge 52 is an
+exact 77-symbol reproduction. The numerical boundary is therefore definitive:
+production switched at challenge 52. Because the recoverable source commit
+would otherwise imply challenge 53, the most likely explanation is the
+production-only or uncommitted scoring change anticipated by this audit. This
+does not excuse or alter any result; it records the recovered policy required to
+verify that the challenge-52 off-chain computation was correct.
 
 ## Challenges 40–42: mistake, undo, and corrected settlement
 

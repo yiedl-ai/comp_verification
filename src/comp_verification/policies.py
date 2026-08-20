@@ -237,9 +237,9 @@ def policy_for_challenge(challenge: int) -> ScoringPolicy:
         return CHALLENGE_19_CANDIDATE
     if 20 <= challenge <= 40:
         return RESTORED_37_CANDIDATE
-    if 41 <= challenge <= 52:
+    if 41 <= challenge <= 51:
         return LEGACY_30_CANDIDATE
-    if 53 <= challenge <= 163:
+    if 52 <= challenge <= 163:
         return STATIC_77_CANDIDATE
     if 164 <= challenge <= 166:
         return STATIC_77_ZERO_GUARD_CANDIDATE
