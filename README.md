@@ -3,10 +3,11 @@
 Independent Python code for reproducing Yiedl competition scores and rewards
 from Polygon and IPFS evidence.
 
-The completed scoring audit currently covers challenges 1–15. It stores raw
-IPFS downloads in the ignored `.cache/` directory and commits only the small
-price/target extracts needed by the scorer under `data/prices/` and
-`data/targets/`.
+The repository contains publication and scoring audits through challenge 172.
+Challenges 167–168 are explicitly blocked by the documented dataset-168 IPFS
+availability gap; every other challenge in scope has been run. Raw IPFS
+downloads live in the ignored `.cache/` directory, while only verified compact
+price, target, evaluation, and normalized-submission evidence is committed.
 
 ## Setup
 

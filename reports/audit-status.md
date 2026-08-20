@@ -1,7 +1,7 @@
 # Competition verification status
 
-- Scoring: 161/166 passed; 1 blocked; 4 failed
-- Publication: 167/168 passed; 0 blocked; 1 failed
+- Scoring: 320/344 passed; 5 blocked; 19 failed
+- Publication: 325/344 passed; 0 blocked; 19 failed
 
 | Challenge | NEUTRAL publication | NEUTRAL scoring | UPDOWN publication | UPDOWN scoring |
 | ---: | --- | --- | --- | --- |
@@ -88,4 +88,92 @@
 | 81 | passed | passed | passed | passed |
 | 82 | passed | passed | passed | passed |
 | 83 | passed | passed | passed | passed |
-| 95 | passed | not-run | passed | not-run |
+| 84 | passed | passed | passed | passed |
+| 85 | passed | passed | passed | passed |
+| 86 | passed | passed | passed | passed |
+| 87 | passed | passed | passed | passed |
+| 88 | passed | passed | passed | passed |
+| 89 | passed | passed | passed | passed |
+| 90 | passed | passed | passed | passed |
+| 91 | passed | passed | passed | passed |
+| 92 | passed | passed | passed | passed |
+| 93 | passed | passed | passed | passed |
+| 94 | passed | passed | passed | passed |
+| 95 | passed | passed | passed | passed |
+| 96 | passed | passed | passed | passed |
+| 97 | passed | passed | passed | passed |
+| 98 | passed | passed | passed | passed |
+| 99 | passed | passed | passed | passed |
+| 100 | passed | passed | passed | passed |
+| 101 | passed | passed | passed | passed |
+| 102 | passed | passed | passed | passed |
+| 103 | passed | passed | passed | passed |
+| 104 | passed | passed | passed | passed |
+| 105 | passed | passed | passed | passed |
+| 106 | passed | passed | passed | passed |
+| 107 | passed | passed | passed | passed |
+| 108 | passed | passed | passed | passed |
+| 109 | passed | passed | passed | passed |
+| 110 | passed | passed | failed | failed |
+| 111 | passed | passed | passed | passed |
+| 112 | passed | passed | passed | passed |
+| 113 | passed | passed | failed | failed |
+| 114 | passed | passed | passed | passed |
+| 115 | passed | passed | passed | passed |
+| 116 | passed | passed | failed | passed |
+| 117 | failed | failed | failed | failed |
+| 118 | passed | passed | passed | passed |
+| 119 | passed | passed | passed | passed |
+| 120 | passed | passed | passed | passed |
+| 121 | passed | passed | passed | passed |
+| 122 | passed | passed | passed | passed |
+| 123 | passed | passed | failed | failed |
+| 124 | passed | passed | passed | passed |
+| 125 | passed | passed | passed | passed |
+| 126 | passed | passed | passed | passed |
+| 127 | passed | passed | passed | passed |
+| 128 | passed | passed | passed | passed |
+| 129 | failed | passed | failed | passed |
+| 130 | passed | passed | passed | passed |
+| 131 | passed | passed | passed | passed |
+| 132 | passed | passed | passed | passed |
+| 133 | passed | passed | passed | passed |
+| 134 | passed | passed | failed | failed |
+| 135 | passed | passed | passed | passed |
+| 136 | passed | passed | passed | passed |
+| 137 | passed | passed | passed | passed |
+| 138 | passed | passed | passed | passed |
+| 139 | passed | passed | passed | passed |
+| 140 | passed | passed | passed | passed |
+| 141 | passed | passed | passed | passed |
+| 142 | passed | passed | failed | failed |
+| 143 | passed | passed | passed | passed |
+| 144 | passed | passed | passed | passed |
+| 145 | passed | passed | passed | passed |
+| 146 | passed | passed | passed | passed |
+| 147 | passed | passed | passed | passed |
+| 148 | passed | passed | passed | passed |
+| 149 | passed | passed | passed | passed |
+| 150 | passed | passed | passed | passed |
+| 151 | passed | passed | passed | passed |
+| 152 | passed | passed | passed | passed |
+| 153 | passed | passed | passed | passed |
+| 154 | passed | passed | failed | failed |
+| 155 | passed | passed | failed | failed |
+| 156 | passed | passed | failed | failed |
+| 157 | passed | passed | failed | failed |
+| 158 | passed | passed | failed | failed |
+| 159 | passed | passed | failed | failed |
+| 160 | passed | passed | failed | failed |
+| 161 | passed | passed | failed | failed |
+| 162 | passed | passed | passed | passed |
+| 163 | passed | passed | passed | passed |
+| 164 | passed | passed | passed | passed |
+| 165 | passed | passed | passed | passed |
+| 166 | passed | passed | passed | passed |
+| 167 | passed | blocked | passed | blocked |
+| 168 | passed | blocked | passed | blocked |
+| 169 | passed | passed | passed | passed |
+| 170 | passed | passed | passed | passed |
+| 171 | passed | passed | passed | passed |
+| 172 | passed | passed | passed | passed |
