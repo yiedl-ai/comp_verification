@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import hashlib
+from http.client import HTTPException
 import json
 import sys
+import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
@@ -57,6 +59,7 @@ class IpfsGateway:
         retry_base_delay: float = 2.0,
         chunk_size: int = 1024 * 1024,
         range_request_bytes: int = 16 * 1024 * 1024,
+        max_concurrent_ranges_per_download: int = 4,
         max_concurrent_downloads: int = 8,
     ) -> None:
         self.base_url = base_url.rstrip("/")
@@ -68,6 +71,7 @@ class IpfsGateway:
         self.retry_base_delay = retry_base_delay
         self.chunk_size = chunk_size
         self.range_request_bytes = range_request_bytes
+        self.max_concurrent_ranges_per_download = max_concurrent_ranges_per_download
         self.max_concurrent_downloads = max_concurrent_downloads
 
     def download(
@@ -107,7 +111,12 @@ class IpfsGateway:
             last_error: IpfsDownloadError | None = None
             for attempt in range(self.attempts):
                 try:
-                    self._download_to_partial(cid, partial, progress)
+                    if self.max_concurrent_ranges_per_download == 1:
+                        self._download_to_partial(cid, partial, progress)
+                    else:
+                        self._download_to_partial_concurrently(
+                            cid, partial, progress
+                        )
                     last_error = None
                     break
                 except IpfsDownloadError as error:
@@ -137,6 +146,19 @@ class IpfsGateway:
         return artifact
 
     def _remote_size(self, cid: str) -> int:
+        head_request = Request(
+            self._artifact_url(cid),
+            headers=self._request_headers(),
+            method="HEAD",
+        )
+        try:
+            with urlopen(head_request, timeout=self.timeout) as response:
+                content_length = response.headers.get("Content-Length")
+                if content_length is not None:
+                    return int(content_length)
+        except (HTTPError, URLError, TimeoutError, ValueError):
+            pass
+
         request = Request(
             self._artifact_url(cid),
             headers=self._request_headers(range_value="bytes=0-0"),
@@ -288,6 +310,134 @@ class IpfsGateway:
                         )
             except (HTTPError, URLError, TimeoutError) as error:
                 raise IpfsDownloadError(f"failed to download {cid}") from error
+
+    def _download_to_partial_concurrently(
+        self,
+        cid: str,
+        partial: Path,
+        progress: ProgressCallback | None,
+    ) -> None:
+        """Fetch persistent byte ranges concurrently, then assemble in order."""
+
+        total = self._remote_size(cid)
+        prefix_size = partial.stat().st_size if partial.exists() else 0
+        if prefix_size > total:
+            raise IpfsDownloadError(
+                f"partial file for {cid} is larger than gateway content"
+            )
+        if prefix_size == total:
+            return
+
+        range_root = self.cache / ".ranges" / cid
+        range_root.mkdir(parents=True, exist_ok=True)
+        ranges = [
+            (start, min(start + self.range_request_bytes - 1, total - 1))
+            for start in range(prefix_size, total, self.range_request_bytes)
+        ]
+        received: dict[tuple[int, int], int] = {}
+        lock = threading.Lock()
+        for start, end in ranges:
+            path = range_root / f"{start}-{end}.part"
+            size = path.stat().st_size if path.exists() else 0
+            expected = end - start + 1
+            if size > expected:
+                raise IpfsDownloadError(f"oversized retained range for {cid}")
+            received[(start, end)] = size
+
+        def report_range(key: tuple[int, int], size: int) -> None:
+            with lock:
+                received[key] = size
+                downloaded = prefix_size + sum(received.values())
+            if progress is not None:
+                progress(DownloadProgress(cid, downloaded, total, False))
+
+        if progress is not None:
+            report_range((-1, -1), 0)
+            received.pop((-1, -1), None)
+
+        errors: list[IpfsDownloadError] = []
+        with ThreadPoolExecutor(
+            max_workers=self.max_concurrent_ranges_per_download
+        ) as executor:
+            futures = {
+                executor.submit(
+                    self._download_range_segment,
+                    cid,
+                    start,
+                    end,
+                    range_root / f"{start}-{end}.part",
+                    report_range,
+                ): (start, end)
+                for start, end in ranges
+                if received[(start, end)] < end - start + 1
+            }
+            for future in as_completed(futures):
+                try:
+                    future.result()
+                except IpfsDownloadError as error:
+                    errors.append(error)
+        if errors:
+            raise errors[0]
+
+        with partial.open("ab") as output:
+            for start, end in ranges:
+                path = range_root / f"{start}-{end}.part"
+                expected = end - start + 1
+                if not path.is_file() or path.stat().st_size != expected:
+                    raise IpfsDownloadError(f"incomplete retained range for {cid}")
+                with path.open("rb") as source:
+                    for chunk in iter(lambda: source.read(self.chunk_size), b""):
+                        output.write(chunk)
+                path.unlink()
+        range_root.rmdir()
+        ranges_parent = range_root.parent
+        if not any(ranges_parent.iterdir()):
+            ranges_parent.rmdir()
+
+    def _download_range_segment(
+        self,
+        cid: str,
+        start: int,
+        end: int,
+        destination: Path,
+        report: Callable[[tuple[int, int], int], None],
+    ) -> None:
+        key = (start, end)
+        existing = destination.stat().st_size if destination.exists() else 0
+        expected = end - start + 1
+        if existing == expected:
+            report(key, existing)
+            return
+        request_start = start + existing
+        request = Request(
+            self._artifact_url(cid),
+            headers=self._request_headers(
+                range_value=f"bytes={request_start}-{end}"
+            ),
+        )
+        try:
+            with urlopen(request, timeout=self.timeout) as response:
+                status = getattr(response, "status", 200)
+                content_range = response.headers.get("Content-Range")
+                expected_prefix = f"bytes {request_start}-{end}/"
+                if status != 206 or not content_range.startswith(expected_prefix):
+                    raise IpfsDownloadError(
+                        f"gateway returned an invalid range for {cid}: "
+                        f"{status} {content_range!r}"
+                    )
+                with destination.open("ab") as output:
+                    while chunk := response.read(self.chunk_size):
+                        output.write(chunk)
+                        existing += len(chunk)
+                        report(key, existing)
+        except (HTTPError, URLError, TimeoutError, OSError, HTTPException) as error:
+            raise IpfsDownloadError(
+                f"failed range {request_start}-{end} for {cid}"
+            ) from error
+        if existing != expected:
+            raise IpfsDownloadError(
+                f"short range {start}-{end} for {cid}: {existing} of {expected}"
+            )
 
     def _request_headers(self, *, range_value: str | None = None) -> dict[str, str]:
         headers = {

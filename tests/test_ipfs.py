@@ -170,3 +170,53 @@ def test_large_download_uses_bounded_resumable_ranges(
 
     assert partial.read_bytes() == payload
     assert requested_ranges == ["bytes=0-3", "bytes=4-7", "bytes=8-11"]
+
+
+def test_concurrent_ranges_reuse_retained_segments_and_assemble(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    payload = b"abcdefghij"
+    requested_ranges: list[str] = []
+
+    class Response(io.BytesIO):
+        status = 206
+
+        def __init__(self, data: bytes, headers: dict[str, str]) -> None:
+            super().__init__(data)
+            self.headers = headers
+
+    def fake_urlopen(request, timeout):  # noqa: ANN001, ARG001
+        if request.get_method() == "HEAD":
+            return Response(b"", {"Content-Length": str(len(payload))})
+        value = request.get_header("Range")
+        requested_ranges.append(value)
+        start_text, end_text = value.removeprefix("bytes=").split("-", 1)
+        start, end = int(start_text), int(end_text)
+        data = payload[start : end + 1]
+        return Response(
+            data,
+            {
+                "Content-Length": str(len(data)),
+                "Content-Range": f"bytes {start}-{end}/{len(payload)}",
+            },
+        )
+
+    monkeypatch.setattr("comp_verification.ipfs.urlopen", fake_urlopen)
+    partial = tmp_path / "QmCid.part"
+    partial.write_bytes(payload[:2])
+    retained = tmp_path / ".ranges" / "QmCid" / "2-5.part"
+    retained.parent.mkdir(parents=True)
+    retained.write_bytes(payload[2:6])
+    gateway = IpfsGateway(
+        "https://ipfs.example/ipfs",
+        tmp_path,
+        chunk_size=2,
+        range_request_bytes=4,
+        max_concurrent_ranges_per_download=2,
+    )
+
+    gateway._download_to_partial_concurrently("QmCid", partial, progress=None)
+
+    assert partial.read_bytes() == payload
+    assert requested_ranges == ["bytes=6-9"]
+    assert not (tmp_path / ".ranges").exists()

@@ -30,6 +30,9 @@ chunk_size_bytes = 1048576
 # Bound each HTTP range response so interrupted large downloads resume with at
 # most this much in-flight data.
 range_request_bytes = 16777216
+# Persistent ranges within one large archive may be fetched in parallel. A
+# failed range resumes without discarding successful sibling ranges.
+max_concurrent_ranges_per_download = 4
 max_concurrent_downloads = 8
 
 [scope]

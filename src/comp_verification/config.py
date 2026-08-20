@@ -41,6 +41,7 @@ class IpfsConfig:
     retry_base_delay_seconds: float = 2.0
     chunk_size_bytes: int = 1024 * 1024
     range_request_bytes: int = 16 * 1024 * 1024
+    max_concurrent_ranges_per_download: int = 4
     max_concurrent_downloads: int = 8
 
     def validate(self) -> None:
@@ -53,6 +54,10 @@ class IpfsConfig:
         _positive("ipfs.retry_base_delay_seconds", self.retry_base_delay_seconds)
         _positive("ipfs.chunk_size_bytes", self.chunk_size_bytes)
         _positive("ipfs.range_request_bytes", self.range_request_bytes)
+        _positive(
+            "ipfs.max_concurrent_ranges_per_download",
+            self.max_concurrent_ranges_per_download,
+        )
         _positive("ipfs.max_concurrent_downloads", self.max_concurrent_downloads)
 
 
