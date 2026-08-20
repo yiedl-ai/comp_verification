@@ -625,7 +625,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
-      "submission_status": "invalid: unexpected prediction header: ['symbol', 'pred_ud']",
+      "submission_status": "invalid",
       "wallet_reward_matches": true
     },
     {
@@ -826,6 +826,7 @@
     }
   ],
   "passed": true,
+  "passed_with_caveat": true,
   "policy_id": "legacy-37-v1",
   "policy_source_files_sha256": {
     "library/score_reward.py": "5c302c75b10964ba0203baefe77025dca3099d5ceb77fefa237403d9f30c2363",
@@ -840,6 +841,7 @@
     "pandas": "1.5.3",
     "python": "3.11.14"
   },
+  "resolved_result_cid": "QmYUVjPRM1MFzbjcZKm1drr1r6cYyUZzUS4z7AwATL2jRw",
   "result_bytes_sha256": "cce7002e3cea4b325ddf5f6de5090ab22bf9f0e3fd9e95fc24a66e930a83aacf",
   "result_cid": "QmYUVjPRM1MFzbjcZKm1drr1r6cYyUZzUS4z7AwATL2jRw",
   "schema_version": 1,

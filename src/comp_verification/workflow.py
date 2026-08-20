@@ -38,6 +38,7 @@ from .submissions import (
     decrypt_submission_archive,
     parse_predictions,
 )
+from .submission_fixtures import read_submission_fixture, write_submission_fixture
 from .ipfs import IpfsDownloadError
 from .scoring import read_realized_returns, score_prediction
 from .chain_evidence import (
@@ -327,6 +328,9 @@ class FirstTenWorkflow:
                             private_key,
                         )
                     )
+                fixture_provenance = self._write_submission_fixture(
+                    manifest["challenge"], competition, policy, participants
+                )
                 report = {
                     "schema_version": 1,
                     "challenge": manifest["challenge"],
@@ -338,6 +342,7 @@ class FirstTenWorkflow:
                     "valid_submission_count": sum(
                         item["status"] == "valid" for item in participants
                     ),
+                    "normalized_fixture": fixture_provenance,
                     "participants": participants,
                 }
                 destination = (
@@ -365,6 +370,28 @@ class FirstTenWorkflow:
                 binary_float=policy.answer_binary_float,
             )
             for competition, observed in manifest["competitions"].items():
+                fixture_path = self._submission_fixture_path(challenge, competition)
+                normalized_submissions = (
+                    read_submission_fixture(fixture_path, policy=policy)
+                    if fixture_path.exists()
+                    else None
+                )
+                submission_report_path = (
+                    self.root
+                    / "reports"
+                    / "submissions"
+                    / f"challenge-{challenge:03d}-{competition.lower()}.json"
+                )
+                submission_statuses = (
+                    {
+                        row["address"]: row["status"]
+                        for row in json.loads(
+                            submission_report_path.read_text(encoding="utf-8")
+                        )["participants"]
+                    }
+                    if submission_report_path.exists()
+                    else {}
+                )
                 result_cid = observed["content"]["results"]["cid"]
                 publication_report = json.loads(
                     (
@@ -436,6 +463,13 @@ class FirstTenWorkflow:
                         stake,
                         returns,
                         policy,
+                        normalized_prediction=(
+                            normalized_submissions.get(address)
+                            if normalized_submissions is not None
+                            else None
+                        ),
+                        ingestion_status=submission_statuses.get(address),
+                        fixture_available=normalized_submissions is not None,
                     )
                     expected = published[address]
                     gain_delta = computed_gain - expected.relative_gain
@@ -572,25 +606,38 @@ class FirstTenWorkflow:
         stake: Decimal,
         returns: dict[str, Decimal],
         policy: ScoringPolicy,
+        normalized_prediction: dict[str, Decimal] | None = None,
+        ingestion_status: str | None = None,
+        fixture_available: bool = False,
     ) -> tuple[Decimal, Decimal, str]:
         if not submission:
             return Decimal(0), Decimal(0), "no-submission"
-        path = (
-            self.root
-            / ".cache"
-            / "decrypted"
-            / f"challenge-{challenge:03d}"
-            / competition.lower()
-            / f"{address}.csv"
-        )
-        if not path.exists():
-            return Decimal(0), Decimal(0), "not-decrypted"
-        try:
-            predictions = parse_predictions(
-                path.read_bytes(),
-                policy.symbols,
-                reject_duplicates=True,
+        if fixture_available:
+            if normalized_prediction is None:
+                return Decimal(0), Decimal(0), ingestion_status or "invalid"
+            predictions = normalized_prediction
+            status = "valid"
+        else:
+            path = (
+                self.root
+                / ".cache"
+                / "decrypted"
+                / f"challenge-{challenge:03d}"
+                / competition.lower()
+                / f"{address}.csv"
             )
+            if not path.exists():
+                return Decimal(0), Decimal(0), "not-decrypted"
+            try:
+                predictions = parse_predictions(
+                    path.read_bytes(),
+                    policy.symbols,
+                    reject_duplicates=True,
+                )
+                status = "valid"
+            except (InvalidSubmission, ValueError, ArithmeticError) as error:
+                return Decimal(0), Decimal(0), f"invalid: {error}"
+        try:
             predictions = {
                 symbol: value
                 for symbol, value in predictions.items()
@@ -605,7 +652,7 @@ class FirstTenWorkflow:
                 stake,
                 reward_digits=policy.reward_digits,
             )
-            return gain, reward, "valid"
+            return gain, reward, status
         except (InvalidSubmission, ValueError, ArithmeticError) as error:
             return Decimal(0), Decimal(0), f"invalid: {error}"
 
@@ -658,6 +705,46 @@ class FirstTenWorkflow:
             OSError,
         ) as error:
             return {**base, "status": "invalid", "problem": str(error)}
+
+    def _submission_fixture_path(self, challenge: int, competition: str) -> Path:
+        return (
+            self.root
+            / "data"
+            / "submissions"
+            / f"challenge-{challenge:03d}-{competition.lower()}.csv"
+        )
+
+    def _write_submission_fixture(
+        self,
+        challenge: int,
+        competition: str,
+        policy: ScoringPolicy,
+        participants: list[dict[str, Any]],
+    ) -> dict[str, Any]:
+        normalized: dict[str, dict[str, Decimal]] = {}
+        for participant in participants:
+            if participant["status"] != "valid":
+                continue
+            address = participant["address"]
+            source = (
+                self.root
+                / ".cache"
+                / "decrypted"
+                / f"challenge-{challenge:03d}"
+                / competition.lower()
+                / f"{address}.csv"
+            )
+            normalized[address] = parse_predictions(
+                source.read_bytes(), policy.symbols, reject_duplicates=True
+            )
+        return write_submission_fixture(
+            self._submission_fixture_path(challenge, competition),
+            challenge=challenge,
+            competition=competition,
+            policy=policy,
+            predictions=normalized,
+            participant_evidence=participants,
+        )
 
     def extract_prices(
         self,
