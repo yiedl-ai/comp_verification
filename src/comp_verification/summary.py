@@ -59,6 +59,8 @@ def build_first_ten_summary(root: Path, destination: Path) -> dict[str, Any]:
                         "transaction_hash": event["transaction_hash"],
                         "submission_digest": event["topics"][3],
                     }
+                if caveat := scoring.get("caveat"):
+                    issue["caveat"] = caveat
                 issues.append(issue)
             publication_passes += int(publication["passed"])
             scoring_passes += int(scoring["passed"])
@@ -181,6 +183,12 @@ def _render_markdown(summary: dict[str, Any]) -> str:
                             f"- Transaction: `{event['transaction_hash']}`",
                             f"- Block hash: `{event['block_hash']}`",
                         ]
+                    )
+                caveat = issue.get("caveat")
+                if caveat:
+                    lines.append(
+                        "- Caveat: "
+                        f"[{caveat['id']}](../../{caveat['document']}#{caveat['anchor']})"
                     )
                 lines.extend(
                     [

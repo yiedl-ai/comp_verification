@@ -18,6 +18,7 @@
 - Submission event: block `44653464` (301 blocks before close)
 - Transaction: `0x9399b7493668cde00743203de0e14095913c3b56cc417dca4f6819ccef9b01cb`
 - Block hash: `0x67e3a2ae384e5c1522e9bc35d6d32056cb392e5b433aabdf562e2efb15b8de99`
+- Caveat: [challenge-8-late-submission-and-ipfs-availability](../../docs/caveats.md#challenge-8-late-submission-and-ipfs-availability)
 
 The recovered production policy accepts this decrypted submission. The published zero remains an audit failure unless separate evidence justifies its exclusion.
 
@@ -30,5 +31,6 @@ The recovered production policy accepts this decrypted submission. The published
 - Submission event: block `44653618` (130 blocks before close)
 - Transaction: `0x426c5ad6caed2aeedcbebc9b47a37afbe4226fdd97c9571ad45d7ca9c54c42ac`
 - Block hash: `0xbbb8ef6e276e16a8879a0389cee1f570cf980716d267341728047fad8234a337`
+- Caveat: [challenge-8-late-submission-and-ipfs-availability](../../docs/caveats.md#challenge-8-late-submission-and-ipfs-availability)
 
 The recovered production policy accepts this decrypted submission. The published zero remains an audit failure unless separate evidence justifies its exclusion.

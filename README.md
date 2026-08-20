@@ -59,3 +59,6 @@ compares those raw event records.
 
 `build_summary()` writes `reports/first-ten-summary.json`, retaining detailed
 participant mismatches and their submission block/transaction provenance.
+Known limitations and historical operational explanations are maintained in the
+central [`docs/caveats.md`](docs/caveats.md) register. Generated reports link to
+applicable entries without converting an unresolved audit failure into a pass.

@@ -12,6 +12,7 @@ from importlib.metadata import version
 from pathlib import Path
 from typing import Any
 
+from .caveats import caveat_for_challenge
 from .constants import (
     FIRST_CHALLENGE,
     IPFS_GATEWAY,
@@ -375,6 +376,8 @@ class FirstTenWorkflow:
                     "passed": not mismatches,
                     "participants": comparisons,
                 }
+                if caveat := caveat_for_challenge(challenge):
+                    report["caveat"] = caveat
                 destination = (
                     self.root
                     / "reports"

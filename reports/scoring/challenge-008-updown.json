@@ -1,4 +1,11 @@
 {
+  "caveat": {
+    "anchor": "challenge-8-late-submission-and-ipfs-availability",
+    "classification": "inferred-operational-exception",
+    "document": "docs/caveats.md",
+    "id": "challenge-8-late-submission-and-ipfs-availability",
+    "summary": "The early backend likely captured submissions before the final on-chain close state or encountered late IPFS availability; the affected comparisons remain scoring failures."
+  },
   "challenge": 8,
   "competition": "UPDOWN",
   "gain_tolerance": "0",
