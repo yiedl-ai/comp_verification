@@ -1082,6 +1082,8 @@ class FirstTenWorkflow:
                 for symbol, value in predictions.items()
                 if symbol in returns
             }
+            if policy.score_symbol_order == "symbol":
+                predictions = dict(sorted(predictions.items()))
             if not predictions:
                 raise InvalidSubmission("no submitted symbols have realized targets")
             if (

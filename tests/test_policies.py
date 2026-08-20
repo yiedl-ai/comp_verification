@@ -42,6 +42,8 @@ def test_dynamic_or_out_of_range_challenges_are_not_static(challenge: int) -> No
 def test_dynamic_basket_and_aliases_match_the_source_configuration() -> None:
     assert len(DYNAMIC_153_SYMBOLS) == 153
     assert len(set(DYNAMIC_153_SYMBOLS)) == 153
+    assert policy_for_challenge(167).score_symbol_order == "symbol"
+    assert policy_for_challenge(166).score_symbol_order == "submission"
     assert dict(DYNAMIC_SYMBOL_ALIASES) == {
         "RNDR": "RENDER",
         "FTM": "S",

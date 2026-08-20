@@ -103,6 +103,7 @@ class ScoringPolicy:
     source_git_commit: str
     source_files_sha256: tuple[tuple[str, str], ...]
     status: str
+    score_symbol_order: str = "submission"
 
 
 FIRST_TEN_CANDIDATE = ScoringPolicy(
@@ -223,8 +224,15 @@ DYNAMIC_153_CANDIDATE = ScoringPolicy(
             "configuration/basket_aliases.csv",
             "194527937726254f19fb483a89f21195bf7f283ba8a22b30871e865344fcdf18",
         ),
+        (
+            "archieved/competition.sql",
+            "9cd98d96b02ecf9d8db467588fe08aab29090cd1cf2934c9b36ec0eed1000b72",
+        ),
     ),
     status="source-derived-candidate",
+    # PostgreSQL's historical submission_series_address_symbol index supplied
+    # the rows in symbol order to the production SELECT used by the scorer.
+    score_symbol_order="symbol",
 )
 
 

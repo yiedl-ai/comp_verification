@@ -52,6 +52,12 @@ exactly; the audit tolerance is zero. Python 3.11, pandas 1.5.3, and NumPy
 1.24.4 are pinned by `uv` because later parser versions can produce different
 binary floats for the same decimal text.
 
+For the challenge-167+ scorer, normalized prediction rows are evaluated in
+symbol order. This reproduces the production PostgreSQL index scan on
+`(series, address, symbol)` and is numerically material at Decimal's final
+digits; challenges 169–172 reproduce every published score exactly with this
+ordering.
+
 Tracked chain snapshots are pinned to an explicit historical block.
 `verify_chain()` re-queries every field at that same block and writes an exact
 comparison under `reports/chain/`; `ingest_chain_events()` records the relevant
