@@ -55,6 +55,17 @@ def test_register_matches_general_audit_contexts() -> None:
     assert register.find(challenge=8, address="0x0000000000000000000000000000000000000000") == ()
 
 
+def test_register_captures_challenge_fourteen_broken_result_reference() -> None:
+    problem = load_problem_register().by_id(
+        "challenge-14-neutral-results-cid-is-dataset-15"
+    )
+
+    assert problem.status == "investigating"
+    assert problem.counts_as_pass is False
+    assert problem.scope.audit_kinds == frozenset({"publication", "scoring"})
+    assert problem.raw["details"]["same_as_dataset_challenge"] == 15
+
+
 def test_report_reference_preserves_existing_report_shape() -> None:
     reference = load_problem_register().by_id(PROBLEM_ID).report_reference()
 

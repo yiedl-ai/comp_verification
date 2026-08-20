@@ -1,7 +1,10 @@
+import hashlib
+import json
 import zipfile
 from pathlib import Path
 
 from comp_verification.datasets import (
+    derive_price_fixture_from_targets,
     extract_latest_realized_returns,
     extract_latest_targets,
     verify_target_fixture,
@@ -84,3 +87,50 @@ def test_extract_latest_targets_preserves_both_targets_and_every_symbol(
         "QmSource",
         destination,
     )
+
+
+def test_derive_price_fixture_from_verified_targets(tmp_path: Path) -> None:
+    source = tmp_path / "challenge-011.csv"
+    source.write_text(
+        "date,symbol,target_updown,target_neutral\n"
+        "2023-07-23,AAVE,0.1,0.9\n"
+        "2023-07-23,BTC,-0.2,0.8\n",
+        encoding="utf-8",
+    )
+    source_bytes = source.read_bytes()
+    source.with_suffix(".json").write_text(
+        json.dumps(
+            {
+                "scoring_challenge": 11,
+                "source_dataset_challenge": 12,
+                "source_cid": "QmSource",
+                "source_cid_verified": True,
+                "source_archive_sha256": "archive-sha",
+                "source_member": "dataset/train_dataset.csv",
+                "source_member_crc32": "12345678",
+                "source_member_uncompressed_size": 100,
+                "date": "2023-07-23",
+                "target_columns": ["target_updown", "target_neutral"],
+                "targets_sha256": hashlib.sha256(source_bytes).hexdigest(),
+            }
+        ),
+        encoding="utf-8",
+    )
+    destination = tmp_path / "prices.csv"
+
+    provenance = derive_price_fixture_from_targets(
+        source,
+        symbols=("AAVE", "BTC"),
+        policy_id="legacy-37-v1",
+        destination=destination,
+    )
+
+    assert destination.read_text(encoding="utf-8") == (
+        "date,symbol,return\n"
+        "2023-07-23,AAVE,0.1\n"
+        "2023-07-23,BTC,-0.2\n"
+    )
+    assert provenance["derived_from_targets_sha256"] == hashlib.sha256(
+        source_bytes
+    ).hexdigest()
+    assert provenance["target_column"] == "target_updown"

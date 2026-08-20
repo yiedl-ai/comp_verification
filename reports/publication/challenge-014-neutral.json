@@ -1,0 +1,22 @@
+{
+  "caveats": [
+    {
+      "anchor": "challenge-14-neutral-results-cid-points-to-dataset-15",
+      "classification": "on-chain-content-reference-error",
+      "counts_as_pass": false,
+      "document": "docs/caveats.md",
+      "id": "challenge-14-neutral-results-cid-is-dataset-15",
+      "summary": "Challenge 14 NEUTRAL's on-chain results CID resolves to the CID-verified challenge 15 dataset archive rather than a results CSV."
+    }
+  ],
+  "challenge": 14,
+  "competition": "NEUTRAL",
+  "contract": "0xC8519524013348466e18fC1747d11F1feA9473fd",
+  "mismatch_count": 1,
+  "observed_block": 92336519,
+  "passed": false,
+  "problem": "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe2 in position 48: invalid continuation byte",
+  "result_bytes_sha256": "1e1adbc58045f0032091792c01e77a26d015d614cd251750750231c3c705f6a7",
+  "result_cid": "QmNXo5RtUahWHGB578jmkSNK3GSyRxmjRkYUYqoCDosCVd",
+  "schema_version": 1
+}

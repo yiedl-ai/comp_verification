@@ -1,0 +1,32 @@
+{
+  "audit_status": "blocked-by-publication-failure",
+  "caveats": [
+    {
+      "anchor": "challenge-14-neutral-results-cid-points-to-dataset-15",
+      "classification": "on-chain-content-reference-error",
+      "counts_as_pass": false,
+      "document": "docs/caveats.md",
+      "id": "challenge-14-neutral-results-cid-is-dataset-15",
+      "summary": "Challenge 14 NEUTRAL's on-chain results CID resolves to the CID-verified challenge 15 dataset archive rather than a results CSV."
+    }
+  ],
+  "challenge": 14,
+  "comparison_count": 0,
+  "competition": "NEUTRAL",
+  "mismatch_count": 0,
+  "participant_count": 81,
+  "participants": [],
+  "passed": false,
+  "policy_id": "legacy-37-v1",
+  "policy_source_files_sha256": {
+    "library/score_reward.py": "5c302c75b10964ba0203baefe77025dca3099d5ceb77fefa237403d9f30c2363",
+    "library/yiedl2.py": "6b8ffe243cca0debc341af7c4f76aa05238d396c08d8fa53c000005d6d32807f"
+  },
+  "policy_source_git_commit": "9f03bb3",
+  "policy_status": "verified-first-ten-with-reported-operational-mismatch",
+  "problem": "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe2 in position 48: invalid continuation byte",
+  "raw_passed": false,
+  "result_bytes_sha256": "1e1adbc58045f0032091792c01e77a26d015d614cd251750750231c3c705f6a7",
+  "result_cid": "QmNXo5RtUahWHGB578jmkSNK3GSyRxmjRkYUYqoCDosCVd",
+  "schema_version": 1
+}

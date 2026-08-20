@@ -27,6 +27,23 @@ contains an explicit accepted adjudication.
 | Challenge | Scope | Classification | Affected submissions | Audit treatment |
 | --- | --- | --- | ---: | --- |
 | 8 | NEUTRAL and UPDOWN | Likely submission-snapshot/RPC-sync/IPFS-availability race | 2 | Accepted as two caveated passes; raw mismatches remain visible |
+| 14 | NEUTRAL publication | Results CID is the challenge 15 dataset CID | 1 | Unresolved publication failure; does not count as a pass |
+
+## Challenge 14 NEUTRAL: results CID points to dataset 15
+
+At observed Polygon block `92336519`, challenge 14 NEUTRAL records results CID
+`QmNXo5RtUahWHGB578jmkSNK3GSyRxmjRkYUYqoCDosCVd` and digest
+`0x02dad9a83f016fd3b4763359ed358478768387df48665531a68f993130f4a0f8`.
+Those are exactly the CID and digest recorded for the challenge 15 dataset.
+
+The bytes were independently downloaded and CID-verified. Their SHA-256 is
+`1e1adbc58045f0032091792c01e77a26d015d614cd251750750231c3c705f6a7`.
+They form a ZIP archive containing `dataset/train_dataset.csv`,
+`dataset/validation_dataset.csv`, and a quickstart notebook—not a published
+results CSV. Therefore challenge 14 NEUTRAL publication integrity, posted
+relative gains, and the complete off-chain score calculation cannot currently
+be verified from that on-chain content reference. This remains unresolved and
+does not count as a pass.
 
 ## Challenge 8: late submission, RPC synchronization, and IPFS availability
 

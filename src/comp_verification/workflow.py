@@ -21,6 +21,7 @@ from .constants import (
 )
 from .config import VerifierConfig
 from .datasets import (
+    derive_price_fixture_from_targets,
     extract_latest_realized_returns,
     verify_price_fixture,
     write_price_fixture,
@@ -43,7 +44,7 @@ from .chain_evidence import (
     verify_tracked_events,
     verify_tracked_snapshots,
 )
-from .summary import build_first_ten_summary
+from .summary import build_audit_status, build_first_ten_summary
 
 
 @dataclass(frozen=True)
@@ -203,24 +204,45 @@ class FirstTenWorkflow:
         for manifest in self._chain_manifests(challenges):
             for competition, observed in manifest["competitions"].items():
                 cid = observed["content"]["results"]["cid"]
-                if not cid:
-                    raise ValueError(
-                        f"missing result CID for challenge {manifest['challenge']} {competition}"
-                    )
-                artifact = self.ipfs.download(cid, progress=progress)
-                published = read_published_results(
-                    artifact.path,
-                    competition=competition,
-                    challenge=manifest["challenge"],
-                )
-                report = compare_results_to_chain(manifest, competition, published)
-                report["result_bytes_sha256"] = artifact.sha256
                 destination = (
                     self.root
                     / "reports"
                     / "publication"
                     / f"challenge-{manifest['challenge']:03d}-{competition.lower()}.json"
                 )
+                artifact = None
+                try:
+                    if not cid:
+                        raise ValueError("missing result CID")
+                    artifact = self.ipfs.download(cid, progress=progress)
+                    published = read_published_results(
+                        artifact.path,
+                        competition=competition,
+                        challenge=manifest["challenge"],
+                    )
+                    report = compare_results_to_chain(manifest, competition, published)
+                    report["result_bytes_sha256"] = artifact.sha256
+                except (IpfsDownloadError, OSError, ValueError) as error:
+                    caveats = caveats_for_context(
+                        challenge=manifest["challenge"],
+                        competition=competition,
+                        audit_kind="publication",
+                    )
+                    report = {
+                        "schema_version": 1,
+                        "challenge": manifest["challenge"],
+                        "competition": competition,
+                        "contract": observed["contract"],
+                        "observed_block": manifest["observed_block"],
+                        "result_cid": cid,
+                        "result_bytes_sha256": (
+                            artifact.sha256 if artifact is not None else None
+                        ),
+                        "mismatch_count": 1,
+                        "passed": False,
+                        "problem": f"{type(error).__name__}: {error}",
+                        "caveats": caveats,
+                    }
                 write_canonical_json(destination, report)
                 reports.append(report)
         return reports
@@ -309,6 +331,46 @@ class FirstTenWorkflow:
                         / f"challenge-{challenge:03d}-{competition.lower()}.json"
                     ).read_text(encoding="utf-8")
                 )
+                if not publication_report["passed"]:
+                    report = {
+                        "schema_version": 1,
+                        "challenge": challenge,
+                        "competition": competition,
+                        "policy_id": FIRST_TEN_CANDIDATE.policy_id,
+                        "policy_source_git_commit": (
+                            FIRST_TEN_CANDIDATE.source_git_commit
+                        ),
+                        "policy_source_files_sha256": dict(
+                            FIRST_TEN_CANDIDATE.source_files_sha256
+                        ),
+                        "policy_status": FIRST_TEN_CANDIDATE.status,
+                        "result_cid": result_cid,
+                        "result_bytes_sha256": publication_report.get(
+                            "result_bytes_sha256"
+                        ),
+                        "participant_count": len(observed["participants"]),
+                        "comparison_count": 0,
+                        "mismatch_count": 0,
+                        "audit_status": "blocked-by-publication-failure",
+                        "raw_passed": False,
+                        "passed": False,
+                        "problem": publication_report.get("problem"),
+                        "caveats": caveats_for_context(
+                            challenge=challenge,
+                            competition=competition,
+                            audit_kind="scoring",
+                        ),
+                        "participants": [],
+                    }
+                    destination = (
+                        self.root
+                        / "reports"
+                        / "scoring"
+                        / f"challenge-{challenge:03d}-{competition.lower()}.json"
+                    )
+                    write_canonical_json(destination, report)
+                    reports.append(report)
+                    continue
                 result_artifact = self.ipfs.download(
                     result_cid,
                     expected_sha256=publication_report["result_bytes_sha256"],
@@ -422,6 +484,30 @@ class FirstTenWorkflow:
                 )
                 write_canonical_json(destination, report)
                 reports.append(report)
+        return reports
+
+    def derive_prices_from_targets(
+        self, *, challenges: range
+    ) -> list[dict[str, Any]]:
+        """Build the exact legacy scoring basket from verified target fixtures."""
+
+        reports = []
+        for challenge in challenges:
+            source = (
+                self.root / "data" / "targets" / f"challenge-{challenge:03d}.csv"
+            )
+            destination = (
+                self.root / "data" / "prices" / f"challenge-{challenge:03d}.csv"
+            )
+            reports.append(
+                derive_price_fixture_from_targets(
+                    source,
+                    symbols=FIRST_TEN_CANDIDATE.symbols,
+                    policy_id=FIRST_TEN_CANDIDATE.policy_id,
+                    destination=destination,
+                    source_reference=str(source.relative_to(self.root)),
+                )
+            )
         return reports
 
     def _score_participant(
@@ -604,6 +690,14 @@ class FirstTenWorkflow:
         return build_first_ten_summary(
             self.root,
             self.root / "reports" / "first-ten-summary.json",
+        )
+
+    def build_audit_status(self) -> dict[str, Any]:
+        """Build the repository-wide audit status from detailed reports."""
+
+        return build_audit_status(
+            self.root,
+            self.root / "reports" / "audit-status.json",
         )
 
     def _dataset_catalog(self) -> dict[str, Any]:

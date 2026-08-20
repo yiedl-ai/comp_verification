@@ -209,6 +209,88 @@ def verify_target_fixture(
         raise ValueError(f"target provenance differs from source dataset: {provenance_path}")
 
 
+def derive_price_fixture_from_targets(
+    source: Path,
+    *,
+    symbols: tuple[str, ...],
+    policy_id: str,
+    destination: Path,
+    target_column: str = "target_updown",
+    source_reference: str | None = None,
+) -> dict[str, Any]:
+    """Materialize a scorer-sized basket from a verified condensed target fixture."""
+
+    provenance_path = source.with_suffix(".json")
+    provenance = json.loads(provenance_path.read_text(encoding="utf-8"))
+    source_bytes = source.read_bytes()
+    source_sha256 = hashlib.sha256(source_bytes).hexdigest()
+    if source_sha256 != provenance.get("targets_sha256"):
+        raise ValueError(f"target fixture hash differs from provenance: {source}")
+    if provenance.get("source_cid_verified") is not True:
+        raise ValueError(f"target fixture source CID is not verified: {source}")
+    if target_column not in provenance.get("target_columns", []):
+        raise ValueError(f"target fixture lacks {target_column}: {source}")
+
+    reader = csv.DictReader(io.StringIO(source_bytes.decode("utf-8-sig")))
+    fields = set(reader.fieldnames or ())
+    required = {"date", "symbol", target_column}
+    if not required <= fields:
+        raise ValueError(f"target fixture lacks columns {sorted(required - fields)}")
+    allowed = set(symbols)
+    rows: dict[str, str] = {}
+    dates: set[str] = set()
+    for row in reader:
+        symbol = (row.get("symbol") or "").strip()
+        if symbol not in allowed:
+            continue
+        if symbol in rows:
+            raise ValueError(f"duplicate target symbol {symbol}: {source}")
+        value = (row.get(target_column) or "").strip()
+        _validate_decimal(value, symbol)
+        rows[symbol] = value
+        dates.add((row.get("date") or "").strip())
+    missing = sorted(allowed - set(rows))
+    if missing:
+        raise ValueError(f"target fixture is missing policy symbols: {missing}")
+    if dates != {provenance.get("date")}:
+        raise ValueError(f"target fixture date differs from provenance: {source}")
+
+    prices = ExtractedPrices(
+        scoring_challenge=int(provenance["scoring_challenge"]),
+        source_dataset_challenge=int(provenance["source_dataset_challenge"]),
+        source_cid=str(provenance["source_cid"]),
+        source_member=str(provenance["source_member"]),
+        date=str(provenance["date"]),
+        rows=tuple((symbol, rows[symbol]) for symbol in sorted(rows)),
+    )
+    rendered = prices.csv_bytes()
+    derived_provenance = {
+        "schema_version": 1,
+        "scoring_challenge": prices.scoring_challenge,
+        "source_dataset_challenge": prices.source_dataset_challenge,
+        "source_cid": prices.source_cid,
+        "source_archive_sha256": provenance["source_archive_sha256"],
+        "source_member": prices.source_member,
+        "source_member_crc32": provenance["source_member_crc32"],
+        "source_member_uncompressed_size": provenance[
+            "source_member_uncompressed_size"
+        ],
+        "date": prices.date,
+        "row_count": len(prices.rows),
+        "prices_sha256": hashlib.sha256(rendered).hexdigest(),
+        "derived_from": source.name if source_reference is None else source_reference,
+        "derived_from_targets_sha256": source_sha256,
+        "target_column": target_column,
+        "policy_id": policy_id,
+    }
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_bytes(rendered)
+    destination.with_suffix(".json").write_bytes(
+        canonical_json_bytes(derived_provenance)
+    )
+    return derived_provenance
+
+
 def extract_latest_realized_returns(
     archive_path: Path,
     *,

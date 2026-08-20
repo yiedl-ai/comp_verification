@@ -100,6 +100,49 @@
         ]
       },
       "status": "accepted"
+    },
+    {
+      "affected_comparisons": 1,
+      "audit_treatment": {
+        "changes_outcome": false,
+        "mode": "unresolved-publication-failure",
+        "reason": "The published CID does not contain a challenge result table, so this audit cannot be counted as a pass."
+      },
+      "classification": "on-chain-content-reference-error",
+      "confidence": "high",
+      "details": {
+        "observations": [
+          "Challenge 14 NEUTRAL records QmNXo5RtUahWHGB578jmkSNK3GSyRxmjRkYUYqoCDosCVd as its results CID.",
+          "The same CID and digest are recorded as the challenge 15 dataset for both competition contracts.",
+          "CID-verified bytes are a ZIP dataset archive containing dataset/train_dataset.csv, dataset/validation_dataset.csv, and a quickstart notebook, not a results CSV."
+        ],
+        "result_cid": "QmNXo5RtUahWHGB578jmkSNK3GSyRxmjRkYUYqoCDosCVd",
+        "result_digest": "0x02dad9a83f016fd3b4763359ed358478768387df48665531a68f993130f4a0f8",
+        "source_archive_sha256": "1e1adbc58045f0032091792c01e77a26d015d614cd251750750231c3c705f6a7",
+        "same_as_dataset_challenge": 15,
+        "observed_block": 92336519
+      },
+      "documentation": {
+        "anchor": "challenge-14-neutral-results-cid-points-to-dataset-15",
+        "document": "docs/caveats.md",
+        "summary": "Challenge 14 NEUTRAL's on-chain results CID resolves to the CID-verified challenge 15 dataset archive rather than a results CSV."
+      },
+      "headline": "Challenge 14 NEUTRAL: Published results CID points to dataset 15",
+      "id": "challenge-14-neutral-results-cid-is-dataset-15",
+      "scope": {
+        "addresses": [],
+        "audit_kinds": [
+          "publication",
+          "scoring"
+        ],
+        "challenges": [
+          14
+        ],
+        "competitions": [
+          "NEUTRAL"
+        ]
+      },
+      "status": "investigating"
     }
   ],
   "schema_version": 1

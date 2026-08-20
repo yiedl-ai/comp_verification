@@ -4,9 +4,146 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import re
 from typing import Any
 
 from .jsonio import write_canonical_json
+
+
+REPORT_NAME = re.compile(r"challenge-(\d{3})-(neutral|updown)\.json")
+
+
+def build_audit_status(root: Path, destination: Path) -> dict[str, Any]:
+    """Summarize every detailed report currently present in the repository."""
+
+    reports_by_kind = {
+        kind: _indexed_reports(root / "reports" / kind)
+        for kind in ("publication", "scoring", "submissions")
+    }
+    challenges = sorted(
+        {
+            challenge
+            for reports in reports_by_kind.values()
+            for challenge, _ in reports
+        }
+    )
+    challenge_rows = []
+    for challenge in challenges:
+        competitions = []
+        for competition in ("NEUTRAL", "UPDOWN"):
+            key = (challenge, competition)
+            publication = reports_by_kind["publication"].get(key)
+            scoring = reports_by_kind["scoring"].get(key)
+            submissions = reports_by_kind["submissions"].get(key)
+            competitions.append(
+                {
+                    "competition": competition,
+                    "publication": _audit_state(publication),
+                    "scoring": _audit_state(scoring),
+                    "submission_evidence": "present" if submissions else "not-run",
+                    "scoring_raw_mismatch_count": (
+                        scoring.get("raw_mismatch_count", scoring.get("mismatch_count"))
+                        if scoring
+                        else None
+                    ),
+                    "scoring_caveated_comparison_count": (
+                        scoring.get("caveated_comparison_count", 0)
+                        if scoring
+                        else None
+                    ),
+                }
+            )
+        challenge_rows.append(
+            {"challenge": challenge, "competitions": competitions}
+        )
+
+    publication_states = [
+        row["publication"]
+        for challenge in challenge_rows
+        for row in challenge["competitions"]
+        if row["publication"] != "not-run"
+    ]
+    scoring_states = [
+        row["scoring"]
+        for challenge in challenge_rows
+        for row in challenge["competitions"]
+        if row["scoring"] != "not-run"
+    ]
+    target_challenges = sorted(
+        int(path.stem.removeprefix("challenge-"))
+        for path in (root / "data" / "targets").glob("challenge-*.csv")
+    )
+    summary = {
+        "schema_version": 1,
+        "publication_audits": _state_counts(publication_states),
+        "scoring_audits": _state_counts(scoring_states),
+        "fully_score_audited_challenges": [
+            row["challenge"]
+            for row in challenge_rows
+            if all(item["scoring"] == "passed" for item in row["competitions"])
+        ],
+        "target_ready_challenges": target_challenges,
+        "challenges": challenge_rows,
+    }
+    write_canonical_json(destination, summary)
+    destination.with_suffix(".md").write_text(
+        _render_audit_status(summary), encoding="utf-8"
+    )
+    return summary
+
+
+def _indexed_reports(directory: Path) -> dict[tuple[int, str], dict[str, Any]]:
+    reports = {}
+    for path in sorted(directory.glob("challenge-*.json")):
+        match = REPORT_NAME.fullmatch(path.name)
+        if match is None:
+            continue
+        reports[(int(match.group(1)), match.group(2).upper())] = _read(path)
+    return reports
+
+
+def _audit_state(report: dict[str, Any] | None) -> str:
+    if report is None:
+        return "not-run"
+    if report.get("passed") is True:
+        return "passed"
+    if str(report.get("audit_status", "")).startswith("blocked"):
+        return "blocked"
+    return "failed"
+
+
+def _state_counts(states: list[str]) -> dict[str, int]:
+    return {
+        "passed": states.count("passed"),
+        "blocked": states.count("blocked"),
+        "failed": states.count("failed"),
+        "total": len(states),
+    }
+
+
+def _render_audit_status(summary: dict[str, Any]) -> str:
+    scoring = summary["scoring_audits"]
+    publication = summary["publication_audits"]
+    lines = [
+        "# Competition verification status",
+        "",
+        f"- Scoring: {scoring['passed']}/{scoring['total']} passed; {scoring['blocked']} blocked; {scoring['failed']} failed",
+        f"- Publication: {publication['passed']}/{publication['total']} passed; {publication['blocked']} blocked; {publication['failed']} failed",
+        "",
+        "| Challenge | NEUTRAL publication | NEUTRAL scoring | UPDOWN publication | UPDOWN scoring |",
+        "| ---: | --- | --- | --- | --- |",
+    ]
+    for challenge in summary["challenges"]:
+        by_competition = {
+            row["competition"]: row for row in challenge["competitions"]
+        }
+        neutral = by_competition["NEUTRAL"]
+        updown = by_competition["UPDOWN"]
+        lines.append(
+            f"| {challenge['challenge']} | {neutral['publication']} | {neutral['scoring']} | {updown['publication']} | {updown['scoring']} |"
+        )
+    lines.append("")
+    return "\n".join(lines)
 
 
 def build_first_ten_summary(root: Path, destination: Path) -> dict[str, Any]:
