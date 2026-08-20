@@ -43,6 +43,7 @@ contains an explicit accepted adjudication.
 | 123 | UPDOWN publication/scoring | Result CID is the challenge-122 UPDOWN file | 1 | All challenge-123 on-chain rewards reproduce exactly; challenge-123 relative-gain publication remains open |
 | 129 | NEUTRAL and UPDOWN publication/scoring | Each result omits two malformed, zero-stake submitters | 4 | Every published score/reward and every wallet outcome reproduce exactly; raw row-completeness failures remain visible |
 | 134 | UPDOWN publication/scoring | Result CID is the challenge-133 UPDOWN file | 1 | All challenge-134 on-chain rewards reproduce exactly; challenge-134 relative-gain publication remains open |
+| 142, 154–161 | UPDOWN publication/scoring | Valid zero-stake submitters are omitted from result files | 9 | Zero wallet outcomes are exact, but omitted relative gains remain open failures |
 
 ## Challenge 110: stale UPDOWN result reference
 
@@ -176,6 +177,21 @@ scorer reproduces the net on-chain reward of all 39 valid submissions exactly;
 all 56 non-submitters also reproduce zero. The verifier therefore passes the
 UPDOWN reward layer but leaves its result publication and relative-gain layer
 open and failed until an authenticated challenge-134 result file is recovered.
+
+## Challenges 142 and 154–161: valid zero-financial submitters omitted
+
+Nine UPDOWN result files each omit one on-chain submitter whose independently
+downloaded archive is a valid 77-symbol prediction CSV. Challenge 142 omits
+`0x61a5c52423560f541ec3c6461318deae0519a4ab`; challenges 154 through 161
+omit `0x9250dbb45c4883de42348897b676ad11d6f5703c`. In every affected challenge,
+the omitted address has zero historical stake, challenge reward, and burn.
+
+The zero wallet outcomes are therefore reproducible, but this differs from the
+challenge-129 exception: these submissions are valid and can have nonzero
+relative gains. For example, challenge 154 independently computes
+`0.0002248414479546002094773049480` for the omitted row. The verifier retains
+each omission as an open publication and score failure; a zero financial result
+does not authorize inventing the missing published score.
 
 ## Challenge 94 UPDOWN: malformed, unavailable submission reference
 

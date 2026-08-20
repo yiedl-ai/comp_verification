@@ -267,6 +267,24 @@ def test_register_captures_challenge_123_stale_updown_result() -> None:
     assert problem.raw["details"]["stale_updown_result"]["same_as_challenge"] == 122
 
 
+def test_register_captures_valid_zero_financial_result_omissions() -> None:
+    problem = load_problem_register().by_id(
+        "challenges-142-and-154-161-valid-zero-financial-result-row-omissions"
+    )
+
+    assert problem.status == "open"
+    assert problem.counts_as_pass is False
+    assert problem.raw["affected_comparisons"] == 9
+    assert problem.scope.challenges == frozenset(
+        {142, 154, 155, 156, 157, 158, 159, 160, 161}
+    )
+    assert problem.raw["details"]["verified_scoring_example"] == {
+        "challenge": 154,
+        "computed_relative_gain": "0.0002248414479546002094773049480",
+        "computed_wallet_reward": "0.000000",
+    }
+
+
 def test_report_reference_preserves_existing_report_shape() -> None:
     reference = load_problem_register().by_id(PROBLEM_ID).report_reference()
 

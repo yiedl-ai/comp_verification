@@ -1,0 +1,30 @@
+{
+  "caveats": [
+    {
+      "anchor": "challenges-142-and-154-161-valid-zero-financial-submitters-omitted",
+      "classification": "valid-zero-financial-submitters-omitted-from-results",
+      "counts_as_pass": false,
+      "document": "docs/caveats.md",
+      "id": "challenges-142-and-154-161-valid-zero-financial-result-row-omissions",
+      "summary": "Nine UPDOWN files omit independently valid zero-stake submitters. Their zero wallet outcomes reproduce, but the missing relative gains remain open failures."
+    }
+  ],
+  "chain_participant_count": 92,
+  "challenge": 154,
+  "competition": "UPDOWN",
+  "contract": "0xEcB9716867f9300F2706EdbB5b81c7a0AbDC5B29",
+  "mismatch_count": 1,
+  "mismatches": [
+    {
+      "address": "0x9250dbb45c4883de42348897b676ad11d6f5703c",
+      "detail": "missing in results",
+      "field": "participant"
+    }
+  ],
+  "observed_block": 92336519,
+  "passed": false,
+  "published_row_count": 91,
+  "result_bytes_sha256": "7e1057040d0339797b9b55e21f6e2426908c1649479ad42fd8334b4fcc87bc20",
+  "result_cid": "QmQpwVjtcfSbfo4VakH5a5hKjRsaxdJbMNSnKmfFf2Dpn3",
+  "schema_version": 1
+}

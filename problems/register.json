@@ -1121,6 +1121,115 @@
         ]
       },
       "status": "open"
+    },
+    {
+      "affected_comparisons": 9,
+      "audit_treatment": {
+        "changes_outcome": false,
+        "mode": "open-valid-zero-financial-result-row-omissions",
+        "reason": "The omitted submitters have zero stake, reward, and burn, but their submissions are valid and their relative gains cannot be inferred from the absent result rows."
+      },
+      "classification": "valid-zero-financial-submitters-omitted-from-results",
+      "confidence": "high",
+      "details": {
+        "addresses": {
+          "0x61a5c52423560f541ec3c6461318deae0519a4ab": {
+            "challenges": [
+              142
+            ],
+            "submission_status": "valid-77-symbol-prediction"
+          },
+          "0x9250dbb45c4883de42348897b676ad11d6f5703c": {
+            "challenges": [
+              154,
+              155,
+              156,
+              157,
+              158,
+              159,
+              160,
+              161
+            ],
+            "submission_status": "valid-77-symbol-prediction"
+          }
+        },
+        "financial_values_for_every_omission": "stake=0,reward=0,burn=0",
+        "result_files": {
+          "142": {
+            "bytes_sha256": "9801616d15e893469d9d4b6f1ff7e772313d33bf1797b35eacd08ac71a94b9e5",
+            "cid": "QmPaDxuZomaSvnjCGTnjjvnVNxc2nxxfCVM5caxRY1fHQK"
+          },
+          "154": {
+            "bytes_sha256": "7e1057040d0339797b9b55e21f6e2426908c1649479ad42fd8334b4fcc87bc20",
+            "cid": "QmQpwVjtcfSbfo4VakH5a5hKjRsaxdJbMNSnKmfFf2Dpn3"
+          },
+          "155": {
+            "bytes_sha256": "585394b168c91002e81c3f539607856d6202c17f52df2a897d363c43a93a0a4c",
+            "cid": "QmdcMtiDMgdhVyvZ9GQKefHRE4wt8U5dcgxDg9SnMx1eZZ"
+          },
+          "156": {
+            "bytes_sha256": "e66b6bfc46bfabf5bc2f5f58a04eb417a8faaff5cfa8447a9f326e37368139be",
+            "cid": "QmSqiwr2UtVewzSGaviPYz3hDn6cjSrH9YaiuvsNrVJ1o7"
+          },
+          "157": {
+            "bytes_sha256": "7c2e8498e0c98dff8d7589fe64c3027feb4ba7d5aa00ac36a89beb0ed8d5ab15",
+            "cid": "QmeGdUgQoxQmroCcmbMLFRfNoyud6wQRuW8Jpd8ryXpM1B"
+          },
+          "158": {
+            "bytes_sha256": "224abb2bdfae1dd0f34dc55255c6a3ba9e4e62fff5f4f2241efeb53516a4aa5b",
+            "cid": "QmdwNrc9CmuNtxAUe7Nfziz89ddrsaH9rvVFN8ERNLLFS4"
+          },
+          "159": {
+            "bytes_sha256": "90a3e6f185e9e58d1f32caa0d12c5c8987f2f3cf1e20ecd21532ecdbebd51682",
+            "cid": "QmXYw1rZYSfwS21tTTS5VkSfkwAVG4yCBJFXdCHxdv9EUx"
+          },
+          "160": {
+            "bytes_sha256": "ffa569263c8150262825f98b6a6c994b33d43e529cafc4f2aad41f0b21617138",
+            "cid": "QmaVeUDHtQY8duUoFn5fEZPVxqoLRr6MTYdksSpsnPnVAo"
+          },
+          "161": {
+            "bytes_sha256": "2c3722bc91ab62c8b5d63b0ad61ae33e05c8fd7b14ccbb849fbbd3a8238799f8",
+            "cid": "QmeajvkwtkPPgr6mLuCS1sQhiPioiGRevwwZZ9vei75MMQ"
+          }
+        },
+        "verified_scoring_example": {
+          "challenge": 154,
+          "computed_relative_gain": "0.0002248414479546002094773049480",
+          "computed_wallet_reward": "0.000000"
+        }
+      },
+      "documentation": {
+        "anchor": "challenges-142-and-154-161-valid-zero-financial-submitters-omitted",
+        "document": "docs/caveats.md",
+        "summary": "Nine UPDOWN files omit independently valid zero-stake submitters. Their zero wallet outcomes reproduce, but the missing relative gains remain open failures."
+      },
+      "headline": "Challenges 142 and 154–161: Valid zero-financial submitters omitted",
+      "id": "challenges-142-and-154-161-valid-zero-financial-result-row-omissions",
+      "scope": {
+        "addresses": [
+          "0x61a5c52423560f541ec3c6461318deae0519a4ab",
+          "0x9250dbb45c4883de42348897b676ad11d6f5703c"
+        ],
+        "audit_kinds": [
+          "publication",
+          "scoring"
+        ],
+        "challenges": [
+          142,
+          154,
+          155,
+          156,
+          157,
+          158,
+          159,
+          160,
+          161
+        ],
+        "competitions": [
+          "UPDOWN"
+        ]
+      },
+      "status": "open"
     }
   ],
   "schema_version": 1
