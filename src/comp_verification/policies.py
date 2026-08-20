@@ -1,4 +1,4 @@
-"""Explicit candidate policies, selected by numerical reproduction evidence."""
+"""Versioned historical scoring policies selected from repository evidence."""
 
 from dataclasses import dataclass
 
@@ -43,6 +43,27 @@ FIRST_TEN_SYMBOLS = (
     "ZRX",
 )
 
+CHALLENGE_19_SYMBOLS = tuple(
+    symbol for symbol in FIRST_TEN_SYMBOLS if symbol not in {"ALGO", "SOL", "SUSHI"}
+)
+
+CHALLENGE_44_SYMBOLS = tuple(
+    symbol
+    for symbol in FIRST_TEN_SYMBOLS
+    if symbol not in {"1INCH", "CELO", "ENJ", "SNX", "UMA", "ZEC", "ZRX"}
+)
+
+STATIC_77_SYMBOLS = (
+    "AAVE", "ADA", "ALGO", "APE", "APT", "ATOM", "AVAX", "AXS", "BAL", "BCH",
+    "BLUR", "BNB", "BONK", "BTC", "C98", "CAKE", "COMP", "CRV", "CVX", "DAI",
+    "DAO", "DOGE", "DOT", "DYDX", "EOS", "ETC", "ETH", "FET", "FIL", "FRAX",
+    "FTM", "FXS", "GRT", "HAI", "HERO", "ICP", "IMX", "INJ", "LDO", "LINK",
+    "LTC", "MATIC", "MAV", "MBOX", "MKR", "MOON", "NEAR", "OP", "PENDLE",
+    "PEPE", "PERP", "PIT", "POLS", "PYTH", "QUACK", "RDNT", "RNDR", "RPL",
+    "RUNE", "SFP", "SFUND", "SHIB", "SOL", "STG", "SUI", "SUSHI", "TIA",
+    "TOKEN", "TRX", "UNI", "USDT", "XLM", "XMR", "XRP", "XTZ", "XVS", "YFI",
+)
+
 
 @dataclass(frozen=True)
 class ScoringPolicy:
@@ -75,3 +96,91 @@ FIRST_TEN_CANDIDATE = ScoringPolicy(
     ),
     status="verified-first-ten-with-reported-operational-mismatch",
 )
+
+CHALLENGE_19_CANDIDATE = ScoringPolicy(
+    policy_id="legacy-34-challenge-19",
+    symbols=CHALLENGE_19_SYMBOLS,
+    prediction_float_roundtrip=True,
+    answer_binary_float=True,
+    reward_digits=6,
+    source_git_commit="5a6e3bc",
+    source_files_sha256=((
+        "library/score_reward.py",
+        "4d22a07e7b45edf4a36d4a38a7e36a665f9dbf98d569e7b7697ffa6a6573e938",
+    ),),
+    status="source-derived-candidate",
+)
+
+RESTORED_37_CANDIDATE = ScoringPolicy(
+    policy_id="legacy-37-restored",
+    symbols=FIRST_TEN_SYMBOLS,
+    prediction_float_roundtrip=True,
+    answer_binary_float=True,
+    reward_digits=6,
+    source_git_commit="ad6044c",
+    source_files_sha256=((
+        "library/score_reward.py",
+        "b49e2391d140864ee7555c19d98f03e10c1364ee354b962dea527de0b695eb7b",
+    ),),
+    status="source-derived-candidate",
+)
+
+LEGACY_30_CANDIDATE = ScoringPolicy(
+    policy_id="legacy-30-v1",
+    symbols=CHALLENGE_44_SYMBOLS,
+    prediction_float_roundtrip=True,
+    answer_binary_float=True,
+    reward_digits=6,
+    source_git_commit="c680c8b",
+    source_files_sha256=((
+        "library/score_reward.py",
+        "97250a72922b765b8507a20da94db3ee26e12e8253899cae33430d9c85111f76",
+    ),),
+    status="source-derived-candidate",
+)
+
+STATIC_77_CANDIDATE = ScoringPolicy(
+    policy_id="legacy-static-77-v1",
+    symbols=STATIC_77_SYMBOLS,
+    prediction_float_roundtrip=True,
+    answer_binary_float=True,
+    reward_digits=6,
+    source_git_commit="b783812",
+    source_files_sha256=((
+        "library/score_reward.py",
+        "a4f7e9b783a6366870e9caccb4af9dc277697d81bdf6f7e2797475a3152ecfdb",
+    ),),
+    status="source-derived-candidate",
+)
+
+STATIC_77_ZERO_GUARD_CANDIDATE = ScoringPolicy(
+    policy_id="legacy-static-77-zero-guard",
+    symbols=STATIC_77_SYMBOLS,
+    prediction_float_roundtrip=True,
+    answer_binary_float=True,
+    reward_digits=6,
+    source_git_commit="9d4453b",
+    source_files_sha256=((
+        "library/score_reward.py",
+        "eb77e86b55e4320c2ae7a606f607cf576d0a2d975df66e68581333826a46883d",
+    ),),
+    status="source-derived-candidate",
+)
+
+
+def policy_for_challenge(challenge: int) -> ScoringPolicy:
+    """Return the source-backed static policy candidate for a challenge."""
+
+    if 1 <= challenge <= 18:
+        return FIRST_TEN_CANDIDATE
+    if challenge == 19:
+        return CHALLENGE_19_CANDIDATE
+    if 20 <= challenge <= 43:
+        return RESTORED_37_CANDIDATE
+    if 44 <= challenge <= 52:
+        return LEGACY_30_CANDIDATE
+    if 53 <= challenge <= 163:
+        return STATIC_77_CANDIDATE
+    if 164 <= challenge <= 166:
+        return STATIC_77_ZERO_GUARD_CANDIDATE
+    raise ValueError(f"challenge {challenge} does not use a static scoring policy")

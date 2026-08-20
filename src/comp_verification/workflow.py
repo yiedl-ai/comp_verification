@@ -32,7 +32,7 @@ from .ipfs import DownloadedArtifact, IpfsGateway, ProgressCallback
 from .rpc import PolygonRpc
 from .results import compare_results_to_chain, read_published_results
 from .jsonio import write_canonical_json
-from .policies import FIRST_TEN_CANDIDATE
+from .policies import ScoringPolicy, policy_for_challenge
 from .submissions import (
     InvalidSubmission,
     decrypt_submission_archive,
@@ -295,6 +295,7 @@ class FirstTenWorkflow:
         self._download_submission_scope(challenges, progress)
         reports = []
         for manifest in self._chain_manifests(challenges):
+            policy = policy_for_challenge(manifest["challenge"])
             for competition, observed in manifest["competitions"].items():
                 private_key_cid = observed["content"]["private_key"]["cid"]
                 if not private_key_cid:
@@ -327,8 +328,8 @@ class FirstTenWorkflow:
                     "schema_version": 1,
                     "challenge": manifest["challenge"],
                     "competition": competition,
-                    "policy_id": FIRST_TEN_CANDIDATE.policy_id,
-                    "policy_status": FIRST_TEN_CANDIDATE.status,
+                    "policy_id": policy.policy_id,
+                    "policy_status": policy.status,
                     "private_key_cid": private_key_cid,
                     "participant_count": len(participants),
                     "valid_submission_count": sum(
@@ -355,9 +356,10 @@ class FirstTenWorkflow:
         reports = []
         for manifest in self._chain_manifests(challenges):
             challenge = manifest["challenge"]
+            policy = policy_for_challenge(challenge)
             returns = read_realized_returns(
                 self.root / "data" / "prices" / f"challenge-{challenge:03d}.csv",
-                binary_float=FIRST_TEN_CANDIDATE.answer_binary_float,
+                binary_float=policy.answer_binary_float,
             )
             for competition, observed in manifest["competitions"].items():
                 result_cid = observed["content"]["results"]["cid"]
@@ -374,14 +376,12 @@ class FirstTenWorkflow:
                         "schema_version": 1,
                         "challenge": challenge,
                         "competition": competition,
-                        "policy_id": FIRST_TEN_CANDIDATE.policy_id,
-                        "policy_source_git_commit": (
-                            FIRST_TEN_CANDIDATE.source_git_commit
-                        ),
+                        "policy_id": policy.policy_id,
+                        "policy_source_git_commit": policy.source_git_commit,
                         "policy_source_files_sha256": dict(
-                            FIRST_TEN_CANDIDATE.source_files_sha256
+                            policy.source_files_sha256
                         ),
-                        "policy_status": FIRST_TEN_CANDIDATE.status,
+                        "policy_status": policy.status,
                         "result_cid": result_cid,
                         "result_bytes_sha256": publication_report.get(
                             "result_bytes_sha256"
@@ -432,6 +432,7 @@ class FirstTenWorkflow:
                         participant["submission"],
                         stake,
                         returns,
+                        policy,
                     )
                     expected = published[address]
                     gain_delta = computed_gain - expected.relative_gain
@@ -486,12 +487,12 @@ class FirstTenWorkflow:
                     "schema_version": 1,
                     "challenge": challenge,
                     "competition": competition,
-                    "policy_id": FIRST_TEN_CANDIDATE.policy_id,
-                    "policy_source_git_commit": FIRST_TEN_CANDIDATE.source_git_commit,
+                    "policy_id": policy.policy_id,
+                    "policy_source_git_commit": policy.source_git_commit,
                     "policy_source_files_sha256": dict(
-                        FIRST_TEN_CANDIDATE.source_files_sha256
+                        policy.source_files_sha256
                     ),
-                    "policy_status": FIRST_TEN_CANDIDATE.status,
+                    "policy_status": policy.status,
                     "reproduction_runtime": {
                         "python": platform.python_version(),
                         "pandas": version("pandas"),
@@ -539,6 +540,7 @@ class FirstTenWorkflow:
 
         reports = []
         for challenge in challenges:
+            policy = policy_for_challenge(challenge)
             source = (
                 self.root / "data" / "targets" / f"challenge-{challenge:03d}.csv"
             )
@@ -548,8 +550,8 @@ class FirstTenWorkflow:
             reports.append(
                 derive_price_fixture_from_targets(
                     source,
-                    symbols=FIRST_TEN_CANDIDATE.symbols,
-                    policy_id=FIRST_TEN_CANDIDATE.policy_id,
+                    symbols=policy.symbols,
+                    policy_id=policy.policy_id,
                     destination=destination,
                     source_reference=str(source.relative_to(self.root)),
                 )
@@ -564,6 +566,7 @@ class FirstTenWorkflow:
         submission: dict[str, Any] | None,
         stake: Decimal,
         returns: dict[str, Decimal],
+        policy: ScoringPolicy,
     ) -> tuple[Decimal, Decimal, str]:
         if not submission:
             return Decimal(0), Decimal(0), "no-submission"
@@ -580,7 +583,7 @@ class FirstTenWorkflow:
         try:
             predictions = parse_predictions(
                 path.read_bytes(),
-                FIRST_TEN_CANDIDATE.symbols,
+                policy.symbols,
                 reject_duplicates=True,
             )
             gain, reward = score_prediction(
@@ -588,7 +591,7 @@ class FirstTenWorkflow:
                 predictions,
                 returns,
                 stake,
-                reward_digits=FIRST_TEN_CANDIDATE.reward_digits,
+                reward_digits=policy.reward_digits,
             )
             return gain, reward, "valid"
         except (InvalidSubmission, ValueError, ArithmeticError) as error:
@@ -607,11 +610,12 @@ class FirstTenWorkflow:
             "submission_cid": submission_cid,
         }
         try:
+            policy = policy_for_challenge(challenge)
             archive = self.ipfs.download(submission_cid)
             decrypted = decrypt_submission_archive(archive.path, private_key, address)
             predictions = parse_predictions(
                 decrypted.predictions_csv,
-                FIRST_TEN_CANDIDATE.symbols,
+                policy.symbols,
                 reject_duplicates=True,
             )
             destination = (
@@ -657,6 +661,7 @@ class FirstTenWorkflow:
             else challenges
         )
         for challenge in selected:
+            policy = policy_for_challenge(challenge)
             source_challenge = challenge + 1
             source_cid = catalog[source_challenge]["dataset"]["cid"]
             artifact = self.ipfs.download(source_cid, progress=progress)
@@ -665,7 +670,7 @@ class FirstTenWorkflow:
                 scoring_challenge=challenge,
                 source_dataset_challenge=source_challenge,
                 source_cid=source_cid,
-                symbols=FIRST_TEN_CANDIDATE.symbols,
+                symbols=policy.symbols,
             )
             destination = self.root / "data" / "prices" / f"challenge-{challenge:03d}.csv"
             write_price_fixture(prices, member, artifact.sha256, destination)
@@ -686,6 +691,7 @@ class FirstTenWorkflow:
         )
         comparisons = []
         for challenge in selected:
+            policy = policy_for_challenge(challenge)
             source_challenge = challenge + 1
             source_cid = catalog[source_challenge]["dataset"]["cid"]
             artifact = self.ipfs.download(source_cid, progress=progress)
@@ -694,7 +700,7 @@ class FirstTenWorkflow:
                 scoring_challenge=challenge,
                 source_dataset_challenge=source_challenge,
                 source_cid=source_cid,
-                symbols=FIRST_TEN_CANDIDATE.symbols,
+                symbols=policy.symbols,
             )
             destination = self.root / "data" / "prices" / f"challenge-{challenge:03d}.csv"
             problem = None

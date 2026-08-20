@@ -1,0 +1,31 @@
+import pytest
+
+from comp_verification.policies import policy_for_challenge
+
+
+@pytest.mark.parametrize(
+    ("challenge", "policy_id", "symbol_count"),
+    [
+        (1, "legacy-37-v1", 37),
+        (18, "legacy-37-v1", 37),
+        (19, "legacy-34-challenge-19", 34),
+        (20, "legacy-37-restored", 37),
+        (43, "legacy-37-restored", 37),
+        (44, "legacy-30-v1", 30),
+        (52, "legacy-30-v1", 30),
+        (53, "legacy-static-77-v1", 77),
+        (163, "legacy-static-77-v1", 77),
+        (164, "legacy-static-77-zero-guard", 77),
+        (166, "legacy-static-77-zero-guard", 77),
+    ],
+)
+def test_policy_boundaries(challenge: int, policy_id: str, symbol_count: int) -> None:
+    policy = policy_for_challenge(challenge)
+    assert policy.policy_id == policy_id
+    assert len(policy.symbols) == symbol_count
+
+
+@pytest.mark.parametrize("challenge", [0, 167, 173])
+def test_dynamic_or_out_of_range_challenges_are_not_static(challenge: int) -> None:
+    with pytest.raises(ValueError):
+        policy_for_challenge(challenge)
