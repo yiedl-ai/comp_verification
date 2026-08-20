@@ -38,7 +38,8 @@ contains an explicit accepted adjudication.
 | 95 | NEUTRAL submission/scoring | One on-chain submission digest is ASCII hex text rather than a raw SHA-256 digest and its derived CID is unavailable | 0 | Scoring passes; the unverifiable submission is explicitly retained as unavailable |
 | 110 | UPDOWN publication/scoring | Result CID is the challenge-109 UPDOWN file | 1 | All on-chain rewards reproduce exactly; relative-gain publication remains open |
 | 113 | NEUTRAL and UPDOWN publication/scoring | Production used `HAI=1` instead of the raw `21.227900966966708`; UPDOWN result CID is stale | 1 | NEUTRAL scores/rewards and UPDOWN on-chain rewards reproduce exactly; UPDOWN score publication remains open |
-| 116 | UPDOWN publication/scoring | Result CID is the challenge-115 UPDOWN file | 1 | All on-chain rewards reproduce exactly; relative-gain publication remains open |
+| 116 | UPDOWN publication/scoring | Challenge-116 CID is challenge 115's file; the correct file appears under challenge 117 | 1 | All scores/rewards reproduce exactly through the late file; challenge association remains open |
+| 117 | NEUTRAL and UPDOWN publication/scoring | Both result CIDs contain exact challenge-116 files | 2 | All challenge-117 on-chain rewards reproduce exactly; challenge-117 relative-gain publication remains open |
 
 ## Challenge 110: stale UPDOWN result reference
 
@@ -93,12 +94,33 @@ challenge `115`. Comparing that prior file with challenge 116's chain snapshot
 produces 90 stake/reward/burn field mismatches, so it cannot stand in as a
 mislabeled challenge-116 result.
 
-The underlying calculation is independently recoverable. All 51 valid NEUTRAL
-scores and rewards reproduce exactly. For UPDOWN, the historical scorer and
-CID-verified dataset reproduce the net on-chain reward of all 38 valid
-submissions exactly. The verifier records those reward checks separately while
-leaving challenge-116 UPDOWN relative-gain publication open and failed until an
-authenticated result file is recovered.
+The correct challenge-116 UPDOWN file appears one challenge late, under
+challenge 117, at CID `QmSBwXPHHSQcVjR8ZuqxuXvWqBadQgGEQfUbZm3YVSpkj4`.
+It matches all 90 challenge-116 chain rows and all independently recomputed
+relative gains exactly. Thus all 51 valid NEUTRAL and 38 valid UPDOWN scores and
+rewards reproduce exactly. The verifier resolves scoring through this late,
+on-chain-authenticated file while retaining the challenge-116 publication-link
+failure and caveat.
+
+## Challenge 117: both result references are one challenge late
+
+Both challenge-117 result references contain challenge `116`, not challenge
+`117`. The NEUTRAL CID
+`QmQW16CZjTTL25jpPkA4B4y9jF9UxNL4gpF4r5xscZcDeT` (SHA-256
+`7a724e1602460f3071ca04402397acf94ac783b94823721e3f4bf9bcf3370de4`)
+is exactly the already-published challenge-116 NEUTRAL file. The UPDOWN CID
+`QmSBwXPHHSQcVjR8ZuqxuXvWqBadQgGEQfUbZm3YVSpkj4` (SHA-256
+`bbf1e4683be3325628969da4638f9c0cdaf04c8eca9a33f7c08f4985d9107951`)
+is the missing correct challenge-116 UPDOWN file: it matches challenge 116's 90
+chain participants in every stake/reward/burn field, and all 90 relative gains
+match independent challenge-116 recomputation exactly.
+
+Neither file describes challenge 117. Comparing them with the challenge-117
+chain snapshot produces 130 NEUTRAL and 99 UPDOWN stake/reward/burn field
+mismatches. Nevertheless, independent recomputation from dataset 118 and the
+challenge-117 submissions matches every challenge-117 net on-chain reward:
+54 valid NEUTRAL and 43 valid UPDOWN submissions. The reward layer therefore
+passes, while both challenge-117 relative-gain publications remain open.
 
 ## Challenge 94 UPDOWN: malformed, unavailable submission reference
 

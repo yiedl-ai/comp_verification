@@ -9,10 +9,27 @@ from typing import Mapping
 CHALLENGE_113_PROBLEM_ID = (
     "challenge-113-hai-target-override-and-stale-updown-result"
 )
+STALE_RESULT_CIDS = {
+    (110, "UPDOWN"): "QmYuTvKSdD7k5A8UNM75HDume1o17BeQ5VL97CP56bitsX",
+    (113, "UPDOWN"): "QmWXyyvUsNw5XfDbzknq7knGUsNohPMABqB5crNwRirskY",
+    (116, "UPDOWN"): "QmQFS2AEcbmGCWvJSvi78neiLCCaCgfxuMSFAUNx6YUwuQ",
+    (117, "NEUTRAL"): "QmQW16CZjTTL25jpPkA4B4y9jF9UxNL4gpF4r5xscZcDeT",
+    (117, "UPDOWN"): "QmSBwXPHHSQcVjR8ZuqxuXvWqBadQgGEQfUbZm3YVSpkj4",
+}
+
+# Backward-compatible public view used by existing evidence/tests.
 STALE_UPDOWN_RESULT_CIDS = {
-    110: "QmYuTvKSdD7k5A8UNM75HDume1o17BeQ5VL97CP56bitsX",
-    113: "QmWXyyvUsNw5XfDbzknq7knGUsNohPMABqB5crNwRirskY",
-    116: "QmQFS2AEcbmGCWvJSvi78neiLCCaCgfxuMSFAUNx6YUwuQ",
+    challenge: cid
+    for (challenge, competition), cid in STALE_RESULT_CIDS.items()
+    if competition == "UPDOWN"
+}
+
+RECOVERED_LATE_RESULT_REFERENCES = {
+    (116, "UPDOWN"): {
+        "cid": "QmSBwXPHHSQcVjR8ZuqxuXvWqBadQgGEQfUbZm3YVSpkj4",
+        "sha256": "bbf1e4683be3325628969da4638f9c0cdaf04c8eca9a33f7c08f4985d9107951",
+        "published_under_challenge": 117,
+    }
 }
 
 

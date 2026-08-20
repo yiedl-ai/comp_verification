@@ -1,0 +1,23 @@
+{
+  "caveats": [
+    {
+      "anchor": "challenge-117-both-result-references-are-one-challenge-late",
+      "classification": "one-challenge-late-result-references",
+      "counts_as_pass": false,
+      "document": "docs/caveats.md",
+      "id": "challenge-117-one-challenge-late-result-references",
+      "summary": "Both challenge-117 result CIDs are exact challenge-116 outputs. All challenge-117 on-chain rewards reproduce independently, but challenge-117 relative-gain publication remains unverifiable."
+    }
+  ],
+  "challenge": 117,
+  "competition": "NEUTRAL",
+  "contract": "0xC8519524013348466e18fC1747d11F1feA9473fd",
+  "mismatch_count": 1,
+  "observed_block": 92336519,
+  "passed": false,
+  "problem": "ValueError: expected challenge 117, found 116",
+  "resolved_result_cid": "QmQW16CZjTTL25jpPkA4B4y9jF9UxNL4gpF4r5xscZcDeT",
+  "result_bytes_sha256": "7a724e1602460f3071ca04402397acf94ac783b94823721e3f4bf9bcf3370de4",
+  "result_cid": "QmQW16CZjTTL25jpPkA4B4y9jF9UxNL4gpF4r5xscZcDeT",
+  "schema_version": 1
+}

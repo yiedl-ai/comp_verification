@@ -1,0 +1,23 @@
+{
+  "caveats": [
+    {
+      "anchor": "challenge-117-both-result-references-are-one-challenge-late",
+      "classification": "one-challenge-late-result-references",
+      "counts_as_pass": false,
+      "document": "docs/caveats.md",
+      "id": "challenge-117-one-challenge-late-result-references",
+      "summary": "Both challenge-117 result CIDs are exact challenge-116 outputs. All challenge-117 on-chain rewards reproduce independently, but challenge-117 relative-gain publication remains unverifiable."
+    }
+  ],
+  "challenge": 117,
+  "competition": "UPDOWN",
+  "contract": "0xEcB9716867f9300F2706EdbB5b81c7a0AbDC5B29",
+  "mismatch_count": 1,
+  "observed_block": 92336519,
+  "passed": false,
+  "problem": "ValueError: expected challenge 117, found 116",
+  "resolved_result_cid": "QmSBwXPHHSQcVjR8ZuqxuXvWqBadQgGEQfUbZm3YVSpkj4",
+  "result_bytes_sha256": "bbf1e4683be3325628969da4638f9c0cdaf04c8eca9a33f7c08f4985d9107951",
+  "result_cid": "QmSBwXPHHSQcVjR8ZuqxuXvWqBadQgGEQfUbZm3YVSpkj4",
+  "schema_version": 1
+}

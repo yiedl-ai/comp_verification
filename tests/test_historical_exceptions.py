@@ -2,6 +2,8 @@ from decimal import Decimal
 
 from comp_verification.historical_exceptions import (
     CHALLENGE_113_PROBLEM_ID,
+    RECOVERED_LATE_RESULT_REFERENCES,
+    STALE_RESULT_CIDS,
     STALE_UPDOWN_RESULT_CIDS,
     apply_realized_return_overrides,
 )
@@ -41,8 +43,9 @@ def test_challenge_113_updown_fallback_verifies_rewards_but_not_scores(
         ],
     }
 
-    report = workflow._stale_updown_reward_report(
+    report = workflow._stale_result_reward_report(
         challenge=113,
+        competition="UPDOWN",
         observed=observed,
         policy=policy_for_challenge(113),
         returns={"BTC": Decimal("0.1")},
@@ -66,3 +69,15 @@ def test_challenge_116_stale_result_is_registered_for_reward_fallback() -> None:
     assert STALE_UPDOWN_RESULT_CIDS[116] == (
         "QmQFS2AEcbmGCWvJSvi78neiLCCaCgfxuMSFAUNx6YUwuQ"
     )
+
+
+def test_challenge_117_stale_results_are_registered_for_both_competitions() -> None:
+    assert STALE_RESULT_CIDS[(117, "NEUTRAL")] == (
+        "QmQW16CZjTTL25jpPkA4B4y9jF9UxNL4gpF4r5xscZcDeT"
+    )
+    assert STALE_RESULT_CIDS[(117, "UPDOWN")] == (
+        "QmSBwXPHHSQcVjR8ZuqxuXvWqBadQgGEQfUbZm3YVSpkj4"
+    )
+    assert RECOVERED_LATE_RESULT_REFERENCES[(116, "UPDOWN")][
+        "published_under_challenge"
+    ] == 117

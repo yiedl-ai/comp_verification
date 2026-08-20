@@ -55,7 +55,8 @@ from .chain_evidence import (
 )
 from .summary import build_audit_status, build_first_ten_summary
 from .historical_exceptions import (
-    STALE_UPDOWN_RESULT_CIDS,
+    RECOVERED_LATE_RESULT_REFERENCES,
+    STALE_RESULT_CIDS,
     apply_realized_return_overrides,
 )
 
@@ -521,13 +522,23 @@ class FirstTenWorkflow:
                         / f"challenge-{challenge:03d}-{competition.lower()}.json"
                     ).read_text(encoding="utf-8")
                 )
+                recovered_result_reference = RECOVERED_LATE_RESULT_REFERENCES.get(
+                    (challenge, competition)
+                )
+                if not publication_report["passed"] and recovered_result_reference:
+                    publication_report = {
+                        **publication_report,
+                        "passed": True,
+                        "resolved_result_cid": recovered_result_reference["cid"],
+                        "result_bytes_sha256": recovered_result_reference["sha256"],
+                    }
                 if not publication_report["passed"]:
-                    if (
-                        competition == "UPDOWN"
-                        and result_cid == STALE_UPDOWN_RESULT_CIDS.get(challenge)
+                    if result_cid == STALE_RESULT_CIDS.get(
+                        (challenge, competition)
                     ):
-                        report = self._stale_updown_reward_report(
+                        report = self._stale_result_reward_report(
                             challenge=challenge,
+                            competition=competition,
                             observed=observed,
                             policy=policy,
                             returns=returns,
@@ -692,6 +703,13 @@ class FirstTenWorkflow:
                     "passed": not unresolved_mismatches,
                     "participants": comparisons,
                 }
+                if recovered_result_reference:
+                    report["audit_status"] = (
+                        "score-and-reward-exact-via-late-result-reference"
+                    )
+                    report["recovered_result_reference"] = dict(
+                        recovered_result_reference
+                    )
                 if realized_return_overrides:
                     report["policy_status"] = (
                         "numerically-recovered-production-exception"
@@ -870,10 +888,11 @@ class FirstTenWorkflow:
                 )
         return reports
 
-    def _stale_updown_reward_report(
+    def _stale_result_reward_report(
         self,
         *,
         challenge: int,
+        competition: str,
         observed: dict[str, Any],
         policy: ScoringPolicy,
         returns: dict[str, Decimal],
@@ -882,14 +901,14 @@ class FirstTenWorkflow:
         publication_report: dict[str, Any],
         realized_return_overrides: list[dict[str, str]],
     ) -> dict[str, Any]:
-        """Verify rewards when an UPDOWN result points to the prior score file."""
+        """Verify rewards when a result reference points to a prior score file."""
 
         comparisons = []
         for participant in observed["participants"]:
             address = participant["address"]
             computed_gain, computed_reward, status = self._score_participant(
                 challenge,
-                "UPDOWN",
+                competition,
                 address,
                 participant["submission"],
                 Decimal(participant["historical_stake"]["decimal"]),
@@ -919,7 +938,7 @@ class FirstTenWorkflow:
         return {
             "schema_version": 1,
             "challenge": challenge,
-            "competition": "UPDOWN",
+            "competition": competition,
             "policy_id": policy.policy_id,
             "policy_source_git_commit": policy.source_git_commit,
             "policy_source_files_sha256": dict(policy.source_files_sha256),
@@ -950,7 +969,7 @@ class FirstTenWorkflow:
             "realized_return_overrides": realized_return_overrides,
             "caveats": caveats_for_context(
                 challenge=challenge,
-                competition="UPDOWN",
+                competition=competition,
                 audit_kind="scoring",
             ),
             "participants": comparisons,

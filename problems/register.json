@@ -827,7 +827,7 @@
       "audit_treatment": {
         "changes_outcome": false,
         "mode": "reward-verified-with-open-stale-result-reference",
-        "reason": "Every challenge-116 UPDOWN on-chain reward reproduces exactly, but the published result hash points to challenge 115 and cannot verify challenge-116 relative gains."
+        "reason": "Challenge 116's result hash points to challenge 115, but the correct challenge-116 UPDOWN file was published under challenge 117 and exactly verifies every challenge-116 score and reward."
       },
       "classification": "stale-prior-challenge-result-reference",
       "confidence": "high",
@@ -836,7 +836,16 @@
           "neutral_exact_reward_count": 51,
           "neutral_exact_score_count": 51,
           "updown_exact_on_chain_reward_count": 38,
-          "updown_score_status": "unverifiable-because-result-file-is-stale"
+          "updown_exact_score_count": 38,
+          "updown_score_status": "exact-via-result-file-published-under-challenge-117"
+        },
+        "recovered_updown_result": {
+          "bytes_sha256": "bbf1e4683be3325628969da4638f9c0cdaf04c8eca9a33f7c08f4985d9107951",
+          "challenge_116_chain_field_mismatches": 0,
+          "challenge_116_relative_gain_mismatches": 0,
+          "cid": "QmSBwXPHHSQcVjR8ZuqxuXvWqBadQgGEQfUbZm3YVSpkj4",
+          "embedded_challenge": 116,
+          "published_under_challenge": 117
         },
         "stale_updown_result": {
           "bytes_sha256": "cd02bebbda59676615bc7e571fe3242a8a67e151ae4ae95dba6227627f7cdae6",
@@ -849,7 +858,7 @@
       "documentation": {
         "anchor": "challenge-116-stale-updown-result-reference",
         "document": "docs/caveats.md",
-        "summary": "Challenge 116 UPDOWN points to challenge 115's result file; all 38 submitted challenge-116 rewards reproduce exactly against chain, but relative-gain publication remains unverifiable."
+        "summary": "Challenge 116 UPDOWN points to challenge 115's file, but the correct challenge-116 file appears under challenge 117 and exactly verifies all challenge-116 scores and rewards."
       },
       "headline": "Challenge 116: Stale UPDOWN result reference",
       "id": "challenge-116-stale-updown-result-reference",
@@ -863,6 +872,63 @@
           116
         ],
         "competitions": [
+          "UPDOWN"
+        ]
+      },
+      "status": "open"
+    },
+    {
+      "affected_comparisons": 2,
+      "audit_treatment": {
+        "changes_outcome": false,
+        "mode": "rewards-verified-with-open-one-challenge-late-result-references",
+        "reason": "Both challenge-117 result hashes contain exact challenge-116 files. Every challenge-117 on-chain reward reproduces independently, but challenge-117 relative gains were not published under either challenge-117 result reference."
+      },
+      "classification": "one-challenge-late-result-references",
+      "confidence": "high",
+      "details": {
+        "reproduction": {
+          "neutral_exact_on_chain_reward_count": 54,
+          "neutral_score_status": "unverifiable-because-result-file-is-one-challenge-late",
+          "updown_exact_on_chain_reward_count": 43,
+          "updown_score_status": "unverifiable-because-result-file-is-one-challenge-late"
+        },
+        "stale_results": {
+          "NEUTRAL": {
+            "bytes_sha256": "7a724e1602460f3071ca04402397acf94ac783b94823721e3f4bf9bcf3370de4",
+            "cid": "QmQW16CZjTTL25jpPkA4B4y9jF9UxNL4gpF4r5xscZcDeT",
+            "embedded_challenge": 116,
+            "matches_challenge_116_chain_fields": true,
+            "stake_reward_burn_field_mismatches_against_challenge_117_chain": 130
+          },
+          "UPDOWN": {
+            "bytes_sha256": "bbf1e4683be3325628969da4638f9c0cdaf04c8eca9a33f7c08f4985d9107951",
+            "challenge_116_relative_gain_mismatches": 0,
+            "cid": "QmSBwXPHHSQcVjR8ZuqxuXvWqBadQgGEQfUbZm3YVSpkj4",
+            "embedded_challenge": 116,
+            "matches_challenge_116_chain_fields": true,
+            "stake_reward_burn_field_mismatches_against_challenge_117_chain": 99
+          }
+        }
+      },
+      "documentation": {
+        "anchor": "challenge-117-both-result-references-are-one-challenge-late",
+        "document": "docs/caveats.md",
+        "summary": "Both challenge-117 result CIDs are exact challenge-116 outputs. All challenge-117 on-chain rewards reproduce independently, but challenge-117 relative-gain publication remains unverifiable."
+      },
+      "headline": "Challenge 117: Both result references are one challenge late",
+      "id": "challenge-117-one-challenge-late-result-references",
+      "scope": {
+        "addresses": [],
+        "audit_kinds": [
+          "publication",
+          "scoring"
+        ],
+        "challenges": [
+          117
+        ],
+        "competitions": [
+          "NEUTRAL",
           "UPDOWN"
         ]
       },
