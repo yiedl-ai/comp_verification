@@ -606,6 +606,55 @@
         ]
       },
       "status": "open"
+    },
+    {
+      "affected_comparisons": 0,
+      "audit_treatment": {
+        "changes_outcome": false,
+        "mode": "documented-unavailable-submission",
+        "reason": "The final on-chain content reference cannot be retrieved or independently validated, but treating that unusable submission as unavailable reproduces the published zero and every challenge-95 score exactly."
+      },
+      "classification": "malformed-unavailable-on-chain-content-reference",
+      "confidence": "high",
+      "details": {
+        "observations": [
+          "The on-chain bytes32 submission value decodes to 32 ASCII hexadecimal characters rather than containing a raw 32-byte SHA-256 digest.",
+          "The CID derived from those exact on-chain bytes remained unavailable after all configured authenticated-gateway retries.",
+          "The historical result and on-chain reward are zero for this address.",
+          "Marking only this submission unavailable yields exact challenge-95 reproduction: 70 other NEUTRAL submissions and all 49 UPDOWN submissions validate and every published score and reward matches."
+        ],
+        "submission": {
+          "address": "0x81fbfb07888fff733958210796af7cbe4368ae5f",
+          "cid": "QmV2buxsDmVkTGGNin4KQDWR8bU4XDpnDSfTJeiARcrocs",
+          "digest": "0x6362316664633765333834303066373936363330376132656531663461326430",
+          "digest_ascii": "cb1fdc7e38400f7966307a2ee1f4a2d0",
+          "ingestion_status": "unavailable",
+          "published_relative_gain": "0",
+          "published_wallet_reward": "0"
+        }
+      },
+      "documentation": {
+        "anchor": "challenge-95-neutral-malformed-unavailable-submission-reference",
+        "document": "docs/caveats.md",
+        "summary": "One challenge-95 NEUTRAL bytes32 submission value contains ASCII hex text rather than a raw SHA-256 digest; its CID is unavailable, and treating it as unusable exactly reproduces the published zero and all challenge results."
+      },
+      "headline": "Challenge 95 NEUTRAL: Malformed, unavailable submission reference",
+      "id": "challenge-95-neutral-malformed-unavailable-submission-reference",
+      "scope": {
+        "addresses": [
+          "0x81fbfb07888fff733958210796af7cbe4368ae5f"
+        ],
+        "audit_kinds": [
+          "scoring"
+        ],
+        "challenges": [
+          95
+        ],
+        "competitions": [
+          "NEUTRAL"
+        ]
+      },
+      "status": "documented"
     }
   ],
   "schema_version": 1

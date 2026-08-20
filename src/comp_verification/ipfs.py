@@ -6,7 +6,7 @@ import hashlib
 import json
 import sys
 import time
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
@@ -166,6 +166,31 @@ class IpfsGateway:
                 )
             )
         return artifacts
+
+    def download_many_best_effort(
+        self,
+        cids: list[str] | set[str],
+        *,
+        progress: ProgressCallback | None = None,
+    ) -> tuple[list[DownloadedArtifact], dict[str, str]]:
+        """Download concurrently while retaining per-CID failures as evidence."""
+
+        ordered = sorted(set(cids))
+        artifacts: list[DownloadedArtifact] = []
+        failures: dict[str, str] = {}
+        with ThreadPoolExecutor(max_workers=self.max_concurrent_downloads) as executor:
+            futures = {
+                executor.submit(self.download, cid, progress=progress): cid
+                for cid in ordered
+            }
+            for future in as_completed(futures):
+                cid = futures[future]
+                try:
+                    artifacts.append(future.result())
+                except IpfsDownloadError as error:
+                    failures[cid] = str(error)
+        artifacts.sort(key=lambda artifact: artifact.cid)
+        return artifacts, dict(sorted(failures.items()))
 
     def prune_verified_artifact(self, artifact: DownloadedArtifact) -> None:
         """Delete exactly one cache artifact and marker after strict hash checks."""

@@ -13,6 +13,14 @@ class OfflineGateway(IpfsGateway):
         raise AssertionError("verified cached evidence must not require the gateway")
 
 
+class PartiallyUnavailableGateway(IpfsGateway):
+    def download(self, cid: str, **kwargs) -> DownloadedArtifact:
+        if cid == "bad":
+            raise IpfsDownloadError("failed to download bad")
+        path = self.cache / cid
+        return DownloadedArtifact(cid, path, 1, "digest")
+
+
 def test_recorded_hash_can_adopt_an_unmarked_cached_file(tmp_path: Path) -> None:
     payload = b"previously downloaded result evidence"
     cid = single_block_file_cid_v0(payload)
@@ -113,3 +121,12 @@ def test_authenticated_gateway_uses_pinata_token_query(
         "https://private.example/ipfs/QmCid?pinataGatewayToken=secret+token"
     )
     assert "X-Pinata-Gateway-Token" not in gateway._request_headers()
+
+
+def test_best_effort_download_retains_individual_failures(tmp_path: Path) -> None:
+    gateway = PartiallyUnavailableGateway("https://ipfs.example/ipfs", tmp_path)
+
+    artifacts, failures = gateway.download_many_best_effort({"good", "bad"})
+
+    assert [artifact.cid for artifact in artifacts] == ["good"]
+    assert failures == {"bad": "failed to download bad"}

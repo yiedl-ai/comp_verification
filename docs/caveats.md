@@ -34,6 +34,25 @@ contains an explicit accepted adjudication.
 | 40–42 | NEUTRAL and UPDOWN publication/scoring | Mistaken settlement, exact undo, corrected 30-symbol settlement | 8 | Accepted as one correction sequence; raw metadata irregularities remain visible |
 | 52 | NEUTRAL and UPDOWN scoring | Production switched to the 77-symbol basket one challenge before the recoverable repository history indicates | 0 | Exact recovered-policy pass; inference is retained in every scoring report |
 | 73 | NEUTRAL scoring | One valid, early submission was published as zero | 1 | Open; raw mismatch remains a failure pending historical retrieval/database evidence |
+| 95 | NEUTRAL submission/scoring | One on-chain submission digest is ASCII hex text rather than a raw SHA-256 digest and its derived CID is unavailable | 0 | Scoring passes; the unverifiable submission is explicitly retained as unavailable |
+
+## Challenge 95 NEUTRAL: malformed, unavailable submission reference
+
+Address `0x81fbfb07888fff733958210796af7cbe4368ae5f` records submission CID
+`QmV2buxsDmVkTGGNin4KQDWR8bU4XDpnDSfTJeiARcrocs`. The underlying on-chain
+bytes32 value is
+`0x6362316664633765333834303066373936363330376132656531663461326430`,
+which decodes to the 32 ASCII characters `cb1fdc7e38400f7966307a2ee1f4a2d0`
+rather than a raw 32-byte SHA-256 digest. This is consistent with a client
+accidentally storing textual hex in bytes32.
+
+The derived CID remained unavailable after all configured authenticated-gateway
+attempts, so the verifier cannot inspect or score any intended file. The
+historical result and on-chain reward are both zero for this address. Treating
+the unusable final on-chain reference as unavailable reproduces every challenge
+95 score and reward exactly: 70 other NEUTRAL submissions and 49 UPDOWN
+submissions validate and score normally. The challenge therefore passes with an
+explicit verification limitation, not an accepted mismatch.
 
 ## Challenge 73 NEUTRAL: valid submission published as zero
 

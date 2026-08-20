@@ -121,6 +121,19 @@ def test_register_captures_challenge_seventy_three_zeroed_submission() -> None:
     ] == 24422
 
 
+def test_register_captures_challenge_ninety_five_unavailable_submission() -> None:
+    problem = load_problem_register().by_id(
+        "challenge-95-neutral-malformed-unavailable-submission-reference"
+    )
+
+    assert problem.status == "documented"
+    assert problem.counts_as_pass is False
+    assert problem.raw["affected_comparisons"] == 0
+    assert problem.raw["details"]["submission"]["digest_ascii"] == (
+        "cb1fdc7e38400f7966307a2ee1f4a2d0"
+    )
+
+
 def test_report_reference_preserves_existing_report_shape() -> None:
     reference = load_problem_register().by_id(PROBLEM_ID).report_reference()
 

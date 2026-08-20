@@ -380,7 +380,7 @@ class FirstTenWorkflow:
         challenges: range | None = None,
     ) -> list[dict[str, Any]]:
         self.download_private_keys(progress=progress, challenges=challenges)
-        self._download_submission_scope(challenges, progress)
+        unavailable = self._download_submission_scope(challenges, progress)
         reports = []
         for manifest in self._chain_manifests(challenges):
             policy = self._effective_policy(manifest["challenge"])
@@ -400,6 +400,16 @@ class FirstTenWorkflow:
                                 "address": participant["address"],
                                 "status": "no-submission",
                                 "submission_cid": None,
+                            }
+                        )
+                        continue
+                    if submission["cid"] in unavailable:
+                        participants.append(
+                            {
+                                "address": participant["address"],
+                                "status": "unavailable",
+                                "submission_cid": submission["cid"],
+                                "problem": unavailable[submission["cid"]],
                             }
                         )
                         continue
@@ -1263,7 +1273,7 @@ class FirstTenWorkflow:
         self,
         challenges: range | None,
         progress: ProgressCallback | None,
-    ) -> list[DownloadedArtifact]:
+    ) -> dict[str, str]:
         cids: set[str] = set()
         for manifest in self._chain_manifests(challenges):
             for competition in manifest["competitions"].values():
@@ -1271,7 +1281,8 @@ class FirstTenWorkflow:
                     submission = participant["submission"]
                     if submission and submission["cid"]:
                         cids.add(submission["cid"])
-        return self.ipfs.download_many(cids, progress=progress)
+        _, failures = self.ipfs.download_many_best_effort(cids, progress=progress)
+        return failures
 
     def _content_cids(
         self, field: str, challenges: range | None = None
