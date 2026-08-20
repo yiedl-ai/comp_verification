@@ -1,0 +1,24 @@
+[project]
+name = "comp-verification"
+version = "0.1.0"
+description = "Independent verification of Yiedl competition scores and rewards"
+readme = "README.md"
+authors = [
+    { name = "lubin-rci", email = "lubin.tan@rocketcapital.ai" }
+]
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "eth-abi>=5.2.0",
+    "numpy==1.24.4",
+    "pandas==1.5.3",
+    "pycryptodome>=3.23.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.10.4,<0.11.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]

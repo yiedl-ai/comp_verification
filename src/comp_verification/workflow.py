@@ -1,0 +1,612 @@
+"""Fixed, importable workflow for the first ten historical challenges."""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import platform
+import zipfile
+from decimal import Decimal
+from dataclasses import dataclass
+from importlib.metadata import version
+from pathlib import Path
+from typing import Any
+
+from .constants import (
+    FIRST_CHALLENGE,
+    IPFS_GATEWAY,
+    LAST_CHALLENGE,
+    LAST_DATASET_CHALLENGE,
+)
+from .config import VerifierConfig
+from .datasets import (
+    extract_latest_realized_returns,
+    verify_price_fixture,
+    write_price_fixture,
+)
+from .ingestion import ingest_challenges, ingest_dataset_catalog
+from .ipfs import DownloadedArtifact, IpfsGateway, ProgressCallback
+from .rpc import PolygonRpc
+from .results import compare_results_to_chain, read_published_results
+from .jsonio import write_canonical_json
+from .policies import FIRST_TEN_CANDIDATE
+from .submissions import (
+    InvalidSubmission,
+    decrypt_submission_archive,
+    parse_predictions,
+)
+from .ipfs import IpfsDownloadError
+from .scoring import read_realized_returns, score_prediction
+from .chain_evidence import (
+    ingest_event_provenance,
+    verify_tracked_events,
+    verify_tracked_snapshots,
+)
+from .summary import build_first_ten_summary
+
+
+@dataclass(frozen=True)
+class FirstTenWorkflow:
+    root: Path
+    config: VerifierConfig
+
+    @classmethod
+    def from_config(
+        cls, root: Path, config_path: Path | None = None
+    ) -> "FirstTenWorkflow":
+        path = root / "config.toml" if config_path is None else config_path
+        return cls(root=root, config=VerifierConfig.load(path))
+
+    @property
+    def rpc(self) -> PolygonRpc:
+        settings = self.config.rpc
+        return PolygonRpc(
+            settings.url,
+            timeout=settings.timeout_seconds,
+            attempts=settings.attempts,
+            retry_base_delay=settings.retry_base_delay_seconds,
+            json_batch_size=settings.json_batch_size,
+            json_batch_interval=settings.json_batch_interval_seconds,
+            multicall_batch_size=settings.multicall_batch_size,
+            log_block_span=settings.log_block_span,
+        )
+
+    @property
+    def ipfs(self) -> IpfsGateway:
+        settings = self.config.ipfs
+        return IpfsGateway(
+            settings.gateway_url,
+            self.root / ".cache" / "ipfs",
+            user_agent=settings.user_agent,
+            timeout=settings.timeout_seconds,
+            attempts=settings.attempts,
+            retry_base_delay=settings.retry_base_delay_seconds,
+            chunk_size=settings.chunk_size_bytes,
+            max_concurrent_downloads=settings.max_concurrent_downloads,
+        )
+
+    def ingest_chain(self) -> list[dict[str, Any]]:
+        rpc = self.rpc
+        manifests = ingest_challenges(
+            rpc,
+            range(FIRST_CHALLENGE, LAST_CHALLENGE + 1),
+            self.root / "manifests" / "chain",
+        )
+        ingest_dataset_catalog(
+            rpc,
+            range(FIRST_CHALLENGE, LAST_DATASET_CHALLENGE + 1),
+            self.root / "manifests" / "datasets.json",
+            block_number=manifests[0]["observed_block"],
+        )
+        return manifests
+
+    def verify_chain(self) -> dict[str, Any]:
+        """Re-query the tracked snapshots at their pinned historical block."""
+
+        return verify_tracked_snapshots(
+            self.rpc,
+            self.root / "manifests" / "chain",
+            self.root / "manifests" / "datasets.json",
+            self.root / ".cache" / "chain-verification",
+            self.root / "reports" / "chain" / "snapshot-verification.json",
+        )
+
+    def ingest_chain_events(self) -> list[dict[str, Any]]:
+        """Capture deterministic lifecycle logs for all first-ten challenges."""
+
+        rpc = self.rpc
+        reports = []
+        for manifest in self._chain_manifests():
+            challenge = manifest["challenge"]
+            reports.append(
+                ingest_event_provenance(
+                    rpc,
+                    manifest,
+                    self.root
+                    / "manifests"
+                    / "chain-events"
+                    / f"challenge-{challenge:03d}.json",
+                )
+            )
+        return reports
+
+    def verify_chain_events(self) -> dict[str, Any]:
+        """Re-query and exactly compare all tracked lifecycle logs."""
+
+        return verify_tracked_events(
+            self.rpc,
+            self.root / "manifests" / "chain",
+            self.root / "manifests" / "chain-events",
+            self.root / ".cache" / "chain-event-verification",
+            self.root / "reports" / "chain" / "event-verification.json",
+        )
+
+    def download_datasets(
+        self, *, progress: ProgressCallback | None = None
+    ) -> list[DownloadedArtifact]:
+        catalog = self._dataset_catalog()
+        return self.ipfs.download_many(
+            [row["dataset"]["cid"] for row in catalog["datasets"]],
+            progress=progress,
+        )
+
+    def download_chain_evidence(
+        self, *, progress: ProgressCallback | None = None
+    ) -> list[DownloadedArtifact]:
+        cids: set[str] = set()
+        for manifest_path in sorted((self.root / "manifests" / "chain").glob("*.json")):
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            for competition in manifest["competitions"].values():
+                for name in ("private_key", "results"):
+                    cid = competition["content"][name]["cid"]
+                    if cid:
+                        cids.add(cid)
+                for participant in competition["participants"]:
+                    submission = participant["submission"]
+                    if submission and submission["cid"]:
+                        cids.add(submission["cid"])
+        return self.ipfs.download_many(cids, progress=progress)
+
+    def download_results(
+        self, *, progress: ProgressCallback | None = None
+    ) -> list[DownloadedArtifact]:
+        return self.ipfs.download_many(self._content_cids("results"), progress=progress)
+
+    def download_private_keys(
+        self, *, progress: ProgressCallback | None = None
+    ) -> list[DownloadedArtifact]:
+        return self.ipfs.download_many(
+            self._content_cids("private_key"), progress=progress
+        )
+
+    def download_submissions(
+        self, *, progress: ProgressCallback | None = None
+    ) -> list[DownloadedArtifact]:
+        cids: set[str] = set()
+        for manifest in self._chain_manifests():
+            for competition in manifest["competitions"].values():
+                for participant in competition["participants"]:
+                    submission = participant["submission"]
+                    if submission and submission["cid"]:
+                        cids.add(submission["cid"])
+        return self.ipfs.download_many(cids, progress=progress)
+
+    def verify_publication(
+        self, *, progress: ProgressCallback | None = None
+    ) -> list[dict[str, Any]]:
+        reports = []
+        for manifest in self._chain_manifests():
+            for competition, observed in manifest["competitions"].items():
+                cid = observed["content"]["results"]["cid"]
+                if not cid:
+                    raise ValueError(
+                        f"missing result CID for challenge {manifest['challenge']} {competition}"
+                    )
+                artifact = self.ipfs.download(cid, progress=progress)
+                published = read_published_results(
+                    artifact.path,
+                    competition=competition,
+                    challenge=manifest["challenge"],
+                )
+                report = compare_results_to_chain(manifest, competition, published)
+                report["result_bytes_sha256"] = artifact.sha256
+                destination = (
+                    self.root
+                    / "reports"
+                    / "publication"
+                    / f"challenge-{manifest['challenge']:03d}-{competition.lower()}.json"
+                )
+                write_canonical_json(destination, report)
+                reports.append(report)
+        return reports
+
+    def ingest_submissions(
+        self,
+        *,
+        progress: ProgressCallback | None = None,
+        challenges: range | None = None,
+    ) -> list[dict[str, Any]]:
+        self.download_private_keys(progress=progress)
+        self._download_submission_scope(challenges, progress)
+        reports = []
+        for manifest in self._chain_manifests(challenges):
+            for competition, observed in manifest["competitions"].items():
+                private_key_cid = observed["content"]["private_key"]["cid"]
+                if not private_key_cid:
+                    raise ValueError(
+                        f"missing private key for challenge {manifest['challenge']}"
+                    )
+                private_key = self.ipfs.download(private_key_cid).path
+                participants = []
+                for participant in observed["participants"]:
+                    submission = participant["submission"]
+                    if not submission:
+                        participants.append(
+                            {
+                                "address": participant["address"],
+                                "status": "no-submission",
+                                "submission_cid": None,
+                            }
+                        )
+                        continue
+                    participants.append(
+                        self._decrypt_one_submission(
+                            manifest["challenge"],
+                            competition,
+                            participant["address"],
+                            submission["cid"],
+                            private_key,
+                        )
+                    )
+                report = {
+                    "schema_version": 1,
+                    "challenge": manifest["challenge"],
+                    "competition": competition,
+                    "policy_id": FIRST_TEN_CANDIDATE.policy_id,
+                    "policy_status": FIRST_TEN_CANDIDATE.status,
+                    "private_key_cid": private_key_cid,
+                    "participant_count": len(participants),
+                    "valid_submission_count": sum(
+                        item["status"] == "valid" for item in participants
+                    ),
+                    "participants": participants,
+                }
+                destination = (
+                    self.root
+                    / "reports"
+                    / "submissions"
+                    / f"challenge-{manifest['challenge']:03d}-{competition.lower()}.json"
+                )
+                write_canonical_json(destination, report)
+                reports.append(report)
+        return reports
+
+    def audit_scoring(
+        self,
+        *,
+        challenges: range | None = None,
+        gain_tolerance: Decimal = Decimal(0),
+    ) -> list[dict[str, Any]]:
+        reports = []
+        for manifest in self._chain_manifests(challenges):
+            challenge = manifest["challenge"]
+            returns = read_realized_returns(
+                self.root / "data" / "prices" / f"challenge-{challenge:03d}.csv",
+                binary_float=FIRST_TEN_CANDIDATE.answer_binary_float,
+            )
+            for competition, observed in manifest["competitions"].items():
+                result_cid = observed["content"]["results"]["cid"]
+                publication_report = json.loads(
+                    (
+                        self.root
+                        / "reports"
+                        / "publication"
+                        / f"challenge-{challenge:03d}-{competition.lower()}.json"
+                    ).read_text(encoding="utf-8")
+                )
+                result_artifact = self.ipfs.download(
+                    result_cid,
+                    expected_sha256=publication_report["result_bytes_sha256"],
+                )
+                published = read_published_results(
+                    result_artifact.path,
+                    competition=competition,
+                    challenge=challenge,
+                )
+                comparisons = []
+                for participant in observed["participants"]:
+                    address = participant["address"]
+                    stake = Decimal(participant["historical_stake"]["decimal"])
+                    computed_gain, computed_reward, status = self._score_participant(
+                        challenge,
+                        competition,
+                        address,
+                        participant["submission"],
+                        stake,
+                        returns,
+                    )
+                    expected = published[address]
+                    gain_delta = computed_gain - expected.relative_gain
+                    reward_matches = computed_reward == expected.wallet_reward
+                    gain_matches = abs(gain_delta) <= gain_tolerance
+                    comparisons.append(
+                        {
+                            "address": address,
+                            "submission_status": status,
+                            "computed_relative_gain": str(computed_gain),
+                            "published_relative_gain": str(expected.relative_gain),
+                            "relative_gain_delta": str(gain_delta),
+                            "computed_wallet_reward": str(computed_reward),
+                            "published_wallet_reward": str(expected.wallet_reward),
+                            "relative_gain_matches": gain_matches,
+                            "wallet_reward_matches": reward_matches,
+                        }
+                    )
+                mismatches = [
+                    row
+                    for row in comparisons
+                    if not row["relative_gain_matches"] or not row["wallet_reward_matches"]
+                ]
+                max_gain_delta = max(
+                    (abs(Decimal(row["relative_gain_delta"])) for row in comparisons),
+                    default=Decimal(0),
+                )
+                report = {
+                    "schema_version": 1,
+                    "challenge": challenge,
+                    "competition": competition,
+                    "policy_id": FIRST_TEN_CANDIDATE.policy_id,
+                    "policy_source_git_commit": FIRST_TEN_CANDIDATE.source_git_commit,
+                    "policy_source_files_sha256": dict(
+                        FIRST_TEN_CANDIDATE.source_files_sha256
+                    ),
+                    "policy_status": FIRST_TEN_CANDIDATE.status,
+                    "reproduction_runtime": {
+                        "python": platform.python_version(),
+                        "pandas": version("pandas"),
+                        "numpy": version("numpy"),
+                    },
+                    "result_cid": result_cid,
+                    "result_bytes_sha256": result_artifact.sha256,
+                    "gain_tolerance": str(gain_tolerance),
+                    "participant_count": len(comparisons),
+                    "mismatch_count": len(mismatches),
+                    "maximum_absolute_gain_delta": str(max_gain_delta),
+                    "passed": not mismatches,
+                    "participants": comparisons,
+                }
+                destination = (
+                    self.root
+                    / "reports"
+                    / "scoring"
+                    / f"challenge-{challenge:03d}-{competition.lower()}.json"
+                )
+                write_canonical_json(destination, report)
+                reports.append(report)
+        return reports
+
+    def _score_participant(
+        self,
+        challenge: int,
+        competition: str,
+        address: str,
+        submission: dict[str, Any] | None,
+        stake: Decimal,
+        returns: dict[str, Decimal],
+    ) -> tuple[Decimal, Decimal, str]:
+        if not submission:
+            return Decimal(0), Decimal(0), "no-submission"
+        path = (
+            self.root
+            / ".cache"
+            / "decrypted"
+            / f"challenge-{challenge:03d}"
+            / competition.lower()
+            / f"{address}.csv"
+        )
+        if not path.exists():
+            return Decimal(0), Decimal(0), "not-decrypted"
+        try:
+            predictions = parse_predictions(
+                path.read_bytes(),
+                FIRST_TEN_CANDIDATE.symbols,
+                reject_duplicates=True,
+            )
+            gain, reward = score_prediction(
+                competition,
+                predictions,
+                returns,
+                stake,
+                reward_digits=FIRST_TEN_CANDIDATE.reward_digits,
+            )
+            return gain, reward, "valid"
+        except (InvalidSubmission, ValueError, ArithmeticError) as error:
+            return Decimal(0), Decimal(0), f"invalid: {error}"
+
+    def _decrypt_one_submission(
+        self,
+        challenge: int,
+        competition: str,
+        address: str,
+        submission_cid: str,
+        private_key: Path,
+    ) -> dict[str, Any]:
+        base = {
+            "address": address,
+            "submission_cid": submission_cid,
+        }
+        try:
+            archive = self.ipfs.download(submission_cid)
+            decrypted = decrypt_submission_archive(archive.path, private_key, address)
+            predictions = parse_predictions(
+                decrypted.predictions_csv,
+                FIRST_TEN_CANDIDATE.symbols,
+                reject_duplicates=True,
+            )
+            destination = (
+                self.root
+                / ".cache"
+                / "decrypted"
+                / f"challenge-{challenge:03d}"
+                / competition.lower()
+                / f"{address}.csv"
+            )
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_bytes(decrypted.predictions_csv)
+            return {
+                **base,
+                "status": "valid",
+                "archive_sha256": archive.sha256,
+                "predictions_sha256": hashlib.sha256(
+                    decrypted.predictions_csv
+                ).hexdigest(),
+                "prediction_count": len(predictions),
+                "prediction_member": decrypted.prediction_member,
+                "key_member": decrypted.key_member,
+            }
+        except (
+            InvalidSubmission,
+            IpfsDownloadError,
+            zipfile.BadZipFile,
+            OSError,
+        ) as error:
+            return {**base, "status": "invalid", "problem": str(error)}
+
+    def extract_prices(
+        self,
+        *,
+        progress: ProgressCallback | None = None,
+        challenges: range | None = None,
+    ) -> list[Path]:
+        catalog = self._dataset_catalog_by_challenge()
+        written = []
+        selected = (
+            range(FIRST_CHALLENGE, LAST_CHALLENGE + 1)
+            if challenges is None
+            else challenges
+        )
+        for challenge in selected:
+            source_challenge = challenge + 1
+            source_cid = catalog[source_challenge]["dataset"]["cid"]
+            artifact = self.ipfs.download(source_cid, progress=progress)
+            prices, member = extract_latest_realized_returns(
+                artifact.path,
+                scoring_challenge=challenge,
+                source_dataset_challenge=source_challenge,
+                source_cid=source_cid,
+                symbols=FIRST_TEN_CANDIDATE.symbols,
+            )
+            destination = self.root / "data" / "prices" / f"challenge-{challenge:03d}.csv"
+            write_price_fixture(prices, member, artifact.sha256, destination)
+            written.append(destination)
+        return written
+
+    def verify_prices(
+        self,
+        *,
+        progress: ProgressCallback | None = None,
+        challenges: range | None = None,
+    ) -> dict[str, Any]:
+        catalog = self._dataset_catalog_by_challenge()
+        selected = (
+            range(FIRST_CHALLENGE, LAST_CHALLENGE + 1)
+            if challenges is None
+            else challenges
+        )
+        comparisons = []
+        for challenge in selected:
+            source_challenge = challenge + 1
+            source_cid = catalog[source_challenge]["dataset"]["cid"]
+            artifact = self.ipfs.download(source_cid, progress=progress)
+            prices, member = extract_latest_realized_returns(
+                artifact.path,
+                scoring_challenge=challenge,
+                source_dataset_challenge=source_challenge,
+                source_cid=source_cid,
+                symbols=FIRST_TEN_CANDIDATE.symbols,
+            )
+            destination = self.root / "data" / "prices" / f"challenge-{challenge:03d}.csv"
+            problem = None
+            try:
+                verify_price_fixture(prices, member, artifact.sha256, destination)
+            except (FileNotFoundError, ValueError) as error:
+                problem = str(error)
+            comparisons.append(
+                {
+                    "challenge": challenge,
+                    "source_dataset_challenge": source_challenge,
+                    "source_cid": source_cid,
+                    "source_archive_sha256": artifact.sha256,
+                    "price_fixture_sha256": (
+                        hashlib.sha256(destination.read_bytes()).hexdigest()
+                        if destination.exists()
+                        else None
+                    ),
+                    "passed": problem is None,
+                    "problem": problem,
+                }
+            )
+        report = {
+            "schema_version": 1,
+            "comparison_count": len(comparisons),
+            "mismatch_count": sum(not item["passed"] for item in comparisons),
+            "passed": all(item["passed"] for item in comparisons),
+            "comparisons": comparisons,
+        }
+        write_canonical_json(
+            self.root / "reports" / "prices" / "verification.json",
+            report,
+        )
+        return report
+
+    def build_summary(self) -> dict[str, Any]:
+        """Build the compact first-ten audit summary from detailed reports."""
+
+        return build_first_ten_summary(
+            self.root,
+            self.root / "reports" / "first-ten-summary.json",
+        )
+
+    def _dataset_catalog(self) -> dict[str, Any]:
+        path = self.root / "manifests" / "datasets.json"
+        return json.loads(path.read_text(encoding="utf-8"))
+
+    def _dataset_catalog_by_challenge(self) -> dict[int, dict[str, Any]]:
+        return {
+            row["challenge"]: row for row in self._dataset_catalog()["datasets"]
+        }
+
+    def _chain_manifests(
+        self, challenges: range | None = None
+    ) -> list[dict[str, Any]]:
+        manifests = [
+            json.loads(path.read_text(encoding="utf-8"))
+            for path in sorted((self.root / "manifests" / "chain").glob("*.json"))
+        ]
+        if challenges is None:
+            return manifests
+        selected = set(challenges)
+        return [manifest for manifest in manifests if manifest["challenge"] in selected]
+
+    def _download_submission_scope(
+        self,
+        challenges: range | None,
+        progress: ProgressCallback | None,
+    ) -> list[DownloadedArtifact]:
+        cids: set[str] = set()
+        for manifest in self._chain_manifests(challenges):
+            for competition in manifest["competitions"].values():
+                for participant in competition["participants"]:
+                    submission = participant["submission"]
+                    if submission and submission["cid"]:
+                        cids.add(submission["cid"])
+        return self.ipfs.download_many(cids, progress=progress)
+
+    def _content_cids(self, field: str) -> set[str]:
+        cids: set[str] = set()
+        for manifest in self._chain_manifests():
+            for competition in manifest["competitions"].values():
+                cid = competition["content"][field]["cid"]
+                if cid:
+                    cids.add(cid)
+        return cids

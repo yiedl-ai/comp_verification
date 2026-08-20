@@ -1,0 +1,5122 @@
+{
+  "chain_id": 137,
+  "challenge": 4,
+  "competitions": {
+    "NEUTRAL": {
+      "challenge_opened_block": 43544629,
+      "content": {
+        "dataset": {
+          "cid": "QmY4Zqz7QeuKoidMusMeyrgW92oZWnL4vDoNTH6eXdmiq9",
+          "digest": "0x9076138ec7ce892bd704591996f2b120fd7a3bc7770c49d8fd9a96879574d74c"
+        },
+        "private_key": {
+          "cid": "Qma7c6yhknJC2JW6cew5yQreJxtUkZgCiytAZFKbmCKsfG",
+          "digest": "0xaef4bf122877e22e25dc53d4ba81bea069b76888dd6f3543bcfb99e51e621333"
+        },
+        "public_key": {
+          "cid": "QmdYVL9aDn2vMS3M7Ntavfat5LdLCHh2yyTiGkd6uwttGn",
+          "digest": "0xe1e7ab50dcbfca9d1bcef05fb521724ba179170c5a1fd66fb0b166d37b9edbd7"
+        },
+        "results": {
+          "cid": "QmZ2ZR83WkxdhhS2R7144nbYbzj7AvjAZMY4WXzAXJGr6P",
+          "digest": "0x9ece1df3b2028f6dd5417953147a3317666fb9d9d1ce714f05515ef1be8f3704"
+        }
+      },
+      "contract": "0xC8519524013348466e18fC1747d11F1feA9473fd",
+      "historical_staker_count": 86,
+      "participants": [
+        {
+          "address": "0x00c4210b2525cee9d981090baf6f9e867e650eb9",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "38.806091",
+            "raw": "38806091"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1000.050000",
+            "raw": "1000050000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmSorrK3ux1ZmzBMfKUyDM1mkZBXSvB4CNomP4NCSyLY3s",
+            "digest": "0x4267286fdb6b60bf0aaf18e355826a7c6ce34c4595fe2d19635143a0821e915a"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x05af269c4ff706ae439648c97b788fa391539dec",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "207.849762",
+            "raw": "207849762"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "10048.454186",
+            "raw": "10048454186"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmRm417J27crSVb8R9c2fvQXJyiRdTnhudFzXdZ3mYyacr",
+            "digest": "0x32d3567d060bcec5ebbb835b1e6ce87d78e941b6e075431fe29d9427c2f81f73"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x0651efb6e070e659c6e030cea8d5e25b016d684e",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "2.313040",
+            "raw": "2313040"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "100.000000",
+            "raw": "100000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "Qme3YpmXYrRrEzcYhjHjtprwPWfw9ynr4nqRKKQrUyEXB9",
+            "digest": "0xe9597674b50c01bc8ce66c1079d2be5016c659094f99c9ecfb31a2d419019dac"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x0f06d0a6cfe46a4d92350adb75748846ba086c1f",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "158.852366",
+            "raw": "158852366"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "15017.900875",
+            "raw": "15017900875"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "Qmd6esCgcaPuNE8MKXuh9izL2eK9SZSMkBm5SV4aTFY1zi",
+            "digest": "0xdb495992228000161a4f13a44d33791fbb33bcbc23f3d0ad8bba407eef0724cb"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x14186932e2c83b9e2bd5d39c04265cfb4646859b",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "27.006267",
+            "raw": "27006267"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "995.892742",
+            "raw": "995892742"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmTkb42iQ6dEWs2nLGCyhGYtevSrZRReUikwh9Js9NCT6d",
+            "digest": "0x506c3d596fb78e518a67b60a6674c3679c8acb97306c89c18b0fe97374e1d8f6"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x181a5bac1f070befbba81a97b68d0e788b4f9189",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "969.564926",
+            "raw": "969564926"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "38163.093395",
+            "raw": "38163093395"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmUywFPxPMQSj7mzdaUKhStUdeWf4gEvkYZHNsDKoRiBnc",
+            "digest": "0x62b350101a370b0cd6b45c18b6bc2c8a8cf93dda65a40aefc3150d9057436ce5"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x1b1d704cfd260f0eeca05d495d4818ebeac2922f",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "261.930869",
+            "raw": "261930869"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "31000.000000",
+            "raw": "31000000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmRHtw6e85rPgYZx39xVF4Au94qL8Qw7E7qpTYKRmbCKT7",
+            "digest": "0x2bde66c6a4c80d70fa58f7c3b6156e81a93b8c3c801c0006f22e7b3cd51ef7ca"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x1be48b2b7594fe7e47701bc7e7bb83beaf84ecc0",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "42.814002",
+            "raw": "42814002"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1600.000000",
+            "raw": "1600000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmaNr8SvpHEPQAgLAqAes5c54XZA9cXfD61yjLkLCVRvQz",
+            "digest": "0xb2dc51271f171baa0478c9d78a76b4f26d712b72df71a4e5af2c8358ec8a0e83"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x1c8141448c599e7950799e0df70b0e8cf763e958",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "251.760689",
+            "raw": "251760689"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "9080.827733",
+            "raw": "9080827733"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmSaWC4JS8qJcAy2DZWQRFR88LV5Rgs7BqgvQA6yMqZHk9",
+            "digest": "0x3efb3f62ede12c6cfff29ee531d5593a3c801df5c8c261a7f196dbb05707e206"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x1e2e7903fb871f38362a8760871d1648eaa12536",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "190.279751",
+            "raw": "190279751"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "9102.604970",
+            "raw": "9102604970"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmW484386Vg7JXw4uEhuEkENxyXjatEVrCV2ZsgA7KgyTo",
+            "digest": "0x72a18a09244f82b761ecce08c7f252ed964d3059fe423a95313a3302a14846aa"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x21410111bb73b50f55c6ff0d8828607134452737",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "285.667768",
+            "raw": "285667768"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "9031.119913",
+            "raw": "9031119913"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmUEr7DNsaWrFGfp9oSo98aQ4uu4YWtQVMDtbrRb9ab1Q3",
+            "digest": "0x57a986615969dd9ac3abbc3f6cb4098bcdab763c988c07d29f97a13f7f87dc18"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x21b1602a4fd988b44d0f5a54b3ba248069c448ea",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "1.133746",
+            "raw": "1133746"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "60.000000",
+            "raw": "60000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmTqZvCTAmX413irqthyUJsyeYQ1JHB4dQf8WrGcych4t5",
+            "digest": "0x51b2dc3cb8778adaf3feb9fb6a705f4a781900001937b37266a5d49b5e36a4ae"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x223527a5bc486d79a3390eda8069c8561601c245",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "208.616273",
+            "raw": "208616273"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "7106.618140",
+            "raw": "7106618140"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmfZuo34aZp2Cwgtxj8BUW4XwFePAs9GTF5tu133VXHhym",
+            "digest": "0xfffc48f0ced3a9f545d38d2b575f254b64288a9a0369e83324c7172ea57f77dc"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x2e85c8101e01810adb4c1f6e878d7b0d8bbd70a1",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.345611",
+            "raw": "345611"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "10.126441",
+            "raw": "10126441"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "Qmf8vmhNyHkvPg9VU26xZqu4xVBHokCboAvexwLjixjHgu",
+            "digest": "0xf995de89d235ab77eed5b89917b9bce1cbaa1849e862b39929539218e71110ea"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x3cf29379dbc05bdfa6ad4e81c6bc2c581a0a3ca1",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "38.534456",
+            "raw": "38534456"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1000.100000",
+            "raw": "1000100000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmUTE2WXB6WKWsYDVqRZBZAwX7vbfSsK5wat5UVXh8DeGu",
+            "digest": "0x5ad54745251ed52293aa9c8d4b77111a592ec145d4a68c88723c2a3c00bef89e"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x3e04d3e08ea54c34f721ac007107fe7a4bd957d5",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "51.005187",
+            "raw": "51005187"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1600.000000",
+            "raw": "1600000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmcWt7hPAv8N4U27MaZn7jqCJCwBXZ5Gx9JECRkePHbPeE",
+            "digest": "0xd2a2958786c5c591a94126fd6b99a95d290087064916a7b07debbe7d11aeec57"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x3ed9f0b565551387c431447601a116eb6d2af4a1",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "38.408963",
+            "raw": "38408963"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1000.090000",
+            "raw": "1000090000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "Qmb9MKrZM81QDZYjCJ62uqJDnMbbSETZWprKrMpWRxmjMM",
+            "digest": "0xbe42e2a921fdf90bdfa34c10a17a7db44fcf1493e73a228adfa270d820603194"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x3fb71886cea2bc40267f99bfed34fd1050a27a9d",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "244.664643",
+            "raw": "244664643"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "10000.000000",
+            "raw": "10000000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmbnERWG11cdG29YRRmB8pz2KpeUXMXki13szeDAvDPME3",
+            "digest": "0xc7b5920f949fa378297a091ecad69becbf98c4b5fffbbddfc9dd4674af2f3d54"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x3fd9532a46e3a458408e69202c686f5b9b8ab3af",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "346.628966",
+            "raw": "346628966"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "9061.444988",
+            "raw": "9061444988"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmXxY1MrjsXK6NcStrRxvBeiYvUCL5GnmQCnZDW7FFXuHa",
+            "digest": "0x8eea834d5f602b2217b1f203a51c147ad649532ae7081294d4dd6a057a5aa361"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x427ae6048c7d2ded45a07ea46f2873d0f9dddb35",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "1.956539",
+            "raw": "1956539"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "100.000000",
+            "raw": "100000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "Qmf73no9ZUr82pu4Nmfpa2N2dG3oXra4hxgLrGbAL21ej7",
+            "digest": "0xf91aa4df3ecd7ec5cddf062413958368dfa6b8d14ac6ba5d5251e79eb68c51ee"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x43b7a5912528434aa27163feb26dd586d488abf8",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "502.381659",
+            "raw": "502381659"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "10000.000000",
+            "raw": "10000000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmZ8kA7U1XJgQmph6ZPhAcFZ8fjtpnjGJfEzvZZ5HAfTVV",
+            "digest": "0xa063bf39d76c6e69b68d94054f6221deedb390a2849433fbdc5ea6a56a21849c"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x440c5b08ce818d0e6f72cf1029df8f9845b2d67a",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "168.803174",
+            "raw": "168803174"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "9032.356561",
+            "raw": "9032356561"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmQuexSYo7rMrsjjqxf9gPv8P8XaywgTf8oFBx9CoCQEKg",
+            "digest": "0x262bd1ebd65013114a0f3f928595172c27ba6f57371ab8333d06254f97fbe6d7"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x49451c6af70feef6ef29b8c78bc17d4bdaf9fdaa",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.791340",
+            "raw": "791340"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "20.000000",
+            "raw": "20000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmWz4v1FzHcVo1rzKoBnysSREUvdzcQrGTAnTPCr8pf6tn",
+            "digest": "0x80735aac905eaa621d9549ccf35b69a7af520f5c55682f883006fc956803886f"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x49aa5f121f20c02e73cd59e26460b4642c275abd",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "162.475454",
+            "raw": "162475454"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "3000.000000",
+            "raw": "3000000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmUrmH9mDNAsdNuyhNoLxRUitG5fbZ1arrQ6kMdTTu4p1x",
+            "digest": "0x60dcf96976c6541365833fa1a8db2410380874a37e60cde7d08381bfd0e99c4b"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x4ad829a7609357a7d05737526fe13bbdd18427b5",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "266.559283",
+            "raw": "266559283"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "10046.537477",
+            "raw": "10046537477"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmccuEUxycYLCmMkmF4D8ff2gKXZC5GTaQyRsZuxVJWqUk",
+            "digest": "0xd42d54fa8904fc903788038c88ad0e02bb95ccb95190d74f2705dd6161792ce1"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x4aeb8b94a59a2718de2bd0b222c7f3341a10ec17",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "99.752028",
+            "raw": "99752028"
+          },
+          "is_historical_staker": true,
+          "is_submitter": false,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": null,
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x4bdd83ab8162c032957e8d6a189d6bc909d2fb41",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "190.160362",
+            "raw": "190160362"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "7061.599834",
+            "raw": "7061599834"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmP2c1bKHxvf2LjmPitFjrMNvhR6DqA5uJ5518zsYmM5Ga",
+            "digest": "0x0a3c2e5ef3675783004bd21e7db8feff3be1b16f2bb70f56a48e085a3d701657"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x5888ee085c125948e874bf1641cfa24661f2786b",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "1089.273345",
+            "raw": "1089273345"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "30261.529019",
+            "raw": "30261529019"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmUayTw2WJGKPJXb5Zj96f6WZqxPJNXdWksHa6PSU22cb8",
+            "digest": "0x5cd175bdbce70f3c5c911b84e513537a3e276782e8bdfe2c8c3dffff2d4b44ff"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x5a611264a056df81842f57f55ab4230312e0b730",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "432.671107",
+            "raw": "432671107"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "13065.908965",
+            "raw": "13065908965"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmZVSn7Z8xpMzxnfaY1NNwFmzpvQcVUUgJy3YZBNrm24v7",
+            "digest": "0xa5b14b0bbba5e6acb3e7d074a9fc1e15680314225d6dfecd42da5f51f89a9a3c"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x5dbda63f6d8b260b4963e6ab832bcd6cf7bf6e94",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "905.282235",
+            "raw": "905282235"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "25150.000000",
+            "raw": "25150000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmRKLfxbMwmn7PP2pFe8pY8SHvbL9aRD859pFgzC5s11V1",
+            "digest": "0x2c3d15df98bafd18c8a8154dea001f4bc813c65a54d5b272667faaf10c317438"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x5f9bf21f99e38eee83149c7b9cc33a564bf9bfb9",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "396.057557",
+            "raw": "396057557"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "14000.000000",
+            "raw": "14000000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmZkNKJvb8pAfQTWWrkYjgARfjQXfEFaqPyp2ApZ1qPM5t",
+            "digest": "0xa983f5bde99aacc06bc6219db07997966ab8a8a00da422429c08bb4f5bdeaedb"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x6317b52d3888a74b093fcaa31a5d723d90b1cf8d",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "983.411132",
+            "raw": "983411132"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "30999.332222",
+            "raw": "30999332222"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmbTtogyKZLWXgrB9ZmQF5WpPDdVPfMdWTpQF9kUzgXJp9",
+            "digest": "0xc302ef3509271aaa4dbbab9cebb8de4e38aeaf53a930a9b9d95d62713d05bd12"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x6711a4b7ac1c5537391e7997234a7570d95e02b7",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.026131",
+            "raw": "26131"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1.000000",
+            "raw": "1000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "Qmdy7bsV5eCM4LCJMkPkqd59j9hedJxbmCDfhBKKQxsRsz",
+            "digest": "0xe8369ed683abdd861847952b60cef0cdb443b415e5a118262407230c9ab5920d"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x691577252ffff4f3eefcc386302f8ba5bc40a360",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1.001926",
+            "raw": "1001926"
+          },
+          "is_historical_staker": true,
+          "is_submitter": false,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": null,
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x6b21870e2b48fcd63eb11050d7a3ccbd0ce45b19",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "549.257136",
+            "raw": "549257136"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "15090.121625",
+            "raw": "15090121625"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmYWur93eK3DKD6dJb1mUQjBnVeK5MauSafT3HK9vLH6xv",
+            "digest": "0x9735cb64ec2ea999fc380058d5440c90f67e064117b96b9d2bd1ced834f2de2f"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x6cb72d052d57563180474923fdd9f827455637db",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "46.223563",
+            "raw": "46223563"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "9068.316203",
+            "raw": "9068316203"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmXxvdUVUbyPt6dMBXWc1xzs5ofuHxMxkk4rE4QXTxjBqM",
+            "digest": "0x8f0417a91e841abb127bbba12fecb60e4f5d55fbff64337a04dd334cb9a2479c"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x6d7841df878bff8ff84c2730d3051439d3009109",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "38.925077",
+            "raw": "38925077"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1000.020000",
+            "raw": "1000020000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmZgCPwiCrf2DBE1CXN9XsYp9Ya3FyCmqvsKy9d9GJLEuV",
+            "digest": "0xa8726b852e37d0424778c6d6887e0b3e3556b8798b768bfe02592325f0abf620"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x7477d16e686d1af14d8e5f5791a2cd2a7cb96913",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "4288.428056",
+            "raw": "4288428056"
+          },
+          "is_historical_staker": true,
+          "is_submitter": false,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": null,
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x7490eeb68c7585407e254591d784bae7987c1cfb",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "100.472743",
+            "raw": "100472743"
+          },
+          "is_historical_staker": true,
+          "is_submitter": false,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": null,
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x756ef834ecc631b289ef489408276b1d1f6479bd",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "2.601981",
+            "raw": "2601981"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "60.000000",
+            "raw": "60000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmSxNNDfeHnXm4JGN1zpabCZJktUG2rktixVKpMSfQEY3X",
+            "digest": "0x44952d88f3e2f9bca5397cdc243e3f117745af4a76877e39671ade4efb8b3766"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x770a3026f8a348bebac2ba84cfc82f4ea01b420a",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "9.721084",
+            "raw": "9721084"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "800.000000",
+            "raw": "800000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmNpikpUDX25Rb2vZkieJHrrWEC7DS6DbNuEaTsywF7APR",
+            "digest": "0x0730d69e24b75c6732098350612f681d115d8062dcadac903b1436d9a6fe61e8"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x7824282944b7cc7b8ef86ed9adbe21f49b247f97",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "1337.876678",
+            "raw": "1337876678"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "72120.066274",
+            "raw": "72120066274"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmSSp9oDzP55jBh3SymhRe4ssHJNJPp5HzTuz51Qq71yM4",
+            "digest": "0x3d02e8e49b4a189283ee9b2038e06306942a1b2317870af0e8fe125bcd5e8e8b"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x7ff2a724ea2d76568f0058b7fed4a6213821183b",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "163.548568",
+            "raw": "163548568"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "7000.396272",
+            "raw": "7000396272"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmZtst28vMLgWYpraUGuWEG5jgQnTZaew4gqD6VZ785UdN",
+            "digest": "0xabb208d4aa831d14a2202fec54889aa5291b11c184e9a99b3c9b38df435823d9"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x81942befbb59f4461a32af5c4798f72f58f6797f",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "36.833041",
+            "raw": "36833041"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1000.080000",
+            "raw": "1000080000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmPVs4TchYZCpBfSPohnkiu2JPxCeKBaVM3XeFtsfqwebu",
+            "digest": "0x1137e1227505a8a577e610cd6e5a6569cd30f52779160bfa5cd73a073bea834c"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x81fbfb07888fff733958210796af7cbe4368ae5f",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "122.975191",
+            "raw": "122975191"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "3743.000000",
+            "raw": "3743000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmQBdM4J9mbZrQrxpK3H4aqUymnVuUVAX1Mhv7T8xfT7H8",
+            "digest": "0x1b679b0352db04790e58fb28cac41f60a4215b92e12fd0f3727908b687e0150f"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x8355b0536a6a3b0116374b33dc3f8b7c344ca8bb",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.074176",
+            "raw": "74176"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "4.000000",
+            "raw": "4000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmUr6Rk3DugywxzqdfdyamPGPZiYNuxZs6UBF1gEkYYsjz",
+            "digest": "0x60b10b57900d84343d23af53e8730f9a6bfe6be3f14fce81d2d75aac7c08232d"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x841f411d7f67638fcbac446560828d7c33e8c940",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "178.623121",
+            "raw": "178623121"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "7001.915335",
+            "raw": "7001915335"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmPbh7yQsLXhT9bwYYcqk4oaJbmMSFmR3e5va5H9Qd8CmQ",
+            "digest": "0x12b620312886b164225e9e24d5f26084b8bb88613a7577462800ab00d89bd553"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x8698e8fc705a008d815b27ed44230067817cd25a",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "399.857851",
+            "raw": "399857851"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "15043.475149",
+            "raw": "15043475149"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmcLRmXPhrszbTHeM4Hv8QvmzmjQ1tSeJoh84KRUTpE5zh",
+            "digest": "0xcff4fc057edad2015ea20a82349d28dc3b197ac7ab5ccf9a3e0e27807ad5ee9a"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x889432c467b59475900845c1f414e0d3461d1459",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "874.724779",
+            "raw": "874724779"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "70146.804238",
+            "raw": "70146804238"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmXaaitqsCVG7BoadzG2dioLaPz1ZSGrCMrAHWotHFZkgx",
+            "digest": "0x894ace63e92e3e77563f2a45942f8962c97a9e265018e816057f6a3a11cdbeb9"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x904d35c124326ce0741d7b6c63b66a12fbeabcc5",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "23.338063",
+            "raw": "23338063"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1000.070000",
+            "raw": "1000070000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmZ2vcWYgwweY7Syp6Ffqjrg2WJBu5zrnc8VWWUBHWdNGW",
+            "digest": "0x9ee61572cc3451e7150d797d39be0462c540ace2dd487638288bb8e0ced1dae7"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x943b7da96a03cc6d4d440e2f346e18ead42f1d66",
+          "burned": {
+            "decimal": "286.011665",
+            "raw": "286011665"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "20047.991277",
+            "raw": "20047991277"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmcVzoLiRgVJJB5huzU1AppFwP9DVSQ5VcRTgG5BkyDpLm",
+            "digest": "0xd2688f73c8533ca4a2136e0cb830f3307ea41125f6017870dd718ac9a50acad6"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x95129c9fe9aff2c537db3633906a56c29ff9ea06",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "37.854580",
+            "raw": "37854580"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1000.040000",
+            "raw": "1000040000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmcPHTZTQzQU1bDh3xdme3pajuzroqBZxPaeayNR6h2gnC",
+            "digest": "0xd0b054bf3b3ceacdcaf441b8749bf170f0b93651d5a0df5855d6291641793c01"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x98e41d65e981a882afcb05d41939197da3465b6f",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "60.402112",
+            "raw": "60402112"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "2400.000000",
+            "raw": "2400000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmbFbZnJqtLpS63Mg6bo5BfAFrvNB7L3o7uJ1uDfqQ2tNh",
+            "digest": "0xbfdc78baa74a1cf4c89eb0724dd9eb9a971313f82aa602193d4430a0ab2ebb2e"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x9977891dd3be0d14082c0ac6624b808a951fd567",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "39.903445",
+            "raw": "39903445"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1000.030000",
+            "raw": "1000030000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmXZJcuzBj24yczS1G1Z6gVRdnX3QMpUGgzwcfGZBDDb9N",
+            "digest": "0x88f7047ed448a751e101de8007715b15bbfb797139b729b9c2ecb46a0bf1990d"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x9aa5c9c4a500ee3bd06798a0fa415298e63412ac",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "210.667160",
+            "raw": "210667160"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "30020.618612",
+            "raw": "30020618612"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmfCv1gABmNvhRyPYHkMM7T4eAA4Zf3AzYZdhSUE8anbgc",
+            "digest": "0xfa9b55976652efd45e6f1a3f4b5918befb3703ca854f27591bb5481ba62e1cf9"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x9c40349fbbb3fdca0dbb8d5a9ec1063476288a01",
+          "burned": {
+            "decimal": "582.601533",
+            "raw": "582601533"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "25809.406854",
+            "raw": "25809406854"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmdLS3mUuMPE3AyT6qwjfpMwVVPyZz1tCxjecKcgssAC72",
+            "digest": "0xded0fcf02394fdbcb5e4a7b40f47ada2105a32a04e0fbad24cfdac7b61361af1"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x9da4d186dba5d2579e37dfa8d9afddd0172314e9",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "515.127286",
+            "raw": "515127286"
+          },
+          "is_historical_staker": true,
+          "is_submitter": false,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": null,
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xa06d479204dff8f83e3c7a431516b2bd3cc364a4",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "111.476505",
+            "raw": "111476505"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "7010.064110",
+            "raw": "7010064110"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmXuNMPwdjQqcuvn7RWD4gE9L2kGgQqkgHRxJZRHbHEkrg",
+            "digest": "0x8e1adaa20100ec038372f61fd484b077b4d8121b8fa3aaf951a7485ace199a95"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xa16a483a18f00a00b14b93438e8ad21f485b382f",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "85.133442",
+            "raw": "85133442"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "2000.000000",
+            "raw": "2000000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmXgXzPuMXy5XFAeGFKFRhdeFqY4ywAHSG5eY3ZE7xQpcg",
+            "digest": "0x8ad1337e59009ef417361e536e90a1e0f3d8f870c2ee5e7e1b52067e9c9b08b9"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xa26dcd02deb5cb5c0e8600c16920432764be53ca",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.166896",
+            "raw": "166896"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "9.000000",
+            "raw": "9000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmTggc4Y1mCPDeww8nzD88SuSDWyzvEhCXgXc2NQjdEP9N",
+            "digest": "0x4f6c31c2a355eb0e0184ddb4faeee4e89a5c767912669537bc8ef8fe532944c5"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xa738c5fa69ef37570f1878743f0807e12e9ad80e",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "2939.034470",
+            "raw": "2939034470"
+          },
+          "is_historical_staker": true,
+          "is_submitter": false,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": null,
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xaf6e3ee121902ee1eb4264aa3fc5772b289a0912",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.030312",
+            "raw": "30312"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1.000000",
+            "raw": "1000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmUCDogQzgytiJapvpwTv5gLcoyFfxaFhAn9WN6nEA9RHr",
+            "digest": "0x56fd50ef80678a8b30751f2696d003953a6e8e7c10f41e6fac5aeac40b5aabe1"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xb5eabff21fa101e2c543b411750464572e259375",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "866.000000",
+            "raw": "866000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": false,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": null,
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xb759689102026a0025b23595227dc865fe1a4828",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "665.057289",
+            "raw": "665057289"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "17514.625254",
+            "raw": "17514625254"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmSdkxgHyYsu8TmUGfHKbs7TWeqhhMhYWndqSwVMJMHsvw",
+            "digest": "0x3fd0b093b3a6cdc8cac276cc4c94d7116a15fdb9252a926c45a97fedba68e7a0"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xb7ece21c962697a3194c0b6e4b81db54433055ab",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "84.330042",
+            "raw": "84330042"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "3000.000000",
+            "raw": "3000000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmeZ4wX2hWZAKxRzyiQqQKGnG5LN4kwgvYoEcWm48FmFVD",
+            "digest": "0xf0e95bdfa00df47255dbd82ae0e407717c63e6ad638bc0542602c080a985ab3c"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xbf692d7684d6decc6cfc064247e7d8b52e104121",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "24.803953",
+            "raw": "24803953"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1000.060000",
+            "raw": "1000060000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmZHgW1bzjezMMEyJgo5qX9NCsEfpTGJT3ZrkX4dZZLW7f",
+            "digest": "0xa2add6e103efdcbfc203fc1819e6e9f5aa81dd9e48f8f0db2ffd8a2600aca60e"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xc1d8e22cfb4d0ca7326057f027570abd2f732d00",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "409.540706",
+            "raw": "409540706"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "11000.010000",
+            "raw": "11000010000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmZncq1CewrqXEsByVLsnGvEZG9VKeZXaWbggKEzD1tpNj",
+            "digest": "0xaa1787c0e98ecf3ab077455ad8dd6e932cff977d59477918b2be2f6e6cda18c0"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xc7eabdb28a49c5684f60a31ea957fbeb70fdf489",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "805.826799",
+            "raw": "805826799"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "20500.000000",
+            "raw": "20500000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmSHNyuBu22oj5noEttsw72YZGe7upjKyuPJho8puurGUZ",
+            "digest": "0x3a9838cfe3eecc7831dd20f6a5bc430113f2d126f7ba968886a8b5871a547a02"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xcb34a53c9362ee9711fcac9f352bd7e00201dd95",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "557.627477",
+            "raw": "557627477"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "12981.882952",
+            "raw": "12981882952"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmbnR1umMnt1imyXfm5BnysNaCxfTMt2rKtC3iZeP3GeEf",
+            "digest": "0xc7c18c5e4476313979c083fc0ae4249ee86c9f6ed4fde296b2991bc400599fc4"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xccc8f7bb5f28056799f8e6e8dc36e5cebefdf7c5",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "517.939998",
+            "raw": "517939998"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "60000.000000",
+            "raw": "60000000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmWukm4WhKmoAFK3fLv6uyhmiHNjwNxXfNv9jjYDH5QeFY",
+            "digest": "0x7f588101d1c6d75e48629ffcdf732387bc2e67273a269872314f619f0c2dc7d7"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xd47e9ea4b770ad3455585d6b100911dbc3ec5e54",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "214.083978",
+            "raw": "214083978"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "7032.063795",
+            "raw": "7032063795"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmSNjzm9c7Qm6rzT1wrepBuLnENhf9dhL68SJLdpC8jcn6",
+            "digest": "0x3bf7e3358d54ad46e060cf8403227860283040d589667b1cb359dd217bfd42c3"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xd9a2e6d790bf68c748cb41d05ff7413c0412068b",
+          "burned": {
+            "decimal": "0.299428",
+            "raw": "299428"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "75.000000",
+            "raw": "75000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmYHdaeUe9Fh2NdcQqXqGcmaKeVqDbZPqxUBrafdUA2upN",
+            "digest": "0x93ced9c7f134f23d254d19d110278decd2c2d31f12ed83dee584abcbe86ac8a3"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xdbcc5a6c8b126e6be68b2bfb838d23ade8e7de57",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "1.542849",
+            "raw": "1542849"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "50.471439",
+            "raw": "50471439"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmaWYfMzANDeTWd6mmN6dviGTgcNPmP6bXqC4mZ9wSQKPr",
+            "digest": "0xb4d536a75d8171df3bf2e22722a15ddfa6c652a47fea405738bd7544d508299d"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xe0d15fba67a96872a7c07a7c6dd17d904cd1b378",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "244.503223",
+            "raw": "244503223"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "7089.161158",
+            "raw": "7089161158"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmejZKUGWswX5Cq54FMuvd8SGxCt4Q6nPau5GuN1vCEQcN",
+            "digest": "0xf399412f8f9366bc2b5a3c49c5424bb77ab4275fe61f5fbbde669a2571b18a97"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xe14867e41410bd7232a52b9400476c08b4e535b3",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "65.764301",
+            "raw": "65764301"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "2600.000000",
+            "raw": "2600000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmamPLJWZPBrkJDkrniNjPhguFKby7ZwwLsbR489XpKg8E",
+            "digest": "0xb8a260b280e9833c81c39bcd1a26c49968b5ee37b0c698ad3be44d177e7bde1f"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xea8b4bb8c19ee22687093e35469d4fbdc84450cb",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "85.816084",
+            "raw": "85816084"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "2000.000000",
+            "raw": "2000000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmeqX1jvkJJLdercJ65jxrHX79DzpL1uvx3QSKcJXPaXgk",
+            "digest": "0xf52021e73acbf41283736a3458881f033a8c4d39008f6894e62988c243ccac41"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xeba5ba85f72e40a9f2b8782c2bd51ec31a5564da",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "145.557986",
+            "raw": "145557986"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "4000.000000",
+            "raw": "4000000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmRhbTvhqDtxY3mEAXZujcgHipK7Wpcpq1JNG63NJe3LUq",
+            "digest": "0x31f096d757b5365c3db887c9e325bb09a450894549eeb10d0e59586b9513a67a"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xf097ed117dd3930f1eeb91569a6a61b4c52744c8",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "71.021116",
+            "raw": "71021116"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1900.000000",
+            "raw": "1900000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmSzrKEEM96Lfpvo2oVWs1pP4x3Jsvj4t9hCfVEVYw76xu",
+            "digest": "0x4537f0de7d57c06c2fe8bcc46def20b6b1a30b62b161a7cdf49730eac015268e"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xf261a650d3ce2b65a7d0c58f61f04220cdd99daf",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "258.245153",
+            "raw": "258245153"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "7054.837759",
+            "raw": "7054837759"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmNdN7QH5wN8LyHsJiskmzUTuhAqkHRGwvE2XfuJfSkT64",
+            "digest": "0x04481b1ea58e61800add571425bab255c4a77586adaf11abf15f0a43107c1215"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xf3bd5b2d2ec20ababc098254060c7d3dde71eba4",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "685.345959",
+            "raw": "685345959"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "19191.483224",
+            "raw": "19191483224"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmQkv8VVVizYEjRoixZGhXojuxw9eLZSvRFAqrT3DyrEnY",
+            "digest": "0x23eebfcc9404b571fa0aef57681af2a06582c2eb6a56b5154c746ae3f676184d"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xf5061bd41966374d89ddeada574602b3784e3d98",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "1.155832",
+            "raw": "1155832"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "798.040543",
+            "raw": "798040543"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmasHDbaFRKhTmq3RGwms8KwYv7w8S853QJ6nQcpUwF61a",
+            "digest": "0xba24f297bb665843800121458642c1b2e929cfb92580cd46985f92817d066385"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xf711bbd350cd3c56c4b7b45793456e1f92326aab",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "166.899916",
+            "raw": "166899916"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "9080.243656",
+            "raw": "9080243656"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmXiPWm9DSBh4SqVtR85oTr8WLxVSg43ErzFiboY9rWeeK",
+            "digest": "0x8b4ac74664e6207f7ca5f6095bda7ea6bcdafcd2023567c77ddfd5c102705300"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xf7812adf8e862c307c5665e62c7ff36415f2b9b5",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "300.181948",
+            "raw": "300181948"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "9068.632846",
+            "raw": "9068632846"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmbAyrzX5wZvbbMg2GELNG9QCv1aRSDqbKUsfTr5f44S5T",
+            "digest": "0xbeadc74f05ab9b08c74ca2d6ba6ee23f3826d4d04ffe440cf5f2efc08ece866e"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xf8d50e3283fb6bf41260f7f294a48587d2a9b1fa",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "1.292970",
+            "raw": "1292970"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "400.000000",
+            "raw": "400000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmYjSKq7B2cPoGwTk7htk2kvPjAbcyZyuoiVr92ZUvc4QM",
+            "digest": "0x9a6b39a3a02611679ffa0a0fa32512b0ec829e333e556d836a72d2dd599568de"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xfb8bc3433016a64a3b8aa23c0275afe7c20feb53",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "133.103569",
+            "raw": "133103569"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "4000.000000",
+            "raw": "4000000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmYHEunf163ZVhzK27hu21it8TDFZb9GVihXdoT2dAnu98",
+            "digest": "0x93b537b99f39ad4ef5cb0e640e47b6a3385e14ab1d8f1f5ef0ae0a08044a1b7f"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xfe3c3f351e6df846566e10119e4295ed69b2cd72",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "75.694569",
+            "raw": "75694569"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "2300.000000",
+            "raw": "2300000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmTF3ZcYVwN22oXw9FNf7JnroAoNmvNrQoWveUSAiPvKz4",
+            "digest": "0x48daca56fdd8fafd125fd2586dcac271373f434d174f12a3c0220beeddb0517d"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        }
+      ],
+      "phase": 4,
+      "submission_closed_block": 43577214,
+      "submitter_count": 79
+    },
+    "UPDOWN": {
+      "challenge_opened_block": 43544567,
+      "content": {
+        "dataset": {
+          "cid": "QmY4Zqz7QeuKoidMusMeyrgW92oZWnL4vDoNTH6eXdmiq9",
+          "digest": "0x9076138ec7ce892bd704591996f2b120fd7a3bc7770c49d8fd9a96879574d74c"
+        },
+        "private_key": {
+          "cid": "Qma7c6yhknJC2JW6cew5yQreJxtUkZgCiytAZFKbmCKsfG",
+          "digest": "0xaef4bf122877e22e25dc53d4ba81bea069b76888dd6f3543bcfb99e51e621333"
+        },
+        "public_key": {
+          "cid": "QmdYVL9aDn2vMS3M7Ntavfat5LdLCHh2yyTiGkd6uwttGn",
+          "digest": "0xe1e7ab50dcbfca9d1bcef05fb521724ba179170c5a1fd66fb0b166d37b9edbd7"
+        },
+        "results": {
+          "cid": "QmeG25Xk5XY3C2yXWNxTZNz1ZrteUKUMXzd9KykxKUNZMn",
+          "digest": "0xec8b3fcc8b042f81c8a87c2637967ef79d83a34ece83eb2c381289d414016bad"
+        }
+      },
+      "contract": "0xEcB9716867f9300F2706EdbB5b81c7a0AbDC5B29",
+      "historical_staker_count": 52,
+      "participants": [
+        {
+          "address": "0x05af269c4ff706ae439648c97b788fa391539dec",
+          "burned": {
+            "decimal": "19.419252",
+            "raw": "19419252"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "98.295452",
+            "raw": "98295452"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmbNpwBDkJD6BfX7yoPkv4iSwL9vEMLX2NS4U2gkMNP5Gs",
+            "digest": "0xc1b6a74bee8236858d54864742d29512c97bb0790efde45ef1f0f46dda0ec3a8"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x0651efb6e070e659c6e030cea8d5e25b016d684e",
+          "burned": {
+            "decimal": "19.846746",
+            "raw": "19846746"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "100.000000",
+            "raw": "100000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmRkbGqmE6dursQiBrLKjcCbUq8PFjHzBbdXZiKGSyaWBh",
+            "digest": "0x32b51d946a3ab70c8cfb2068d7a4c256d44a91561263e6c9d3437c9f4ada9288"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x14186932e2c83b9e2bd5d39c04265cfb4646859b",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "1.089085",
+            "raw": "1089085"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "100.919613",
+            "raw": "100919613"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmdfydUMqSsUproGUWod8uewsQJ8tmX6LdVXBruLogXgFF",
+            "digest": "0xe3d2bb77a9feb4a891620f0f99a2e13bcec7336efb626dae01d2a277395d5a56"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x181a5bac1f070befbba81a97b68d0e788b4f9189",
+          "burned": {
+            "decimal": "19.512362",
+            "raw": "19512362"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "98.007344",
+            "raw": "98007344"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmRzakQNmM4696SqZCqSSbYiNZpXNG9PC3bb4N1b8Gk4Fj",
+            "digest": "0x364aa74b52fa5f4d8f808bdbd29e2e6b230c03979e3bdf8583169fe90e641a4a"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x1be48b2b7594fe7e47701bc7e7bb83beaf84ecc0",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "105.375092",
+            "raw": "105375092"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "2500.000000",
+            "raw": "2500000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "Qmc7HSHARZb4m6wHUWENDJvS9x6bi2YtK1yHd85jSP2qEj",
+            "digest": "0xcc97035c42433376d8a64b4f4d22d089e753d026269f3ad0dfcba0607dcc8f84"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x21b1602a4fd988b44d0f5a54b3ba248069c448ea",
+          "burned": {
+            "decimal": "5.930138",
+            "raw": "5930138"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "70.000000",
+            "raw": "70000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmW7AB6prBYfgZeu969nMhcpZuYTGwyj47Y1Ytdz6Mgnpf",
+            "digest": "0x7368ae4550fcc134247d5d094fc41216190877fb8b38e99f619384ffb712f6d8"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x2e85c8101e01810adb4c1f6e878d7b0d8bbd70a1",
+          "burned": {
+            "decimal": "0.162361",
+            "raw": "162361"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1.040963",
+            "raw": "1040963"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmXtAN6LRgYbupojPqnb8VLBCLN6kWX3wSZGXT1YZQ63wS",
+            "digest": "0x8dcbb7e65fe75de42836f49a0280ed384c17d6bca3d555c42a5a60967380fd95"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x3e04d3e08ea54c34f721ac007107fe7a4bd957d5",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "2.026311",
+            "raw": "2026311"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1100.000000",
+            "raw": "1100000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmNbTwCbcKf3cDBhLp9w9J5SQVimXfp1yCQs3Yv5qeuyH5",
+            "digest": "0x03cb87981e3221798ce45cb8e9fa96b04d59a0bf4efba71d0a9da46ff069ed74"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x3fb71886cea2bc40267f99bfed34fd1050a27a9d",
+          "burned": {
+            "decimal": "1.422389",
+            "raw": "1422389"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "10.000000",
+            "raw": "10000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmZ93ACyGKsAcMHz7eTAdkHzQnGV3KzatSJsZSFLStSsuT",
+            "digest": "0xa076f8858bd7b335eb2b058e975abba281d7f40664e62531ce0af4f499a8c462"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x427ae6048c7d2ded45a07ea46f2873d0f9dddb35",
+          "burned": {
+            "decimal": "19.000359",
+            "raw": "19000359"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "200.000000",
+            "raw": "200000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmSgvNLP976WXYHvzXyXhSooNR3v4odZV3yToQqGX1wYLE",
+            "digest": "0x40a011d7bfdff93153f5b9e4996824e0518c5f0971534ccef750af61ea8e49a7"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x49451c6af70feef6ef29b8c78bc17d4bdaf9fdaa",
+          "burned": {
+            "decimal": "4.115555",
+            "raw": "4115555"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "20.000000",
+            "raw": "20000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmVLkA71KLJ3BwQQx6hajqyHLifwXfbtWgmV8LnCcJf9fC",
+            "digest": "0x6807f804ecaf335cf1ba190cc1ac6eda3248a80d7df95a853788a19711796ce7"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x49aa5f121f20c02e73cd59e26460b4642c275abd",
+          "burned": {
+            "decimal": "29.519840",
+            "raw": "29519840"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "300.000000",
+            "raw": "300000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmYauF3KJUN8HaS6vE8Fe1zSTpqmyXj4C2FdL6vvxuo1V8",
+            "digest": "0x983b6ef9b7ca79b4cd0b5efdedd919cb30a1c44df829d7eccaf7dab1054600ef"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x4ad829a7609357a7d05737526fe13bbdd18427b5",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "96.471069",
+            "raw": "96471069"
+          },
+          "is_historical_staker": true,
+          "is_submitter": false,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": null,
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x5888ee085c125948e874bf1641cfa24661f2786b",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "867.426228",
+            "raw": "867426228"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "5108.691647",
+            "raw": "5108691647"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmZamrpGDjDAoTNJWWjNtC8XyL4To4djyQUcTBQvSmW8B9",
+            "digest": "0xa70ec5b0796d778dc88ed566eeaf51d9740e40abd668520747dd3dbe021e2ef0"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x5a611264a056df81842f57f55ab4230312e0b730",
+          "burned": {
+            "decimal": "18.723282",
+            "raw": "18723282"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "101.104137",
+            "raw": "101104137"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmYgzvMJxKtHG3QhAWpYou5BDTLGotLyUAjrq2fhWukNJ8",
+            "digest": "0x99cb569588717a4ed6bb98d36aa4877796ba357d78bef1a2bd3e88a4144504ed"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x5dbda63f6d8b260b4963e6ab832bcd6cf7bf6e94",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "611.100162",
+            "raw": "611100162"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "4100.000000",
+            "raw": "4100000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmXciiQgSu8RDK3Xw3dW4HrK9VwuFwFx6msPWZra7yYQoL",
+            "digest": "0x89d70105b10aa1a65d94fb89571b18ae343859b4102df08e90a2379ee6bdab93"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x5f9bf21f99e38eee83149c7b9cc33a564bf9bfb9",
+          "burned": {
+            "decimal": "3.340693",
+            "raw": "3340693"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "100.000000",
+            "raw": "100000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "Qmc6nVXUNEFzsmq7n1MWuSmpcYgxYFLTszPUZagZyRMop2",
+            "digest": "0xcc7649385cf3b580af3380f4a76791b6baff4eb24efebf674f991fde13dc353f"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x6317b52d3888a74b093fcaa31a5d723d90b1cf8d",
+          "burned": {
+            "decimal": "12.824864",
+            "raw": "12824864"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "99.888731",
+            "raw": "99888731"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "Qme8hkfe9S9wTgw42MGajsrdRsAd4FuX1SCPbe69p731gH",
+            "digest": "0xeaab769037a89c2a7bf83ed2f51bf46ed7df0b8b923a18cea5905f5fbcafc376"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x6711a4b7ac1c5537391e7997234a7570d95e02b7",
+          "burned": {
+            "decimal": "0.203213",
+            "raw": "203213"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1.000000",
+            "raw": "1000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmVFSBxyD3iTmD19pSs9zNgBKcU6HbKE95k7VhiM2ow88Q",
+            "digest": "0x66abbf975f0e27d4f54d7d23cc384be6e04065634b41b43d4b610a8024eb4c19"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x691577252ffff4f3eefcc386302f8ba5bc40a360",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "20.706696",
+            "raw": "20706696"
+          },
+          "is_historical_staker": true,
+          "is_submitter": false,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": null,
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x7477d16e686d1af14d8e5f5791a2cd2a7cb96913",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "987.663795",
+            "raw": "987663795"
+          },
+          "is_historical_staker": true,
+          "is_submitter": false,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": null,
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x7490eeb68c7585407e254591d784bae7987c1cfb",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "95.183519",
+            "raw": "95183519"
+          },
+          "is_historical_staker": true,
+          "is_submitter": false,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": null,
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x756ef834ecc631b289ef489408276b1d1f6479bd",
+          "burned": {
+            "decimal": "15.966885",
+            "raw": "15966885"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "100.000000",
+            "raw": "100000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmYonX1eieMnjJ3G7nU7FHYzVvwrsXHX4RpefzTPmF5wvJ",
+            "digest": "0x9b8861651daeb8a0b6b97fce7224f4c8cfa4c65543132e60e41d98d5f56ce42b"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x770a3026f8a348bebac2ba84cfc82f4ea01b420a",
+          "burned": {
+            "decimal": "18.153342",
+            "raw": "18153342"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "90.000000",
+            "raw": "90000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmcCgVznox8PJF6D7AUF94kBPUgN8hJuX1yavbgPTDSnKu",
+            "digest": "0xcdf8feeecb0c50ab6bf424f7c61c582a6efb7badfe5f8441874b0bb41fbb5b84"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x7824282944b7cc7b8ef86ed9adbe21f49b247f97",
+          "burned": {
+            "decimal": "216.634342",
+            "raw": "216634342"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1083.214204",
+            "raw": "1083214204"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmbrkCLVmnumGMhbCdxygvD1rr175uJhiF3bkP2cNmGoF9",
+            "digest": "0xc8dd8ee4de0f9f6371f11878dc07d410e0f5642c353efb5a9b01789cc93a7e24"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x81fbfb07888fff733958210796af7cbe4368ae5f",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "933.025008",
+            "raw": "933025008"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "7384.000000",
+            "raw": "7384000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmZJdTUdEEahLAKH84Zez34Sq2gn1UDoR3Lj6ZFPWUVkqT",
+            "digest": "0xa2ebfa89ea0e9d2ad8f84811b3551c8c4d9f82da9fa0650421efd207e03a8eb6"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x8355b0536a6a3b0116374b33dc3f8b7c344ca8bb",
+          "burned": {
+            "decimal": "0.270394",
+            "raw": "270394"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "4.000000",
+            "raw": "4000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmVrrGyVCEWgrTDwxW8bUfZ5QPJ9SUCLmKY1SkF1T51GHo",
+            "digest": "0x6fbe4fae76b6198c0a0fd4adc30da952aa5efd241ab431aed55195c3ecb8ef6a"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x85c8e68d30979427b04ceedc3375581551f2bfca",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1.000000",
+            "raw": "1000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": false,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": null,
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x889432c467b59475900845c1f414e0d3461d1459",
+          "burned": {
+            "decimal": "684.072412",
+            "raw": "684072412"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "3438.982617",
+            "raw": "3438982617"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "Qmb4Nxq1Wg6ifgSG4TmfPXSPEBNgseLiAG5NkXGRS7eApu",
+            "digest": "0xbcfcd5351eceea283e5f01a1c0ec38a1fb8234a7d56c5c6b3f836cedcf724766"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x943b7da96a03cc6d4d440e2f346e18ead42f1d66",
+          "burned": {
+            "decimal": "20.238225",
+            "raw": "20238225"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "100.833616",
+            "raw": "100833616"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmVziRbUYHSnHMjPTRs292QPUvGLHuaqYX2mBH251nTQ9H",
+            "digest": "0x71c214850d70469dadef0c517159524c546daa50ef22b446a751c4bbc98d337c"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x98e41d65e981a882afcb05d41939197da3465b6f",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "115.839739",
+            "raw": "115839739"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "2400.000000",
+            "raw": "2400000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmSw3rPzd3CHV3zq5grCFanG2QvifsM8aeDaUpK6YWbHGQ",
+            "digest": "0x443ea9bbc6ec4fc2546c6e205ab135533d4f8d939b6daeafd677794677d1057d"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x9aa5c9c4a500ee3bd06798a0fa415298e63412ac",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "92.790428",
+            "raw": "92790428"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1512.519317",
+            "raw": "1512519317"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmNXGheQyb1ZecBBsW5mLF7VXWiypxdbTBoWjsKgaXjJUz",
+            "digest": "0x02b88122d856c67225a8a6d8f9ce6a8f643f68a25d97c4d84bc1f6a648de8c8b"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x9c40349fbbb3fdca0dbb8d5a9ec1063476288a01",
+          "burned": {
+            "decimal": "216.497046",
+            "raw": "216497046"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "6005.018558",
+            "raw": "6005018558"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmNcbxCqESsFzGheDApinFHaTrPcy71b4uUPE5SKFxG9Xt",
+            "digest": "0x04162cf924d9552d9af6834c74f7bfe8ee37706208bfa72e699bf646f69732a7"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0x9da4d186dba5d2579e37dfa8d9afddd0172314e9",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "489.199114",
+            "raw": "489199114"
+          },
+          "is_historical_staker": true,
+          "is_submitter": false,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": null,
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xa16a483a18f00a00b14b93438e8ad21f485b382f",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "57.077513",
+            "raw": "57077513"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1300.000000",
+            "raw": "1300000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmdEgu8MhHdadtpoq2eUtFHn4MnYqKPQE34QbRyDurErDi",
+            "digest": "0xdd584b98e22aa75fbbddc1bce6774a1277d7b894422153d423bdb9b6d240d65d"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xa26dcd02deb5cb5c0e8600c16920432764be53ca",
+          "burned": {
+            "decimal": "0.608386",
+            "raw": "608386"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "9.000000",
+            "raw": "9000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmcWdUgVTq3DJ2wvZq4J58JuogAB6mQUKXpfrtsKVLncMc",
+            "digest": "0xd292085af9b5ab78035bceb5f9fc912f510c0716720e2a17157836bd5523f9cf"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xa738c5fa69ef37570f1878743f0807e12e9ad80e",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "99.127829",
+            "raw": "99127829"
+          },
+          "is_historical_staker": true,
+          "is_submitter": false,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": null,
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xaf6e3ee121902ee1eb4264aa3fc5772b289a0912",
+          "burned": {
+            "decimal": "0.159447",
+            "raw": "159447"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1.000000",
+            "raw": "1000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmSsuZq5uqG677s8Uge6XiAHxuVQPZMHUHQYPDoq6PSswY",
+            "digest": "0x43708d4ef34387ef6c9acffb2368a98a1fa961363ed96e1d64c6a6502fbc21cb"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xb5eabff21fa101e2c543b411750464572e259375",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1500.000000",
+            "raw": "1500000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": false,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": null,
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xb759689102026a0025b23595227dc865fe1a4828",
+          "burned": {
+            "decimal": "203.042105",
+            "raw": "203042105"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "936.802924",
+            "raw": "936802924"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmbJV2oXfV4i6LT7MC8J8LtwvkfyddiFAbgfa7gyxKU6mK",
+            "digest": "0xc099d36c61f2704c624ada40d539162b58f026a9a709ec554ddef10576b565f6"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xb7ece21c962697a3194c0b6e4b81db54433055ab",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "124.588201",
+            "raw": "124588201"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1900.000000",
+            "raw": "1900000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmcV9MG6CaaHDwZCfdMPENCKxMNC1ZFm8sHUykAELbjFZU",
+            "digest": "0xd230a5c0167408457e6c1808bef0e7a6d409a2077f1047604d350c7f5f96b7a3"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xcb34a53c9362ee9711fcac9f352bd7e00201dd95",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "283.486413",
+            "raw": "283486413"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1406.230261",
+            "raw": "1406230261"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmSUEVp2R6z79FtTRjShXeub78bgeJUb6trcBjV9aqkZ5Q",
+            "digest": "0x3d6004817a96ac69754adcf03f66623a9388c710a86962b0dc7507598ae070d7"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xd9a2e6d790bf68c748cb41d05ff7413c0412068b",
+          "burned": {
+            "decimal": "0.670989",
+            "raw": "670989"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "50.000000",
+            "raw": "50000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "Qmd5bw2tamckR1cHikrVQ43sPGuFqiCKvJ3zn2TVHfk8dJ",
+            "digest": "0xdb04739f9795f2e9c33d2c27e1f856695d47fbffce2a7ae3e0fd525de6f80a4d"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xdbcc5a6c8b126e6be68b2bfb838d23ade8e7de57",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "49.581161",
+            "raw": "49581161"
+          },
+          "is_historical_staker": true,
+          "is_submitter": false,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": null,
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xe14867e41410bd7232a52b9400476c08b4e535b3",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "56.442795",
+            "raw": "56442795"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "2600.000000",
+            "raw": "2600000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "Qmb3NLTAKPwJtUS8PM9tq5gm5sNxVKag5SMxmqpsqT4EdH",
+            "digest": "0xbcba8af9bb78bdb4ae6e722972524cc41555807508db0e0fe50bdb6a65a9dd24"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xea8b4bb8c19ee22687093e35469d4fbdc84450cb",
+          "burned": {
+            "decimal": "21.539515",
+            "raw": "21539515"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "200.000000",
+            "raw": "200000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmZPQ79TxCUKUcRYCmKx3RSTiDNufsCGZ2Az4Z427czQCW",
+            "digest": "0xa424c987bf9f9515e651f01400b43fee345b6bfca70a7a0b70d4efdff17dbe6f"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xeba5ba85f72e40a9f2b8782c2bd51ec31a5564da",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "58.048063",
+            "raw": "58048063"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "2500.000000",
+            "raw": "2500000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmdyQ3q8VnbeQm3CsyngToDtWWshjYV7xLntYJyU8NsLHw",
+            "digest": "0xe84937c1593af03737db16a6f18941895b100299e298994e6979ab51163712c2"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xf097ed117dd3930f1eeb91569a6a61b4c52744c8",
+          "burned": {
+            "decimal": "6.590020",
+            "raw": "6590020"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1200.000000",
+            "raw": "1200000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmRXbzv3oaL92dC1hBgZwU97QUGioBfspr8MhTijyddwsi",
+            "digest": "0x2f61629ffe871382f34e8e8b90381ac1863d762fdaacba056086432f73c1e6f5"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xf5061bd41966374d89ddeada574602b3784e3d98",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "195.043243",
+            "raw": "195043243"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "1198.089024",
+            "raw": "1198089024"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "Qmf1ur519XNbYPZhxkf3YdYBWXvw6GmvSGBjhYq75st9BK",
+            "digest": "0xf7c9c2177f8e89a161c582e50c39b4bebccc921e42791b2cc0c1baa84659998e"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xf8d50e3283fb6bf41260f7f294a48587d2a9b1fa",
+          "burned": {
+            "decimal": "21.034815",
+            "raw": "21034815"
+          },
+          "challenge_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "200.000000",
+            "raw": "200000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmZbYpZkRzHGNujHssbV69jPekedYsQZcguaNMezA1sQ3B",
+            "digest": "0xa7419c2a26b31a0b1cc0c8bc4aa03bbe4b24022d7a8ccdef182025cde93ebfea"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xfb8bc3433016a64a3b8aa23c0275afe7c20feb53",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "42.998207",
+            "raw": "42998207"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "4100.000000",
+            "raw": "4100000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmbZy73X8MxKzqiBz5mvrXoFE1pkwGmak1xRz4hbVrNNCE",
+            "digest": "0xc49147c7c04019f6d973318b4cf201cb3168fe342da97d37ce35c6cb7f8776d7"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        },
+        {
+          "address": "0xfe3c3f351e6df846566e10119e4295ed69b2cd72",
+          "burned": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "challenge_reward": {
+            "decimal": "18.849395",
+            "raw": "18849395"
+          },
+          "challenge_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "historical_stake": {
+            "decimal": "2300.000000",
+            "raw": "2300000000"
+          },
+          "is_historical_staker": true,
+          "is_submitter": true,
+          "staking_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "submission": {
+            "cid": "QmeaW8qWEoYsHH11e3Mc3qbPNdTDbGCS63L2UrYKVyw4e8",
+            "digest": "0xf1476d8d105d2a2913ec883587de7252a3e7c4faea47ffb2557d455ee0fa4e45"
+          },
+          "tournament_reward": {
+            "decimal": "0.000000",
+            "raw": "0"
+          },
+          "tournament_score": {
+            "decimal": "0.000000",
+            "raw": "0"
+          }
+        }
+      ],
+      "phase": 4,
+      "submission_closed_block": 43577114,
+      "submitter_count": 43
+    }
+  },
+  "observed_block": 92333293,
+  "schema_version": 1
+}

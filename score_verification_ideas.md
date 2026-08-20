@@ -79,7 +79,7 @@ Use a GitHub repository as the source of truth, with a static website as the pub
 
 The repository should contain:
 
-- a deterministic command-line verifier;
+- a deterministic importable Python verifier;
 - versioned policy modules and a challenge-to-policy registry;
 - contract ABIs and chain/IPFS adapters;
 - submission decryption and originator validation;
@@ -89,13 +89,9 @@ The repository should contain:
 - a pinned runtime or container image;
 - CI that reruns completed challenge audits and publishes artifacts.
 
-The CLI should support at least:
-
-```text
-verify challenge 172 --competition all --mode full
-verify challenge 172 --competition neutral --address 0x...
-verify challenge 172 --mode publication-only
-```
+The Python API should support full-challenge, single-competition,
+single-participant, and publication-only verification. Notebooks and tests can
+call the same API directly; the project does not need a CLI.
 
 ### Static website
 
@@ -107,7 +103,7 @@ The website should read generated audit artifacts rather than implement the auth
 - participant-level submission validity, allocation, score, reward, and differences;
 - chain/IPFS/recomputation pass indicators;
 - downloadable manifests, normalized inputs, and reports;
-- exact reproduction commands.
+- exact reproduction code snippets.
 
 This keeps the browser experience lightweight. For example, the challenge-173 dataset archive is about 1.04 GB and expands to roughly 8.5 GB, making full in-browser verification impractical.
 
@@ -168,7 +164,7 @@ For future challenges, publish a content-addressed audit bundle containing the r
 
 ## Suggested Rollout
 
-1. Turn the challenge-172 proof of concept into a deterministic CLI test fixture.
+1. Turn the challenge-172 proof of concept into a deterministic library test fixture.
 2. Implement the publication verifier for all completed challenges.
 3. Add full recomputation for challenges 168 onward.
 4. Numerically identify older policy boundaries by running candidate implementations against all submissions.

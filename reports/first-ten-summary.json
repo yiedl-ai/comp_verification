@@ -1,0 +1,296 @@
+{
+  "chain_events_passed": true,
+  "chain_snapshots_passed": true,
+  "challenge_range": [
+    1,
+    10
+  ],
+  "challenges": [
+    {
+      "challenge": 1,
+      "competitions": [
+        {
+          "competition": "NEUTRAL",
+          "issues": [],
+          "maximum_absolute_gain_delta": "0E-29",
+          "participant_count": 77,
+          "publication_passed": true,
+          "scoring_passed": true,
+          "valid_submission_count": 77
+        },
+        {
+          "competition": "UPDOWN",
+          "issues": [],
+          "maximum_absolute_gain_delta": "0E-30",
+          "participant_count": 46,
+          "publication_passed": true,
+          "scoring_passed": true,
+          "valid_submission_count": 45
+        }
+      ],
+      "passed": true
+    },
+    {
+      "challenge": 2,
+      "competitions": [
+        {
+          "competition": "NEUTRAL",
+          "issues": [],
+          "maximum_absolute_gain_delta": "0E-30",
+          "participant_count": 85,
+          "publication_passed": true,
+          "scoring_passed": true,
+          "valid_submission_count": 76
+        },
+        {
+          "competition": "UPDOWN",
+          "issues": [],
+          "maximum_absolute_gain_delta": "0E-29",
+          "participant_count": 48,
+          "publication_passed": true,
+          "scoring_passed": true,
+          "valid_submission_count": 39
+        }
+      ],
+      "passed": true
+    },
+    {
+      "challenge": 3,
+      "competitions": [
+        {
+          "competition": "NEUTRAL",
+          "issues": [],
+          "maximum_absolute_gain_delta": "0E-30",
+          "participant_count": 86,
+          "publication_passed": true,
+          "scoring_passed": true,
+          "valid_submission_count": 80
+        },
+        {
+          "competition": "UPDOWN",
+          "issues": [],
+          "maximum_absolute_gain_delta": "0E-29",
+          "participant_count": 53,
+          "publication_passed": true,
+          "scoring_passed": true,
+          "valid_submission_count": 44
+        }
+      ],
+      "passed": true
+    },
+    {
+      "challenge": 4,
+      "competitions": [
+        {
+          "competition": "NEUTRAL",
+          "issues": [],
+          "maximum_absolute_gain_delta": "0E-29",
+          "participant_count": 86,
+          "publication_passed": true,
+          "scoring_passed": true,
+          "valid_submission_count": 79
+        },
+        {
+          "competition": "UPDOWN",
+          "issues": [],
+          "maximum_absolute_gain_delta": "0E-28",
+          "participant_count": 52,
+          "publication_passed": true,
+          "scoring_passed": true,
+          "valid_submission_count": 43
+        }
+      ],
+      "passed": true
+    },
+    {
+      "challenge": 5,
+      "competitions": [
+        {
+          "competition": "NEUTRAL",
+          "issues": [],
+          "maximum_absolute_gain_delta": "0E-30",
+          "participant_count": 88,
+          "publication_passed": true,
+          "scoring_passed": true,
+          "valid_submission_count": 77
+        },
+        {
+          "competition": "UPDOWN",
+          "issues": [],
+          "maximum_absolute_gain_delta": "0E-30",
+          "participant_count": 53,
+          "publication_passed": true,
+          "scoring_passed": true,
+          "valid_submission_count": 40
+        }
+      ],
+      "passed": true
+    },
+    {
+      "challenge": 6,
+      "competitions": [
+        {
+          "competition": "NEUTRAL",
+          "issues": [],
+          "maximum_absolute_gain_delta": "0E-30",
+          "participant_count": 89,
+          "publication_passed": true,
+          "scoring_passed": true,
+          "valid_submission_count": 76
+        },
+        {
+          "competition": "UPDOWN",
+          "issues": [],
+          "maximum_absolute_gain_delta": "0E-28",
+          "participant_count": 56,
+          "publication_passed": true,
+          "scoring_passed": true,
+          "valid_submission_count": 42
+        }
+      ],
+      "passed": true
+    },
+    {
+      "challenge": 7,
+      "competitions": [
+        {
+          "competition": "NEUTRAL",
+          "issues": [],
+          "maximum_absolute_gain_delta": "0E-29",
+          "participant_count": 89,
+          "publication_passed": true,
+          "scoring_passed": true,
+          "valid_submission_count": 78
+        },
+        {
+          "competition": "UPDOWN",
+          "issues": [],
+          "maximum_absolute_gain_delta": "0E-29",
+          "participant_count": 54,
+          "publication_passed": true,
+          "scoring_passed": true,
+          "valid_submission_count": 42
+        }
+      ],
+      "passed": true
+    },
+    {
+      "challenge": 8,
+      "competitions": [
+        {
+          "competition": "NEUTRAL",
+          "issues": [
+            {
+              "address": "0x8a8e1c4e454e092fc19c6cca2034bd22b29781e7",
+              "classification": "score-or-reward-mismatch",
+              "computed_relative_gain": "-0.000813248548254817097158917250",
+              "computed_wallet_reward": "-2.890565",
+              "published_relative_gain": "0",
+              "published_wallet_reward": "0",
+              "submission_event": {
+                "block_hash": "0x67e3a2ae384e5c1522e9bc35d6d32056cb392e5b433aabdf562e2efb15b8de99",
+                "block_number": 44653464,
+                "blocks_before_close": 301,
+                "submission_digest": "0xd60b6b0db38519eb72adc6c17a8280f549b6fd196dbcd17efdfa679bb8c3d6ba",
+                "transaction_hash": "0x9399b7493668cde00743203de0e14095913c3b56cc417dca4f6819ccef9b01cb"
+              },
+              "submission_status": "valid"
+            }
+          ],
+          "maximum_absolute_gain_delta": "0.000813248548254817097158917250",
+          "participant_count": 86,
+          "publication_passed": true,
+          "scoring_passed": false,
+          "valid_submission_count": 75
+        },
+        {
+          "competition": "UPDOWN",
+          "issues": [
+            {
+              "address": "0x8a8e1c4e454e092fc19c6cca2034bd22b29781e7",
+              "classification": "score-or-reward-mismatch",
+              "computed_relative_gain": "-0.05182980315480892573685570151",
+              "computed_wallet_reward": "-4.412622",
+              "published_relative_gain": "0",
+              "published_wallet_reward": "0",
+              "submission_event": {
+                "block_hash": "0xbbb8ef6e276e16a8879a0389cee1f570cf980716d267341728047fad8234a337",
+                "block_number": 44653618,
+                "blocks_before_close": 130,
+                "submission_digest": "0x74f668eb82a4b7a26133617a706b84f2c25e4146b930d9e6b2b964eebb5f7368",
+                "transaction_hash": "0x426c5ad6caed2aeedcbebc9b47a37afbe4226fdd97c9571ad45d7ca9c54c42ac"
+              },
+              "submission_status": "valid"
+            }
+          ],
+          "maximum_absolute_gain_delta": "0.05182980315480892573685570151",
+          "participant_count": 57,
+          "publication_passed": true,
+          "scoring_passed": false,
+          "valid_submission_count": 44
+        }
+      ],
+      "passed": false
+    },
+    {
+      "challenge": 9,
+      "competitions": [
+        {
+          "competition": "NEUTRAL",
+          "issues": [],
+          "maximum_absolute_gain_delta": "0E-29",
+          "participant_count": 86,
+          "publication_passed": true,
+          "scoring_passed": true,
+          "valid_submission_count": 75
+        },
+        {
+          "competition": "UPDOWN",
+          "issues": [],
+          "maximum_absolute_gain_delta": "0E-29",
+          "participant_count": 57,
+          "publication_passed": true,
+          "scoring_passed": true,
+          "valid_submission_count": 46
+        }
+      ],
+      "passed": true
+    },
+    {
+      "challenge": 10,
+      "competitions": [
+        {
+          "competition": "NEUTRAL",
+          "issues": [],
+          "maximum_absolute_gain_delta": "0E-30",
+          "participant_count": 86,
+          "publication_passed": true,
+          "scoring_passed": true,
+          "valid_submission_count": 75
+        },
+        {
+          "competition": "UPDOWN",
+          "issues": [],
+          "maximum_absolute_gain_delta": "0E-29",
+          "participant_count": 62,
+          "publication_passed": true,
+          "scoring_passed": true,
+          "valid_submission_count": 51
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "issue_count": 2,
+  "price_fixtures_passed": true,
+  "publication_audits": {
+    "passed": 20,
+    "total": 20
+  },
+  "schema_version": 1,
+  "scoring_audits": {
+    "passed": 18,
+    "total": 20
+  },
+  "status": "issues-found"
+}

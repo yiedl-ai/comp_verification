@@ -1,0 +1,27 @@
+[rpc]
+# Copy this file to config.toml and put the premium Polygon RPC URL there.
+url = "https://your-polygon-rpc.example"
+timeout_seconds = 45.0
+attempts = 5
+retry_base_delay_seconds = 1.0
+
+# Direct JSON-RPC batching. Contract evidence ingestion normally uses the
+# registry multicall below, but these remain configurable for other reads.
+json_batch_size = 100
+json_batch_interval_seconds = 1.1
+
+# Number of getter calls packed into each registry batchCall transaction.
+multicall_batch_size = 100
+
+# Maximum block range in each eth_getLogs request. Event ingestion splits
+# historical challenge windows into spans of this size.
+log_block_span = 10000
+
+[ipfs]
+gateway_url = "https://yiedl-comp.mypinata.cloud/ipfs"
+user_agent = "comp-verification/0.1"
+timeout_seconds = 120.0
+attempts = 5
+retry_base_delay_seconds = 2.0
+chunk_size_bytes = 1048576
+max_concurrent_downloads = 8
