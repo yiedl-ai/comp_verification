@@ -36,7 +36,7 @@ contains an explicit accepted adjudication.
 | 73 | NEUTRAL scoring | One valid, early submission was published as zero | 1 | Open; raw mismatch remains a failure pending historical retrieval/database evidence |
 | 94 | UPDOWN submission/scoring | One on-chain submission digest is ASCII hex text rather than a raw SHA-256 digest and its derived CID is unavailable | 0 | Scoring passes; the unverifiable submission is explicitly retained as unavailable |
 | 95 | NEUTRAL submission/scoring | One on-chain submission digest is ASCII hex text rather than a raw SHA-256 digest and its derived CID is unavailable | 0 | Scoring passes; the unverifiable submission is explicitly retained as unavailable |
-| 110 | UPDOWN publication/scoring | Result CID is the challenge-109 UPDOWN file | 1 | All on-chain rewards reproduce exactly; relative-gain publication remains open |
+| 110 | UPDOWN publication/scoring | Immutable result CID points to challenge 109; corrected CID is stored on-chain under information item 0 for the zero address | 1 | Accepted corrected reference; publication and scoring pass exactly with caveat |
 | 113 | NEUTRAL and UPDOWN publication/scoring | Production used `HAI=1` instead of the raw `21.227900966966708`; UPDOWN result CID is stale | 1 | NEUTRAL scores/rewards and UPDOWN on-chain rewards reproduce exactly; UPDOWN score publication remains open |
 | 116 | UPDOWN publication/scoring | Challenge-116 CID is challenge 115's file; the correct file appears under challenge 117 | 1 | All scores/rewards reproduce exactly through the late file; challenge association remains open |
 | 117 | NEUTRAL and UPDOWN publication/scoring | Both result CIDs contain exact challenge-116 files | 2 | All challenge-117 on-chain rewards reproduce exactly; challenge-117 relative-gain publication remains open |
@@ -47,7 +47,7 @@ contains an explicit accepted adjudication.
 | 166 | NEUTRAL and UPDOWN scoring | Old-basket settlement used a local target artifact that was replaced by the published new-basket dataset | 7 target values | All 78 held-out gains and every wallet reward reproduce exactly; missing source artifact remains open |
 | 167–168 | Dataset ingestion | Dataset 168 temporarily had one unavailable IPFS range | 0 | Resolved; the complete archive passed CID verification and all four scoring audits reproduce exactly |
 
-## Challenge 110: stale UPDOWN result reference
+## Challenge 110: stale UPDOWN result reference corrected through on-chain information
 
 Challenge 110 UPDOWN records CID
 `QmYuTvKSdD7k5A8UNM75HDume1o17BeQ5VL97CP56bitsX` (SHA-256
@@ -57,12 +57,12 @@ challenge `109`. They are not merely mislabeled challenge-110 results:
 comparing the file to challenge 110's chain snapshot produces 77
 stake/reward/burn field mismatches.
 
-The calculation itself is recoverable. All 51 valid NEUTRAL scores and rewards
-reproduce exactly from the CID-verified dataset and submissions. For UPDOWN,
-the same historical scorer reproduces the net on-chain reward of every one of
-the 38 valid submissions exactly. The verifier therefore records reward
-verification separately, but leaves UPDOWN relative-gain publication open and
-failed until an authenticated challenge-110 result file is recovered.
+Challenge 110's zero-address information item 0 now records corrected CID
+`QmQtcagsLg3m4feM7kphBCyc31DK19qSZFzvDKZa8gAXNG`. The verifier authenticates
+that value at block `92386607`; all 89 corrected rows match the chain snapshot,
+and independent scoring reproduces every relative gain and reward exactly. The
+original stale reference remains visible, and UPDOWN counts as an accepted
+caveated pass.
 
 ## Challenge 113: HAI target override and stale UPDOWN result reference
 

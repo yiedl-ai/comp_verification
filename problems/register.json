@@ -720,18 +720,27 @@
     {
       "affected_comparisons": 1,
       "audit_treatment": {
-        "changes_outcome": false,
-        "mode": "reward-verified-with-open-stale-result-reference",
-        "reason": "Every challenge-110 UPDOWN on-chain reward reproduces exactly, but the published result hash points to challenge 109 and cannot verify challenge-110 relative gains."
+        "changes_outcome": true,
+        "mode": "accepted-on-chain-information-correction",
+        "reason": "The immutable result hash points to challenge 109, but challenge 110's zero-address information entry now records the verified corrected UPDOWN result CID."
       },
-      "classification": "stale-prior-challenge-result-reference",
+      "classification": "stale-prior-challenge-result-reference-corrected",
       "confidence": "high",
       "details": {
         "reproduction": {
           "neutral_exact_reward_count": 51,
           "neutral_exact_score_count": 51,
           "updown_exact_on_chain_reward_count": 38,
-          "updown_score_status": "unverifiable-because-result-file-is-stale"
+          "updown_exact_published_row_count": 89,
+          "updown_score_status": "exact-via-corrected-result-reference"
+        },
+        "correction": {
+          "block": 92386607,
+          "cid": "QmQtcagsLg3m4feM7kphBCyc31DK19qSZFzvDKZa8gAXNG",
+          "digest": "0x25e78dc0353714bbe6b13ffa208690a57eab76a7a0a297f5878739fb19ae7381",
+          "information_item_number": 0,
+          "participant": "0x0000000000000000000000000000000000000000",
+          "transaction": "0x725909b4e6c6c9881221549e071576d5d7ca355cd44c4e4efd337f948fd8f21a"
         },
         "stale_updown_result": {
           "bytes_sha256": "39904611242dc0d500cc3be2f2609195289a4ea0933f1471f107ea356d8d07bf",
@@ -744,9 +753,9 @@
       "documentation": {
         "anchor": "challenge-110-stale-updown-result-reference",
         "document": "docs/caveats.md",
-        "summary": "Challenge 110 UPDOWN points to challenge 109's result file; all 38 submitted challenge-110 rewards reproduce exactly against chain, but relative-gain publication remains unverifiable."
+        "summary": "Challenge 110 UPDOWN's immutable result CID points to challenge 109, but an accepted on-chain information entry supplies the verified corrected CID; all 89 published rows pass publication and scoring exactly."
       },
-      "headline": "Challenge 110: Stale UPDOWN result reference",
+      "headline": "Challenge 110: Stale UPDOWN result reference corrected through on-chain information",
       "id": "challenge-110-stale-updown-result-reference",
       "scope": {
         "addresses": [],
@@ -761,7 +770,7 @@
           "UPDOWN"
         ]
       },
-      "status": "open"
+      "status": "accepted"
     },
     {
       "affected_comparisons": 1,

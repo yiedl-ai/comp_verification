@@ -198,18 +198,19 @@ def test_register_captures_challenge_113_recovered_override_and_stale_result() -
     assert problem.raw["details"]["stale_updown_result"]["same_as_challenge"] == 112
 
 
-def test_register_captures_challenge_110_stale_updown_result() -> None:
+def test_register_captures_accepted_challenge_110_correction() -> None:
     problem = load_problem_register().by_id(
         "challenge-110-stale-updown-result-reference"
     )
 
-    assert problem.status == "open"
-    assert problem.counts_as_pass is False
+    assert problem.status == "accepted"
+    assert problem.counts_as_pass is True
     assert problem.scope.competitions == frozenset({"UPDOWN"})
     assert problem.raw["details"]["reproduction"][
         "updown_exact_on_chain_reward_count"
     ] == 38
     assert problem.raw["details"]["stale_updown_result"]["same_as_challenge"] == 109
+    assert problem.raw["details"]["correction"]["information_item_number"] == 0
 
 
 def test_register_captures_challenge_116_stale_updown_result() -> None:
