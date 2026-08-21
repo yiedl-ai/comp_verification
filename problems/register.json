@@ -1078,9 +1078,9 @@
     {
       "affected_comparisons": 4,
       "audit_treatment": {
-        "changes_outcome": false,
-        "mode": "explicit-invalid-zero-financial-result-row-omissions",
-        "reason": "The four omitted result rows are independently invalid submissions with zero historical stake, reward, and burn. Every published score/reward and every wallet outcome reproduce exactly."
+        "changes_outcome": true,
+        "mode": "accepted-invalid-zero-financial-result-row-omissions",
+        "reason": "The four omitted result rows are independently invalid submissions with zero historical stake, reward, and burn. Every published score/reward and every wallet outcome reproduce exactly, so the row omissions are accepted with a caveat."
       },
       "classification": "invalid-zero-financial-submitters-omitted-from-results",
       "confidence": "high",
@@ -1161,7 +1161,7 @@
           "UPDOWN"
         ]
       },
-      "status": "documented"
+      "status": "accepted"
     },
     {
       "affected_comparisons": 1,

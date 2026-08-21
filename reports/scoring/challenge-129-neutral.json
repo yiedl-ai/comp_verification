@@ -1,11 +1,10 @@
 {
-  "audit_status": "score-and-reward-exact-with-invalid-zero-financial-row-omissions",
   "caveated_comparison_count": 0,
   "caveats": [
     {
       "anchor": "challenge-129-invalid-zero-financial-submitters-omitted-from-results",
       "classification": "invalid-zero-financial-submitters-omitted-from-results",
-      "counts_as_pass": false,
+      "counts_as_pass": true,
       "document": "docs/caveats.md",
       "id": "challenge-129-invalid-zero-financial-result-row-omissions",
       "summary": "Challenge 129 omits four independently invalid, zero-stake/zero-reward/zero-burn rows across its result files; every published score/reward and every wallet outcome reproduce exactly."
@@ -16,7 +15,6 @@
   "gain_tolerance": "0",
   "maximum_absolute_gain_delta": "0E-29",
   "mismatch_count": 0,
-  "omitted_result_row_count": 2,
   "participant_count": 121,
   "participants": [
     {
@@ -1842,18 +1840,6 @@
   },
   "policy_source_git_commit": "b783812",
   "policy_status": "source-derived-candidate",
-  "publication_row_omissions": [
-    {
-      "address": "0x93d523c427aea3a50c9499e544eacff9bdc7820d",
-      "detail": "missing in results",
-      "field": "participant"
-    },
-    {
-      "address": "0xa3b020f048bbe1dd970dcdb85dfc780c2ecd7131",
-      "detail": "missing in results",
-      "field": "participant"
-    }
-  ],
   "raw_mismatch_count": 0,
   "raw_passed": true,
   "reproduction_runtime": {

@@ -41,7 +41,7 @@ contains an explicit accepted adjudication.
 | 116 | UPDOWN publication/scoring | Challenge-116 CID is challenge 115's file; the correct file appears under challenge 117 | 1 | All scores/rewards reproduce exactly through the late file; challenge association remains open |
 | 117 | NEUTRAL and UPDOWN publication/scoring | Both result CIDs contain exact challenge-116 files | 2 | All challenge-117 on-chain rewards reproduce exactly; challenge-117 relative-gain publication remains open |
 | 123 | UPDOWN publication/scoring | Result CID is the challenge-122 UPDOWN file | 1 | All challenge-123 on-chain rewards reproduce exactly; challenge-123 relative-gain publication remains open |
-| 129 | NEUTRAL and UPDOWN publication/scoring | Each result omits two malformed, zero-stake submitters | 4 | Every published score/reward and every wallet outcome reproduce exactly; raw row-completeness failures remain visible |
+| 129 | NEUTRAL and UPDOWN publication/scoring | Each result omits two malformed, zero-stake submitters | 4 | Accepted as four caveated publication passes; every wallet outcome is exact and raw omissions remain visible |
 | 134 | UPDOWN publication/scoring | Result CID is the challenge-133 UPDOWN file | 1 | All challenge-134 on-chain rewards reproduce exactly; challenge-134 relative-gain publication remains open |
 | 142, 154–161 | UPDOWN publication/scoring | Valid zero-stake submitters are omitted from result files | 9 | Zero wallet outcomes are exact, but omitted relative gains remain open failures |
 | 166 | NEUTRAL and UPDOWN scoring | Old-basket settlement used a local target artifact that was replaced by the published new-basket dataset | 7 target values | All 78 held-out gains and every wallet reward reproduce exactly; missing source artifact remains open |
@@ -160,7 +160,8 @@ reports. In scoring, it treats an omitted row as an implicit zero only when the
 submission is independently invalid or unavailable and all three financial
 amounts are zero. A valid, staked, rewarded, or burned omission still fails.
 Under that narrow rule, all 51 valid NEUTRAL and 38 valid UPDOWN scores and
-rewards reproduce exactly, as do the four zero wallet outcomes.
+rewards reproduce exactly, as do the four zero wallet outcomes. The four raw
+publication omissions remain visible and count as accepted caveated passes.
 
 ## Challenge 134: stale UPDOWN result reference
 

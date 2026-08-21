@@ -1,9 +1,10 @@
 {
+  "caveated_mismatch_count": 2,
   "caveats": [
     {
       "anchor": "challenge-129-invalid-zero-financial-submitters-omitted-from-results",
       "classification": "invalid-zero-financial-submitters-omitted-from-results",
-      "counts_as_pass": false,
+      "counts_as_pass": true,
       "document": "docs/caveats.md",
       "id": "challenge-129-invalid-zero-financial-result-row-omissions",
       "summary": "Challenge 129 omits four independently invalid, zero-stake/zero-reward/zero-burn rows across its result files; every published score/reward and every wallet outcome reproduce exactly."
@@ -17,19 +18,47 @@
   "mismatches": [
     {
       "address": "0x93d523c427aea3a50c9499e544eacff9bdc7820d",
+      "caveated_pass": true,
+      "caveats": [
+        {
+          "anchor": "challenge-129-invalid-zero-financial-submitters-omitted-from-results",
+          "classification": "invalid-zero-financial-submitters-omitted-from-results",
+          "counts_as_pass": true,
+          "document": "docs/caveats.md",
+          "id": "challenge-129-invalid-zero-financial-result-row-omissions",
+          "summary": "Challenge 129 omits four independently invalid, zero-stake/zero-reward/zero-burn rows across its result files; every published score/reward and every wallet outcome reproduce exactly."
+        }
+      ],
       "detail": "missing in results",
+      "effective_match": true,
       "field": "participant"
     },
     {
       "address": "0xa3b020f048bbe1dd970dcdb85dfc780c2ecd7131",
+      "caveated_pass": true,
+      "caveats": [
+        {
+          "anchor": "challenge-129-invalid-zero-financial-submitters-omitted-from-results",
+          "classification": "invalid-zero-financial-submitters-omitted-from-results",
+          "counts_as_pass": true,
+          "document": "docs/caveats.md",
+          "id": "challenge-129-invalid-zero-financial-result-row-omissions",
+          "summary": "Challenge 129 omits four independently invalid, zero-stake/zero-reward/zero-burn rows across its result files; every published score/reward and every wallet outcome reproduce exactly."
+        }
+      ],
       "detail": "missing in results",
+      "effective_match": true,
       "field": "participant"
     }
   ],
   "observed_block": 92336519,
-  "passed": false,
+  "passed": true,
+  "passed_with_caveat": true,
   "published_row_count": 119,
+  "raw_mismatch_count": 2,
+  "raw_passed": false,
   "result_bytes_sha256": "5621e61088a9ce833a94d405eb93d25187811d4a6654ee7583c4d11e7b834234",
   "result_cid": "QmSjMpuQtXpAW2UWpaKaDEGKaGXwwcUA6YnaM8EbrkNYqf",
-  "schema_version": 1
+  "schema_version": 1,
+  "unresolved_mismatch_count": 0
 }

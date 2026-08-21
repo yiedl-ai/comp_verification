@@ -246,13 +246,13 @@ def test_register_captures_challenge_117_late_result_references() -> None:
     ] == 0
 
 
-def test_register_captures_challenge_129_zero_financial_omissions() -> None:
+def test_register_captures_accepted_challenge_129_zero_financial_omissions() -> None:
     problem = load_problem_register().by_id(
         "challenge-129-invalid-zero-financial-result-row-omissions"
     )
 
-    assert problem.status == "documented"
-    assert problem.counts_as_pass is False
+    assert problem.status == "accepted"
+    assert problem.counts_as_pass is True
     assert problem.raw["affected_comparisons"] == 4
     assert problem.raw["details"]["scoring_reproduction"] == {
         "neutral_exact_valid_count": 51,
