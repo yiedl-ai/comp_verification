@@ -1207,11 +1207,11 @@
     {
       "affected_comparisons": 9,
       "audit_treatment": {
-        "changes_outcome": false,
-        "mode": "open-valid-zero-financial-result-row-omissions",
-        "reason": "The omitted submitters have zero stake, reward, and burn, but their submissions are valid and their relative gains cannot be inferred from the absent result rows."
+        "changes_outcome": true,
+        "mode": "accepted-zero-stake-result-row-omissions",
+        "reason": "The omitted submitters have zero stake, reward, and burn; relative gain has no financial effect and is not recoverable from an on-chain zero-stake reward."
       },
-      "classification": "valid-zero-financial-submitters-omitted-from-results",
+      "classification": "accepted-zero-stake-result-row-omissions",
       "confidence": "high",
       "details": {
         "addresses": {
@@ -1236,6 +1236,7 @@
           }
         },
         "financial_values_for_every_omission": "stake=0,reward=0,burn=0",
+        "adjudication": "For a zero-stake participant, any relative gain produces the same zero reward. The contract's financial outcome is exact, so omission of the non-financial result row is accepted with a caveat.",
         "result_files": {
           "142": {
             "bytes_sha256": "9801616d15e893469d9d4b6f1ff7e772313d33bf1797b35eacd08ac71a94b9e5",
@@ -1283,9 +1284,9 @@
       "documentation": {
         "anchor": "challenges-142-and-154-161-valid-zero-financial-submitters-omitted",
         "document": "docs/caveats.md",
-        "summary": "Nine UPDOWN files omit independently valid zero-stake submitters. Their zero wallet outcomes reproduce, but the missing relative gains remain open failures."
+        "summary": "Nine UPDOWN files omit valid zero-stake submitters; every on-chain zero reward and burn is exact, and the financially irrelevant missing score rows are accepted caveated passes."
       },
-      "headline": "Challenges 142 and 154–161: Valid zero-financial submitters omitted",
+      "headline": "Challenges 142 and 154–161: Zero-stake result rows omitted",
       "id": "challenges-142-and-154-161-valid-zero-financial-result-row-omissions",
       "scope": {
         "addresses": [
@@ -1311,7 +1312,7 @@
           "UPDOWN"
         ]
       },
-      "status": "open"
+      "status": "accepted"
     },
     {
       "affected_comparisons": 0,

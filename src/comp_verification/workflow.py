@@ -12,7 +12,7 @@ from importlib.metadata import version
 from pathlib import Path
 from typing import Any
 
-from .caveats import caveats_for_context
+from .caveats import adjudicate_report_mismatches, caveats_for_context
 from .constants import (
     FIRST_CHALLENGE,
     IPFS_GATEWAY,
@@ -344,6 +344,12 @@ class FirstTenWorkflow:
                     )
                     report = compare_results_to_chain(manifest, competition, published)
                     report["result_bytes_sha256"] = artifact.sha256
+                    report = adjudicate_report_mismatches(
+                        report,
+                        challenge=manifest["challenge"],
+                        competition=competition,
+                        audit_kind="publication",
+                    )
                     if not report["passed"]:
                         report["caveats"] = caveats_for_context(
                             challenge=manifest["challenge"],

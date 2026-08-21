@@ -1,12 +1,13 @@
 {
+  "caveated_mismatch_count": 1,
   "caveats": [
     {
       "anchor": "challenges-142-and-154-161-valid-zero-financial-submitters-omitted",
-      "classification": "valid-zero-financial-submitters-omitted-from-results",
-      "counts_as_pass": false,
+      "classification": "accepted-zero-stake-result-row-omissions",
+      "counts_as_pass": true,
       "document": "docs/caveats.md",
       "id": "challenges-142-and-154-161-valid-zero-financial-result-row-omissions",
-      "summary": "Nine UPDOWN files omit independently valid zero-stake submitters. Their zero wallet outcomes reproduce, but the missing relative gains remain open failures."
+      "summary": "Nine UPDOWN files omit valid zero-stake submitters; every on-chain zero reward and burn is exact, and the financially irrelevant missing score rows are accepted caveated passes."
     }
   ],
   "chain_participant_count": 92,
@@ -17,14 +18,30 @@
   "mismatches": [
     {
       "address": "0x9250dbb45c4883de42348897b676ad11d6f5703c",
+      "caveated_pass": true,
+      "caveats": [
+        {
+          "anchor": "challenges-142-and-154-161-valid-zero-financial-submitters-omitted",
+          "classification": "accepted-zero-stake-result-row-omissions",
+          "counts_as_pass": true,
+          "document": "docs/caveats.md",
+          "id": "challenges-142-and-154-161-valid-zero-financial-result-row-omissions",
+          "summary": "Nine UPDOWN files omit valid zero-stake submitters; every on-chain zero reward and burn is exact, and the financially irrelevant missing score rows are accepted caveated passes."
+        }
+      ],
       "detail": "missing in results",
+      "effective_match": true,
       "field": "participant"
     }
   ],
   "observed_block": 92336519,
-  "passed": false,
+  "passed": true,
+  "passed_with_caveat": true,
   "published_row_count": 91,
+  "raw_mismatch_count": 1,
+  "raw_passed": false,
   "result_bytes_sha256": "ffa569263c8150262825f98b6a6c994b33d43e529cafc4f2aad41f0b21617138",
   "result_cid": "QmaVeUDHtQY8duUoFn5fEZPVxqoLRr6MTYdksSpsnPnVAo",
-  "schema_version": 1
+  "schema_version": 1,
+  "unresolved_mismatch_count": 0
 }

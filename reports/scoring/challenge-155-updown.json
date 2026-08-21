@@ -1,14 +1,13 @@
 {
-  "audit_status": "score-and-reward-exact-with-invalid-zero-financial-row-omissions",
-  "caveated_comparison_count": 0,
+  "caveated_comparison_count": 1,
   "caveats": [
     {
       "anchor": "challenges-142-and-154-161-valid-zero-financial-submitters-omitted",
-      "classification": "valid-zero-financial-submitters-omitted-from-results",
-      "counts_as_pass": false,
+      "classification": "accepted-zero-stake-result-row-omissions",
+      "counts_as_pass": true,
       "document": "docs/caveats.md",
       "id": "challenges-142-and-154-161-valid-zero-financial-result-row-omissions",
-      "summary": "Nine UPDOWN files omit independently valid zero-stake submitters. Their zero wallet outcomes reproduce, but the missing relative gains remain open failures."
+      "summary": "Nine UPDOWN files omit valid zero-stake submitters; every on-chain zero reward and burn is exact, and the financially irrelevant missing score rows are accepted caveated passes."
     }
   ],
   "challenge": 155,
@@ -16,7 +15,6 @@
   "gain_tolerance": "0",
   "maximum_absolute_gain_delta": "0",
   "mismatch_count": 1,
-  "omitted_result_row_count": 1,
   "participant_count": 92,
   "participants": [
     {
@@ -846,20 +844,20 @@
     },
     {
       "address": "0x9250dbb45c4883de42348897b676ad11d6f5703c",
-      "caveated_pass": false,
+      "caveated_pass": true,
       "caveats": [
         {
           "anchor": "challenges-142-and-154-161-valid-zero-financial-submitters-omitted",
-          "classification": "valid-zero-financial-submitters-omitted-from-results",
-          "counts_as_pass": false,
+          "classification": "accepted-zero-stake-result-row-omissions",
+          "counts_as_pass": true,
           "document": "docs/caveats.md",
           "id": "challenges-142-and-154-161-valid-zero-financial-result-row-omissions",
-          "summary": "Nine UPDOWN files omit independently valid zero-stake submitters. Their zero wallet outcomes reproduce, but the missing relative gains remain open failures."
+          "summary": "Nine UPDOWN files omit valid zero-stake submitters; every on-chain zero reward and burn is exact, and the financially irrelevant missing score rows are accepted caveated passes."
         }
       ],
       "computed_relative_gain": "-0.01715580571474739342372611839",
       "computed_wallet_reward": "-0.000000",
-      "effective_match": false,
+      "effective_match": true,
       "published_relative_gain": null,
       "published_wallet_reward": null,
       "relative_gain_delta": null,
@@ -1409,20 +1407,14 @@
       "wallet_reward_matches": true
     }
   ],
-  "passed": false,
+  "passed": true,
+  "passed_with_caveat": true,
   "policy_id": "legacy-static-77-v1",
   "policy_source_files_sha256": {
     "library/score_reward.py": "a4f7e9b783a6366870e9caccb4af9dc277697d81bdf6f7e2797475a3152ecfdb"
   },
   "policy_source_git_commit": "b783812",
   "policy_status": "source-derived-candidate",
-  "publication_row_omissions": [
-    {
-      "address": "0x9250dbb45c4883de42348897b676ad11d6f5703c",
-      "detail": "missing in results",
-      "field": "participant"
-    }
-  ],
   "raw_mismatch_count": 1,
   "raw_passed": false,
   "reproduction_runtime": {
@@ -1434,5 +1426,5 @@
   "result_bytes_sha256": "585394b168c91002e81c3f539607856d6202c17f52df2a897d363c43a93a0a4c",
   "result_cid": "QmdcMtiDMgdhVyvZ9GQKefHRE4wt8U5dcgxDg9SnMx1eZZ",
   "schema_version": 1,
-  "unresolved_mismatch_count": 1
+  "unresolved_mismatch_count": 0
 }

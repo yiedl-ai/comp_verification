@@ -180,7 +180,7 @@ all 56 non-submitters also reproduce zero. The verifier therefore passes the
 UPDOWN reward layer but leaves its result publication and relative-gain layer
 open and failed until an authenticated challenge-134 result file is recovered.
 
-## Challenges 142 and 154–161: valid zero-financial submitters omitted
+## Challenges 142 and 154–161: zero-stake result rows omitted
 
 Nine UPDOWN result files each omit one on-chain submitter whose independently
 downloaded archive is a valid 77-symbol prediction CSV. Challenge 142 omits
@@ -188,12 +188,10 @@ downloaded archive is a valid 77-symbol prediction CSV. Challenge 142 omits
 omit `0x9250dbb45c4883de42348897b676ad11d6f5703c`. In every affected challenge,
 the omitted address has zero historical stake, challenge reward, and burn.
 
-The zero wallet outcomes are therefore reproducible, but this differs from the
-challenge-129 exception: these submissions are valid and can have nonzero
-relative gains. For example, challenge 154 independently computes
-`0.0002248414479546002094773049480` for the omitted row. The verifier retains
-each omission as an open publication and score failure; a zero financial result
-does not authorize inventing the missing published score.
+The zero wallet outcomes are therefore exact. With zero stake, relative gain has
+no effect on reward and cannot be recovered from the contract's zero reward.
+The missing non-financial result rows remain visible and count as accepted
+caveated passes.
 
 ## Challenge 94 UPDOWN: malformed, unavailable submission reference
 

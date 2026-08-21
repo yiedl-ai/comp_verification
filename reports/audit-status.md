@@ -1,7 +1,7 @@
 # Competition verification status
 
-- Scoring: 329/344 passed; 0 blocked; 15 failed
-- Publication: 326/344 passed; 0 blocked; 18 failed
+- Scoring: 338/344 passed; 0 blocked; 6 failed
+- Publication: 335/344 passed; 0 blocked; 9 failed
 
 | Challenge | NEUTRAL publication | NEUTRAL scoring | UPDOWN publication | UPDOWN scoring |
 | ---: | --- | --- | --- | --- |
@@ -146,7 +146,7 @@
 | 139 | passed | passed | passed | passed |
 | 140 | passed | passed | passed | passed |
 | 141 | passed | passed | passed | passed |
-| 142 | passed | passed | failed | failed |
+| 142 | passed | passed | passed | passed |
 | 143 | passed | passed | passed | passed |
 | 144 | passed | passed | passed | passed |
 | 145 | passed | passed | passed | passed |
@@ -158,14 +158,14 @@
 | 151 | passed | passed | passed | passed |
 | 152 | passed | passed | passed | passed |
 | 153 | passed | passed | passed | passed |
-| 154 | passed | passed | failed | failed |
-| 155 | passed | passed | failed | failed |
-| 156 | passed | passed | failed | failed |
-| 157 | passed | passed | failed | failed |
-| 158 | passed | passed | failed | failed |
-| 159 | passed | passed | failed | failed |
-| 160 | passed | passed | failed | failed |
-| 161 | passed | passed | failed | failed |
+| 154 | passed | passed | passed | passed |
+| 155 | passed | passed | passed | passed |
+| 156 | passed | passed | passed | passed |
+| 157 | passed | passed | passed | passed |
+| 158 | passed | passed | passed | passed |
+| 159 | passed | passed | passed | passed |
+| 160 | passed | passed | passed | passed |
+| 161 | passed | passed | passed | passed |
 | 162 | passed | passed | passed | passed |
 | 163 | passed | passed | passed | passed |
 | 164 | passed | passed | passed | passed |

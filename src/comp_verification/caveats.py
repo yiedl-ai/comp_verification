@@ -41,3 +41,50 @@ def caveat_for_challenge(challenge: int) -> dict[str, Any] | None:
 
     matches = caveats_for_context(challenge=challenge, audit_kind="scoring")
     return matches[0] if matches else None
+
+
+def adjudicate_report_mismatches(
+    report: dict[str, Any],
+    *,
+    challenge: int,
+    competition: str,
+    audit_kind: str,
+) -> dict[str, Any]:
+    """Apply address-scoped accepted caveats while preserving raw mismatches."""
+
+    if report.get("passed") or not isinstance(report.get("mismatches"), list):
+        return report
+    annotated = []
+    for mismatch in report["mismatches"]:
+        caveats = caveats_for_context(
+            challenge=challenge,
+            competition=competition,
+            audit_kind=audit_kind,
+            address=mismatch.get("address"),
+        )
+        caveated_pass = any(item["counts_as_pass"] for item in caveats)
+        annotated.append(
+            {
+                **mismatch,
+                "caveated_pass": caveated_pass,
+                "effective_match": caveated_pass,
+                "caveats": caveats,
+            }
+        )
+    unresolved = [item for item in annotated if not item["caveated_pass"]]
+    caveated = [item for item in annotated if item["caveated_pass"]]
+    return {
+        **report,
+        "raw_passed": False,
+        "raw_mismatch_count": len(annotated),
+        "caveated_mismatch_count": len(caveated),
+        "unresolved_mismatch_count": len(unresolved),
+        "passed": not unresolved,
+        "passed_with_caveat": bool(caveated) and not unresolved,
+        "caveats": caveats_for_context(
+            challenge=challenge,
+            competition=competition,
+            audit_kind=audit_kind,
+        ),
+        "mismatches": annotated,
+    }

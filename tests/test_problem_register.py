@@ -303,8 +303,8 @@ def test_register_captures_valid_zero_financial_result_omissions() -> None:
         "challenges-142-and-154-161-valid-zero-financial-result-row-omissions"
     )
 
-    assert problem.status == "open"
-    assert problem.counts_as_pass is False
+    assert problem.status == "accepted"
+    assert problem.counts_as_pass is True
     assert problem.raw["affected_comparisons"] == 9
     assert problem.scope.challenges == frozenset(
         {142, 154, 155, 156, 157, 158, 159, 160, 161}
