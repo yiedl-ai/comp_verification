@@ -29,21 +29,21 @@ contains an explicit accepted adjudication.
 | 8 | NEUTRAL and UPDOWN | Likely submission-snapshot/RPC-sync/IPFS-availability race | 2 | Accepted as two caveated passes; raw mismatches remain visible |
 | 14 | NEUTRAL publication and scoring | Immutable results CID points to dataset 15; corrected CID is stored on-chain under information item 0 for the zero address | 1 | Accepted corrected reference; publication and scoring pass with caveat |
 | 19 | NEUTRAL and UPDOWN scoring | Final three submitters omitted from both scoring inputs | 6 | Accepted as six caveated passes; raw mismatches remain visible |
-| 28 | NEUTRAL publication and scoring | Results CID contains the challenge-29 RSA public key | 1 | Open; publication fails and scoring is blocked pending an authenticated correction |
-| 33 | NEUTRAL scoring | Last valid submission was published as zero | 1 | Open; raw mismatch remains a failure pending historical evidence or adjudication |
+| 28 | NEUTRAL publication and scoring | Results CID contains the challenge-29 RSA public key; corrected CID is stored under information item 0 | 1 | Accepted corrected reference; publication and scoring pass with caveat |
+| 33 | NEUTRAL scoring | Last valid submission was omitted from the scoring snapshot and published as zero | 1 | Accepted caveated pass; raw mismatch remains visible |
 | 40–42 | NEUTRAL and UPDOWN publication/scoring | Mistaken settlement, exact undo, corrected 30-symbol settlement | 8 | Accepted as one correction sequence; raw metadata irregularities remain visible |
 | 52 | NEUTRAL and UPDOWN scoring | Production switched to the 77-symbol basket one challenge before the recoverable repository history indicates | 0 | Exact recovered-policy pass; inference is retained in every scoring report |
-| 73 | NEUTRAL scoring | One valid, early submission was published as zero | 1 | Open; raw mismatch remains a failure pending historical retrieval/database evidence |
+| 73 | NEUTRAL scoring | Stricter production validation rejected one submission's blank-symbol extra row | 1 | Accepted caveated pass; raw mismatch remains visible |
 | 94 | UPDOWN submission/scoring | One on-chain submission digest is ASCII hex text rather than a raw SHA-256 digest and its derived CID is unavailable | 0 | Scoring passes; the unverifiable submission is explicitly retained as unavailable |
 | 95 | NEUTRAL submission/scoring | One on-chain submission digest is ASCII hex text rather than a raw SHA-256 digest and its derived CID is unavailable | 0 | Scoring passes; the unverifiable submission is explicitly retained as unavailable |
 | 110 | UPDOWN publication/scoring | Immutable result CID points to challenge 109; corrected CID is stored on-chain under information item 0 for the zero address | 1 | Accepted corrected reference; publication and scoring pass exactly with caveat |
-| 113 | NEUTRAL and UPDOWN publication/scoring | Production used `HAI=1` instead of the raw `21.227900966966708`; UPDOWN result CID is stale | 1 | NEUTRAL scores/rewards and UPDOWN on-chain rewards reproduce exactly; UPDOWN score publication remains open |
+| 113 | NEUTRAL and UPDOWN publication/scoring | Production capped hacked HAI at `1` to bound its contribution by allocated margin; corrected UPDOWN CID is stored under information item 0 | 1 | Accepted target cap and corrected reference; publication and scoring pass exactly with caveat |
 | 116 | UPDOWN publication/scoring | Immutable result CID is challenge 115's file; the correct file from challenge 117 is authenticated under information item 0 | 1 | Accepted corrected reference; publication and scoring pass exactly with caveat |
 | 117 | NEUTRAL and UPDOWN publication/scoring | Both immutable result CIDs contain challenge-116 files; corrected CIDs are stored on-chain under information item 0 | 2 | Accepted corrected references; both publication and scoring audits pass exactly with caveats |
 | 123 | UPDOWN publication/scoring | Immutable result CID points to challenge 122; corrected CID is stored on-chain under information item 0 for the zero address | 1 | Accepted corrected reference; publication and scoring pass exactly with caveat |
 | 129 | NEUTRAL and UPDOWN publication/scoring | Each result omits two malformed, zero-stake submitters | 4 | Accepted as four caveated publication passes; every wallet outcome is exact and raw omissions remain visible |
 | 134 | UPDOWN publication/scoring | Immutable result CID points to challenge 133; corrected CID is stored on-chain under information item 0 for the zero address | 1 | Accepted corrected reference; publication and scoring pass exactly with caveat |
-| 142, 154–161 | UPDOWN publication/scoring | Valid zero-stake submitters are omitted from result files | 9 | Zero wallet outcomes are exact, but omitted relative gains remain open failures |
+| 142, 154–161 | UPDOWN publication/scoring | Valid zero-stake submitters are omitted from result files | 9 | Accepted caveated passes; zero wallet outcomes are exact and raw omissions remain visible |
 | 166 | NEUTRAL and UPDOWN scoring | Old-basket settlement used a local target artifact that was replaced by the published new-basket dataset | 7 target values | All 78 held-out gains and every wallet reward reproduce exactly; missing source artifact remains open |
 | 167–168 | Dataset ingestion | Dataset 168 temporarily had one unavailable IPFS range | 0 | Resolved; the complete archive passed CID verification and all four scoring audits reproduce exactly |
 
@@ -64,7 +64,7 @@ and independent scoring reproduces every relative gain and reward exactly. The
 original stale reference remains visible, and UPDOWN counts as an accepted
 caveated pass.
 
-## Challenge 113: HAI target override and stale UPDOWN result reference
+## Challenge 113: HAI margin cap and corrected UPDOWN result reference
 
 Dataset 114 is CID-verified and records challenge 113's `HAI` values as
 `target_updown=21.227900966966708` and `target_neutral=1.0`. The recoverable
@@ -80,15 +80,22 @@ It also reproduces all 42 UPDOWN on-chain net rewards exactly. The committed
 price fixture remains the unedited value derived from the CID-verified dataset;
 the override is explicit in code and in each affected scoring report.
 
+The cap has a portfolio-risk rationale. Participant allocations are normalized
+to unit gross margin, so the sum of absolute weights is `1`. HAI experienced a
+hack-related extreme price dislocation; using the raw target would allow that
+single asset to dominate the portfolio score. With the settlement return capped
+at `1`, the absolute HAI gain or loss cannot exceed the absolute margin allocated
+to HAI. This isolates the exceptional event without changing any other asset.
+
 UPDOWN has a separate publication defect. Challenge 113 records result CID
 `QmWXyyvUsNw5XfDbzknq7knGUsNohPMABqB5crNwRirskY` (SHA-256
 `3123b802b6d8052bf2140f56bef22cabfd454f196d6a522f9b354b68c52ac7f8`),
 which is exactly challenge 112's UPDOWN result file and embeds challenge `112`.
-It does not describe challenge 113: comparing its stake/reward/burn fields to
-the challenge-113 chain snapshot produces 123 field mismatches. The verifier
-therefore reports challenge-113 UPDOWN rewards as exactly verified directly
-against chain, while leaving relative-gain publication open and failed until an
-authenticated challenge-113 UPDOWN result file is recovered.
+Challenge 113's zero-address information item 0 now records corrected CID
+`QmVBn6G4hsQQPDiGtxK4t7sqr1kTt4svJfVE8HCqfjDkgh`. The verifier authenticates
+it at block `92388399`; all 89 rows match the chain snapshot, and independent
+scoring with the HAI cap reproduces every score and reward exactly. The original
+stale reference remains visible, and UPDOWN counts as an accepted caveated pass.
 
 ## Challenge 116: stale UPDOWN result reference corrected through on-chain information
 

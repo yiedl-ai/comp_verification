@@ -179,22 +179,21 @@ def test_register_captures_challenge_ninety_four_unavailable_submission() -> Non
     assert problem.scope.competitions == frozenset({"UPDOWN"})
 
 
-def test_register_captures_challenge_113_recovered_override_and_stale_result() -> None:
+def test_register_captures_accepted_challenge_113_cap_and_correction() -> None:
     problem = load_problem_register().by_id(
         "challenge-113-hai-target-override-and-stale-updown-result"
     )
 
-    assert problem.status == "open"
-    assert problem.counts_as_pass is False
-    assert problem.raw["details"]["production_override"] == {
-        "evidence": (
-            "Replacing only HAI target_updown with exactly 1 reproduces all "
-            "available challenge-113 scores and rewards with the historical "
-            "scorer and numeric path."
-        ),
-        "symbol": "HAI",
-        "value": "1",
-    }
+    assert problem.status == "accepted"
+    assert problem.counts_as_pass is True
+    override = problem.raw["details"]["production_override"]
+    assert override["symbol"] == "HAI"
+    assert override["value"] == "1"
+    assert "sum of absolute portfolio weights equals 1" in override[
+        "portfolio_margin_rule"
+    ]
+    assert "allocated to HAI" in override["rationale"]
+    assert problem.raw["details"]["correction"]["information_item_number"] == 0
     assert problem.raw["details"]["stale_updown_result"]["same_as_challenge"] == 112
 
 

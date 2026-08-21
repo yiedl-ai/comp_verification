@@ -2365,8 +2365,8 @@
         },
         {
           "competition": "UPDOWN",
-          "publication": "failed",
-          "scoring": "failed",
+          "publication": "passed",
+          "scoring": "passed",
           "scoring_caveated_comparison_count": 0,
           "scoring_raw_mismatch_count": 0,
           "submission_evidence": "present"
@@ -3726,6 +3726,7 @@
     110,
     111,
     112,
+    113,
     114,
     115,
     116,
@@ -3788,15 +3789,15 @@
   ],
   "publication_audits": {
     "blocked": 0,
-    "failed": 1,
-    "passed": 343,
+    "failed": 0,
+    "passed": 344,
     "total": 344
   },
   "schema_version": 1,
   "scoring_audits": {
     "blocked": 0,
-    "failed": 1,
-    "passed": 343,
+    "failed": 0,
+    "passed": 344,
     "total": 344
   },
   "target_ready_challenges": [

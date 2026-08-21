@@ -775,11 +775,11 @@
     {
       "affected_comparisons": 1,
       "audit_treatment": {
-        "changes_outcome": false,
-        "mode": "recovered-production-override-with-open-stale-result-reference",
-        "reason": "A single HAI target override exactly reconstructs every posted challenge-113 reward, but the UPDOWN result hash still points to challenge 112 and cannot verify challenge-113 relative-gain publication."
+        "changes_outcome": true,
+        "mode": "accepted-production-target-cap-and-on-chain-information-correction",
+        "reason": "The HAI settlement return was capped at 1 to bound its hack-related contribution by allocated portfolio margin, and challenge 113's zero-address information entry now authenticates the corrected UPDOWN result CID."
       },
-      "classification": "production-only-target-override-and-stale-result-reference",
+      "classification": "production-only-target-cap-and-stale-result-reference-corrected",
       "confidence": "high",
       "details": {
         "dataset_target": {
@@ -800,8 +800,19 @@
         },
         "production_override": {
           "evidence": "Replacing only HAI target_updown with exactly 1 reproduces all available challenge-113 scores and rewards with the historical scorer and numeric path.",
+          "exception_context": "HAI experienced a hack-related extreme price dislocation.",
+          "portfolio_margin_rule": "Participant allocations are normalized so the sum of absolute portfolio weights equals 1.",
+          "rationale": "Capping HAI's settlement return at 1 ensures the absolute HAI score contribution cannot exceed the absolute portfolio margin allocated to HAI, bounding either gain or loss while leaving every other asset unchanged.",
           "symbol": "HAI",
           "value": "1"
+        },
+        "correction": {
+          "block": 92388399,
+          "cid": "QmVBn6G4hsQQPDiGtxK4t7sqr1kTt4svJfVE8HCqfjDkgh",
+          "digest": "0x65bbed9271eec15a26a817a488643a36b87ad2c60e17bff0d077bfe23c8d2bca",
+          "information_item_number": 0,
+          "participant": "0x0000000000000000000000000000000000000000",
+          "transaction": "0xa8563dea3362de2c98a092ab17e77b5e30b4c426e1c5511ef1efa1c14197ce47"
         },
         "reproduction": {
           "neutral_exact_reward_count": 44,
@@ -809,7 +820,8 @@
           "neutral_result_bytes_sha256": "a85c7ea4aae755debbfbba5bff04cfe325dab4de7ef971e22a70d83c6f549f6b",
           "neutral_result_cid": "QmWcE8JGQ8A6o1nwynxspq2cA4hsSQzZ8VJoataC2MrCkA",
           "updown_exact_on_chain_reward_count": 42,
-          "updown_score_status": "unverifiable-because-result-file-is-stale"
+          "updown_exact_published_row_count": 89,
+          "updown_score_status": "exact-via-corrected-result-reference"
         },
         "stale_updown_result": {
           "bytes_sha256": "3123b802b6d8052bf2140f56bef22cabfd454f196d6a522f9b354b68c52ac7f8",
@@ -822,9 +834,9 @@
       "documentation": {
         "anchor": "challenge-113-hai-target-override-and-stale-updown-result-reference",
         "document": "docs/caveats.md",
-        "summary": "Challenge 113 is exactly reconstructed by a production-only HAI target override from 21.227900966966708 to 1; NEUTRAL scores/rewards and UPDOWN on-chain rewards match, but UPDOWN's result CID is the stale challenge-112 file."
+        "summary": "Challenge 113 uses a production-only HAI settlement cap of 1 to bound the hacked asset's contribution by allocated margin; an accepted on-chain information entry supplies the corrected UPDOWN CID, and all publication and scoring checks pass exactly."
       },
-      "headline": "Challenge 113: HAI target override and stale UPDOWN result reference",
+      "headline": "Challenge 113: HAI margin cap and corrected UPDOWN result reference",
       "id": "challenge-113-hai-target-override-and-stale-updown-result",
       "scope": {
         "addresses": [],
@@ -840,7 +852,7 @@
           "UPDOWN"
         ]
       },
-      "status": "open"
+      "status": "accepted"
     },
     {
       "affected_comparisons": 1,

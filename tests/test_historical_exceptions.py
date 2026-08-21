@@ -25,6 +25,7 @@ def test_only_challenge_113_overrides_hai() -> None:
     assert recovered == {"BTC": Decimal("0.1"), "HAI": Decimal(1)}
     assert evidence[0]["problem_id"] == CHALLENGE_113_PROBLEM_ID
     assert evidence[0]["production_value"] == "1"
+    assert "allocated to HAI" in evidence[0]["rationale"]
     assert source["HAI"] == Decimal("21.227900966966708")
 
 

@@ -108,5 +108,10 @@ def apply_realized_return_overrides(
                 "the unique full-rank return vector inferred from 44 published "
                 "NEUTRAL gains and 42 on-chain UPDOWN rewards"
             ),
+            "rationale": (
+                "HAI's hack-related price dislocation was isolated by capping its "
+                "settlement return at 1; with unit gross portfolio margin, this "
+                "bounds the absolute HAI gain or loss by the margin allocated to HAI"
+            ),
         }
     ]

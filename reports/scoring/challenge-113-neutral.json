@@ -3,11 +3,11 @@
   "caveats": [
     {
       "anchor": "challenge-113-hai-target-override-and-stale-updown-result-reference",
-      "classification": "production-only-target-override-and-stale-result-reference",
-      "counts_as_pass": false,
+      "classification": "production-only-target-cap-and-stale-result-reference-corrected",
+      "counts_as_pass": true,
       "document": "docs/caveats.md",
       "id": "challenge-113-hai-target-override-and-stale-updown-result",
-      "summary": "Challenge 113 is exactly reconstructed by a production-only HAI target override from 21.227900966966708 to 1; NEUTRAL scores/rewards and UPDOWN on-chain rewards match, but UPDOWN's result CID is the stale challenge-112 file."
+      "summary": "Challenge 113 uses a production-only HAI settlement cap of 1 to bound the hacked asset's contribution by allocated margin; an accepted on-chain information entry supplies the corrected UPDOWN CID, and all publication and scoring checks pass exactly."
     }
   ],
   "challenge": 113,
@@ -28,6 +28,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -42,6 +43,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -56,6 +58,7 @@
       "published_wallet_reward": "-14.754282",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -70,6 +73,7 @@
       "published_wallet_reward": "-33.05247",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -84,6 +88,7 @@
       "published_wallet_reward": "-92.353984",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -98,6 +103,7 @@
       "published_wallet_reward": "-12.504975",
       "relative_gain_delta": "0E-30",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -112,6 +118,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -126,6 +133,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -140,6 +148,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -154,6 +163,7 @@
       "published_wallet_reward": "-203.092395",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -168,6 +178,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -182,6 +193,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -196,6 +208,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -210,6 +223,7 @@
       "published_wallet_reward": "-255.773976",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -224,6 +238,7 @@
       "published_wallet_reward": "-499.991674",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -238,6 +253,7 @@
       "published_wallet_reward": "-36.533181",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -252,6 +268,7 @@
       "published_wallet_reward": "-21.583136",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -266,6 +283,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -280,6 +298,7 @@
       "published_wallet_reward": "-24.669752",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -294,6 +313,7 @@
       "published_wallet_reward": "-232.425327",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -308,6 +328,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -322,6 +343,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -336,6 +358,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -350,6 +373,7 @@
       "published_wallet_reward": "-11.545364",
       "relative_gain_delta": "0E-30",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -364,6 +388,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -378,6 +403,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -392,6 +418,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -406,6 +433,7 @@
       "published_wallet_reward": "-30.956789",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -420,6 +448,7 @@
       "published_wallet_reward": "-39.574921",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -434,6 +463,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -448,6 +478,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -462,6 +493,7 @@
       "published_wallet_reward": "-321.687669",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -476,6 +508,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -490,6 +523,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -504,6 +538,7 @@
       "published_wallet_reward": "-2.988499",
       "relative_gain_delta": "0E-30",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -518,6 +553,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -532,6 +568,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -546,6 +583,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -560,6 +598,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -574,6 +613,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -588,6 +628,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -602,6 +643,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -616,6 +658,7 @@
       "published_wallet_reward": "-31.31649",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -630,6 +673,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -644,6 +688,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -658,6 +703,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -672,6 +718,7 @@
       "published_wallet_reward": "-15.752913",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -686,6 +733,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -700,6 +748,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "invalid",
       "wallet_reward_matches": true
     },
@@ -714,6 +763,7 @@
       "published_wallet_reward": "-124.776677",
       "relative_gain_delta": "0E-30",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -728,6 +778,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -742,6 +793,7 @@
       "published_wallet_reward": "-377.420746",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -756,6 +808,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -770,6 +823,7 @@
       "published_wallet_reward": "-503.334167",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -784,6 +838,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -798,6 +853,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -812,6 +868,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -826,6 +883,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -840,6 +898,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -854,6 +913,7 @@
       "published_wallet_reward": "-140.459243",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -868,6 +928,7 @@
       "published_wallet_reward": "-188.88127",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -882,6 +943,7 @@
       "published_wallet_reward": "-1299.011691",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -896,6 +958,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -910,6 +973,7 @@
       "published_wallet_reward": "-2.310344",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -924,6 +988,7 @@
       "published_wallet_reward": "-25.055607",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -938,6 +1003,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -952,6 +1018,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -966,6 +1033,7 @@
       "published_wallet_reward": "-86.878782",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -980,6 +1048,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -994,6 +1063,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1008,6 +1078,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1022,6 +1093,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1036,6 +1108,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1050,6 +1123,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1064,6 +1138,7 @@
       "published_wallet_reward": "-33.166469",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -1078,6 +1153,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1092,6 +1168,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1106,6 +1183,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1120,6 +1198,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1134,6 +1213,7 @@
       "published_wallet_reward": "-32.856148",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -1148,6 +1228,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1162,6 +1243,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1176,6 +1258,7 @@
       "published_wallet_reward": "-193.892444",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -1190,6 +1273,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1204,6 +1288,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1218,6 +1303,7 @@
       "published_wallet_reward": "-36.136695",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -1232,6 +1318,7 @@
       "published_wallet_reward": "23.373736",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -1246,6 +1333,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1260,6 +1348,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1274,6 +1363,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1288,6 +1378,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1302,6 +1393,7 @@
       "published_wallet_reward": "9.364807",
       "relative_gain_delta": "0E-30",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -1316,6 +1408,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1330,6 +1423,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1344,6 +1438,7 @@
       "published_wallet_reward": "-31.311349",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -1358,6 +1453,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1372,6 +1468,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1386,6 +1483,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1400,6 +1498,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1414,6 +1513,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1428,6 +1528,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1442,6 +1543,7 @@
       "published_wallet_reward": "-32.703723",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -1456,6 +1558,7 @@
       "published_wallet_reward": "-50.079739",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -1470,6 +1573,7 @@
       "published_wallet_reward": "11.498568",
       "relative_gain_delta": "0E-30",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -1484,6 +1588,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1498,6 +1603,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1512,6 +1618,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1526,6 +1633,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1540,6 +1648,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1554,6 +1663,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1568,6 +1678,7 @@
       "published_wallet_reward": "-32.079442",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -1582,6 +1693,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1596,6 +1708,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1610,6 +1723,7 @@
       "published_wallet_reward": "-37.945356",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -1624,6 +1738,7 @@
       "published_wallet_reward": "-32.711159",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -1638,6 +1753,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1652,6 +1768,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1666,6 +1783,7 @@
       "published_wallet_reward": "0",
       "relative_gain_delta": "0",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "no-submission",
       "wallet_reward_matches": true
     },
@@ -1680,6 +1798,7 @@
       "published_wallet_reward": "-532.389538",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -1694,6 +1813,7 @@
       "published_wallet_reward": "-27.359399",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -1708,6 +1828,7 @@
       "published_wallet_reward": "-38.993401",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     },
@@ -1722,6 +1843,7 @@
       "published_wallet_reward": "-37.074496",
       "relative_gain_delta": "0E-29",
       "relative_gain_matches": true,
+      "result_row_status": "published",
       "submission_status": "valid",
       "wallet_reward_matches": true
     }
@@ -1741,6 +1863,7 @@
       "loaded_dataset_value": "21.22790096696670758547043078579008579254150390625",
       "problem_id": "challenge-113-hai-target-override-and-stale-updown-result",
       "production_value": "1",
+      "rationale": "HAI's hack-related price dislocation was isolated by capping its settlement return at 1; with unit gross portfolio margin, this bounds the absolute HAI gain or loss by the margin allocated to HAI",
       "symbol": "HAI"
     }
   ],

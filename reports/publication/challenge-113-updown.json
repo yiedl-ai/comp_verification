@@ -1,14 +1,63 @@
 {
-  "caveats": [],
+  "caveats": [
+    {
+      "anchor": "challenge-113-hai-target-override-and-stale-updown-result-reference",
+      "classification": "production-only-target-cap-and-stale-result-reference-corrected",
+      "counts_as_pass": true,
+      "document": "docs/caveats.md",
+      "id": "challenge-113-hai-target-override-and-stale-updown-result",
+      "summary": "Challenge 113 uses a production-only HAI settlement cap of 1 to bound the hacked asset's contribution by allocated margin; an accepted on-chain information entry supplies the corrected UPDOWN CID, and all publication and scoring checks pass exactly."
+    }
+  ],
+  "chain_participant_count": 89,
   "challenge": 113,
   "competition": "UPDOWN",
   "contract": "0xEcB9716867f9300F2706EdbB5b81c7a0AbDC5B29",
-  "mismatch_count": 1,
+  "correction_evidence": {
+    "challenge": 113,
+    "competition": "UPDOWN",
+    "contract": "0xEcB9716867f9300F2706EdbB5b81c7a0AbDC5B29",
+    "corrected_content": {
+      "bytes_sha256": "7fc8bbc39c904242986c189cdbc2abeba1b25bef61d669f375d6e302919b0c6d",
+      "cid": "QmVBn6G4hsQQPDiGtxK4t7sqr1kTt4svJfVE8HCqfjDkgh",
+      "digest": "0x65bbed9271eec15a26a817a488643a36b87ad2c60e17bff0d077bfe23c8d2bca",
+      "published_row_count": 89,
+      "size": 8081
+    },
+    "observation": {
+      "block_hash": "0xbec85ba22a5f88d87f8b75716cb70627da1a082875b0547d14a9cd3e07ff0f6d",
+      "block_number": 92388399,
+      "block_timestamp_utc": "2026-08-21T04:47:06Z",
+      "event": "BatchInformationUpdated(uint32,uint256)",
+      "log_index": 1343,
+      "transaction_hash": "0xa8563dea3362de2c98a092ab17e77b5e30b4c426e1c5511ef1efa1c14197ce47",
+      "transaction_sender": "0x3df47786923cce73dce259143c3f7e8ec484db2a",
+      "transaction_status": 1
+    },
+    "original_content": {
+      "cid": "QmWXyyvUsNw5XfDbzknq7knGUsNohPMABqB5crNwRirskY",
+      "digest": "0x79c4ad0f55ee9353c40433aac39feb30666f3b8fe902c3e70eeb3bd5060e681d",
+      "problem": "The CID resolves to the challenge 112 UPDOWN results CSV instead of the challenge 113 results CSV."
+    },
+    "schema_version": 1,
+    "storage": {
+      "item_number": 0,
+      "participant": "0x0000000000000000000000000000000000000000",
+      "value_digest": "0x65bbed9271eec15a26a817a488643a36b87ad2c60e17bff0d077bfe23c8d2bca",
+      "value_uint": "46015637770058373047585978234480914682119304915201755113090096508719973870538"
+    }
+  },
+  "mismatch_count": 0,
+  "mismatches": [],
   "observed_block": 92336519,
-  "passed": false,
-  "problem": "ValueError: expected challenge 113, found 112",
-  "resolved_result_cid": "QmWXyyvUsNw5XfDbzknq7knGUsNohPMABqB5crNwRirskY",
-  "result_bytes_sha256": "3123b802b6d8052bf2140f56bef22cabfd454f196d6a522f9b354b68c52ac7f8",
+  "passed": true,
+  "passed_with_caveat": true,
+  "primary_result_cid": "QmWXyyvUsNw5XfDbzknq7knGUsNohPMABqB5crNwRirskY",
+  "published_row_count": 89,
+  "raw_primary_reference_passed": false,
+  "resolution": "on-chain-information-correction",
+  "resolved_result_cid": "QmVBn6G4hsQQPDiGtxK4t7sqr1kTt4svJfVE8HCqfjDkgh",
+  "result_bytes_sha256": "7fc8bbc39c904242986c189cdbc2abeba1b25bef61d669f375d6e302919b0c6d",
   "result_cid": "QmWXyyvUsNw5XfDbzknq7knGUsNohPMABqB5crNwRirskY",
   "schema_version": 1
 }
