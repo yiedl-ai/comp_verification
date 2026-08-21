@@ -284,13 +284,13 @@ def test_register_captures_accepted_challenge_134_correction() -> None:
     assert problem.raw["details"]["stale_updown_result"]["same_as_challenge"] == 133
 
 
-def test_register_captures_challenge_123_stale_updown_result() -> None:
+def test_register_captures_accepted_challenge_123_correction() -> None:
     problem = load_problem_register().by_id(
         "challenge-123-stale-updown-result-reference"
     )
 
-    assert problem.status == "open"
-    assert problem.counts_as_pass is False
+    assert problem.status == "accepted"
+    assert problem.counts_as_pass is True
     assert problem.scope.competitions == frozenset({"UPDOWN"})
     assert problem.raw["details"]["reproduction"][
         "updown_exact_on_chain_reward_count"
@@ -298,6 +298,7 @@ def test_register_captures_challenge_123_stale_updown_result() -> None:
     assert problem.raw["details"]["stale_updown_result"][
         "stake_reward_burn_field_mismatches_against_challenge_123_chain"
     ] == 88
+    assert problem.raw["details"]["correction"]["information_item_number"] == 0
     assert problem.raw["details"]["stale_updown_result"]["same_as_challenge"] == 122
 
 

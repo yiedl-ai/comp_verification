@@ -2,22 +2,62 @@
   "caveats": [
     {
       "anchor": "challenge-123-stale-updown-result-reference",
-      "classification": "stale-prior-challenge-result-reference",
-      "counts_as_pass": false,
+      "classification": "stale-prior-challenge-result-reference-corrected",
+      "counts_as_pass": true,
       "document": "docs/caveats.md",
       "id": "challenge-123-stale-updown-result-reference",
-      "summary": "Challenge 123 UPDOWN points to challenge 122's result file; all 37 submitted challenge-123 rewards reproduce exactly against chain, but relative-gain publication remains unverifiable."
+      "summary": "Challenge 123 UPDOWN's immutable result CID points to challenge 122, but an accepted on-chain information entry supplies the verified corrected CID; all 90 published rows pass publication and scoring exactly."
     }
   ],
+  "chain_participant_count": 90,
   "challenge": 123,
   "competition": "UPDOWN",
   "contract": "0xEcB9716867f9300F2706EdbB5b81c7a0AbDC5B29",
-  "mismatch_count": 1,
+  "correction_evidence": {
+    "challenge": 123,
+    "competition": "UPDOWN",
+    "contract": "0xEcB9716867f9300F2706EdbB5b81c7a0AbDC5B29",
+    "corrected_content": {
+      "bytes_sha256": "dc18de9b40474d8f1b640d55c7ff32764e3096bf9fae5e25f12885c060040e78",
+      "cid": "QmSHFdrvv1tc1k3tNPsdi16R3yZCxJBN6SgQWNVigmTCDw",
+      "digest": "0x3a8fea954326a559c36e1b3abcfd6e6aad11562e621cf3247b6246406b8776ea",
+      "published_row_count": 90,
+      "size": 7937
+    },
+    "observation": {
+      "block_hash": "0xa591918ed477995b21ce76133f277346b9aa740015af38d84e564b8f8104c9f1",
+      "block_number": 92387180,
+      "block_timestamp_utc": "2026-08-21T04:16:37Z",
+      "event": "BatchInformationUpdated(uint32,uint256)",
+      "log_index": 1267,
+      "transaction_hash": "0x6217f6c3d0957cf68856345076aa139bc45d739cc5dfc17ca0beb1e108d1227c",
+      "transaction_sender": "0x3df47786923cce73dce259143c3f7e8ec484db2a",
+      "transaction_status": 1
+    },
+    "original_content": {
+      "cid": "QmcxJgkxboo9dNXVEmp6Yds8BNe7uYD3rQodVjxJ8b3LPo",
+      "digest": "0xd925e2c040defca7ef875c518d9a00d32c5e07bdf3886ad3f80f8d49ea612466",
+      "problem": "The CID resolves to the challenge 122 UPDOWN results CSV instead of the challenge 123 results CSV."
+    },
+    "schema_version": 1,
+    "storage": {
+      "item_number": 0,
+      "participant": "0x0000000000000000000000000000000000000000",
+      "value_digest": "0x3a8fea954326a559c36e1b3abcfd6e6aad11562e621cf3247b6246406b8776ea",
+      "value_uint": "26488423380841783425473974302955525120295499947912071568755599923269140444906"
+    }
+  },
+  "mismatch_count": 0,
+  "mismatches": [],
   "observed_block": 92336519,
-  "passed": false,
-  "problem": "ValueError: expected challenge 123, found 122",
-  "resolved_result_cid": "QmcxJgkxboo9dNXVEmp6Yds8BNe7uYD3rQodVjxJ8b3LPo",
-  "result_bytes_sha256": "ddb056a4f2e1e2bf2c24f137cf09dfb20e632ee75c93d03d409b43db82a9a476",
+  "passed": true,
+  "passed_with_caveat": true,
+  "primary_result_cid": "QmcxJgkxboo9dNXVEmp6Yds8BNe7uYD3rQodVjxJ8b3LPo",
+  "published_row_count": 90,
+  "raw_primary_reference_passed": false,
+  "resolution": "on-chain-information-correction",
+  "resolved_result_cid": "QmSHFdrvv1tc1k3tNPsdi16R3yZCxJBN6SgQWNVigmTCDw",
+  "result_bytes_sha256": "dc18de9b40474d8f1b640d55c7ff32764e3096bf9fae5e25f12885c060040e78",
   "result_cid": "QmcxJgkxboo9dNXVEmp6Yds8BNe7uYD3rQodVjxJ8b3LPo",
   "schema_version": 1
 }

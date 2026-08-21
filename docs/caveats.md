@@ -40,7 +40,7 @@ contains an explicit accepted adjudication.
 | 113 | NEUTRAL and UPDOWN publication/scoring | Production used `HAI=1` instead of the raw `21.227900966966708`; UPDOWN result CID is stale | 1 | NEUTRAL scores/rewards and UPDOWN on-chain rewards reproduce exactly; UPDOWN score publication remains open |
 | 116 | UPDOWN publication/scoring | Challenge-116 CID is challenge 115's file; the correct file appears under challenge 117 | 1 | All scores/rewards reproduce exactly through the late file; challenge association remains open |
 | 117 | NEUTRAL and UPDOWN publication/scoring | Both result CIDs contain exact challenge-116 files | 2 | All challenge-117 on-chain rewards reproduce exactly; challenge-117 relative-gain publication remains open |
-| 123 | UPDOWN publication/scoring | Result CID is the challenge-122 UPDOWN file | 1 | All challenge-123 on-chain rewards reproduce exactly; challenge-123 relative-gain publication remains open |
+| 123 | UPDOWN publication/scoring | Immutable result CID points to challenge 122; corrected CID is stored on-chain under information item 0 for the zero address | 1 | Accepted corrected reference; publication and scoring pass exactly with caveat |
 | 129 | NEUTRAL and UPDOWN publication/scoring | Each result omits two malformed, zero-stake submitters | 4 | Accepted as four caveated publication passes; every wallet outcome is exact and raw omissions remain visible |
 | 134 | UPDOWN publication/scoring | Immutable result CID points to challenge 133; corrected CID is stored on-chain under information item 0 for the zero address | 1 | Accepted corrected reference; publication and scoring pass exactly with caveat |
 | 142, 154–161 | UPDOWN publication/scoring | Valid zero-stake submitters are omitted from result files | 9 | Zero wallet outcomes are exact, but omitted relative gains remain open failures |
@@ -128,7 +128,7 @@ challenge-117 submissions matches every challenge-117 net on-chain reward:
 54 valid NEUTRAL and 43 valid UPDOWN submissions. The reward layer therefore
 passes, while both challenge-117 relative-gain publications remain open.
 
-## Challenge 123: stale UPDOWN result reference
+## Challenge 123: stale UPDOWN result reference corrected through on-chain information
 
 Challenge 123 UPDOWN records CID
 `QmcxJgkxboo9dNXVEmp6Yds8BNe7uYD3rQodVjxJ8b3LPo` (SHA-256
@@ -138,12 +138,12 @@ challenge `122`. Comparing it with challenge 123's chain snapshot produces 88
 financial-field mismatches: 34 stakes, 34 challenge rewards, and 20 burns.
 It therefore cannot verify challenge-123 relative gains.
 
-The independent calculation remains verifiable. Dataset 124 and all challenge-123
-submission archives are CID-verified. All NEUTRAL scores and rewards reproduce
-exactly. For UPDOWN, the historical scorer reproduces the net on-chain reward of
-all 37 valid submissions exactly; all 53 non-submitters also reproduce zero. The
-verifier passes the reward layer but leaves the result publication and score
-layer open until an authenticated challenge-123 result file is recovered.
+Challenge 123's zero-address information item 0 now records corrected CID
+`QmSHFdrvv1tc1k3tNPsdi16R3yZCxJBN6SgQWNVigmTCDw`. The verifier authenticates
+that value at block `92387180`; all 90 corrected rows match the chain snapshot,
+and independent scoring reproduces every relative gain and reward exactly. The
+original stale reference remains visible, and UPDOWN counts as an accepted
+caveated pass.
 
 ## Challenge 129: invalid zero-financial submitters omitted from results
 
