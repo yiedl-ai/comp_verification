@@ -501,7 +501,7 @@
           "Challenge 51 reproduces exactly under the 30-symbol policy.",
           "Applying the 30-symbol policy to challenge 52 mismatches all 53 nominally valid NEUTRAL submissions and all 48 nominally valid UPDOWN submissions.",
           "Applying the 77-symbol parser and scorer leaves 36 valid NEUTRAL and 32 valid UPDOWN submissions and reproduces every published relative gain and wallet reward exactly with zero tolerance.",
-          "The recoverable repository chronology initially suggested challenge 53, so the one-challenge-early numerical cutover is evidence of a production-only or previously uncommitted change."
+          "No versioned directive names the transition challenge. Commit b783812 first records the 77-symbol scorer after challenge 52 had settled, while the challenge-52 submissions and results prove production was already using it."
         ],
         "policy_transition": {
           "last_verified_30_symbol_challenge": 51,
@@ -511,10 +511,10 @@
       },
       "documentation": {
         "anchor": "challenge-52-production-only-77-symbol-policy-cutover",
-        "document": "docs/caveats.md",
-        "summary": "Challenge 52 proves that production switched to the 77-symbol basket one challenge before the recoverable repository chronology indicated; the recovered policy reproduces every score and reward exactly."
+        "document": "docs/caveats-details.md",
+        "summary": "Challenge 52 is the empirically verified first 77-symbol challenge; the corresponding source was committed only afterward, and every score and reward reproduces exactly."
       },
-      "headline": "Challenge 52: Production-only 77-symbol policy cutover",
+      "headline": "Challenge 52: Verified 77-symbol policy boundary",
       "id": "challenge-52-production-only-77-symbol-policy-cutover",
       "scope": {
         "addresses": [],

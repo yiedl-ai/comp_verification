@@ -16,7 +16,6 @@ adjudicated in `problems/register.json`.
 | <a id="challenge-19-three-addresses-zeroed-in-both-competitions"></a>19 | Both competitions | The final three valid submitters were omitted from both scoring inputs; the six zeroed results are accepted historical exceptions. |
 | <a id="challenge-33-neutral-last-submission-published-as-zero"></a>33 | NEUTRAL | The final valid submission was omitted from the scoring input; its zeroed result is an accepted historical exception. |
 | <a id="challenges-40-42-mistake-undo-and-corrected-settlement"></a>40–42 | Both competitions | Challenge 40 was mistaken, challenge 41 reversed it exactly, and challenge 42 posted the correct settlement. The sequence passes as one correction. |
-| <a id="challenge-52-production-only-77-symbol-policy-cutover"></a>52 | Both competitions | Production used the 77-symbol policy one challenge earlier than recoverable repository history indicates. That recovered policy reproduces every result exactly. |
 | <a id="challenge-73-neutral-valid-submission-published-as-zero"></a>73 | NEUTRAL | A stricter production validator rejected a submission containing an extra blank-symbol row; the zeroed result is accepted. |
 | <a id="challenge-113-hai-target-override-and-stale-updown-result-reference"></a>113 | Both competitions | Production capped hacked asset HAI's settlement return at `1`, bounding its score contribution by allocated margin. The cap reproduces every reward exactly. |
 

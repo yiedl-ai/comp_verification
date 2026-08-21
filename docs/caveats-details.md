@@ -247,20 +247,20 @@ accepted caveated pass.
 
 ## Challenge 52: production-only 77-symbol policy cutover
 
-The repository chronology initially placed the 30-to-77-symbol transition at
-challenge 53. That policy mismatches all 53 nominally valid NEUTRAL submissions
-and all 48 nominally valid UPDOWN submissions in challenge 52. Reprocessing the
-same CID-verified submissions with the 77-symbol parser leaves 36 valid NEUTRAL
-and 32 valid UPDOWN submissions and reproduces every published gain and reward
-exactly, with zero tolerance.
+No versioned directive names the transition challenge. Commit `b783812`, which
+first records the 77-symbol scorer in the recoverable repository, was committed
+on 2024-04-30 after challenge 52 had already settled. Using commit timing alone
+therefore suggested challenge 53, but that was only an initial inference—not a
+prescribed start challenge.
 
 Challenge 51 remains an exact 30-symbol reproduction, while challenge 52 is an
-exact 77-symbol reproduction. The numerical boundary is therefore definitive:
-production switched at challenge 52. Because the recoverable source commit
-would otherwise imply challenge 53, the most likely explanation is the
-production-only or uncommitted scoring change anticipated by this audit. This
-does not excuse or alter any result; it records the recovered policy required to
-verify that the challenge-52 off-chain computation was correct.
+exact 77-symbol reproduction. Challenge 52's CID-verified submissions also
+contain the 77-symbol basket. The observed boundary is therefore definitive:
+challenge 52 is the first 77-symbol challenge. Production was using code that
+was committed to the repository only afterward. Reprocessing under that policy
+leaves 36 valid NEUTRAL and 32 valid UPDOWN submissions and reproduces every
+published gain and reward exactly, with zero tolerance. This is source-
+provenance history, not a scoring exception.
 
 ## Challenges 40–42: mistake, undo, and corrected settlement
 
