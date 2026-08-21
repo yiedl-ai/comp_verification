@@ -534,20 +534,40 @@
     {
       "affected_comparisons": 1,
       "audit_treatment": {
-        "changes_outcome": false,
-        "mode": "unresolved-raw-mismatch",
-        "reason": "The final on-chain submission is now fully retrievable and valid, but the historical result zeroed it; backend retrieval or database evidence is required to determine why."
+        "changes_outcome": true,
+        "mode": "accepted-historical-exception",
+        "reason": "The submission was retrieved and decrypted successfully but never entered the scoring table; its unique blank-symbol extra row is the most likely trigger for an uncommitted production validation rule."
       },
-      "classification": "unresolved-off-chain-zeroing",
-      "confidence": "high-on-mismatch-low-on-cause",
+      "classification": "accepted-likely-production-validation-rejection",
+      "confidence": "high-on-omission-medium-on-cause",
       "details": {
         "observations": [
           "Challenge 73 publication integrity passes, all UPDOWN comparisons pass, and every other NEUTRAL comparison reproduces exactly.",
           "The final CID is retrievable and CID-verified, decrypts with the published private key, authenticates the expected originator, and supplies every required 77-symbol policy asset exactly once with numeric predictions.",
-          "The raw CSV has 1,621 unique non-null symbols after historical dropna behavior, including the exact 77-symbol scoring basket; extra symbols are filtered by the recovered backend before scoring.",
-          "The encrypted prediction member is named 20240916_predictions.bin, but recovered production code accepts any non-originator .bin member.",
-          "Polygon included the submission 6h47m02s before NEUTRAL closed, and three other submissions followed it, ruling out a close-boundary snapshot race."
+          "The historical successful.csv includes the affected address, proving retrieval, decryption, and originator authentication succeeded.",
+          "Historical series 233 contains its stake and zero score and reward, but zero submission rows.",
+          "The CSV contains one extra row with a blank symbol and numeric prediction; none of the 61 other nonzero-scored NEUTRAL submissions contains a blank-symbol row.",
+          "The committed parser accepts the file, so rejection of the blank-symbol row requires a production-only validation difference and remains an inference."
         ],
+        "blank_symbol_evidence": {
+          "accepted_nonzero_submissions_checked": 61,
+          "accepted_with_blank_symbol_rows": 0,
+          "affected_blank_prediction": "0.53340846",
+          "affected_blank_row_index_after_header": 1556,
+          "affected_blank_symbol_rows": 1,
+          "required_asset_count": 77,
+          "required_duplicate_count": 0,
+          "required_missing_count": 0,
+          "required_non_numeric_count": 0
+        },
+        "conclusion": "The scoring input omitted the successfully retrieved submission, most likely because an uncommitted production validator rejected its unique blank-symbol extra row.",
+        "scoring_database": {
+          "relative_gain": "0",
+          "series": 233,
+          "stake": "100.000000",
+          "submission_rows": 0,
+          "wallet_reward": "0.000000"
+        },
         "submission": {
           "address": "0x43b7a5912528434aa27163feb26dd586d488abf8",
           "archive_sha256": "e51ef239a913aadfb33cc834e7a22d3af391563a352dea8faef607ecc8c89a44",
@@ -570,17 +590,17 @@
           "transaction": "0x55a99a58553b5a10cd414090c9a08ca25738ae0ef559393ba7f6093865ef3889",
           "utc": "2024-09-17T00:57:12Z"
         },
-        "working_hypotheses": [
-          "Transient IPFS retrieval or decryption failure on the production machine.",
-          "Production database insertion or series-state inconsistency."
-        ]
+        "successful_retrieval": {
+          "address_present": true,
+          "artifact": "data/submission/NEUTRAL/73/successful.csv"
+        }
       },
       "documentation": {
         "anchor": "challenge-73-neutral-valid-submission-published-as-zero",
         "document": "docs/caveats.md",
-        "summary": "One challenge-73 NEUTRAL submission was published as zero despite being CID-verified, decryptable, correctly authenticated, complete, numeric, and included nearly seven hours before close."
+        "summary": "Challenge 73 NEUTRAL omitted one successfully retrieved submission from scoring, most likely because a production-only validator rejected its unique blank-symbol extra row; the zero outcome is an accepted caveated pass."
       },
-      "headline": "Challenge 73 NEUTRAL: Valid submission published as zero",
+      "headline": "Challenge 73 NEUTRAL: Likely blank-symbol validation rejection",
       "id": "challenge-73-neutral-valid-submission-published-as-zero",
       "scope": {
         "addresses": [
@@ -596,7 +616,7 @@
           "NEUTRAL"
         ]
       },
-      "status": "open"
+      "status": "accepted"
     },
     {
       "affected_comparisons": 0,

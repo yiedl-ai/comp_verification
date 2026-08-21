@@ -129,8 +129,8 @@ def test_register_captures_challenge_seventy_three_zeroed_submission() -> None:
         "challenge-73-neutral-valid-submission-published-as-zero"
     )
 
-    assert problem.status == "open"
-    assert problem.counts_as_pass is False
+    assert problem.status == "accepted"
+    assert problem.counts_as_pass is True
     assert problem.raw["affected_comparisons"] == 1
     assert problem.raw["details"]["submission"]["cid"] == (
         "QmXFWqVuLEvqRwtv7RQyczJRHGWQ8agzCejXpRVmE2mmgK"
@@ -138,6 +138,18 @@ def test_register_captures_challenge_seventy_three_zeroed_submission() -> None:
     assert problem.raw["details"]["submission_close"][
         "seconds_after_submission"
     ] == 24422
+    assert problem.raw["details"]["scoring_database"]["submission_rows"] == 0
+    assert problem.raw["details"]["blank_symbol_evidence"] == {
+        "accepted_nonzero_submissions_checked": 61,
+        "accepted_with_blank_symbol_rows": 0,
+        "affected_blank_prediction": "0.53340846",
+        "affected_blank_row_index_after_header": 1556,
+        "affected_blank_symbol_rows": 1,
+        "required_asset_count": 77,
+        "required_duplicate_count": 0,
+        "required_missing_count": 0,
+        "required_non_numeric_count": 0,
+    }
 
 
 def test_register_captures_challenge_ninety_five_unavailable_submission() -> None:
