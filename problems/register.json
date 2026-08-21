@@ -157,19 +157,17 @@
     {
       "affected_comparisons": 6,
       "audit_treatment": {
-        "changes_outcome": false,
-        "mode": "unresolved-raw-mismatch",
-        "reason": "The evidence proves six score/reward mismatches but does not yet establish why the historical backend zeroed exactly these three addresses in both competitions."
+        "changes_outcome": true,
+        "mode": "accepted-historical-exception",
+        "reason": "The historical scoring input omitted the final three on-chain submitters in both competitions, and the scorer consequently assigned them zero."
       },
-      "classification": "unresolved-off-chain-zeroing",
-      "confidence": "high-on-mismatch-low-on-cause",
+      "classification": "accepted-incomplete-submission-snapshot",
+      "confidence": "high",
       "details": {
         "observations": [
-          "Exactly three addresses are published as zero in both competitions although their final on-chain submissions decrypt, validate, and independently compute to nonzero gains and rewards.",
-          "All six submissions were included on Polygon on 2023-09-19 between 00:38:45 and 00:42:45 UTC, roughly six days before results publication, so this is not a challenge-close timing pattern like challenge 8.",
-          "Every other challenge-19 score and reward reproduces under the 34-symbol scoring basket, including numerous other headerless 34-row submissions.",
-          "The same three addresses had exact nonzero reproductions in challenges 9 through 18, so their addresses were not generally excluded.",
-          "Address 0x8a8e1c4e454e092fc19c6cca2034bd22b29781e7 updated its UPDOWN submission twice; the verifier uses the final digest retained by the contract. The other five affected address/competition pairs have one submission event."
+          "The affected addresses are exactly the final three on-chain submitters in both competitions, and all six submissions were included before submission closure.",
+          "Series 125 NEUTRAL and series 126 UPDOWN contain stake rows for all three addresses but no corresponding submission rows; their stored scores and rewards are zero.",
+          "The historical scorer assigns zero to stakers absent from its submission input."
         ],
         "submissions": [
           {
@@ -251,25 +249,14 @@
             "submission_utc": "2023-09-19T00:39:13Z"
           }
         ],
-        "working_hypotheses": [
-          {
-            "explanation": "A production-only inclusion/exclusion rule or database state omitted these three addresses even though their final submissions were present on-chain.",
-            "id": "production-submission-selection-state",
-            "rank": 1
-          },
-          {
-            "explanation": "The backend may have processed a different submission digest or failed retrieval/decryption for these addresses; only one affected pair has evidence of an on-chain replacement.",
-            "id": "different-cid-or-retrieval-state",
-            "rank": 2
-          }
-        ]
+        "conclusion": "The scoring input snapshot omitted the final three submitters in both competitions, causing the published zero scores and rewards."
       },
       "documentation": {
         "anchor": "challenge-19-three-addresses-zeroed-in-both-competitions",
         "document": "docs/caveats.md",
-        "summary": "Challenge 19 has six unresolved raw mismatches: three early, valid on-chain submissions were published as zero in both competitions while all other scores reproduce."
+        "summary": "Challenge 19 omitted the final three on-chain submitters from both scoring inputs; the resulting six zero outcomes are accepted caveated passes."
       },
-      "headline": "Challenge 19: Three addresses unexpectedly zeroed in both competitions",
+      "headline": "Challenge 19: Final three submitters omitted from both scoring inputs",
       "id": "challenge-19-three-addresses-zeroed-in-both-competitions",
       "scope": {
         "addresses": [
@@ -288,7 +275,7 @@
           "UPDOWN"
         ]
       },
-      "status": "open"
+      "status": "accepted"
     },
     {
       "affected_comparisons": 1,

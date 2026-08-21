@@ -67,15 +67,19 @@ def test_register_captures_challenge_fourteen_broken_result_reference() -> None:
     assert problem.raw["details"]["correction"]["information_item_number"] == 0
 
 
-def test_register_captures_open_challenge_nineteen_mismatches() -> None:
+def test_register_captures_accepted_challenge_nineteen_snapshot_omissions() -> None:
     problem = load_problem_register().by_id(
         "challenge-19-three-addresses-zeroed-in-both-competitions"
     )
 
-    assert problem.status == "open"
-    assert problem.counts_as_pass is False
+    assert problem.status == "accepted"
+    assert problem.counts_as_pass is True
     assert problem.raw["affected_comparisons"] == 6
     assert len(problem.raw["details"]["submissions"]) == 6
+    assert problem.raw["details"]["conclusion"] == (
+        "The scoring input snapshot omitted the final three submitters in both "
+        "competitions, causing the published zero scores and rewards."
+    )
     assert problem.scope.challenges == frozenset({19})
 
 

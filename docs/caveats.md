@@ -28,7 +28,7 @@ contains an explicit accepted adjudication.
 | --- | --- | --- | ---: | --- |
 | 8 | NEUTRAL and UPDOWN | Likely submission-snapshot/RPC-sync/IPFS-availability race | 2 | Accepted as two caveated passes; raw mismatches remain visible |
 | 14 | NEUTRAL publication and scoring | Immutable results CID points to dataset 15; corrected CID is stored on-chain under information item 0 for the zero address | 1 | Accepted corrected reference; publication and scoring pass with caveat |
-| 19 | NEUTRAL and UPDOWN scoring | Three addresses unexpectedly published as zero in both competitions | 6 | Open; raw mismatches remain failures pending historical evidence or adjudication |
+| 19 | NEUTRAL and UPDOWN scoring | Final three submitters omitted from both scoring inputs | 6 | Accepted as six caveated passes; raw mismatches remain visible |
 | 28 | NEUTRAL publication and scoring | Results CID contains the challenge-29 RSA public key | 1 | Open; publication fails and scoring is blocked pending an authenticated correction |
 | 33 | NEUTRAL scoring | Last valid submission was published as zero | 1 | Open; raw mismatch remains a failure pending historical evidence or adjudication |
 | 40–42 | NEUTRAL and UPDOWN publication/scoring | Mistaken settlement, exact undo, corrected 30-symbol settlement | 8 | Accepted as one correction sequence; raw metadata irregularities remain visible |
@@ -350,29 +350,14 @@ information entry like the accepted challenge-14 correction.
 
 ## Challenge 19: three addresses zeroed in both competitions
 
-Challenge 19 publication integrity passes, and every score/reward comparison
-except six reproduces exactly under the source-backed 34-symbol policy. The six
-exceptions are the same three addresses in both NEUTRAL and UPDOWN:
+The same three addresses were the final three on-chain submitters in both
+competitions. Their six submissions were included before closure and are valid.
 
-| Address | NEUTRAL computed gain / reward | UPDOWN computed gain / reward | Published |
-| --- | ---: | ---: | ---: |
-| `0x04e1dd13ef029f573cf717f094a6b601b9e03550` | `0.01422048693024655747846137765` / `36.281150` | `-0.005672794361844497155731123354` / `-4.069715` | zero in both |
-| `0x8a8e1c4e454e092fc19c6cca2034bd22b29781e7` | `0.009438761760350053711062086911` / `23.964147` | `0.01217711329458432853668738102` / `8.762258` | zero in both |
-| `0xb294a5316e76e84649a3b8ff0ff6ef9788595bed` | `0.01340266107515869221179582362` / `33.822564` | `0.01125442513536465684334956285` / `8.046307` | zero in both |
-
-All six final CIDs are retrievable, CID-verified, decrypt with the published
-private keys, authenticate the expected originators, and contain valid
-headerless 34-row predictions. Polygon included them between 00:38:45 and
-00:42:45 UTC on 2023-09-19, roughly six days before results publication. Many
-other 34-row submissions score exactly, and these three addresses also score
-exactly in challenges 9–18. This rules out a general CSV format, basket-size,
-address, or close-time explanation.
-
-The remaining hypotheses are production-only submission-selection/database
-state or a historical retrieval/decryption failure. One affected UPDOWN address
-updated its CID twice; the other five address/competition pairs did not. The
-cause remains unresolved without historical backend logs or database rows, so
-these six comparisons remain failures and are not caveated passes.
+Series 125 NEUTRAL and series 126 UPDOWN contain stake rows for these addresses
+but no submission rows; their stored scores and rewards are zero. The historical
+scorer assigns zero to stakers absent from its submission input. The conclusion
+is that both scoring inputs omitted the final three submitters. The six raw
+mismatches remain visible and are accepted as caveated passes.
 
 ## Challenge 18: 37-symbol validation with 34 realized targets
 
