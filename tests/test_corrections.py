@@ -7,7 +7,8 @@ from comp_verification.corrections import load_verified_result_correction
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = "0xC8519524013348466e18fC1747d11F1feA9473fd"
-VALUE = 7894658387054752303893393541241638517829921050117961214291617257572895210842
+VALUE_14 = 7894658387054752303893393541241638517829921050117961214291617257572895210842
+VALUE_28 = 73398202505894642167321220588351812944232277344721481762540011419834359901777
 
 
 class CorrectionRpc:
@@ -21,7 +22,7 @@ class CorrectionRpc:
 
 
 def test_canonical_result_correction_is_verified_at_pinned_block() -> None:
-    rpc = CorrectionRpc(VALUE)
+    rpc = CorrectionRpc(VALUE_14)
 
     correction = load_verified_result_correction(
         ROOT,
@@ -38,11 +39,29 @@ def test_canonical_result_correction_is_verified_at_pinned_block() -> None:
     assert rpc.blocks == [hex(92339630)]
 
 
+def test_challenge_twenty_eight_correction_is_verified_at_pinned_block() -> None:
+    rpc = CorrectionRpc(VALUE_28)
+
+    correction = load_verified_result_correction(
+        ROOT,
+        rpc,  # type: ignore[arg-type]
+        challenge=28,
+        competition="NEUTRAL",
+        contract=CONTRACT,
+    )
+
+    assert correction is not None
+    assert correction["corrected_content"]["cid"] == (
+        "QmZG6avbBxpcwN61NcVGggfKEZpjZ6xso5E2joNZ4U97mr"
+    )
+    assert rpc.blocks == [hex(92383809)]
+
+
 def test_result_correction_rejects_a_different_on_chain_value() -> None:
     with pytest.raises(ValueError, match="on-chain correction differs"):
         load_verified_result_correction(
             ROOT,
-            CorrectionRpc(VALUE + 1),  # type: ignore[arg-type]
+            CorrectionRpc(VALUE_14 + 1),  # type: ignore[arg-type]
             challenge=14,
             competition="NEUTRAL",
             contract=CONTRACT,

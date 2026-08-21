@@ -280,9 +280,9 @@
     {
       "affected_comparisons": 1,
       "audit_treatment": {
-        "changes_outcome": false,
-        "mode": "blocked-by-invalid-publication-reference",
-        "reason": "The immutable results reference is not a results CSV and no authenticated correction has been recorded, so publication fails and scoring remains blocked."
+        "changes_outcome": true,
+        "mode": "accepted-on-chain-information-correction",
+        "reason": "The immutable results reference is not a results CSV, but the challenge zero-address information entry now records the verified corrected results CID."
       },
       "classification": "incorrect-on-chain-content-reference",
       "confidence": "high",
@@ -292,8 +292,16 @@
           "CID-verified bytes are a 450-byte PEM RSA public key, not a results CSV.",
           "The same CID and digest are the public key recorded by both competition contracts for challenge 29.",
           "Challenge 28 UPDOWN has a different results CID and passes publication and independent scoring exactly.",
-          "No authenticated on-chain information correction is currently registered for challenge 28 NEUTRAL."
+          "Challenge 28 NEUTRAL zero-address information item 0 records the verified corrected results CID."
         ],
+        "correction": {
+          "block": 92383809,
+          "cid": "QmZG6avbBxpcwN61NcVGggfKEZpjZ6xso5E2joNZ4U97mr",
+          "digest": "0xa245e911d7b81d6aac53fd0a69a78e9588eedfb4a52556ebf3544d520a9a6e51",
+          "information_item_number": 0,
+          "participant": "0x0000000000000000000000000000000000000000",
+          "transaction": "0x9e4c359c1768ce53f5bc7fca2d2f493abca3eb28eeb442291975f17c7bb94f1f"
+        },
         "result_reference": {
           "bytes_sha256": "87aa6fa9b96345d40f4b22f57f644a53a358f3011cd1a9d52c0d0e30a3f984c5",
           "cid": "QmUZ1n2BGvpoHJXGXnpBenXs92DKVczsvyMq51ksb8zzK2",
@@ -310,9 +318,9 @@
       "documentation": {
         "anchor": "challenge-28-neutral-results-cid-is-challenge-29-public-key",
         "document": "docs/caveats.md",
-        "summary": "Challenge 28 NEUTRAL's immutable results CID contains the challenge-29 RSA public key, so publication fails and scoring is blocked pending an authenticated correction."
+        "summary": "Challenge 28 NEUTRAL's immutable results CID contains the challenge-29 RSA public key, but an accepted on-chain information entry now supplies the verified corrected CID; publication and scoring pass with this caveat."
       },
-      "headline": "Challenge 28 NEUTRAL: Results CID is the challenge 29 public key",
+      "headline": "Challenge 28 NEUTRAL: Bad results CID corrected through on-chain information",
       "id": "challenge-28-neutral-results-cid-is-challenge-29-public-key",
       "scope": {
         "addresses": [],
@@ -327,7 +335,7 @@
           "NEUTRAL"
         ]
       },
-      "status": "open"
+      "status": "accepted"
     },
     {
       "affected_comparisons": 1,

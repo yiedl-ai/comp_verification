@@ -330,7 +330,7 @@ competition-specific production database state, or a NEUTRAL-only early
 submission snapshot. Historical backend logs or database rows are needed to
 distinguish them. The mismatch remains open and does not count as a pass.
 
-## Challenge 28 NEUTRAL: results CID is the challenge 29 public key
+## Challenge 28 NEUTRAL: bad results CID corrected through on-chain information
 
 Challenge 28 NEUTRAL records results CID
 `QmUZ1n2BGvpoHJXGXnpBenXs92DKVczsvyMq51ksb8zzK2` and digest
@@ -340,13 +340,11 @@ The 450 CID-verified bytes (SHA-256
 are a PEM RSA public key, not a results CSV. Both contracts record that exact
 CID and digest as the challenge-29 public key.
 
-The bad digest was published by transaction
-`0x2f341b417bda5b9043cf4d2ce4251ba202f90d65f31a86701a5eba1883b4f96e`
-in Polygon block `50438838` at 2023-11-27 04:34:43 UTC. Challenge 28
-UPDOWN uses a different results CID and passes publication and scoring exactly.
-NEUTRAL remains a publication failure with scoring blocked until a corrected
-results file is located and authenticated, preferably through an on-chain
-information entry like the accepted challenge-14 correction.
+Challenge 28 zero-address information item 0 now records corrected CID
+`QmZG6avbBxpcwN61NcVGggfKEZpjZ6xso5E2joNZ4U97mr`. The verifier authenticates
+that value at block `92383809`; the corrected file passes publication and
+independent scoring exactly. The original bad reference remains visible, and
+NEUTRAL counts as an accepted caveated pass.
 
 ## Challenge 19: three addresses zeroed in both competitions
 

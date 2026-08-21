@@ -1,0 +1,34 @@
+{
+  "challenge": 28,
+  "competition": "NEUTRAL",
+  "contract": "0xC8519524013348466e18fC1747d11F1feA9473fd",
+  "corrected_content": {
+    "bytes_sha256": "4f915026a1a746c9eb6993eb02a6487037b0a91f63e075ac475fdf0dea7f7a14",
+    "cid": "QmZG6avbBxpcwN61NcVGggfKEZpjZ6xso5E2joNZ4U97mr",
+    "digest": "0xa245e911d7b81d6aac53fd0a69a78e9588eedfb4a52556ebf3544d520a9a6e51",
+    "published_row_count": 92,
+    "size": 8917
+  },
+  "observation": {
+    "block_hash": "0xbbe3612c15f4019734f98e8a1d492b64d0a23e4b47333b4bd281b1136f38c4f0",
+    "block_number": 92383809,
+    "block_timestamp_utc": "2026-08-21T02:52:21Z",
+    "event": "BatchInformationUpdated(uint32,uint256)",
+    "log_index": 1063,
+    "transaction_hash": "0x9e4c359c1768ce53f5bc7fca2d2f493abca3eb28eeb442291975f17c7bb94f1f",
+    "transaction_sender": "0x3df47786923cce73dce259143c3f7e8ec484db2a",
+    "transaction_status": 1
+  },
+  "original_content": {
+    "cid": "QmUZ1n2BGvpoHJXGXnpBenXs92DKVczsvyMq51ksb8zzK2",
+    "digest": "0x5c50e9901763a21fef577e09b6d0cad3fbceecf7d213be8eda2bf3cdc25202b1",
+    "problem": "The CID resolves to the challenge 29 RSA public key instead of a results CSV."
+  },
+  "schema_version": 1,
+  "storage": {
+    "item_number": 0,
+    "participant": "0x0000000000000000000000000000000000000000",
+    "value_digest": "0xa245e911d7b81d6aac53fd0a69a78e9588eedfb4a52556ebf3544d520a9a6e51",
+    "value_uint": "73398202505894642167321220588351812944232277344721481762540011419834359901777"
+  }
+}

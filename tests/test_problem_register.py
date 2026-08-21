@@ -83,15 +83,16 @@ def test_register_captures_accepted_challenge_nineteen_snapshot_omissions() -> N
     assert problem.scope.challenges == frozenset({19})
 
 
-def test_register_captures_challenge_twenty_eight_bad_result_reference() -> None:
+def test_register_captures_accepted_challenge_twenty_eight_correction() -> None:
     problem = load_problem_register().by_id(
         "challenge-28-neutral-results-cid-is-challenge-29-public-key"
     )
 
-    assert problem.status == "open"
-    assert problem.counts_as_pass is False
+    assert problem.status == "accepted"
+    assert problem.counts_as_pass is True
     assert problem.scope.audit_kinds == frozenset({"publication", "scoring"})
     assert problem.raw["details"]["result_reference"]["size"] == 450
+    assert problem.raw["details"]["correction"]["information_item_number"] == 0
 
 
 def test_register_captures_challenge_fifty_two_recovered_policy_boundary() -> None:
