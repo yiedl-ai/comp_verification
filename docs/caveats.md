@@ -38,7 +38,7 @@ contains an explicit accepted adjudication.
 | 95 | NEUTRAL submission/scoring | One on-chain submission digest is ASCII hex text rather than a raw SHA-256 digest and its derived CID is unavailable | 0 | Scoring passes; the unverifiable submission is explicitly retained as unavailable |
 | 110 | UPDOWN publication/scoring | Immutable result CID points to challenge 109; corrected CID is stored on-chain under information item 0 for the zero address | 1 | Accepted corrected reference; publication and scoring pass exactly with caveat |
 | 113 | NEUTRAL and UPDOWN publication/scoring | Production used `HAI=1` instead of the raw `21.227900966966708`; UPDOWN result CID is stale | 1 | NEUTRAL scores/rewards and UPDOWN on-chain rewards reproduce exactly; UPDOWN score publication remains open |
-| 116 | UPDOWN publication/scoring | Challenge-116 CID is challenge 115's file; the correct file appears under challenge 117 | 1 | All scores/rewards reproduce exactly through the late file; challenge association remains open |
+| 116 | UPDOWN publication/scoring | Immutable result CID is challenge 115's file; the correct file from challenge 117 is authenticated under information item 0 | 1 | Accepted corrected reference; publication and scoring pass exactly with caveat |
 | 117 | NEUTRAL and UPDOWN publication/scoring | Both immutable result CIDs contain challenge-116 files; corrected CIDs are stored on-chain under information item 0 | 2 | Accepted corrected references; both publication and scoring audits pass exactly with caveats |
 | 123 | UPDOWN publication/scoring | Immutable result CID points to challenge 122; corrected CID is stored on-chain under information item 0 for the zero address | 1 | Accepted corrected reference; publication and scoring pass exactly with caveat |
 | 129 | NEUTRAL and UPDOWN publication/scoring | Each result omits two malformed, zero-stake submitters | 4 | Accepted as four caveated publication passes; every wallet outcome is exact and raw omissions remain visible |
@@ -90,7 +90,7 @@ therefore reports challenge-113 UPDOWN rewards as exactly verified directly
 against chain, while leaving relative-gain publication open and failed until an
 authenticated challenge-113 UPDOWN result file is recovered.
 
-## Challenge 116: stale UPDOWN result reference
+## Challenge 116: stale UPDOWN result reference corrected through on-chain information
 
 Challenge 116 UPDOWN records CID
 `QmQFS2AEcbmGCWvJSvi78neiLCCaCgfxuMSFAUNx6YUwuQ` (SHA-256
@@ -100,13 +100,12 @@ challenge `115`. Comparing that prior file with challenge 116's chain snapshot
 produces 90 stake/reward/burn field mismatches, so it cannot stand in as a
 mislabeled challenge-116 result.
 
-The correct challenge-116 UPDOWN file appears one challenge late, under
+The correct challenge-116 UPDOWN file appeared one challenge late, under
 challenge 117, at CID `QmSBwXPHHSQcVjR8ZuqxuXvWqBadQgGEQfUbZm3YVSpkj4`.
-It matches all 90 challenge-116 chain rows and all independently recomputed
-relative gains exactly. Thus all 51 valid NEUTRAL and 38 valid UPDOWN scores and
-rewards reproduce exactly. The verifier resolves scoring through this late,
-on-chain-authenticated file while retaining the challenge-116 publication-link
-failure and caveat.
+Challenge 116's zero-address information item 0 now authenticates that CID at
+block `92387928`. It matches all 90 challenge-116 chain rows, and independent
+scoring reproduces every relative gain and reward exactly. The original stale
+reference remains visible, and UPDOWN counts as an accepted caveated pass.
 
 ## Challenge 117: both late result references corrected through on-chain information
 

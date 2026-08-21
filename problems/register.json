@@ -845,11 +845,11 @@
     {
       "affected_comparisons": 1,
       "audit_treatment": {
-        "changes_outcome": false,
-        "mode": "reward-verified-with-open-stale-result-reference",
-        "reason": "Challenge 116's result hash points to challenge 115, but the correct challenge-116 UPDOWN file was published under challenge 117 and exactly verifies every challenge-116 score and reward."
+        "changes_outcome": true,
+        "mode": "accepted-on-chain-information-correction",
+        "reason": "Challenge 116's immutable result hash points to challenge 115, but its zero-address information entry now authenticates the correct UPDOWN file that was originally published under challenge 117."
       },
-      "classification": "stale-prior-challenge-result-reference",
+      "classification": "stale-prior-challenge-result-reference-corrected",
       "confidence": "high",
       "details": {
         "reproduction": {
@@ -858,6 +858,14 @@
           "updown_exact_on_chain_reward_count": 38,
           "updown_exact_score_count": 38,
           "updown_score_status": "exact-via-result-file-published-under-challenge-117"
+        },
+        "correction": {
+          "block": 92387928,
+          "cid": "QmSBwXPHHSQcVjR8ZuqxuXvWqBadQgGEQfUbZm3YVSpkj4",
+          "digest": "0x3933888ac0651f300843118e9250831fd878412693056f9972cda218c5ca52bb",
+          "information_item_number": 0,
+          "participant": "0x0000000000000000000000000000000000000000",
+          "transaction": "0xaead687e13eb40e339b59d253e1c633a609ebfa7cbc3ab12c6cfb0600226ca2e"
         },
         "recovered_updown_result": {
           "bytes_sha256": "bbf1e4683be3325628969da4638f9c0cdaf04c8eca9a33f7c08f4985d9107951",
@@ -878,9 +886,9 @@
       "documentation": {
         "anchor": "challenge-116-stale-updown-result-reference",
         "document": "docs/caveats.md",
-        "summary": "Challenge 116 UPDOWN points to challenge 115's file, but the correct challenge-116 file appears under challenge 117 and exactly verifies all challenge-116 scores and rewards."
+        "summary": "Challenge 116 UPDOWN's immutable result CID points to challenge 115, but an accepted on-chain information entry authenticates the correct file previously published under challenge 117; all 90 rows pass publication and scoring exactly."
       },
-      "headline": "Challenge 116: Stale UPDOWN result reference",
+      "headline": "Challenge 116: Stale UPDOWN result reference corrected through on-chain information",
       "id": "challenge-116-stale-updown-result-reference",
       "scope": {
         "addresses": [],
@@ -895,7 +903,7 @@
           "UPDOWN"
         ]
       },
-      "status": "open"
+      "status": "accepted"
     },
     {
       "affected_comparisons": 2,
