@@ -463,6 +463,21 @@ Dataset 167 supplies 69 legacy symbols directly and three renamed assets via
 match the unique target vector implied by the published results. `FET` and
 `DYDX` differ, while `EOS`, `FXS`, `MKR`, `MOON`, and `QUACK` are absent.
 
+The seven recovered Challenge 166 settlement-return targets are:
+
+| Symbol | Settlement target | Dataset 167 value |
+| --- | ---: | ---: |
+| DYDX | `-0.1503008013908984` | `-0.15114098663542386` |
+| EOS | `0.2027550881485376` | absent |
+| FET | `0.0119234838653226` | `0.007158390418826155` |
+| FXS | `0.0495783206575035` | absent |
+| MKR | `0.0915697184025134` | absent |
+| MOON | `0.1270011488460254` | absent |
+| QUACK | `-0.1095695622147731` | absent |
+
+All 77 settlement targets are committed in `data/prices/challenge-166.csv`,
+with source and recovery provenance in `data/prices/challenge-166.json`.
+
 The verifier recovers those seven production float values from seven
 well-conditioned calibration equations. The combined 49 NEUTRAL and 36 UPDOWN
 valid submissions form a full-rank 85-by-77 system. After calibration, all 78
