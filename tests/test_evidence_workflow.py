@@ -35,7 +35,7 @@ def _workflow(root: Path) -> EvidenceWorkflow:
     )
 
 
-def test_dataset_168_gap_writes_explicit_blocked_scoring_reports(
+def test_resolved_dataset_168_gap_no_longer_masks_missing_price_fixtures(
     tmp_path: Path,
 ) -> None:
     workflow = FirstTenWorkflow(tmp_path, _workflow(tmp_path).config)
@@ -57,12 +57,10 @@ def test_dataset_168_gap_writes_explicit_blocked_scoring_reports(
         encoding="utf-8",
     )
 
-    reports = workflow.audit_scoring(challenges=range(167, 168))
+    with pytest.raises(FileNotFoundError, match="challenge-167-neutral.csv"):
+        workflow.audit_scoring(challenges=range(167, 168))
 
-    assert len(reports) == 2
-    assert all(row["audit_status"] == "blocked-by-dataset-ingestion" for row in reports)
-    assert all(row["passed"] is False for row in reports)
-    assert all(row["caveats"][0]["id"].startswith("dataset-168-") for row in reports)
+    assert not (tmp_path / "reports" / "scoring").exists()
 
 
 def test_scope_selection_is_bounded_and_deduplicated(tmp_path: Path) -> None:

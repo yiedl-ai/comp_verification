@@ -3492,18 +3492,18 @@
         {
           "competition": "NEUTRAL",
           "publication": "passed",
-          "scoring": "blocked",
+          "scoring": "passed",
           "scoring_caveated_comparison_count": 0,
           "scoring_raw_mismatch_count": 0,
-          "submission_evidence": "not-run"
+          "submission_evidence": "present"
         },
         {
           "competition": "UPDOWN",
           "publication": "passed",
-          "scoring": "blocked",
+          "scoring": "passed",
           "scoring_caveated_comparison_count": 0,
           "scoring_raw_mismatch_count": 0,
-          "submission_evidence": "not-run"
+          "submission_evidence": "present"
         }
       ]
     },
@@ -3513,18 +3513,18 @@
         {
           "competition": "NEUTRAL",
           "publication": "passed",
-          "scoring": "blocked",
+          "scoring": "passed",
           "scoring_caveated_comparison_count": 0,
           "scoring_raw_mismatch_count": 0,
-          "submission_evidence": "not-run"
+          "submission_evidence": "present"
         },
         {
           "competition": "UPDOWN",
           "publication": "passed",
-          "scoring": "blocked",
+          "scoring": "passed",
           "scoring_caveated_comparison_count": 0,
           "scoring_raw_mismatch_count": 0,
-          "submission_evidence": "not-run"
+          "submission_evidence": "present"
         }
       ]
     },
@@ -3762,6 +3762,8 @@
     164,
     165,
     166,
+    167,
+    168,
     169,
     170,
     171,
@@ -3775,9 +3777,9 @@
   },
   "schema_version": 1,
   "scoring_audits": {
-    "blocked": 5,
+    "blocked": 1,
     "failed": 19,
-    "passed": 320,
+    "passed": 324,
     "total": 344
   },
   "target_ready_challenges": [
@@ -3947,6 +3949,7 @@
     164,
     165,
     166,
+    167,
     168,
     169,
     170,

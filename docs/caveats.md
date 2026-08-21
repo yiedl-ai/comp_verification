@@ -45,7 +45,7 @@ contains an explicit accepted adjudication.
 | 134 | UPDOWN publication/scoring | Result CID is the challenge-133 UPDOWN file | 1 | All challenge-134 on-chain rewards reproduce exactly; challenge-134 relative-gain publication remains open |
 | 142, 154–161 | UPDOWN publication/scoring | Valid zero-stake submitters are omitted from result files | 9 | Zero wallet outcomes are exact, but omitted relative gains remain open failures |
 | 166 | NEUTRAL and UPDOWN scoring | Old-basket settlement used a local target artifact that was replaced by the published new-basket dataset | 7 target values | All 78 held-out gains and every wallet reward reproduce exactly; missing source artifact remains open |
-| 167–168 | Dataset ingestion/scoring | Dataset 168 has one currently unavailable IPFS range | 4 audits | Open; four scoring reports are blocked until the complete archive passes CID verification |
+| 167–168 | Dataset ingestion | Dataset 168 temporarily had one unavailable IPFS range | 0 | Resolved; the complete archive passed CID verification and all four scoring audits reproduce exactly |
 
 ## Challenge 110: stale UPDOWN result reference
 
@@ -523,14 +523,22 @@ remains open.
 
 The on-chain digest `0xe51dd7d37d9a6588e360c5bc07ba391da2ca37823bde46e5d1f7fdf7bf3dd1d0`
 correctly maps to CID `Qmdm2Txq2D8FcsWnfPYgggaBDLZjMxZV2YCm2h61uEAJn3`.
-The resumable verifier downloaded 99.1% of the 973.5 MiB archive, but byte range
-`729284608-738197503` was unavailable from the authenticated competition gateway
-and every tested public fallback. The partial archive is retained for repair.
+An initial resumable download reached 99.1% of the 973.5 MiB archive, while byte
+range `729284608-738197503` was temporarily unavailable from the authenticated
+competition gateway and every tested public fallback. A retry through the
+authenticated `yiedl-temp.mypinata.cloud` gateway later supplied that range.
+
+The complete 1,020,812,396-byte archive has now been independently reconstructed
+and verified against the exact UnixFS CID. Its SHA-256 is
+`ee4cf8b4d5179c19ef8a1dc1fb5ca0529d8e55f85b4b634780bb5934fd2cb95f`.
+The committed challenge-167 target fixture has SHA-256
+`fa350b8a6f4f20ca46fc218cffc61b8f01cf67e223de537e0b63dbe7da07dad4`;
+the challenge-168 evaluation fixture has SHA-256
+`ae38f14835aa97b37fcc0d412e2bacff639444880b250344eabcd7e61c3116ee`.
+The raw archive was pruned only after independent fixture re-extraction.
 
 Dataset 168 supplies challenge 167's targets and challenge 168's evaluation
-universe. Those two scoring audits remain explicitly blocked: no target or
-evaluation data will be inferred from an incomplete archive, and the raw bytes
-will not be accepted until the reconstructed file matches the published CID.
-The verifier emits four explicit `blocked-by-dataset-ingestion` reports—one for
-each competition in challenges 167 and 168—so the generated status table does
-not mislabel these audits as either failures or work that was never attempted.
+universe. After submission ingestion, both NEUTRAL and UPDOWN scoring audits for
+both challenges reproduce every published relative gain and six-decimal wallet
+reward exactly. The former four-report blocker is therefore resolved and is
+retained here only as ingestion history; it no longer annotates scoring reports.

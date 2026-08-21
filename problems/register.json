@@ -1303,13 +1303,13 @@
       "status": "open"
     },
     {
-      "affected_comparisons": 4,
+      "affected_comparisons": 0,
       "audit_treatment": {
         "changes_outcome": false,
-        "mode": "open-dataset-ingestion-blocker",
-        "reason": "Dataset 168 cannot yet be independently CID-verified because one byte range is unavailable from every tested IPFS gateway; challenges 167 and 168 remain unaudited rather than inferred."
+        "mode": "resolved-transient-dataset-ingestion-gap",
+        "reason": "A later authenticated gateway retry supplied the missing range; the complete archive passed exact UnixFS CID verification, its condensed fixtures were independently re-extracted, and all four formerly blocked scoring audits reproduce exactly."
       },
-      "classification": "current-ipfs-block-availability-gap",
+      "classification": "resolved-transient-ipfs-availability-gap",
       "confidence": "high",
       "details": {
         "blocked_scoring_challenges": [
@@ -1325,6 +1325,20 @@
         },
         "partial_bytes_downloaded": 1011875840,
         "partial_percent": "99.1",
+        "resolution": {
+          "challenge_167_neutral_exact_comparisons": 122,
+          "challenge_167_updown_exact_comparisons": 92,
+          "challenge_168_evaluation_fixture_sha256": "ae38f14835aa97b37fcc0d412e2bacff639444880b250344eabcd7e61c3116ee",
+          "challenge_168_neutral_exact_comparisons": 122,
+          "challenge_168_updown_exact_comparisons": 92,
+          "completed_archive_bytes": 1020812396,
+          "completed_archive_sha256": "ee4cf8b4d5179c19ef8a1dc1fb5ca0529d8e55f85b4b634780bb5934fd2cb95f",
+          "completed_via": "authenticated yiedl-temp.mypinata.cloud retry",
+          "raw_archive_pruned_after_reverification": true,
+          "resolved_on": "2026-08-21",
+          "source_cid_verified": true,
+          "target_fixture_sha256": "fa350b8a6f4f20ca46fc218cffc61b8f01cf67e223de537e0b63dbe7da07dad4"
+        },
         "tested_gateways": [
           "authenticated yiedl-temp.mypinata.cloud",
           "yiedl-comp.mypinata.cloud",
@@ -1339,15 +1353,14 @@
       "documentation": {
         "anchor": "dataset-168-current-ipfs-block-availability-gap",
         "document": "docs/caveats.md",
-        "summary": "Dataset 168 is 99.1% cached, but one range is unavailable across all tested gateways; challenges 167 and 168 remain explicitly blocked until the full archive can pass CID verification."
+        "summary": "Dataset 168 had a transient 99.1% availability gap; a later authenticated retry completed and CID-verified the archive, and all four dependent scoring audits now reproduce exactly."
       },
-      "headline": "Dataset 168: One IPFS range is currently unavailable",
+      "headline": "Dataset 168: Transient IPFS range gap resolved",
       "id": "dataset-168-current-ipfs-block-availability-gap",
       "scope": {
         "addresses": [],
         "audit_kinds": [
-          "dataset-ingestion",
-          "scoring"
+          "dataset-ingestion"
         ],
         "challenges": [
           167,
@@ -1355,7 +1368,7 @@
         ],
         "competitions": []
       },
-      "status": "open"
+      "status": "resolved"
     }
   ],
   "schema_version": 1

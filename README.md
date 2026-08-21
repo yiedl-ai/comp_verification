@@ -4,10 +4,10 @@ Independent Python code for reproducing Yiedl competition scores and rewards
 from Polygon and IPFS evidence.
 
 The repository contains publication and scoring audits through challenge 172.
-Challenges 167–168 are explicitly blocked by the documented dataset-168 IPFS
-availability gap; every other challenge in scope has been run. Raw IPFS
-downloads live in the ignored `.cache/` directory, while only verified compact
-price, target, evaluation, and normalized-submission evidence is committed.
+Dataset evidence is CID-verified through dataset 173, including the resolved
+transient Dataset 168 availability incident. Raw IPFS downloads live in the
+ignored `.cache/` directory, while only verified compact price, target,
+evaluation, and normalized-submission evidence is committed.
 
 ## Setup
 

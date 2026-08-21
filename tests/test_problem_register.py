@@ -285,19 +285,39 @@ def test_register_captures_valid_zero_financial_result_omissions() -> None:
     }
 
 
-def test_register_captures_dataset_168_availability_gap() -> None:
+def test_register_captures_resolved_dataset_168_availability_gap() -> None:
     problem = load_problem_register().by_id(
         "dataset-168-current-ipfs-block-availability-gap"
     )
 
-    assert problem.status == "open"
+    assert problem.status == "resolved"
     assert problem.counts_as_pass is False
-    assert problem.raw["affected_comparisons"] == 4
+    assert problem.raw["affected_comparisons"] == 0
     assert problem.scope.challenges == frozenset({167, 168})
-    assert problem.scope.audit_kinds == frozenset({"dataset-ingestion", "scoring"})
+    assert problem.scope.audit_kinds == frozenset({"dataset-ingestion"})
     assert problem.raw["details"]["missing_range"] == {
         "start": 729284608,
         "end_inclusive": 738197503,
+    }
+    assert problem.raw["details"]["resolution"] == {
+        "challenge_167_neutral_exact_comparisons": 122,
+        "challenge_167_updown_exact_comparisons": 92,
+        "challenge_168_evaluation_fixture_sha256": (
+            "ae38f14835aa97b37fcc0d412e2bacff639444880b250344eabcd7e61c3116ee"
+        ),
+        "challenge_168_neutral_exact_comparisons": 122,
+        "challenge_168_updown_exact_comparisons": 92,
+        "completed_archive_bytes": 1020812396,
+        "completed_archive_sha256": (
+            "ee4cf8b4d5179c19ef8a1dc1fb5ca0529d8e55f85b4b634780bb5934fd2cb95f"
+        ),
+        "completed_via": "authenticated yiedl-temp.mypinata.cloud retry",
+        "raw_archive_pruned_after_reverification": True,
+        "resolved_on": "2026-08-21",
+        "source_cid_verified": True,
+        "target_fixture_sha256": (
+            "fa350b8a6f4f20ca46fc218cffc61b8f01cf67e223de537e0b63dbe7da07dad4"
+        ),
     }
 
 

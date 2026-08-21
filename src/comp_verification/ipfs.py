@@ -388,6 +388,12 @@ class IpfsGateway:
 
         total = self._remote_size(cid)
         prefix_size = partial.stat().st_size if partial.exists() else 0
+        # Some historical Pinata objects report Content-Length: 0 to HEAD even
+        # though a plain GET returns the complete object. Mirror the sequential
+        # downloader's guarded fallback before treating an empty prefix as done.
+        if prefix_size == 0 and total == 0:
+            self._download_without_range(cid, partial, progress)
+            return
         if prefix_size > total:
             raise IpfsDownloadError(
                 f"partial file for {cid} is larger than gateway content"

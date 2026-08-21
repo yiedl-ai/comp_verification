@@ -216,6 +216,47 @@ def test_zero_length_head_uses_plain_get_without_waiting_for_range(
     ]
 
 
+def test_concurrent_downloader_uses_plain_get_for_zero_length_head(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    payload = b"historical submission archive"
+    cid = single_block_file_cid_v0(payload)
+    requests: list[tuple[str, str | None]] = []
+
+    class Response(io.BytesIO):
+        status = 200
+
+        def __init__(self, data: bytes, content_length: int) -> None:
+            super().__init__(data)
+            self.headers = {"Content-Length": str(content_length)}
+
+    def fake_urlopen(request, timeout):  # noqa: ANN001, ARG001
+        method = request.get_method()
+        range_value = request.get_header("Range")
+        requests.append((method, range_value))
+        if method == "HEAD":
+            return Response(b"", 0)
+        if range_value is not None:
+            raise AssertionError("zero-length HEAD must bypass Range")
+        return Response(payload, len(payload))
+
+    monkeypatch.setattr("comp_verification.ipfs.urlopen", fake_urlopen)
+    gateway = IpfsGateway(
+        "https://ipfs.example/ipfs",
+        tmp_path,
+        attempts=1,
+        max_concurrent_ranges_per_download=2,
+    )
+
+    artifact = gateway.download(cid)
+
+    assert artifact.path.read_bytes() == payload
+    assert requests == [
+        ("HEAD", None),
+        ("GET", None),
+    ]
+
+
 def test_concurrent_ranges_reuse_retained_segments_and_assemble(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
