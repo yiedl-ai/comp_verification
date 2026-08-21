@@ -2441,16 +2441,16 @@
       "competitions": [
         {
           "competition": "NEUTRAL",
-          "publication": "failed",
-          "scoring": "failed",
+          "publication": "passed",
+          "scoring": "passed",
           "scoring_caveated_comparison_count": 0,
           "scoring_raw_mismatch_count": 0,
           "submission_evidence": "present"
         },
         {
           "competition": "UPDOWN",
-          "publication": "failed",
-          "scoring": "failed",
+          "publication": "passed",
+          "scoring": "passed",
           "scoring_caveated_comparison_count": 0,
           "scoring_raw_mismatch_count": 0,
           "submission_evidence": "present"
@@ -3729,6 +3729,7 @@
     114,
     115,
     116,
+    117,
     118,
     119,
     120,
@@ -3787,15 +3788,15 @@
   ],
   "publication_audits": {
     "blocked": 0,
-    "failed": 4,
-    "passed": 340,
+    "failed": 2,
+    "passed": 342,
     "total": 344
   },
   "schema_version": 1,
   "scoring_audits": {
     "blocked": 0,
-    "failed": 3,
-    "passed": 341,
+    "failed": 1,
+    "passed": 343,
     "total": 344
   },
   "target_ready_challenges": [

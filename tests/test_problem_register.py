@@ -230,13 +230,13 @@ def test_register_captures_challenge_116_stale_updown_result() -> None:
     assert problem.raw["details"]["stale_updown_result"]["same_as_challenge"] == 115
 
 
-def test_register_captures_challenge_117_late_result_references() -> None:
+def test_register_captures_accepted_challenge_117_corrections() -> None:
     problem = load_problem_register().by_id(
         "challenge-117-one-challenge-late-result-references"
     )
 
-    assert problem.status == "open"
-    assert problem.counts_as_pass is False
+    assert problem.status == "accepted"
+    assert problem.counts_as_pass is True
     assert problem.scope.competitions == frozenset({"NEUTRAL", "UPDOWN"})
     assert problem.raw["details"]["reproduction"][
         "neutral_exact_on_chain_reward_count"
@@ -244,6 +244,7 @@ def test_register_captures_challenge_117_late_result_references() -> None:
     assert problem.raw["details"]["stale_results"]["UPDOWN"][
         "challenge_116_relative_gain_mismatches"
     ] == 0
+    assert set(problem.raw["details"]["corrections"]) == {"NEUTRAL", "UPDOWN"}
 
 
 def test_register_captures_accepted_challenge_129_zero_financial_omissions() -> None:

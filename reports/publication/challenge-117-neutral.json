@@ -2,22 +2,62 @@
   "caveats": [
     {
       "anchor": "challenge-117-both-result-references-are-one-challenge-late",
-      "classification": "one-challenge-late-result-references",
-      "counts_as_pass": false,
+      "classification": "one-challenge-late-result-references-corrected",
+      "counts_as_pass": true,
       "document": "docs/caveats.md",
       "id": "challenge-117-one-challenge-late-result-references",
-      "summary": "Both challenge-117 result CIDs are exact challenge-116 outputs. All challenge-117 on-chain rewards reproduce independently, but challenge-117 relative-gain publication remains unverifiable."
+      "summary": "Both immutable challenge-117 result CIDs contain challenge-116 outputs, but accepted on-chain information entries supply verified corrected CIDs; all 214 published rows pass publication and scoring exactly."
     }
   ],
+  "chain_participant_count": 124,
   "challenge": 117,
   "competition": "NEUTRAL",
   "contract": "0xC8519524013348466e18fC1747d11F1feA9473fd",
-  "mismatch_count": 1,
+  "correction_evidence": {
+    "challenge": 117,
+    "competition": "NEUTRAL",
+    "contract": "0xC8519524013348466e18fC1747d11F1feA9473fd",
+    "corrected_content": {
+      "bytes_sha256": "6914c02845cf1222651c6a1a7a3b92fefc07252684ffe5ebaeac9c7c56878cec",
+      "cid": "QmWsViqPqioAocK6BZEoy5tAwrFLcJ6MhGHEZRTo2x9t3E",
+      "digest": "0x7ec4569ef0c86c1a8ad0bd5101bdd35b08216a2f72a6313948881dda218ea07d",
+      "published_row_count": 124,
+      "size": 11216
+    },
+    "observation": {
+      "block_hash": "0x81d9a9b52b75234c1d21f3477e9370a8802b956b5e7c7f2ff1cc8452713a9177",
+      "block_number": 92387854,
+      "block_timestamp_utc": "2026-08-21T04:33:28Z",
+      "event": "BatchInformationUpdated(uint32,uint256)",
+      "log_index": 633,
+      "transaction_hash": "0x9c1170f9e6eb82764758edac758a71c515abe53c0929a605d041b6314d70b4ba",
+      "transaction_sender": "0x3df47786923cce73dce259143c3f7e8ec484db2a",
+      "transaction_status": 1
+    },
+    "original_content": {
+      "cid": "QmQW16CZjTTL25jpPkA4B4y9jF9UxNL4gpF4r5xscZcDeT",
+      "digest": "0x201ca55ae218ca53e2b544503b1cdc764758085718b9880a746c933118747484",
+      "problem": "The CID resolves to the challenge 116 NEUTRAL results CSV instead of the challenge 117 results CSV."
+    },
+    "schema_version": 1,
+    "storage": {
+      "item_number": 0,
+      "participant": "0x0000000000000000000000000000000000000000",
+      "value_digest": "0x7ec4569ef0c86c1a8ad0bd5101bdd35b08216a2f72a6313948881dda218ea07d",
+      "value_uint": "57338318781402924606160931069063199383675333713051285855330374941836454043773"
+    }
+  },
+  "mismatch_count": 0,
+  "mismatches": [],
   "observed_block": 92336519,
-  "passed": false,
-  "problem": "ValueError: expected challenge 117, found 116",
-  "resolved_result_cid": "QmQW16CZjTTL25jpPkA4B4y9jF9UxNL4gpF4r5xscZcDeT",
-  "result_bytes_sha256": "7a724e1602460f3071ca04402397acf94ac783b94823721e3f4bf9bcf3370de4",
+  "passed": true,
+  "passed_with_caveat": true,
+  "primary_result_cid": "QmQW16CZjTTL25jpPkA4B4y9jF9UxNL4gpF4r5xscZcDeT",
+  "published_row_count": 124,
+  "raw_primary_reference_passed": false,
+  "resolution": "on-chain-information-correction",
+  "resolved_result_cid": "QmWsViqPqioAocK6BZEoy5tAwrFLcJ6MhGHEZRTo2x9t3E",
+  "result_bytes_sha256": "6914c02845cf1222651c6a1a7a3b92fefc07252684ffe5ebaeac9c7c56878cec",
   "result_cid": "QmQW16CZjTTL25jpPkA4B4y9jF9UxNL4gpF4r5xscZcDeT",
   "schema_version": 1
 }

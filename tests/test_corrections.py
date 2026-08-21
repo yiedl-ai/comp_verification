@@ -11,6 +11,8 @@ UPDOWN_CONTRACT = "0xEcB9716867f9300F2706EdbB5b81c7a0AbDC5B29"
 VALUE_14 = 7894658387054752303893393541241638517829921050117961214291617257572895210842
 VALUE_28 = 73398202505894642167321220588351812944232277344721481762540011419834359901777
 VALUE_110 = 17144695397693531176695772460502920802250530955906386517960857332793847214977
+VALUE_117_NEUTRAL = 57338318781402924606160931069063199383675333713051285855330374941836454043773
+VALUE_117_UPDOWN = 111217540323611032783770449101173250929819138932913901853961095197705014877194
 VALUE_123 = 26488423380841783425473974302955525120295499947912071568755599923269140444906
 VALUE_134 = 88158303964372024732795351759045982160813748605270853982642934349785080675960
 
@@ -77,6 +79,42 @@ def test_challenge_110_correction_is_verified_at_pinned_block() -> None:
         "QmQtcagsLg3m4feM7kphBCyc31DK19qSZFzvDKZa8gAXNG"
     )
     assert rpc.blocks == [hex(92386607)]
+
+
+@pytest.mark.parametrize(
+    ("competition", "contract", "value", "cid", "block"),
+    [
+        (
+            "NEUTRAL",
+            CONTRACT,
+            VALUE_117_NEUTRAL,
+            "QmWsViqPqioAocK6BZEoy5tAwrFLcJ6MhGHEZRTo2x9t3E",
+            92387854,
+        ),
+        (
+            "UPDOWN",
+            UPDOWN_CONTRACT,
+            VALUE_117_UPDOWN,
+            "QmetVGHijZuU1dE7DFoAtKA2o2miV4rXuJQNakNVheJrp9",
+            92387823,
+        ),
+    ],
+)
+def test_challenge_117_corrections_are_verified_at_pinned_blocks(
+    competition: str, contract: str, value: int, cid: str, block: int
+) -> None:
+    rpc = CorrectionRpc(value)
+    correction = load_verified_result_correction(
+        ROOT,
+        rpc,  # type: ignore[arg-type]
+        challenge=117,
+        competition=competition,
+        contract=contract,
+    )
+
+    assert correction is not None
+    assert correction["corrected_content"]["cid"] == cid
+    assert rpc.blocks == [hex(block)]
 
 
 def test_challenge_123_correction_is_verified_at_pinned_block() -> None:

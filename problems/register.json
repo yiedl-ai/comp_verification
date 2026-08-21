@@ -900,18 +900,38 @@
     {
       "affected_comparisons": 2,
       "audit_treatment": {
-        "changes_outcome": false,
-        "mode": "rewards-verified-with-open-one-challenge-late-result-references",
-        "reason": "Both challenge-117 result hashes contain exact challenge-116 files. Every challenge-117 on-chain reward reproduces independently, but challenge-117 relative gains were not published under either challenge-117 result reference."
+        "changes_outcome": true,
+        "mode": "accepted-on-chain-information-corrections",
+        "reason": "Both immutable result hashes contain challenge-116 files, but challenge 117's zero-address information entries now record verified corrected result CIDs for both competitions."
       },
-      "classification": "one-challenge-late-result-references",
+      "classification": "one-challenge-late-result-references-corrected",
       "confidence": "high",
       "details": {
         "reproduction": {
           "neutral_exact_on_chain_reward_count": 54,
-          "neutral_score_status": "unverifiable-because-result-file-is-one-challenge-late",
+          "neutral_exact_published_row_count": 124,
+          "neutral_score_status": "exact-via-corrected-result-reference",
           "updown_exact_on_chain_reward_count": 43,
-          "updown_score_status": "unverifiable-because-result-file-is-one-challenge-late"
+          "updown_exact_published_row_count": 90,
+          "updown_score_status": "exact-via-corrected-result-reference"
+        },
+        "corrections": {
+          "NEUTRAL": {
+            "block": 92387854,
+            "cid": "QmWsViqPqioAocK6BZEoy5tAwrFLcJ6MhGHEZRTo2x9t3E",
+            "digest": "0x7ec4569ef0c86c1a8ad0bd5101bdd35b08216a2f72a6313948881dda218ea07d",
+            "information_item_number": 0,
+            "participant": "0x0000000000000000000000000000000000000000",
+            "transaction": "0x9c1170f9e6eb82764758edac758a71c515abe53c0929a605d041b6314d70b4ba"
+          },
+          "UPDOWN": {
+            "block": 92387823,
+            "cid": "QmetVGHijZuU1dE7DFoAtKA2o2miV4rXuJQNakNVheJrp9",
+            "digest": "0xf5e2e5a6539ee855f59c058563a5cd923e8e8730eddc4259f02676f9255c1c0a",
+            "information_item_number": 0,
+            "participant": "0x0000000000000000000000000000000000000000",
+            "transaction": "0xffa658a34cf7c8d03fd23aa026b5a0b2c6c0ab9e4d6a933b91bf65cdaa93d5cd"
+          }
         },
         "stale_results": {
           "NEUTRAL": {
@@ -934,9 +954,9 @@
       "documentation": {
         "anchor": "challenge-117-both-result-references-are-one-challenge-late",
         "document": "docs/caveats.md",
-        "summary": "Both challenge-117 result CIDs are exact challenge-116 outputs. All challenge-117 on-chain rewards reproduce independently, but challenge-117 relative-gain publication remains unverifiable."
+        "summary": "Both immutable challenge-117 result CIDs contain challenge-116 outputs, but accepted on-chain information entries supply verified corrected CIDs; all 214 published rows pass publication and scoring exactly."
       },
-      "headline": "Challenge 117: Both result references are one challenge late",
+      "headline": "Challenge 117: Both late result references corrected through on-chain information",
       "id": "challenge-117-one-challenge-late-result-references",
       "scope": {
         "addresses": [],
@@ -952,7 +972,7 @@
           "UPDOWN"
         ]
       },
-      "status": "open"
+      "status": "accepted"
     },
     {
       "affected_comparisons": 1,
