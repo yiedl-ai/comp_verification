@@ -536,7 +536,7 @@
       "audit_treatment": {
         "changes_outcome": true,
         "mode": "accepted-historical-exception",
-        "reason": "The submission was retrieved and decrypted successfully but was rejected before database insertion because of its blank-symbol extra row."
+        "reason": "The submission was retrieved and decrypted successfully, but the stricter production validator version rejected its blank-symbol extra row before database insertion."
       },
       "classification": "accepted-production-validation-rejection",
       "confidence": "accepted-definitive",
@@ -547,7 +547,7 @@
           "The historical successful.csv includes the affected address, proving retrieval, decryption, and originator authentication succeeded.",
           "Historical series 233 contains its stake and zero score and reward, but zero submission rows.",
           "The CSV contains one extra row with a blank symbol and numeric prediction; none of the 61 other nonzero-scored NEUTRAL submissions contains a blank-symbol row.",
-          "The production validator rejected the blank-symbol row before database insertion."
+          "Production was running a stricter validator version, which rejected the blank-symbol row before database insertion."
         ],
         "blank_symbol_evidence": {
           "accepted_nonzero_submissions_checked": 61,
@@ -560,7 +560,7 @@
           "required_missing_count": 0,
           "required_non_numeric_count": 0
         },
-        "conclusion": "The scoring input omitted the successfully retrieved submission because the production validator rejected its blank-symbol extra row.",
+        "conclusion": "The scoring input omitted the successfully retrieved submission because the stricter production validator version rejected its blank-symbol extra row.",
         "scoring_database": {
           "relative_gain": "0",
           "series": 233,
@@ -598,7 +598,7 @@
       "documentation": {
         "anchor": "challenge-73-neutral-valid-submission-published-as-zero",
         "document": "docs/caveats.md",
-        "summary": "Challenge 73 NEUTRAL omitted one successfully retrieved submission because the production validator rejected its blank-symbol extra row; the zero outcome is an accepted caveated pass."
+        "summary": "Challenge 73 NEUTRAL omitted one successfully retrieved submission because the stricter production validator version rejected its blank-symbol extra row; the zero outcome is an accepted caveated pass."
       },
       "headline": "Challenge 73 NEUTRAL: Blank-symbol validation rejection",
       "id": "challenge-73-neutral-valid-submission-published-as-zero",

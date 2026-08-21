@@ -235,8 +235,9 @@ explicit verification limitation, not an accepted mismatch.
 The submission was retrieved and decrypted successfully but has zero rows in
 historical scoring series 233. Its required 77 assets are valid; its only unique
 format anomaly is one blank-symbol extra row, absent from all 61 other nonzero-
-scored NEUTRAL submissions. The production validator rejected that row before
-database insertion. The raw mismatch is an accepted caveated pass.
+scored NEUTRAL submissions. Production was running a stricter validator version,
+which rejected that row before database insertion. The raw mismatch is an
+accepted caveated pass.
 
 ## Challenge 52: production-only 77-symbol policy cutover
 

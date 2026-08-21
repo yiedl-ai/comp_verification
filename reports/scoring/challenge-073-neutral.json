@@ -7,7 +7,7 @@
       "counts_as_pass": true,
       "document": "docs/caveats.md",
       "id": "challenge-73-neutral-valid-submission-published-as-zero",
-      "summary": "Challenge 73 NEUTRAL omitted one successfully retrieved submission because the production validator rejected its blank-symbol extra row; the zero outcome is an accepted caveated pass."
+      "summary": "Challenge 73 NEUTRAL omitted one successfully retrieved submission because the stricter production validator version rejected its blank-symbol extra row; the zero outcome is an accepted caveated pass."
     }
   ],
   "challenge": 73,
@@ -462,7 +462,7 @@
           "counts_as_pass": true,
           "document": "docs/caveats.md",
           "id": "challenge-73-neutral-valid-submission-published-as-zero",
-          "summary": "Challenge 73 NEUTRAL omitted one successfully retrieved submission because the production validator rejected its blank-symbol extra row; the zero outcome is an accepted caveated pass."
+          "summary": "Challenge 73 NEUTRAL omitted one successfully retrieved submission because the stricter production validator version rejected its blank-symbol extra row; the zero outcome is an accepted caveated pass."
         }
       ],
       "computed_relative_gain": "-0.04071256664702073565995035846",
