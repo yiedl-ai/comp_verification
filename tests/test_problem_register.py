@@ -95,6 +95,20 @@ def test_register_captures_accepted_challenge_twenty_eight_correction() -> None:
     assert problem.raw["details"]["correction"]["information_item_number"] == 0
 
 
+def test_register_captures_accepted_challenge_thirty_three_snapshot_omission() -> None:
+    problem = load_problem_register().by_id(
+        "challenge-33-neutral-last-submission-published-as-zero"
+    )
+
+    assert problem.status == "accepted"
+    assert problem.counts_as_pass is True
+    assert problem.raw["details"]["scoring_database"]["submission_rows"] == 0
+    assert problem.raw["details"]["conclusion"] == (
+        "The scoring input snapshot omitted the final valid NEUTRAL submission, "
+        "causing its published zero score and reward."
+    )
+
+
 def test_register_captures_challenge_fifty_two_recovered_policy_boundary() -> None:
     problem = load_problem_register().by_id(
         "challenge-52-production-only-77-symbol-policy-cutover"

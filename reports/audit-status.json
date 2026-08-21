@@ -678,8 +678,8 @@
         {
           "competition": "NEUTRAL",
           "publication": "passed",
-          "scoring": "failed",
-          "scoring_caveated_comparison_count": 0,
+          "scoring": "passed",
+          "scoring_caveated_comparison_count": 1,
           "scoring_raw_mismatch_count": 1,
           "submission_evidence": "present"
         },
@@ -3646,6 +3646,7 @@
     30,
     31,
     32,
+    33,
     34,
     35,
     36,
@@ -3780,8 +3781,8 @@
   "schema_version": 1,
   "scoring_audits": {
     "blocked": 0,
-    "failed": 17,
-    "passed": 327,
+    "failed": 16,
+    "passed": 328,
     "total": 344
   },
   "target_ready_challenges": [

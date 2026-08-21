@@ -308,27 +308,12 @@ for challenge 42 it unions `getAllSubmitters(40)` with
 The verifier records a dedicated correction report for each competition and
 counts the sequence as passed with this caveat.
 
-## Challenge 33 NEUTRAL: last valid submission published as zero
+## Challenge 33 NEUTRAL: final valid submission omitted from scoring input
 
-Challenge 33 publication integrity passes. Every UPDOWN comparison and every
-NEUTRAL comparison except address
-`0xcf28560da27700098a0efcb3f5742169948892de` reproduces exactly. That address's
-final NEUTRAL CID, `QmNxtJthPTUD17jZ8D3M6KU5tsxJe2DhrqszaUbF2rFdh6`, is
-retrievable and CID-verified. It decrypts with the published key, authenticates
-the expected originator, and contains all 37 required unique numeric predictions.
-The verifier computes gain `0.009486158977163549505271207912` and reward
-`9.362509`; the published values and on-chain reward are zero.
-
-Polygon included the single NEUTRAL submission event in block `51558186` at
-2023-12-26 00:35:54 UTC, 126 seconds before `SubmissionClosed` in block
-`51558245`. It was the last NEUTRAL submission. The same address submitted even
-later to UPDOWN, 45 seconds before close, and that score reproduces exactly.
-This makes close timing alone insufficient to explain the discrepancy.
-
-The remaining hypotheses are a transient NEUTRAL retrieval/decryption failure,
-competition-specific production database state, or a NEUTRAL-only early
-submission snapshot. Historical backend logs or database rows are needed to
-distinguish them. The mismatch remains open and does not count as a pass.
+The final submission was valid and included 126 seconds before close. Historical
+series 153 contains its stake but zero submission rows, explaining the published
+zero score and reward. The raw mismatch remains visible and is accepted as a
+caveated pass.
 
 ## Challenge 28 NEUTRAL: bad results CID corrected through on-chain information
 
