@@ -42,7 +42,7 @@ contains an explicit accepted adjudication.
 | 117 | NEUTRAL and UPDOWN publication/scoring | Both result CIDs contain exact challenge-116 files | 2 | All challenge-117 on-chain rewards reproduce exactly; challenge-117 relative-gain publication remains open |
 | 123 | UPDOWN publication/scoring | Result CID is the challenge-122 UPDOWN file | 1 | All challenge-123 on-chain rewards reproduce exactly; challenge-123 relative-gain publication remains open |
 | 129 | NEUTRAL and UPDOWN publication/scoring | Each result omits two malformed, zero-stake submitters | 4 | Accepted as four caveated publication passes; every wallet outcome is exact and raw omissions remain visible |
-| 134 | UPDOWN publication/scoring | Result CID is the challenge-133 UPDOWN file | 1 | All challenge-134 on-chain rewards reproduce exactly; challenge-134 relative-gain publication remains open |
+| 134 | UPDOWN publication/scoring | Immutable result CID points to challenge 133; corrected CID is stored on-chain under information item 0 for the zero address | 1 | Accepted corrected reference; publication and scoring pass exactly with caveat |
 | 142, 154–161 | UPDOWN publication/scoring | Valid zero-stake submitters are omitted from result files | 9 | Zero wallet outcomes are exact, but omitted relative gains remain open failures |
 | 166 | NEUTRAL and UPDOWN scoring | Old-basket settlement used a local target artifact that was replaced by the published new-basket dataset | 7 target values | All 78 held-out gains and every wallet reward reproduce exactly; missing source artifact remains open |
 | 167–168 | Dataset ingestion | Dataset 168 temporarily had one unavailable IPFS range | 0 | Resolved; the complete archive passed CID verification and all four scoring audits reproduce exactly |
@@ -163,7 +163,7 @@ Under that narrow rule, all 51 valid NEUTRAL and 38 valid UPDOWN scores and
 rewards reproduce exactly, as do the four zero wallet outcomes. The four raw
 publication omissions remain visible and count as accepted caveated passes.
 
-## Challenge 134: stale UPDOWN result reference
+## Challenge 134: stale UPDOWN result reference corrected through on-chain information
 
 Challenge 134 UPDOWN records CID
 `Qmcj37J2B2moDQdxdL648FRqgoS5aravDkmGq4zMX9YuNq` (SHA-256
@@ -173,13 +173,12 @@ challenge `133`. Comparing the stale file with challenge 134's chain snapshot
 produces 78 financial-field mismatches: 36 stakes, 29 challenge rewards, and 13
 burn amounts. It cannot verify challenge-134 relative gains.
 
-The independent calculation remains verifiable. Dataset 135 and all challenge-134
-submission archives are CID-verified. All 53 valid NEUTRAL scores and rewards
-reproduce exactly, with zero gain or reward deltas. For UPDOWN, the historical
-scorer reproduces the net on-chain reward of all 39 valid submissions exactly;
-all 56 non-submitters also reproduce zero. The verifier therefore passes the
-UPDOWN reward layer but leaves its result publication and relative-gain layer
-open and failed until an authenticated challenge-134 result file is recovered.
+Challenge 134's zero-address information item 0 now records corrected CID
+`QmbTUqSybK6C9MvfQB1aZXJ3KPxvGDWYpzAjbbweGM3MR9`. The verifier authenticates
+that value at block `92387013`; all 95 corrected rows match the chain snapshot,
+and independent scoring reproduces every relative gain and reward exactly. The
+original stale reference remains visible, and UPDOWN counts as an accepted
+caveated pass.
 
 ## Challenges 142 and 154–161: zero-stake result rows omitted
 

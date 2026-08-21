@@ -11,6 +11,7 @@ UPDOWN_CONTRACT = "0xEcB9716867f9300F2706EdbB5b81c7a0AbDC5B29"
 VALUE_14 = 7894658387054752303893393541241638517829921050117961214291617257572895210842
 VALUE_28 = 73398202505894642167321220588351812944232277344721481762540011419834359901777
 VALUE_110 = 17144695397693531176695772460502920802250530955906386517960857332793847214977
+VALUE_134 = 88158303964372024732795351759045982160813748605270853982642934349785080675960
 
 
 class CorrectionRpc:
@@ -75,6 +76,24 @@ def test_challenge_110_correction_is_verified_at_pinned_block() -> None:
         "QmQtcagsLg3m4feM7kphBCyc31DK19qSZFzvDKZa8gAXNG"
     )
     assert rpc.blocks == [hex(92386607)]
+
+
+def test_challenge_134_correction_is_verified_at_pinned_block() -> None:
+    rpc = CorrectionRpc(VALUE_134)
+
+    correction = load_verified_result_correction(
+        ROOT,
+        rpc,  # type: ignore[arg-type]
+        challenge=134,
+        competition="UPDOWN",
+        contract=UPDOWN_CONTRACT,
+    )
+
+    assert correction is not None
+    assert correction["corrected_content"]["cid"] == (
+        "QmbTUqSybK6C9MvfQB1aZXJ3KPxvGDWYpzAjbbweGM3MR9"
+    )
+    assert rpc.blocks == [hex(92387013)]
 
 
 def test_result_correction_rejects_a_different_on_chain_value() -> None:

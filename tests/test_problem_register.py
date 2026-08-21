@@ -262,23 +262,25 @@ def test_register_captures_accepted_challenge_129_zero_financial_omissions() -> 
     }
 
 
-def test_register_captures_challenge_134_stale_updown_result() -> None:
+def test_register_captures_accepted_challenge_134_correction() -> None:
     problem = load_problem_register().by_id(
         "challenge-134-stale-updown-result-reference"
     )
 
-    assert problem.status == "open"
-    assert problem.counts_as_pass is False
+    assert problem.status == "accepted"
+    assert problem.counts_as_pass is True
     assert problem.scope.competitions == frozenset({"UPDOWN"})
     assert problem.raw["details"]["reproduction"] == {
         "neutral_exact_reward_count": 53,
         "neutral_exact_score_count": 53,
         "updown_exact_on_chain_reward_count": 39,
-        "updown_score_status": "unverifiable-because-result-file-is-stale",
+        "updown_exact_published_row_count": 95,
+        "updown_score_status": "exact-via-corrected-result-reference",
     }
     assert problem.raw["details"]["stale_updown_result"][
         "stake_reward_burn_field_mismatches_against_challenge_134_chain"
     ] == 78
+    assert problem.raw["details"]["correction"]["information_item_number"] == 0
     assert problem.raw["details"]["stale_updown_result"]["same_as_challenge"] == 133
 
 
