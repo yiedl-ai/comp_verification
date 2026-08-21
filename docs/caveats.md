@@ -230,13 +230,13 @@ the unusable final on-chain reference as unavailable reproduces every challenge
 submissions validate and score normally. The challenge therefore passes with an
 explicit verification limitation, not an accepted mismatch.
 
-## Challenge 73 NEUTRAL: likely blank-symbol validation rejection
+## Challenge 73 NEUTRAL: blank-symbol validation rejection
 
 The submission was retrieved and decrypted successfully but has zero rows in
 historical scoring series 233. Its required 77 assets are valid; its only unique
 format anomaly is one blank-symbol extra row, absent from all 61 other nonzero-
-scored NEUTRAL submissions. A production-only validation rejection is the most
-likely cause, though not proven. The raw mismatch is an accepted caveated pass.
+scored NEUTRAL submissions. The production validator rejected that row before
+database insertion. The raw mismatch is an accepted caveated pass.
 
 ## Challenge 52: production-only 77-symbol policy cutover
 

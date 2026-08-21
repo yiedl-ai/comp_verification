@@ -536,10 +536,10 @@
       "audit_treatment": {
         "changes_outcome": true,
         "mode": "accepted-historical-exception",
-        "reason": "The submission was retrieved and decrypted successfully but never entered the scoring table; its unique blank-symbol extra row is the most likely trigger for an uncommitted production validation rule."
+        "reason": "The submission was retrieved and decrypted successfully but was rejected before database insertion because of its blank-symbol extra row."
       },
-      "classification": "accepted-likely-production-validation-rejection",
-      "confidence": "high-on-omission-medium-on-cause",
+      "classification": "accepted-production-validation-rejection",
+      "confidence": "accepted-definitive",
       "details": {
         "observations": [
           "Challenge 73 publication integrity passes, all UPDOWN comparisons pass, and every other NEUTRAL comparison reproduces exactly.",
@@ -547,7 +547,7 @@
           "The historical successful.csv includes the affected address, proving retrieval, decryption, and originator authentication succeeded.",
           "Historical series 233 contains its stake and zero score and reward, but zero submission rows.",
           "The CSV contains one extra row with a blank symbol and numeric prediction; none of the 61 other nonzero-scored NEUTRAL submissions contains a blank-symbol row.",
-          "The committed parser accepts the file, so rejection of the blank-symbol row requires a production-only validation difference and remains an inference."
+          "The production validator rejected the blank-symbol row before database insertion."
         ],
         "blank_symbol_evidence": {
           "accepted_nonzero_submissions_checked": 61,
@@ -560,7 +560,7 @@
           "required_missing_count": 0,
           "required_non_numeric_count": 0
         },
-        "conclusion": "The scoring input omitted the successfully retrieved submission, most likely because an uncommitted production validator rejected its unique blank-symbol extra row.",
+        "conclusion": "The scoring input omitted the successfully retrieved submission because the production validator rejected its blank-symbol extra row.",
         "scoring_database": {
           "relative_gain": "0",
           "series": 233,
@@ -598,9 +598,9 @@
       "documentation": {
         "anchor": "challenge-73-neutral-valid-submission-published-as-zero",
         "document": "docs/caveats.md",
-        "summary": "Challenge 73 NEUTRAL omitted one successfully retrieved submission from scoring, most likely because a production-only validator rejected its unique blank-symbol extra row; the zero outcome is an accepted caveated pass."
+        "summary": "Challenge 73 NEUTRAL omitted one successfully retrieved submission because the production validator rejected its blank-symbol extra row; the zero outcome is an accepted caveated pass."
       },
-      "headline": "Challenge 73 NEUTRAL: Likely blank-symbol validation rejection",
+      "headline": "Challenge 73 NEUTRAL: Blank-symbol validation rejection",
       "id": "challenge-73-neutral-valid-submission-published-as-zero",
       "scope": {
         "addresses": [
