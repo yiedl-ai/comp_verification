@@ -1187,7 +1187,7 @@
       },
       "documentation": {
         "anchor": "challenge-129-invalid-zero-financial-submitters-omitted-from-results",
-        "document": "docs/caveats.md",
+        "document": "docs/caveats-details.md",
         "summary": "Challenge 129 omits four independently invalid, zero-stake/zero-reward/zero-burn rows across its result files; every published score/reward and every wallet outcome reproduce exactly."
       },
       "headline": "Challenge 129: Invalid zero-financial submitters omitted from results",
@@ -1350,7 +1350,7 @@
       },
       "documentation": {
         "anchor": "challenges-142-and-154-161-valid-zero-financial-submitters-omitted",
-        "document": "docs/caveats.md",
+        "document": "docs/caveats-details.md",
         "summary": "Nine UPDOWN files omit valid zero-stake submitters; every on-chain zero reward and burn is exact, and the financially irrelevant missing score rows are accepted caveated passes."
       },
       "headline": "Challenges 142 and 154–161: Zero-stake result rows omitted",
@@ -1431,7 +1431,7 @@
       },
       "documentation": {
         "anchor": "dataset-168-current-ipfs-block-availability-gap",
-        "document": "docs/caveats.md",
+        "document": "docs/caveats-details.md",
         "summary": "Dataset 168 had a transient 99.1% availability gap; a later authenticated retry completed and CID-verified the archive, and all four dependent scoring audits now reproduce exactly."
       },
       "headline": "Dataset 168: Transient IPFS range gap resolved",

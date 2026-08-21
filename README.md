@@ -68,10 +68,12 @@ compares those raw event records.
 
 `build_summary()` writes `reports/first-ten-summary.json`, retaining detailed
 participant mismatches and their submission block/transaction provenance.
-Known limitations and historical operational explanations are maintained in the
-central [`docs/caveats.md`](docs/caveats.md) register. Generated reports link to
-applicable entries. Raw mismatches remain visible; only an explicit accepted
-adjudication in `problems/register.json` can count one as a caveated pass.
+Known limitations and historical corrections are summarized in
+[`docs/caveats.md`](docs/caveats.md), with forensic evidence and expected
+zero-financial behavior in [`docs/caveats-details.md`](docs/caveats-details.md).
+Generated reports link to applicable entries. Raw mismatches remain visible;
+only an explicit accepted adjudication in `problems/register.json` can count one
+as a caveated pass.
 `reports/audit-status.md` is the generated repository-wide audit table.
 
 Historical result hashes cannot be changed after a later challenge opens. When
