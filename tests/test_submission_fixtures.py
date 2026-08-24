@@ -24,6 +24,8 @@ def test_normalized_submission_fixture_round_trip(tmp_path: Path) -> None:
             "address": address,
             "status": "valid",
             "submission_cid": "QmExample",
+            "computed_submission_cid": "QmExample",
+            "submission_cid_verified": True,
             "archive_sha256": "a" * 64,
             "predictions_sha256": "b" * 64,
             "prediction_count": len(policy.symbols),
@@ -42,6 +44,8 @@ def test_normalized_submission_fixture_round_trip(tmp_path: Path) -> None:
 
     assert provenance["address_count"] == 1
     assert provenance["row_count"] == len(policy.symbols)
+    assert provenance["submissions"][0]["computed_submission_cid"] == "QmExample"
+    assert provenance["submissions"][0]["submission_cid_verified"] is True
     assert read_submission_fixture(destination, policy=policy) == predictions
 
 

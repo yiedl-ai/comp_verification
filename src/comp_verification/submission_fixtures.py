@@ -73,6 +73,11 @@ def write_submission_fixture(
                     "prediction_count",
                 )
             }
+            | {
+                key: evidence_by_address[address][key]
+                for key in ("computed_submission_cid", "submission_cid_verified")
+                if key in evidence_by_address[address]
+            }
             for address in sorted(predictions)
         ],
     }

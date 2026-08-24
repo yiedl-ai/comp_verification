@@ -28,6 +28,7 @@ from .datasets import (
     verify_price_fixture,
     write_price_fixture,
 )
+from .encoding import file_cid_v0
 from .ingestion import ingest_challenges, ingest_dataset_catalog
 from .ipfs import DownloadedArtifact, IpfsGateway, ProgressCallback
 from .rpc import PolygonRpc
@@ -325,6 +326,7 @@ class FirstTenWorkflow:
                     / f"challenge-{manifest['challenge']:03d}-{competition.lower()}.json"
                 )
                 artifact = None
+                computed_result_cid = None
                 try:
                     if not resolved_cid:
                         raise ValueError("missing result CID")
@@ -337,6 +339,11 @@ class FirstTenWorkflow:
                         ),
                         progress=progress,
                     )
+                    computed_result_cid = file_cid_v0(artifact.path)
+                    if computed_result_cid != resolved_cid:
+                        raise ValueError(
+                            f"result bytes differ from CID {resolved_cid}"
+                        )
                     published = read_published_results(
                         artifact.path,
                         competition=competition,
@@ -344,6 +351,8 @@ class FirstTenWorkflow:
                     )
                     report = compare_results_to_chain(manifest, competition, published)
                     report["result_bytes_sha256"] = artifact.sha256
+                    report["computed_result_cid"] = computed_result_cid
+                    report["result_cid_verified"] = True
                     report = adjudicate_report_mismatches(
                         report,
                         challenge=manifest["challenge"],
@@ -389,6 +398,8 @@ class FirstTenWorkflow:
                         "result_bytes_sha256": (
                             artifact.sha256 if artifact is not None else None
                         ),
+                        "computed_result_cid": computed_result_cid,
+                        "result_cid_verified": computed_result_cid == resolved_cid,
                         "mismatch_count": 1,
                         "passed": False,
                         "problem": f"{type(error).__name__}: {error}",
@@ -415,7 +426,13 @@ class FirstTenWorkflow:
                     raise ValueError(
                         f"missing private key for challenge {manifest['challenge']}"
                     )
-                private_key = self.ipfs.download(private_key_cid).path
+                private_key_artifact = self.ipfs.download(private_key_cid)
+                computed_private_key_cid = file_cid_v0(private_key_artifact.path)
+                if computed_private_key_cid != private_key_cid:
+                    raise ValueError(
+                        f"private-key bytes differ from CID {private_key_cid}"
+                    )
+                private_key = private_key_artifact.path
                 participants = []
                 for participant in observed["participants"]:
                     submission = participant["submission"]
@@ -457,6 +474,9 @@ class FirstTenWorkflow:
                     "policy_id": policy.policy_id,
                     "policy_status": policy.status,
                     "private_key_cid": private_key_cid,
+                    "computed_private_key_cid": computed_private_key_cid,
+                    "private_key_cid_verified": True,
+                    "private_key_bytes_sha256": private_key_artifact.sha256,
                     "participant_count": len(participants),
                     "valid_submission_count": sum(
                         item["status"] == "valid" for item in participants
@@ -1209,6 +1229,18 @@ class FirstTenWorkflow:
         try:
             policy = self._effective_policy(challenge)
             archive = self.ipfs.download(submission_cid)
+            computed_submission_cid = file_cid_v0(archive.path)
+            if computed_submission_cid != submission_cid:
+                raise ValueError(
+                    f"submission bytes differ from CID {submission_cid}"
+                )
+            base.update(
+                {
+                    "archive_sha256": archive.sha256,
+                    "computed_submission_cid": computed_submission_cid,
+                    "submission_cid_verified": True,
+                }
+            )
             decrypted = decrypt_submission_archive(archive.path, private_key, address)
             predictions, diagnostics = self._parse_submission(
                 decrypted.predictions_csv, policy
@@ -1226,7 +1258,6 @@ class FirstTenWorkflow:
             return {
                 **base,
                 "status": "valid",
-                "archive_sha256": archive.sha256,
                 "predictions_sha256": hashlib.sha256(
                     decrypted.predictions_csv
                 ).hexdigest(),

@@ -36,8 +36,8 @@ max_concurrent_ranges_per_download = 4
 max_concurrent_downloads = 8
 
 [scope]
-# Snapshot both competitions through the current challenge. Dataset 173 reveals
-# targets for challenge 172; challenge 173 needs dataset 174 before it is scored.
+# Snapshot both competitions through the latest settled challenge. Dataset 174
+# reveals targets for challenge 173.
 first_challenge = 1
 last_challenge = 173
-last_dataset_challenge = 173
+last_dataset_challenge = 174
