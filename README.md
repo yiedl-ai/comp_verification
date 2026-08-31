@@ -3,8 +3,8 @@
 Independent Python code for reproducing Yiedl competition scores and rewards
 from Polygon and IPFS evidence.
 
-The repository contains publication and scoring audits through challenge 173.
-Dataset evidence is CID-verified through dataset 174, including the resolved
+The repository contains publication and scoring audits through challenge 174.
+Dataset evidence is CID-verified through dataset 175, including the resolved
 transient Dataset 168 availability incident. Raw IPFS downloads live in the
 ignored `.cache/` directory, while only verified compact price, target,
 evaluation, and normalized-submission evidence is committed.
@@ -56,7 +56,7 @@ binary floats for the same decimal text.
 For the challenge-167+ scorer, normalized prediction rows are evaluated in
 symbol order. This reproduces the production PostgreSQL index scan on
 `(series, address, symbol)` and is numerically material at Decimal's final
-digits; challenges 169–173 reproduce every published score exactly with this
+digits; challenges 169–174 reproduce every published score exactly with this
 ordering.
 
 Tracked chain snapshots are pinned to an explicit historical block.
@@ -85,7 +85,7 @@ CID in its report. Challenge 14 NEUTRAL is the first such correction.
 
 For the full historical evidence range, use `EvidenceWorkflow`. Its bounds come
 from `[scope]` in `config.toml`; the current configuration indexes challenges and
-datasets 1–174 and marks scoring challenges 1–173 as dataset-ready. The bounded
+datasets 1–175 and marks scoring challenges 1–174 as dataset-ready. The bounded
 dataset path is:
 
 ```python

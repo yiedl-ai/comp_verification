@@ -1,7 +1,7 @@
 # Verification caveats: summary
 
 This page lists only issues needed to interpret the audit result. Every
-published reward for challenges 1–173 is reproduced by the verifier. See
+published reward for challenges 1–174 is reproduced by the verifier. See
 [`caveats-details.md`](caveats-details.md) for supporting evidence, resolved
 ingestion history, and policy-transition notes.
 
