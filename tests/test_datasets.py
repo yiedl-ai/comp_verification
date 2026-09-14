@@ -136,6 +136,45 @@ def test_derive_price_fixture_from_verified_targets(tmp_path: Path) -> None:
     assert provenance["target_column"] == "target_updown"
 
 
+def test_derive_price_fixture_records_missing_dynamic_target(tmp_path: Path) -> None:
+    source = tmp_path / "challenge-176.csv"
+    source.write_text(
+        "date,symbol,target_updown,target_neutral\n"
+        "2026-09-06,BTC,0.1,0.9\n",
+        encoding="utf-8",
+    )
+    source_bytes = source.read_bytes()
+    source.with_suffix(".json").write_text(
+        json.dumps(
+            {
+                "scoring_challenge": 176,
+                "source_dataset_challenge": 177,
+                "source_cid": "QmSource",
+                "source_cid_verified": True,
+                "source_archive_sha256": "archive-sha",
+                "source_member": "dataset/train_dataset.csv",
+                "source_member_crc32": "12345678",
+                "source_member_uncompressed_size": 100,
+                "date": "2026-09-06",
+                "target_columns": ["target_updown", "target_neutral"],
+                "targets_sha256": hashlib.sha256(source_bytes).hexdigest(),
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    provenance = derive_price_fixture_from_targets(
+        source,
+        symbols=("BTC", "TON"),
+        policy_id="dynamic-evaluation-153-v1",
+        destination=tmp_path / "prices.csv",
+        require_all_symbols=False,
+    )
+
+    assert provenance["row_count"] == 1
+    assert provenance["missing_policy_symbols"] == ["TON"]
+
+
 def test_derive_price_fixture_records_aliases_and_recovered_overrides(
     tmp_path: Path,
 ) -> None:

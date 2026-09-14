@@ -1052,7 +1052,7 @@ class FirstTenWorkflow:
                         destination=self._price_fixture_path(challenge, competition),
                         target_column=target_column,
                         source_reference=str(source.relative_to(self.root)),
-                        require_all_symbols=True,
+                        require_all_symbols=not self._is_dynamic_policy(policy),
                         source_symbol_aliases=source_symbol_aliases,
                         realized_return_overrides=realized_return_overrides,
                         override_problem_id=(
