@@ -1,0 +1,27 @@
+{
+  "chain_id": 137,
+  "comparison_count": 2,
+  "comparisons": [
+    {
+      "artifact": "manifests/chain/challenge-178.json",
+      "difference_count": 0,
+      "differences": [],
+      "passed": true,
+      "pinned_block": 94623518,
+      "queried_sha256": "80b70fc627c8af3592c79cb95df44588a48be5fd5507275d61a20fdec2634a80",
+      "tracked_sha256": "80b70fc627c8af3592c79cb95df44588a48be5fd5507275d61a20fdec2634a80"
+    },
+    {
+      "artifact": "manifests/datasets.json",
+      "difference_count": 0,
+      "differences": [],
+      "passed": true,
+      "pinned_block": 94623518,
+      "queried_sha256": "a04b1f67b0d7533aeba28db474b57d84e638da23aa74587fbb4176d05d8ad465",
+      "tracked_sha256": "a04b1f67b0d7533aeba28db474b57d84e638da23aa74587fbb4176d05d8ad465"
+    }
+  ],
+  "mismatch_count": 0,
+  "passed": true,
+  "schema_version": 1
+}

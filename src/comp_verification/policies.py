@@ -251,6 +251,6 @@ def policy_for_challenge(challenge: int) -> ScoringPolicy:
         return STATIC_77_CANDIDATE
     if 164 <= challenge <= 166:
         return STATIC_77_ZERO_GUARD_CANDIDATE
-    if 167 <= challenge <= 177:
+    if 167 <= challenge <= 178:
         return DYNAMIC_153_CANDIDATE
     raise ValueError(f"challenge {challenge} does not use a static scoring policy")
