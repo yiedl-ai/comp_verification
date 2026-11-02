@@ -1,7 +1,7 @@
 # Competition verification status
 
-- Scoring: 364/364 passed; 0 blocked; 0 failed
-- Publication: 364/364 passed; 0 blocked; 0 failed
+- Scoring: 366/366 passed; 0 blocked; 0 failed
+- Publication: 366/366 passed; 0 blocked; 0 failed
 
 | Challenge | NEUTRAL publication | NEUTRAL scoring | UPDOWN publication | UPDOWN scoring |
 | ---: | --- | --- | --- | --- |
@@ -187,3 +187,4 @@
 | 180 | passed | passed | passed | passed |
 | 181 | passed | passed | passed | passed |
 | 182 | passed | passed | passed | passed |
+| 183 | passed | passed | passed | passed |

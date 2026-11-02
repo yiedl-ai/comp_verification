@@ -1,0 +1,42 @@
+{
+  "chain_id": 137,
+  "challenge": 184,
+  "competitions": {
+    "NEUTRAL": {
+      "contract": "0xC8519524013348466e18fC1747d11F1feA9473fd",
+      "phase": 1,
+      "results_cid": null,
+      "submitter_count": 0
+    },
+    "UPDOWN": {
+      "contract": "0xEcB9716867f9300F2706EdbB5b81c7a0AbDC5B29",
+      "phase": 1,
+      "results_cid": null,
+      "submitter_count": 0
+    }
+  },
+  "dataset": {
+    "artifact_manifest": "manifests/dataset-artifacts/challenge-184.json",
+    "cid": "QmXCQabUfBJrzViBG7pB7iQ6eFhFmVUJBpPdpazaHUCmao",
+    "cid_verified": true,
+    "evaluation_fixture": "data/evaluation/challenge-184.json",
+    "evaluation_symbol_count": 152
+  },
+  "observed_block": 96595919,
+  "public_key": {
+    "bytes_sha256": "a87e0232c13d03cf7c15cc88754125a45236689adc742635edbe88863271d864",
+    "cid": "QmbhEXF9pk4qtwcZfwCaBMRrDfmtjDy6KuEcNA3JmYoTCP",
+    "cid_verified": true,
+    "computed_cid": "QmbhEXF9pk4qtwcZfwCaBMRrDfmtjDy6KuEcNA3JmYoTCP",
+    "pem_valid": true
+  },
+  "schema_version": 1,
+  "status": "open-snapshot",
+  "submissions": {
+    "available_count": 0,
+    "cid_mismatches": [],
+    "cid_verified_count": 0,
+    "reference_count": 0,
+    "unique_cid_count": 0
+  }
+}
