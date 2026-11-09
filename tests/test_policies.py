@@ -36,6 +36,7 @@ from comp_verification.policies import (
         (181, "dynamic-evaluation-153-v1", 153),
         (182, "dynamic-evaluation-153-v1", 153),
         (183, "dynamic-evaluation-153-v1", 153),
+        (184, "dynamic-evaluation-153-v1", 153),
     ],
 )
 def test_policy_boundaries(challenge: int, policy_id: str, symbol_count: int) -> None:
@@ -44,7 +45,7 @@ def test_policy_boundaries(challenge: int, policy_id: str, symbol_count: int) ->
     assert len(policy.symbols) == symbol_count
 
 
-@pytest.mark.parametrize("challenge", [0, 184])
+@pytest.mark.parametrize("challenge", [0, 185])
 def test_dynamic_or_out_of_range_challenges_are_not_static(challenge: int) -> None:
     with pytest.raises(ValueError):
         policy_for_challenge(challenge)
